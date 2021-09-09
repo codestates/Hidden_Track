@@ -1,6 +1,6 @@
 ---
 name: "[Task] issue task card"
-about: "[Task]issue_task_card"
+about: 태스크 카드 작성 양식
 title: ''
 labels: ''
 assignees: ''
@@ -9,10 +9,10 @@ assignees: ''
 
 ### ISSUE
 - Group: `client`, `server`, `sr`
-- Type: `bug`, `feature`, `delete`
-- Detail: fix actions from client redux
+- Type: `feature`, `bug`, `delete`
+- Detail: 
 
 ### TODO
-1. [ ] Job1 
-2. [ ] Job2
-3. [ ] Job3
+1. [ ] 
+2. [ ] 
+3. [ ]
