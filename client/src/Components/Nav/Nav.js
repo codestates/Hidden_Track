@@ -9,7 +9,7 @@ function Nav () {
 
   function handleLoginBtn (e) {
     e.preventDefault();
-    history.push('/login');
+    history.push('/login'); 
   }
 
   function handleSignUpBtn (e) {
