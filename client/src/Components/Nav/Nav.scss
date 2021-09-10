@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+body {
+  margin: 0;
+}
+
+@mixin flexBox($display, $justify, $align, $margin, $padding) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+  margin: $margin;
+  padding: $padding;
+}
+
+.navigation {
+  @include flexBox(flex, space-between, center, _, 0 70px);
+  height: 100px;
+
+  h1 {
+    @include flexBox(_, _, _, 0, 0);
+    font-family: 'Staatliches', cursive;
+    font-size: 3em;
+  }
+}
+
+
+.button-list {
+  @include flexBox(flex, space-between, _, _, _);
+  width: 230px;
+
+  .player-image {
+    width: 30px;
+    height: 30px;
+  }
+
+  button {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
