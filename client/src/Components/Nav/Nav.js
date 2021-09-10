@@ -8,8 +8,8 @@ function Nav () {
   const history = useHistory();
 
   function handleLoginBtn (e) {
-    e.preventDefault();       
-    history.push('/login'); 
+    e.preventDefault();
+    history.push('/login');
   }
 
   function handleSignUpBtn (e) {
