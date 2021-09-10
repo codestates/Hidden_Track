@@ -7,7 +7,7 @@ function InputPW () {
   function handlePW (e) {
     setInputPW(e.target.value);
   }
-
+     
   function isValidPW () {
     const pattern1 = /[a-zA-Z]/;
     const pattern2 = /[~!@#$%^&*]/;

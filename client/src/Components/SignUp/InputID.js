@@ -21,6 +21,7 @@ function InputID () {
   }
 
   function isDuplicatedId (e) {
+    console.log(e)
     e.preventDefault();
 
     axios.post(`${process.env.REACT_APP_API_URL}/duplicateid`, {
