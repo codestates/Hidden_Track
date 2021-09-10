@@ -19,6 +19,7 @@
 .env.production.local
 .env
 
+# package
 package-lock.json
 
 npm-debug.log*
