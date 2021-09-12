@@ -6,7 +6,6 @@ import headphone from '../../assets/headphones.png';
 
 function Nav () {
   const history = useHistory();
-
   function handleLoginBtn (e) {
     e.preventDefault();
     history.push('/login');
@@ -26,6 +25,7 @@ function Nav () {
           <button className='login' onClick={(e) => handleLoginBtn(e)}>로그인</button>
           <button class='sign-up' onClick={(e) => handleSignUpBtn(e)}>회원가입</button>
           <button className='player'><img className='player-image' src={headphone} alt='player' /></button>
+          <button onClick={console.log('eeee')}>console</button>
         </div>
       </nav>
     </header>

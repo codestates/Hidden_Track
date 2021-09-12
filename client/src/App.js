@@ -6,7 +6,7 @@ import Test from './Test';
 
 function App () {
   const loca = useLocation();
-
+  console.log('eeee')
   return (
     // <div>
     //   <h1>hello!</h1>
