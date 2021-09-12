@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Search from '../Search/Search';
 import Login from '../Login/Login';
-import './Nav.css';
+// import './Nav.css';
+import './Nav.scss';
 import headphone from '../../assets/headphones.png';
 
 function Nav () {
