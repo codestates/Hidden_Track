@@ -6,7 +6,7 @@ axios.defaults.withCredentials = true;
 function InputID () {
   const [inputId, setInputId] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const [idLength, setIdLength] = useState(false);
+  const [idLength, setIdLength] = useState(true);
 
   function InputIdHandler (e) {
     setInputId(e.target.value);
@@ -15,7 +15,11 @@ function InputID () {
   function isValidId () {
     if (inputId.length < 4) {
       setIdLength(false);
-    } else {
+    }
+    if (inputId.length >= 4) {
+      setIdLength(true);
+    }
+    if (!inputId) {
       setIdLength(true);
     }
   }
@@ -40,11 +44,11 @@ function InputID () {
 
   return (
     <div>
-      <div>
+      <span>
         아이디: <input type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} onKeyUp={isValidId} required />
-      </div>
-      {idLength ? null : <p>아이디는 4글자 이상이어야 합니다.</p>}
+      </span>
       <button onClick={(e) => isDuplicatedId(e)}>중복확인</button>
+      {idLength ? null : <p>아이디는 4글자 이상이어야 합니다.</p>}
       {isValid ? <p>사용 가능한 아이디 입니다.</p> : <p>중복된 아이디 입니다.</p>}
     </div>
   );
