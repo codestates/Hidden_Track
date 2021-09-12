@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+
 body {
   margin: 0;
 }
@@ -15,11 +16,33 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 70px;
+  height: 200px;
+}
+
+
+.navigation a {
+  text-decoration: none;
+  color: black;
+}
+
+.navigation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: _;
   padding: 0 70px;
   height: 100px;
 }
@@ -29,8 +52,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: _;
+  -ms-flex-align: _;
+  align-items: _;
+  margin: _;
+  padding: _;
   width: 230px;
 }
 
@@ -46,4 +74,3 @@ body {
   font-size: 18px;
   cursor: pointer;
 }
-/*# sourceMappingURL=Nav.css.map */
