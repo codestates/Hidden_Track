@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { inputIdValue } from '../../Redux/actions/actions';
 
 axios.defaults.withCredentials = true;
 
 function InputID () {
-  const [inputId, setInputId] = useState('');
+  // const [inputId, setInputId] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [idLength, setIdLength] = useState(true);
 
+  const state = useSelector(state => state.inputIdReducer);
+  const { inputId } = state;
+  const dispatch = useDispatch();
+  console.log(inputId);
+
   function InputIdHandler (e) {
-    setInputId(e.target.value);
+    // setInputId(e.target.value);
+    dispatch(inputIdValue(e.target.value));
   }
 
   function isValidId () {

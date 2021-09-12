@@ -36,7 +36,7 @@ function InputImage () {
   return (
     <div className='profile-container'>
       <div className='profile-box'>
-        <img src={imageFile} alt='' />
+        <img className='profile-image' src={imageFile} alt='' />
       </div>
       <input type='file' accept='.jpg, .jpeg, png, gif, bmp' onChange={(e) => handleProfile(e)} />
     </div>

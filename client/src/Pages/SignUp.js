@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Condition from '../Components/SignUp/Condition';
 import InputID from '../Components/SignUp/InputID';
@@ -15,10 +15,10 @@ axios.defaults.withCredentials = true;
 function SignUp () {
   const [selectBtn, setSelectBtn] = useState(false);
 
-  const state = useSelector(state => state.inputIdReducer);
-  console.log(state);
+  // const state = useSelector(state => state.inputIdReducer);
+  // console.log(state);
   // const { inputId } = state;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   function handleRadioBtn (e) {
     // console.log(e.target.value);

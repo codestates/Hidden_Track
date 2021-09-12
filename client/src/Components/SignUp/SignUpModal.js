@@ -10,7 +10,7 @@ function SignUpModal () {
 
   function openModalHandler () {
     setIsOpen(!isOpen);
-    history.push('/')
+    history.push('/');
   }
 
   return (
