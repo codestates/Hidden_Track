@@ -10,7 +10,7 @@ function Search () {
       <fieldset>
         <input type='search' id='search' name='search' className='search' placeholder='어떤 음악을 찾고 계신가요?' />
       </fieldset>
-    </form>
+    </form> 
   );
 }
 
