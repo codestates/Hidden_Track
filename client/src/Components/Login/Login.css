@@ -1,9 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+
 body {
   margin: 0;
 }
 
-.navigation h1, h1 {
+.navigation h1,
+h1 {
   font-family: 'Staatliches', cursive;
   margin: 0;
   padding: 0;
@@ -15,13 +17,18 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0 70px;
   height: 200px;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: black;
 }
 
 .navigation {
@@ -29,11 +36,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   margin: _;
   padding: 0 70px;
   height: 100px;
@@ -44,11 +51,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: _;
-      -ms-flex-align: _;
-          align-items: _;
+  -ms-flex-align: _;
+  align-items: _;
   margin: _;
   padding: _;
   width: 230px;
@@ -88,17 +95,17 @@ body {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
   background-color: #fff;
   width: 400px;
   min-height: 500px;
-  margin: -150px 0 0 -200px;
+  margin: -100px 0 0 -200px;
   padding: 10px;
   text-align: center;
   z-index: 20;
@@ -116,8 +123,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   width: 330px;
   font-size: 15px;
   margin-top: -20px;
@@ -148,4 +155,3 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
-/*# sourceMappingURL=Login.css.map */
