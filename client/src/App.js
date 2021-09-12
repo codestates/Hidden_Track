@@ -8,9 +8,6 @@ function App () {
   const loca = useLocation();
 
   return (
-    // <div>
-    //   <h1>hello!</h1>
-    // </div>
     <>
       <div className='nav-container'>
         {loca.pathname === '/visual' || loca.pathname === '/signup'
@@ -28,8 +25,8 @@ function App () {
           <SignUp />
         </Route>
         {/* <Route path="/login">
-          <Login/>
-        </Route> */}
+        <Login/>
+      </Route> */}
       </Switch>
     </>
   );
