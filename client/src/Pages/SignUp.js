@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import Condition from '../Components/SignUp/Condition';
 import InputID from '../Components/SignUp/InputID';
 import InputPW from '../Components/SignUp/InputPW';
 import InputNickName from '../Components/SignUp/InputNickName';
 import InputImage from '../Components/SignUp/InputImage';
+import SignUpModal from '../Components/SignUp/SignUpModal';
+
+import './SignUp.css';
+
+axios.defaults.withCredentials = true;
 
 function SignUp () {
+  const [selectBtn, setSelectBtn] = useState(false);
+
+  // const state = useSelector(state => state.inputIdReducer);
+  // console.log(state);
+  // const { inputId } = state;
+  // const dispatch = useDispatch();
+
+  function handleRadioBtn (e) {
+    // console.log(e.target.value);
+    if (e.target.value === 'artist') {
+      setSelectBtn(true);
+    } else {
+      setSelectBtn(false);
+    }
+  }
+
+  function requestSignUp (e) {
+    e.preventDefault();
+  }
+
   return (
     <div className='sign-up'>
       <h1>HIDDEN TRACK</h1>
@@ -23,13 +50,14 @@ function SignUp () {
         <div>
           <InputImage />
         </div>
-        <input type='radio' name='authority' />리스너
-        <input type='radio' name='authority' />아티스트
-        <div>
-          <Condition />
-        </div>
-        <button>가입하기</button>
+        <input type='radio' name='authority' value='listener' defaultChecked onClick={(e) => handleRadioBtn(e)} />리스너 권한으로 가입
+        <input type='radio' name='authority' value='artist' onClick={(e) => handleRadioBtn(e)} />아티스트 권한으로 가입
+        {selectBtn ? <div><Condition /></div> : null}
+        <button onClick={(e) => requestSignUp(e)}>가입하기</button>
       </form>
+      <div>
+        <SignUpModal />
+      </div>
     </div>
   );
 }

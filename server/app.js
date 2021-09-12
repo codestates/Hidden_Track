@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
-
+const db = require("./models");
 const usersRouter = require('./routers/user');
 
 const app = express();
@@ -20,6 +20,14 @@ app.use(
 // app.get("/", (req, res) => {
 //   res.status(200).send("Welcome, closet Server!");
 // });
+
+db.sequelize
+  .sync()
+  .then(() => {
+    console.log("db 연결 ")
+  })
+  .catch(console.error)
+
 
 app.use('/user', usersRouter);
 
