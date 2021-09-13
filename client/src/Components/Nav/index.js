@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+<<<<<<< HEAD:client/src/Components/Nav/index.js
 import Search from '../Search';
 import Login from '../Login';
 import './index.scss';
+=======
+import Search from '../Search/Search';
+import Login from '../Login/Login';
+// import './Nav.css';
+import './Nav.scss';
+>>>>>>> 316aad747e5df91201bce6ca44960fe7a070a5df:client/src/Components/Nav/Nav.js
 import headphone from '../../assets/headphones.png';
 
 function Nav () {
