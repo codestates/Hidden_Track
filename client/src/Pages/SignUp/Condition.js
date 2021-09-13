@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function Condition () {
-  const [agency, setAgency] = useState('');
-  const [date, setDate] = useState('');
-  const [email, setEmail] = useState('');
-
+function Condition ({ setAgency, setDate, setEmail }) {
   function handleAgency (e) {
     setAgency(e.target.value);
   }
