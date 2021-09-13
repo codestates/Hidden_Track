@@ -9,7 +9,6 @@ function Nav () {
   const [isLoginBtn, setIsLoginBtn] = useState(false);
 
   const history = useHistory();
-
   function handleLoginBtn (e) {
     e.preventDefault();
     setIsLoginBtn(true);
@@ -31,6 +30,7 @@ function Nav () {
           <button className='login' onClick={(e) => handleLoginBtn(e)}>로그인</button>
           <button className='sign-up' onClick={(e) => handleSignUpBtn(e)}>회원가입</button>
           <button className='player'><img className='player-image' src={headphone} alt='player' /></button>
+          <button onClick={console.log('eeee')}>console</button>
         </div>
         {isLoginBtn && <Login visible={isLoginBtn} handleLoginBtn={handleLoginBtn} setIsLoginBtn={setIsLoginBtn} handleSignUpBtn={handleSignUpBtn} />}
       </nav>

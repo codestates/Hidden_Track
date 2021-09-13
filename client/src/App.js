@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import Nav from './Components/Nav/Nav';
+import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Test from './Test';
-
+import Visualizer from './Pages/Visualizer';
 function App () {
   const loca = useLocation();
-
+  console.log('eeee');
   return (
     <div>
       <SignUp />
