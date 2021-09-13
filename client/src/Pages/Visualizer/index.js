@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import './Visualizer.css';
+import './index.scss';
 
 function Visualizer () {
   const limusin = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3';

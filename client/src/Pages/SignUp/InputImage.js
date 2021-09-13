@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './InputImage.css';
+import './InputImage.scss';
 
 axios.defaults.withCredentials = true;
 
