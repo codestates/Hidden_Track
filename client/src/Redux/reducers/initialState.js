@@ -4,5 +4,11 @@ export const initialState = {
   },
   inputPW: {
     inputPW: '비번 초기값'
+  },
+  userInfo: {
+    login_id: '',
+    nickname: '',
+    password: '',
+    image: ''
   }
 };

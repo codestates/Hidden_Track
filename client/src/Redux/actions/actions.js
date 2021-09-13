@@ -1,5 +1,6 @@
 export const INPUT_ID = 'INPUT_ID';
 export const INPUT_PW = 'INPUT_PW';
+export const USER_INFO = 'USER_INFO';
 
 export function inputIdValue (inputId) {
   return {
@@ -15,6 +16,15 @@ export function inputPWValue (inputPW) {
     type: INPUT_PW,
     payload: {
       inputPW: inputPW
+    }
+  };
+}
+
+export function changeUserInfo (userInfo) {
+  return {
+    type: USER_INFO,
+    payload: {
+      ...userInfo
     }
   };
 }

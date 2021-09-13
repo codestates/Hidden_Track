@@ -1,4 +1,4 @@
-.modal-backdrop {
+.modal-backdrop__signup {
   position: fixed;
   z-index: 999;
   top: 0;
@@ -10,12 +10,12 @@
   place-items: center;
 }
 
-.modal-container {
-  z-index: 1000;
-  position: relative;
-  height: 15rem;
+.modal-container__signup {
+  z-index: 999;
+  position: absolute;
+  // height: 15rem;
   text-align: center;
-  margin: 120px auto;
+  // margin: 120px auto;
   width: 300px;
   height: 200px;
   border-radius: 20px;
@@ -36,7 +36,7 @@
   margin-top: 20%;
 }
 
-.modal-btn {
+.modal__signup-btn {
   background-color: #6222ec;
   text-decoration: none;
   width: 50px;

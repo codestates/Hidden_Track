@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { INPUT_ID, INPUT_PW } from '../actions/actions';
+import { INPUT_ID, INPUT_PW, USER_INFO } from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
@@ -25,6 +25,16 @@ function inputPWReducer (state = initialState.inputPW, action) {
     case INPUT_PW:
       return Object.assign({}, state, {
         inputPW: action.payload.inputPW
+      });
+    default: return state;
+  }
+}
+
+function userInfoReducer (state = initialState.userInfo, action) {
+  switch (action.type) {
+    case USER_INFO:
+      return Object.assign({}, state, {
+
       });
     default: return state;
   }

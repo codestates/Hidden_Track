@@ -16,11 +16,11 @@ function SignUpModal () {
   return (
     <>
       {isOpen
-        ? <div className='modal-backdrop'>
-          <div className='modal-container'>
+        ? <div className='modal-backdrop__signup'>
+          <div className='modal-container__signup'>
             <div className='modal-view'>
               <p className='desc'>{text}</p>
-              <div className='modal-btn' onClick={openModalHandler}>확인</div>
+              <div className='modal__signup-btn' onClick={openModalHandler}>확인</div>
             </div>
           </div>
         </div>
