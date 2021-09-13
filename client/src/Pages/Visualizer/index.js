@@ -1,60 +1,104 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import PlayList from '../../Components/PlayList';
 import './index.scss';
 
 function Visualizer () {
-  const limusin = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3';
+  const playList = useSelector(state => state.playListReducer);
 
-  const sweetDream = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/Eurythmics_Sweet+Dreams.mp3';
+  function getRandomNumber (min, max) {
+    return parseInt(Math.random() * ((Number(max) - Number(min)) + 1));
+  }
 
-  const [src, setSrc] = useState(limusin);
-  //
+  const [crrentMusic, setCrrentMusic] = useState(playList[0]);
+  const [isRandom, setIsRandom] = useState(false);
+  const [previousMusic, setPreviousMusic] = useState([])
+
+  function handleChangeMusic (index) {
+    setCrrentMusic(playList[index]);
+  }
+
+  function isValid (index) {
+    if (!playList[index]) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  const handleCheckValue = (key) => {
+
+    
+  };
 
   return (
     <div>
-      <div className='title'>곡 제목</div>
-      <img className='inner-circle' src='https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg' />
+      <div className='title'>{crrentMusic.title}</div>
+      <div className='artist'>{crrentMusic.user.nickname}</div>
+      <img className='inner-circle' src={crrentMusic.img} />
       <div className='lyrics-container'>
         <span className='lyrics'>Lyrics</span>
-        <div className='lyrics-box'>가사</div>
+        <div className='lyrics-box'>{crrentMusic.lyric}</div>
       </div>
       <div className='visualizer-box'>Visualizer</div>
       <div className='play-list-box'>
         <ul className='play-list'>
-          <li className='track'>
-            <img src='https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg' width='50px' />
-            <span>제목</span>
-            <span>아티스트</span>
-          </li>
-          <li className='track'>
-            <img src='https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg' width='50px' />
-            <span>제목</span>
-            <span>아티스트</span>
-          </li>
-          <li className='track'>
-            <img src='https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg' width='50px' />
-            <span>제목</span>
-            <span>아티스트</span>
-          </li>
-          <li className='track'>
-            <img src='https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg' width='50px' />
-            <span>제목</span>
-            <span>아티스트</span>
-          </li>
+          {
+            playList.map((el, idx) => {
+              console.log(el);
+              return <PlayList key={idx} num={idx} music={el} handleChangeMusic={handleChangeMusic} />;
+            })
+          }
         </ul>
       </div>
-      <div className='controller-box'>
-        <img src='https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg' width='150px' />
+      <div className='controller'>
+      <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom?'현재 랜덤재생 ON':'현재 랜덤재생 OFF'}</button>
+        <AudioPlayer
+          src={crrentMusic.soundtrack} controls volume={0.1}
+          autoPlay
+          showSkipControls
+          onEnded={() => {
+            if (!isRandom) {
+              if (isValid(playList.indexOf(crrentMusic) + 1)) {
+                setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
+              }
+            } else {
+                setPreviousMusic();
+                setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
+            }
+          }}
+          onClickPrevious={() => {
+            if (!isRandom) {
+              if (isValid(playList.indexOf(crrentMusic) - 1)) {
+                setCrrentMusic(playList[playList.indexOf(crrentMusic) - 1]);
+              } else {
+                setCrrentMusic(playList[playList.length - 1]);
+              }
+            } else {
+              if(!previousMusic.length){
+                setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
+              }else {
+                setCrrentMusic(previousMusic.shift())
+              }
+              
+            }
+          }}
+          onClickNext={() => {
+            if (!isRandom) {
+              if (isValid(playList.indexOf(crrentMusic) + 1)) {
+                setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
+              } else {
+                setCrrentMusic(playList[0]);
+              }
+            } else {
+              setPreviousMusic(playList.indexOf(crrentMusic));
+              setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
+            }
+          }}
+        />
       </div>
-      {/* <audio src="https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3" controls volume={0.1} ref={audioRef} ></audio> */}
-      <AudioPlayer
-        src={src} controls volume={0.5}
-        showSkipControls
-        onEnded={() => { setSrc(sweetDream); }}
-        onClickPrevious
-      />
-
     </div>
   );
 }

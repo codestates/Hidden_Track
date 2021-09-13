@@ -1,6 +1,7 @@
 export const INPUT_ID = 'INPUT_ID';
 export const INPUT_PW = 'INPUT_PW';
 export const USER_INFO = 'USER_INFO';
+export const INPUT_MUSIC = 'INPUT_MUSIC';
 
 export function inputIdValue (inputId) {
   return {
@@ -25,6 +26,15 @@ export function changeUserInfo (userInfo) {
     type: USER_INFO,
     payload: {
       ...userInfo
+    }
+  };
+}
+
+export function inputPlayList (playList) {
+  return {
+    type: INPUT_MUSIC,
+    payload: {
+      playList: playList
     }
   };
 }
