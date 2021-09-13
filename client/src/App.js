@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import Nav from './Components/Nav/Nav';
-import SignUp from './Pages/SignUp';
+import SignUp from './Pages/SignUp/index';
 import Test from './Test';
 
 function App () {
