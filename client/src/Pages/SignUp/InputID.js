@@ -53,7 +53,11 @@ function InputID () {
   return (
     <div>
       <span>
-        아이디: <input type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} onKeyUp={isValidId} required />
+        아이디: <input
+          type='text' placeholder='아이디를 입력하세요'
+          onChange={(e) => InputIdHandler(e)}
+          onKeyUp={isValidId} required
+             />
       </span>
       <button onClick={(e) => isDuplicatedId(e)}>중복확인</button>
       {idLength ? null : <p>아이디는 4글자 이상이어야 합니다.</p>}
