@@ -1,7 +1,8 @@
 @import '../Nav/index.scss';
 
 
-.modal-back {
+
+.modal-backdrop__login {
   position: fixed;
   top: 0;
   right: 0;
@@ -18,7 +19,7 @@ h1 {
   @extend %h1
 }
 
-.modal-container {
+.modal-container__login {
   position: absolute;
   top: 40%;
   left: 50%;
