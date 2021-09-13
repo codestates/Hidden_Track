@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN } from '../actions/actions';
+import { USER_INFO, IS_LOGIN,  } from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
   isLoginReducer,
-  userInfoReducer
+  userInfoReducer,
+  playListReducer
 });
 
 // reducer : 변화를 일으키는 함수
@@ -25,6 +26,16 @@ function userInfoReducer (state = initialState.userInfo, action) {
     case USER_INFO:
       return Object.assign({}, state, {
         userInfo: action.payload.userInfo
+      });
+    default: return state;
+  }
+}
+
+function playListReducer (state = initialState.playList, action) {
+  switch (action.type) {
+    case INPUT_MUSIC:
+      return Object.assign({}, state, {
+        playList: action.payload.playList
       });
     default: return state;
   }
