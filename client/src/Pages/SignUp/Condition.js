@@ -7,6 +7,7 @@ function Condition ({ setAgency, setDate, setEmail }) {
 
   function handleDate (e) {
     setDate(e.target.value);
+    console.log(e);
   }
 
   function handleEmail (e) {

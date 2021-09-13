@@ -5,6 +5,7 @@ import SignUp from './Pages/SignUp';
 import Login from './Components/Login';
 import Test from './Test';
 import Visualizer from './Pages/Visualizer';
+import TrackDetails from './Pages/TrackDetails';
 
 function App () {
   const loca = useLocation();
