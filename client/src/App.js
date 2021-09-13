@@ -3,10 +3,10 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Test from './Test';
-import Visualizer from './Pages/Visualizer'
+import Visualizer from './Pages/Visualizer';
 function App () {
   const loca = useLocation();
-  console.log('eeee')
+  console.log('eeee');
   return (
     <>
       {/* <div className='nav-container'>
@@ -24,11 +24,11 @@ function App () {
         <Route path='/signup'>
           <SignUp />
         </Route> */}
-        {/* <Route path="/login">
+      {/* <Route path="/login">
         <Login/>
       </Route> */}
       {/* </Switch> */}
-      <Visualizer></Visualizer>
+      <Visualizer />
     </>
   );
 }
