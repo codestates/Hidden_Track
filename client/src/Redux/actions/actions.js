@@ -1,30 +1,20 @@
-export const INPUT_ID = 'INPUT_ID';
-export const INPUT_PW = 'INPUT_PW';
 export const USER_INFO = 'USER_INFO';
-
-export function inputIdValue (inputId) {
-  return {
-    type: INPUT_ID,
-    payload: {
-      inputId: inputId
-    }
-  };
-}
-
-export function inputPWValue (inputPW) {
-  return {
-    type: INPUT_PW,
-    payload: {
-      inputPW: inputPW
-    }
-  };
-}
+export const IS_LOGIN = 'IS_LOGIN';
 
 export function changeUserInfo (userInfo) {
   return {
     type: USER_INFO,
     payload: {
       ...userInfo
+    }
+  };
+}
+
+export function isLogin (boolean) {
+  return {
+    type: IS_LOGIN,
+    payload: {
+      isLogin: boolean
     }
   };
 }
