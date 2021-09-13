@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import './InputImage.scss';
 
 axios.defaults.withCredentials = true;
 
-function InputImage () {
-  const [imageFile, setImageFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
-
+function InputImage ({ imageFile, setImageFile, imageUrl, setImageUrl }) {
   function handleProfile (e) {
     e.preventDefault();
     const file = e.target.files[0];
