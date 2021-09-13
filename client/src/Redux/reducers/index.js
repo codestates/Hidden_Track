@@ -34,9 +34,9 @@ function userInfoReducer (state = initialState.userInfo, action) {
   switch (action.type) {
     case USER_INFO:
       return Object.assign({}, state, {
-        
-      })
-      default: return state
+
+      });
+    default: return state;
   }
 }
 
