@@ -1,5 +1,5 @@
 import React from 'react';
-import './Search.css';
+import './index.scss';
 
 // import glass from '../../assets/glass'
 

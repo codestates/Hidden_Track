@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Portal from './Portal';
 // import ModalBack from '../../Components/Login/ModalBack'
-import './Login.css';
+import './index.scss';
 
 function Login ({ visible, setIsLoginBtn, handleSignUpBtn }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const [inputId, setInputId] = useState('');

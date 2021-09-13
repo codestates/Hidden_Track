@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import './SignUpModal.css';
+import './SignUpModal.scss';
 
 function SignUpModal () {
   const [isOpen, setIsOpen] = useState(true);

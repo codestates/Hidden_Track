@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import Condition from '../Components/SignUp/Condition';
-import InputID from '../Components/SignUp/InputID';
-import InputPW from '../Components/SignUp/InputPW';
-import InputNickName from '../Components/SignUp/InputNickName';
-import InputImage from '../Components/SignUp/InputImage';
-import SignUpModal from '../Components/SignUp/SignUpModal';
+import Condition from './Condition';
+import InputID from './InputID';
+import InputPW from './InputPW';
+import InputNickName from './InputNickName';
+import InputImage from './InputImage';
+import SignUpModal from './SignUpModal';
 
-import './SignUp.css';
+import './index.scss';
 
 axios.defaults.withCredentials = true;
 
