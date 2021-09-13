@@ -20,6 +20,9 @@ function Visualizer () {
     setCrrentMusic(playList[index]);
   }
 
+//팝 하고 복사해서 합치고 새로운 배열로 state set
+
+
   function isValid (index) {
     if (!playList[index]) {
       return false;

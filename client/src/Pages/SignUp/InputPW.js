@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function InputPW () {
-  const [inputPW, setInputPW] = useState('');
-  const [PWValidMessage, setPWValidMessage] = useState('');
-  const [inputMatchPW, setInputMatchPW] = useState('');
-  const [matchPWMessage, setMatchPWMessage] = useState('');
-
+function InputPW ({
+  inputPW,
+  setInputPW,
+  PWValidMessage,
+  setPWValidMessage,
+  inputMatchPW,
+  setInputMatchPW,
+  matchPWMessage,
+  setMatchPWMessage
+}) {
   function handlePW (e) {
     setInputPW(e.target.value);
   }
