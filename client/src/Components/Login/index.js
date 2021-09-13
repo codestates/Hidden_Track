@@ -30,8 +30,11 @@ function Login ({ visible, setIsLoginBtn, handleSignUpBtn }) { // 바뀐 State �
   return (
     <>
       <Portal elementId='modal-root'>
-        <div className='modal-back' style={visible ? { display: 'block' } : { display: 'none' }} visible={visible.toString()} onClick={handleModalBack} />
-        <div className='modal-container'>
+        <div
+          className='modal-backdrop__login' style={visible ? { display: 'block' } : { display: 'none' }}
+          visible={visible.toString()} onClick={handleModalBack}
+        />
+        <div className='modal-container__login'>
           <h1>Hidden Track</h1>
           <input className='modal__login-id' placeholder='아이디를 입력하세요' type='text' onKeyUp={(e) => validId(e)} />
           {idLength ? null : <p>아이디는 4글자 이상이어야 합니다</p>}
