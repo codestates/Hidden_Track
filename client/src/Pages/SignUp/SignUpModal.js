@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import './SignUpModal.scss';
 
-function SignUpModal () {
-  const [isOpen, setIsOpen] = useState(true);
-  const [text, setText] = useState('가입이 완료되었습니다.');
-
+function SignUpModal ({ isOpen, setIsOpen, text, setText }) {
   const history = useHistory();
 
   function openModalHandler () {
     setIsOpen(!isOpen);
-    history.push('/');
+    if (text === '가입이 완료되었습니다.') {
+      history.push('/');
+    }
   }
 
   return (
