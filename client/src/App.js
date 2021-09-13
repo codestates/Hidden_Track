@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import Nav from './Components/Nav';
+import Nav from './Components/Nav/Nav';
 import SignUp from './Pages/SignUp';
 import Test from './Test';
 
