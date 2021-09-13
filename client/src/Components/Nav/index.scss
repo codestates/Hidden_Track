@@ -19,12 +19,12 @@ body {
   font-size: 3em;
 }
 
+
+
+
 .navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 70px;
-  height: 200px;
+  @include flexBox(flex, space-between, center, _, 0 70px);
+  height: 150px;
 
   a {
     text-decoration: none;
@@ -32,35 +32,91 @@ body {
   }
 
   h1 {
-    @extend %h1;
-  }
-}
-
-
-.navigation {
-  @include flexBox(flex, space-between, center, _, 0 70px);
-  height: 100px;
-
-  h1 {
     @extend %h1
   }
 }
+
+;
 
 
 .button-list {
   @include flexBox(flex, space-between, _, _, _);
   width: 230px;
+  // background-color: blue;
+  position: relative;
+
 
   .player-image {
-    width: 30px; 
+    width: 30px;
     height: 30px;
+    // padding: 0;
+
   }
 
-  button {
+  button[class^="navigation__"] {
     padding: 0;
     background-color: transparent;
+    // background-color: red;
+
     border: 0;
     font-size: 18px;
     cursor: pointer;
+    text-align: center;
+    // width: 150px;
+    height: 50px;
+    // padding: 10px;
   }
+}
+
+.button-list-of-profile-image {
+  @include flexBox(flex, space-between, _, _, _);
+  width: 200px;
+  background-color: blue;
+  position: relative;
+
+  .player-image {
+    width: 30px;
+    height: 30px;
+    // padding: 0;
+
+  }
+
+  button[class^="navigation__"] {
+    padding: 0;
+    background-color: transparent;
+
+    border: 0;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    height: 50px;
+  }
+
+  .show-user-profile-list {
+    position: absolute;
+    top: 80%;
+    left: -10%;
+    list-style: none;
+    padding: 0;
+    // background-color: red;
+
+    li {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 18px;
+    }
+  }
+
+}
+
+.navigation__profile-image {
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+  background-image: url('https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/data/%ED%94%84%EB%A1%9C%ED%95%84+%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%94%84%EB%A1%9C%ED%95%84.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
 }
