@@ -524,6 +524,121 @@ export const initialState = {
       user: {
         nickname: 'DPR LIVE'
       }
+    },
+    {
+      id: 6,
+      title: 'Better Now',
+      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/betterNow.jpg',
+      genre: '랩/힙합',
+      releaseAt: '2018.04.27',
+      lyric: `You probably think that
+      you are better now better now
+      You only say that
+      'cause I'm not around
+      not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say that
+      I am better nowbetter now
+      I only say that
+      'cause you're not around
+      not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      I did not believe
+      that it would end no
+      Everything came second
+      to the Benzo
+      You're not even speakin'
+      to my friends no
+      You knew all my uncles
+      and my aunts though
+      Twenty candles blow 'em out
+      and open your eyes
+      We were lookin' forward to the
+      rest of our lives
+      Used to keep my picture posted
+      by your bedside
+      Now it's in your dresser
+      with the socks you don't like
+      And I'm rollin' rollin' rollin' rollin'
+      With my brothers
+      like it's Jonas Jonas
+      Drinkin' Henny and I'm tryna forget
+      But I can't get this
+      shit outta my head
+      You probably think
+      that you are better now better now
+      You only say that
+      'cause I'm not around
+      not around
+      You know I never meant to
+      let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say
+      that I am better now better now
+      I only say that
+      'cause you're not around
+      not around
+      You know I never meant to
+      let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      I seen you with your other dude
+      He seemed like he was pretty cool
+      I was so broken over you
+      Life it goes on what can you do
+      I just wonder what it’s gonna take
+      Another foreign or a bigger chain
+      Because no matter how
+      my life has changed
+      I keep on looking back on better days
+      You probably think
+      that you are better now better now
+      You only say that
+      'cause I'm not around not around
+      You know I never
+      meant to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say
+      that I am better now better now
+      I only say that
+      'cause you're not around not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      Oh-oh
+      I promise
+      I swear to you I'll be okay
+      You're only the love of my life
+      You probably think
+      that you are better now better now
+      You only say that
+      'cause I'm not around not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say
+      that I am better now better now
+      I only say that
+      'cause you're not around not around
+      You know I never meant to
+      let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      Oh-oh`,
+      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Better+Now.mp3',
+      user: {
+        nickname: 'Post Malone'
+      }
     }
   ]
 

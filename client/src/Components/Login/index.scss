@@ -1,11 +1,16 @@
 @import '../Nav/index.scss';
 
+
+@mixin PositionBox($top, $bottom, $left, $right) {
+  top: $top;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+}
+
 .modal-backdrop__login {
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  @include PositionBox(0, 0, 0, 0);
 
   background: #000;
   opacity: .8;
@@ -14,56 +19,40 @@
 }
 
 .a11yHidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  -webkit-clip-path: polygon(0 0, 0 0, 0 0);
-  clip-path: polygon(0 0, 0 0, 0 0);
+  @extend %a11yHidden
 }
+
+;
 
 h1 {
   @extend %h1
 }
 
-.modal-container__login {
+;
 
+.modal-container__login {
   position: absolute;
-  top: 40%;
-  left: 50%;
+  @include PositionBox(40%, _, 50%, _);
   margin: -150px 0 0 -200px;
   z-index: 20;
   background-color: #fff;
 
   fieldset {
-    display: flex;
+    @include flexBox(flex, space-around, center, _, 20px);
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    height: 500px;
-    width: 400px;
-    padding: 20px;
-    text-align: center;
-    // background-color: red;
+    @include widthHeight(400px, 500px);
   }
 
   input[class^="modal__"] {
-    width: 300px;
-    height: 50px;
-
+    @include widthHeight(300px, 50px);
     padding-left: 20px;
-
     font-size: 18px;
   }
 
   .keeping-login-sign-up-btn {
-    display: flex;
-    justify-content: space-between;
-
+    @include flexBox(flex, space-between, _, -20px 0 0 0, _);
     width: 330px;
     font-size: 15px;
-    margin-top: -20px;
 
     button {
       border: 0;
@@ -83,12 +72,11 @@ h1 {
     width: 200px;
     cursor: pointer;
   }
-}
 
-[for$="-btn"] {
-  position: absolute;
-  top: 3%;
-  right: 5%;
-  font-size: 20px;
-  cursor: pointer;
+  [for$="-btn"] {
+    position: absolute;
+    @include PositionBox(3%, _, _, 5%);
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
