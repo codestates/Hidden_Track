@@ -2,7 +2,6 @@ const dummyTrack = {
   track: {
     id: 1,
     title: '신호등',
-    artist: '이무진',
     img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
     genre: '록/메탈',
     releaseAt: '2021-05-14',
@@ -60,6 +59,9 @@ const dummyTrack = {
       id: 2,
       views: 387,
       gradeAev: 4.7
+    },
+    user: {
+      nickname: '이무진'
     },
     reply: [{
       id: 3,
