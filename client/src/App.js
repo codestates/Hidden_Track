@@ -6,10 +6,10 @@ import Login from './Components/Login';
 import Test from './Test';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
-
+import Sidebar from './Components/Nav/sidebar';
 function App () {
   const loca = useLocation();
-  console.log('eeee');
+
   return (
     <>
       <div className='nav-container'>
@@ -32,6 +32,9 @@ function App () {
         </Route>
         <Route path='/trackdetails'>
           <TrackDetails />
+        </Route>
+        <Route path='/sidebar'>
+          <Sidebar />
         </Route>
       </Switch>
     </>
