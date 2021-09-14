@@ -14,14 +14,13 @@ function Visualizer () {
 
   const [crrentMusic, setCrrentMusic] = useState(playList[0]);
   const [isRandom, setIsRandom] = useState(false);
-  const [previousMusic, setPreviousMusic] = useState([])
+  const [previousMusic, setPreviousMusic] = useState([]);
 
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
   }
 
-//팝 하고 복사해서 합치고 새로운 배열로 state set
-
+  // 팝 하고 복사해서 합치고 새로운 배열로 state set
 
   function isValid (index) {
     if (!playList[index]) {
@@ -33,7 +32,6 @@ function Visualizer () {
 
   const handleCheckValue = (key) => {
 
-    
   };
 
   return (
@@ -57,7 +55,7 @@ function Visualizer () {
         </ul>
       </div>
       <div className='controller'>
-      <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom?'현재 랜덤재생 ON':'현재 랜덤재생 OFF'}</button>
+        <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
         <AudioPlayer
           src={crrentMusic.soundtrack} controls volume={0.1}
           autoPlay
@@ -68,8 +66,8 @@ function Visualizer () {
                 setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
               }
             } else {
-                setPreviousMusic();
-                setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
+              setPreviousMusic();
+              setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
             }
           }}
           onClickPrevious={() => {
@@ -80,12 +78,11 @@ function Visualizer () {
                 setCrrentMusic(playList[playList.length - 1]);
               }
             } else {
-              if(!previousMusic.length){
+              if (!previousMusic.length) {
                 setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
-              }else {
-                setCrrentMusic(previousMusic.shift())
+              } else {
+                setCrrentMusic(previousMusic.shift());
               }
-              
             }
           }}
           onClickNext={() => {

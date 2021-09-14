@@ -6,6 +6,7 @@ import Login from './Components/Login';
 import Test from './Test';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
+import MyPage  from './Pages/MyPage';
 
 function App () {
   const loca = useLocation();
@@ -32,6 +33,9 @@ function App () {
         </Route>
         <Route path='/visual'>
           <Visualizer />
+        </Route>
+        <Route path='/mypage'>
+          <MyPage />
         </Route>
       </Switch>
     </>

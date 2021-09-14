@@ -450,6 +450,6 @@ export const initialState = {
         nickname: 'DPR LIVE'
       }
     }
-  ],
+  ]
 
 };

@@ -17,11 +17,6 @@ function Nav () {
     setIsLoginModalOpen(true);
   }
 
-  function handleSignUpBtn (e) {
-    e.preventDefault();
-    history.push('/signup');
-  }
-
   function showUserProfileList (e) {
     e.preventDefault();
     if (isShowUserProfileList === 'hide') {
@@ -29,6 +24,11 @@ function Nav () {
     } else if (isShowUserProfileList === 'show-user-profile-list') {
       setIsShowUserProfileList('hide');
     }
+  }
+
+  function moveMyPage(e){
+    history.push('/mypage');
+    setIsShowUserProfileList('hide')
   }
 
   // 로그인 되어있느냐 안되어있느냐의 여부(isLogin 이라는 전역상태)에 따라 로그인 이라는 텍스트가 보이고, 프로필 사진이 보이게끔
@@ -51,7 +51,7 @@ function Nav () {
             />
             <ul className={isShowUserProfileList}>
               <li>음원 등록</li>
-              <li>마이 페이지</li>
+              <li onClick={(e) =>moveMyPage(e)}>마이 페이지</li>
               <li>로그아웃</li>
             </ul>
             <button className='navigation__player-btn'>
@@ -66,21 +66,19 @@ function Nav () {
             </button>
             <button
               className='navigation__sign-up-btn'
-              onClick={(e) => handleSignUpBtn(e)}
             >회원가입
             </button>
             <button className='navigation__player-btn'>
               <img className='player-image' src={headphone} alt='player' />
             </button>
           </div>}
-        {isLoginModalOpen
-          ? <Login
-              visible={isLoginModalOpen}
-              setIsLoginModalOpen={setIsLoginModalOpen}
-              handleSignUpBtn={handleSignUpBtn}
-              setIsLLogin={setIsLLogin}
+        {isLoginModalOpen &&
+        <Login
+          visible={isLoginModalOpen}
+          setIsLoginModalOpen={setIsLoginModalOpen}
+          setIsLLogin={setIsLLogin}
             />
-          : null}
+        }
       </nav>
     </header>
 
