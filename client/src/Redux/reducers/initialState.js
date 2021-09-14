@@ -100,7 +100,8 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
       genre: '록/메탈',
       releaseAt: '2021-05-14',
-      lyric: `이제야 목적지를 정했지만
+      lyric: `
+      이제야 목적지를 정했지만
       가려한 날 막아서네 난 갈 길이 먼데
       새빨간 얼굴로 화를 냈던
       친구가 생각나네
@@ -158,65 +159,66 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
       genre: 'POP',
       releaseAt: '1991',
-      lyric: `Sweet dreams are made of this
-          Who am I to disagree
-          I travel the world
-          And the seven seas
-          Everybody's looking for something
-          Some of them want to use you
-          Some of them want to get used by you
-          Some of them want to abuse you
-          Some of them want to be abused
-          
-          Sweet dreams are made of this
-          Who am I to disagree
-          I travel the world
-          And the seven seas
-          Everybody's looking for something
-          
-          Hold your head up
-          Keep your head up MOVIN ON
-          Hold your head up MOVIN ON
-          Keep your head up MOVIN ON
-          Hold your head up MOVIN ON
-          Keep your head up MOVIN ON
-          Hold your head up MOVIN ON
-          Keep your head up
-          
-          Some of them want to use you
-          Some of them want to get used by you
-          Some of them want to abuse you
-          Some of them want to be abused
-          
-          Hold your head up
-          Keep your head up MOVIN ON
-          Hold your head up MOVIN ON
-          Keep your head up MOVIN ON
-          Hold your head up MOVIN ON
-          Keep your head up MOVIN ON
-          Hold your head up MOVIN ON
-          Keep your head up
-          
-          Sweet dreams are made of this
-          Who am I to disagree
-          I travel the world
-          And the seven seas
-          Everybody's looking for something
-          Sweet dreams are made of this
-          Who am I to disagree
-          I travel the world
-          And the seven seas
-          Everybody's looking for something
-          Sweet dreams are made of this
-          Who am I to disagree
-          I travel the world
-          And the seven seas
-          Everybody's looking for something
-          Sweet dreams are made of this
-          Who am I to disagree
-          I travel the world
-          And the seven seas
-          Everybody's,`,
+      lyric: `
+      Sweet dreams are made of this
+      Who am I to disagree
+      I travel the world
+      And the seven seas
+      Everybody's looking for something
+      Some of them want to use you
+      Some of them want to get used by you
+      Some of them want to abuse you
+      Some of them want to be abused
+      
+      Sweet dreams are made of this
+      Who am I to disagree
+      I travel the world
+      And the seven seas
+      Everybody's looking for something
+      
+      Hold your head up
+      Keep your head up MOVIN ON
+      Hold your head up MOVIN ON
+      Keep your head up MOVIN ON
+      Hold your head up MOVIN ON
+      Keep your head up MOVIN ON
+      Hold your head up MOVIN ON
+      Keep your head up
+      
+      Some of them want to use you
+      Some of them want to get used by you
+      Some of them want to abuse you
+      Some of them want to be abused
+      
+      Hold your head up
+      Keep your head up MOVIN ON
+      Hold your head up MOVIN ON
+      Keep your head up MOVIN ON
+      Hold your head up MOVIN ON
+      Keep your head up MOVIN ON
+      Hold your head up MOVIN ON
+      Keep your head up
+      
+      Sweet dreams are made of this
+      Who am I to disagree
+      I travel the world
+      And the seven seas
+      Everybody's looking for something
+      Sweet dreams are made of this
+      Who am I to disagree
+      I travel the world
+      And the seven seas
+      Everybody's looking for something
+      Sweet dreams are made of this
+      Who am I to disagree
+      I travel the world
+      And the seven seas
+      Everybody's looking for something
+      Sweet dreams are made of this
+      Who am I to disagree
+      I travel the world
+      And the seven seas
+      Everybody's,`,
       soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Eurythmics_Sweet+Dreams.mp3',
       user: {
         nickname: 'Eurythmics'
@@ -228,7 +230,8 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
       genre: '랩/힙합',
       releaseAt: '2015.09.21',
-      lyric: `나가서 바람이나 좀 쐐
+      lyric: `
+      나가서 바람이나 좀 쐐
       아무도 찾지 않는 곳에
       조금 슬퍼 보이면 어때
       너만 그런 게 아닐 텐데
@@ -311,7 +314,8 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/love.jpg',
       genre: '댄스',
       releaseAt: '2008.01.17',
-      lyric: `야릇야릇한 널 향한 나의 맘
+      lyric: `
+      야릇야릇한 널 향한 나의 맘
       들리니 I need you I love you
       이런이런 날 어서 가져가줘
       들리니 I need you I love you
@@ -400,7 +404,8 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/to_my_self.jpeg',
       genre: '랩/힙합',
       releaseAt: '2017.03.15',
-      lyric: `DPR we gang gang
+      lyric: `
+      DPR we gang gang
       rep it every day ay
       I ain’t feelin them fakes
       they don’t entertain
@@ -533,7 +538,8 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/betterNow.jpg',
       genre: '랩/힙합',
       releaseAt: '2018.04.27',
-      lyric: `You probably think that
+      lyric: `
+      You probably think that
       you are better now better now
       You only say that
       'cause I'm not around

@@ -5,6 +5,7 @@ import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import Login from '../../Components/Login';
+import ContentDeleteModal from './ContentDeleteModal.js';
 
 axios.defaults.withCredentials = true;
 
@@ -19,6 +20,7 @@ function TrackInfo () {
   console.log(trackDetail);
 
   const [grade, setGrade] = useState('');
+  const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
 
   // 별점 부여한 상태 저장
   function handleGrade (e) {
@@ -173,6 +175,8 @@ function TrackInfo () {
         </button>
         {!isLoginModalOpen ? null : <Login />}
         <span>{trackDetail.like.count}</span>
+        <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+        {isContentDeleteModalOpen && <ContentDeleteModal visible={isContentDeleteModalOpen} setIsContentDeleteModalOpen={setIsContentDeleteModalOpen} />}
       </section>
     </div>
   );

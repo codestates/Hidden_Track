@@ -1,5 +1,7 @@
-@import '../Nav/index.scss';
-@import '../Login/index.scss';
+// @import '../Nav/index.scss';
+@import '../../Components/Nav/index.scss';
+// @import '../Login/index.scss';
+@import '../../Components/Login/index.scss';
 
 .modal-backdrop__sign-out {
   position: fixed;
@@ -48,7 +50,7 @@
     }
   }
 
-  [for="sign-out-modal-close-btn"] {
+  .sign-out-modal-close-btn {
     position: absolute;
     @include PositionBox(3%, _, _, 5%);
     font-size: 20px;
