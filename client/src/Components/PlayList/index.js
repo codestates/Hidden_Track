@@ -5,8 +5,10 @@ function PlayList ({ num, music, handleChangeMusic, handleDeleteMusic }) {
     <li className='track'>
       <div onClick={() => { handleChangeMusic(num); }}>
         <img className='track-img' src={music.img} alt={music.title} />
-        <span>{music.title}</span>
-        <span>{music.user.nickname}</span>
+        <div>
+          <p>{music.title}</p>
+          <p>{music.user.nickname}</p>
+        </div>
       </div>
       <button onClick={(e) => { handleDeleteMusic(e, num); }}>삭제</button>
     </li>
