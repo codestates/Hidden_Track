@@ -17,22 +17,22 @@ app.use(
   })
 );
 
-// app.get("/", (req, res) => {
-//   res.status(200).send("Welcome, closet Server!");
-// });
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome, hidden_track! Server!");
+});
 
-db.sequelize
-  .sync()
-  .then(() => {
-    console.log("db 연결 ")
-  })
-  .catch(console.error)
+// db.sequelize
+//   .sync()
+//   .then(() => {
+//     console.log("db 연결 ")
+//   })
+//   .catch(console.error)
 
 
 app.use('/user', usersRouter);
 
 
-const HTTPS_PORT = 4000;
+const HTTPS_PORT = 80;
 let server;
 
 server = app.listen(HTTPS_PORT, () => {

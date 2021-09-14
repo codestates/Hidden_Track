@@ -1,25 +1,30 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import Search from '../Search';
 import Login from '../Login';
 import './index.scss';
 import headphone from '../../assets/headphones.png';
 
 function Nav () {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false); // <- 얘도 리덕스 전역 Store 에 있어야 한다.
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
-  const [isLLogin, setIsLLogin] = useState(false);
+
+  const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
+  const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
+  const dispatch = useDispatch();
+
+  const { isLogin } = state1;
+  const { isLoginModalOpen } = state2;
+
+  console.log('>>>>>>>>', isLogin, isLoginModalOpen);
 
   const history = useHistory();
 
   function showModal (e) {
     e.preventDefault();
-    setIsLoginModalOpen(true);
-  }
-
-  function handleSignUpBtn (e) {
-    e.preventDefault();
-    history.push('/signup');
+    // setIsLoginModalOpen(true);
+    dispatch(isLoginModalOpenHandler(true));
   }
 
   function showUserProfileList (e) {
@@ -31,6 +36,15 @@ function Nav () {
     }
   }
 
+  function moveMyPage (e) {
+    history.push('/mypage');
+    setIsShowUserProfileList('hide');
+  }
+
+  function logOut (e) {
+    e.preventDefault();
+    dispatch(isLoginHandler(false));
+  }
   // 로그인 되어있느냐 안되어있느냐의 여부(isLogin 이라는 전역상태)에 따라 로그인 이라는 텍스트가 보이고, 프로필 사진이 보이게끔
 
   // 로그인 모달창을 다른페이지에서도 쓰기 때문에 로그인 모달창을 활성화하는 여부를 isLogin 이라는 전역상태에 연동시켜야 한다.
@@ -43,7 +57,7 @@ function Nav () {
         </Link>
         <Search />
 
-        {isLLogin
+        {isLogin
           ? <div className='button-list-of-profile-image'>
             <input
               type='button' className='navigation__profile-image'
@@ -51,8 +65,8 @@ function Nav () {
             />
             <ul className={isShowUserProfileList}>
               <li>음원 등록</li>
-              <li>마이 페이지</li>
-              <li>로그아웃</li>
+              <li onClick={(e) => moveMyPage(e)}>마이 페이지</li>
+              <li onClick={(e) => logOut(e)}>로그아웃</li>
             </ul>
             <button className='navigation__player-btn'>
               <img className='player-image' src={headphone} alt='player' />
@@ -66,21 +80,14 @@ function Nav () {
             </button>
             <button
               className='navigation__sign-up-btn'
-              onClick={(e) => handleSignUpBtn(e)}
             >회원가입
             </button>
             <button className='navigation__player-btn'>
               <img className='player-image' src={headphone} alt='player' />
             </button>
           </div>}
-        {isLoginModalOpen
-          ? <Login
-              visible={isLoginModalOpen}
-              setIsLoginModalOpen={setIsLoginModalOpen}
-              handleSignUpBtn={handleSignUpBtn}
-              setIsLLogin={setIsLLogin}
-            />
-          : null}
+        {isLoginModalOpen &&
+          <Login />}
       </nav>
     </header>
 
