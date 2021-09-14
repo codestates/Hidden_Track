@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import Login from '../../Components/Login';
+import ContentDeleteModal from './ContentDeleteModal.js';
 
 axios.defaults.withCredentials = true;
 
@@ -17,6 +18,8 @@ function TrackInfo () {
   // const { trackDetail } = state;
   const dispatch = useDispatch();
   console.log(trackDetail);
+
+  const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
 
   function requestLike () {
     if (!isLogin) {
@@ -102,6 +105,8 @@ function TrackInfo () {
         </button>
         {!isLoginModalOpen ? null : <Login />}
         <span>{trackDetail.like.count}</span>
+        <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+        {isContentDeleteModalOpen && <ContentDeleteModal visible={isContentDeleteModalOpen} setIsContentDeleteModalOpen={setIsContentDeleteModalOpen} />}
       </section>
     </div>
   );

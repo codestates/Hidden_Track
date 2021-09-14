@@ -73,7 +73,7 @@ h1 {
     cursor: pointer;
   }
 
-  [for$="-btn"] {
+  .modal-close-btn {
     position: absolute;
     @include PositionBox(3%, _, _, 5%);
     font-size: 20px;

@@ -35,7 +35,7 @@ function InputImage ({ imageFile, setImageFile, imageUrl, setImageUrl }) {
       <div className='profile-box'>
         <img className='profile-image' src={imageFile} alt='' />
       </div>
-      <label for='profile'>파일첨부</label>
+      <label htmlFor='profile'>파일첨부</label>
       <input id='profile' style={{ display: 'none' }} type='file' accept='.jpg, .jpeg, png, gif, bmp' onChange={(e) => handleProfile(e)} />
     </div>
   );

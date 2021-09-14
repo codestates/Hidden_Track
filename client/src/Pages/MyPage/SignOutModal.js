@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { isLoginHandler } from '../../Redux/actions/actions';
 import Portal from './Portal';
-import './index.scss';
+// import './index.scss';
+import './SignOutModal.scss';
 
 function SignOutModal ({ visible, setIsSignOutModalOpen }) {
+  const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
+  const dispatch = useDispatch();
+
+  const { isLogin } = state1;
+
   const history = useHistory();
 
   function handleSignOutModalBack (e) {
@@ -19,8 +27,15 @@ function SignOutModal ({ visible, setIsSignOutModalOpen }) {
 
   function moveMainPage (e) {
     e.preventDefault();
+
+    // 회원 정보 서버에서 삭제되어야 함
+    // -> axios
+    /* .then(res => if()) / 회원탈퇴 성공했을때 로그인 풀려야 함 dispatch(isLoginHandler(false)) & history.push('/');
+                          / 회원탈퇴 실패했을 경우 => 프론트단에서는 뭘 해야 할까? => 현재페이지에서 이미 탈퇴한 회원입니다
+                            또는 서버단에서 실패 => 두가지 경우의 모달창? */
     history.push('/');
   }
+
   return (
     <>
       <Portal elementId='modal-root'>
@@ -37,7 +52,7 @@ function SignOutModal ({ visible, setIsSignOutModalOpen }) {
               {/** 서버에 엑세스토큰 요청 삭제 */}
               <button onClick={(e) => handleSignOutModalCloseBtn(e)}>아니오</button>
             </div>
-            <label for='sign-out-modal-close-btn' onClick={(e) => handleSignOutModalCloseBtn(e)}>X</label>
+            <label htmlFor='sign-out-modal-close-btn' className='sign-out-modal-close-btn' onClick={(e) => handleSignOutModalCloseBtn(e)}>X</label>
             <button id='sign-out-modal-close-btn' style={{ display: 'none' }} />
           </fieldset>
         </form>
