@@ -1,6 +1,15 @@
 import React from 'react';
+import axios from 'axios';
+import './TrackInfo.scss';
+import likeImage from '../../assets/love.png';
+
+axios.defaults.withCredentials = true;
 
 function TrackInfo ({ dummyTrack }) {
+  // function requestLike () {
+
+  // }
+
   return (
     <div>
       <div>
@@ -35,7 +44,9 @@ function TrackInfo ({ dummyTrack }) {
         </div>
         <button>플레이 리스트에 담기</button>
         <button>바로 듣기</button>
-        <button>좋아요</button>
+        <button>
+          <img className='like-btn' src={likeImage} alt='' />
+        </button>
         <span>{dummyTrack.track.like.count}</span>
       </section>
     </div>

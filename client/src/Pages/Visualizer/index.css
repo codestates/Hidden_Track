@@ -1,3 +1,11 @@
-.rhap_container {
-  background-color: red;
+.lyrics-container {
+  border: 5px solid #764abc;
+}
+
+.lyrics-container .lyrics {
+  border: 1px solid #764abc;
+}
+
+.lyrics-container .lyrics-box {
+  border: 1px solid #764abc;
 }
