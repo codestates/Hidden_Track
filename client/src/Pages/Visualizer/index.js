@@ -23,7 +23,6 @@ function Visualizer () {
 
   // 팝 하고 복사해서 합치고 새로운 배열로 state set
 
-
   function handlePreviousMusic (action, music) {
     if (action === 'push') {
       const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
@@ -36,7 +35,6 @@ function Visualizer () {
     }
   }
 
-
   function isValid (index) {
     if (!playList[index]) {
       return false;
@@ -44,7 +42,6 @@ function Visualizer () {
       return true;
     }
   }
-
 
   return (
     <div>
@@ -80,7 +77,6 @@ function Visualizer () {
                 setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
               }
             } else {
-
               handlePreviousMusic('push', playList.indexOf(crrentMusic));
               setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
             }
