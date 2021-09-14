@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import Portal from './Portal';
 import './index.scss';
 
-function Login ({ visible, setIsLoginModalOpen, setIsLLogin }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
+function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
-  // const [isLLogin, setIsLLogin] = useState(false);
 
+  const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
+  const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
+  const dispatch = useDispatch();
+
+  const { isLogin } = state1;
+  const { isLoginModalOpen } = state2;
+
+  console.log(isLogin, isLoginModalOpen);
 
   const history = useHistory();
 
   function handleModalBack (e) {
     e.preventDefault();
-    setIsLoginModalOpen(false);
+    // setIsLoginModalOpen(false);
+    dispatch(isLoginModalOpenHandler(false));
   }
 
   function changeIdValue (e) {
@@ -29,9 +39,9 @@ function Login ({ visible, setIsLoginModalOpen, setIsLLogin }) { // 바뀐 State
 
   function handleModalCloseBtn (e) {
     e.preventDefault();
-    setIsLoginModalOpen(false);
+    // setIsLoginModalOpen(false);
+    dispatch(isLoginModalOpenHandler(false));
   }
-
 
   function handleSignUpBtn (e) {
     e.preventDefault();
@@ -71,8 +81,8 @@ function Login ({ visible, setIsLoginModalOpen, setIsLLogin }) { // 바뀐 State
     <>
       <Portal elementId='modal-root'>
         <div
-          className='modal-backdrop__login' style={visible ? { display: 'block' } : { display: 'none' }}
-          visible={visible} onClick={handleModalBack}
+          className='modal-backdrop__login' style={isLoginModalOpen ? { display: 'block' } : { display: 'none' }}
+          visible={isLoginModalOpen.toString()} onClick={handleModalBack}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>
@@ -101,10 +111,11 @@ function Login ({ visible, setIsLoginModalOpen, setIsLLogin }) { // 바뀐 State
             </div>
             <button
               className='modal__login-btn' type='submit' name='login-btn'
-              onClick={(e) => { 
-              setIsLLogin(true) 
-              handleModalCloseBtn(e)}
-            }
+              onClick={(e) => {
+              // setIsLLogin(true)
+                dispatch(isLoginHandler(true));
+                handleModalCloseBtn(e);
+              }}
             >로그인
             </button>
             <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button>
