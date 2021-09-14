@@ -46,7 +46,6 @@ function Nav () {
     dispatch(isLoginHandler(false));
   }
   // 로그인 되어있느냐 안되어있느냐의 여부(isLogin 이라는 전역상태)에 따라 로그인 이라는 텍스트가 보이고, 프로필 사진이 보이게끔
-
   // 로그인 모달창을 다른페이지에서도 쓰기 때문에 로그인 모달창을 활성화하는 여부를 isLogin 이라는 전역상태에 연동시켜야 한다.
 
   return (
@@ -57,7 +56,8 @@ function Nav () {
         </Link>
         <Search />
 
-        {isLogin
+        {
+        isLogin
           ? <div className='button-list-of-profile-image'>
             <input
               type='button' className='navigation__profile-image'
@@ -78,16 +78,14 @@ function Nav () {
               onClick={(e) => showModal(e)}
             >로그인
             </button>
-            <button
-              className='navigation__sign-up-btn'
-            >회원가입
-            </button>
+            <button className='navigation__sign-up-btn'>회원가입</button>
             <button className='navigation__player-btn'>
               <img className='player-image' src={headphone} alt='player' />
             </button>
-          </div>}
-        {isLoginModalOpen &&
-          <Login />}
+          </div>
+          }
+
+        {isLoginModalOpen && <Login />}
       </nav>
     </header>
 

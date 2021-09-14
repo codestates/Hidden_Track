@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import SignOutModal from '../../Components/SignOutModal';
+// import SignOutModal from '../../Components/SignOutModal';
+import SignOutModal from '../MyPage/SignOutModal';
 import './index.scss';
 
 function MyPage () {

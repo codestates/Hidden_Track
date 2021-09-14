@@ -60,6 +60,9 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
       .then(res => {
         console.log('서버에 보낸 로그인 데이터  >>>>>');
         console.log(res);
+        // accessToken 을 state 에 저장해야 한다.
+        // refreshToken 은 쿠키
+
         // 1. 서버에서 토큰을 받아와야 한다.
         // res. <- 토큰을 쿠키에 담을지 윤근님께 질문하기.
 
@@ -119,7 +122,7 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
             >로그인
             </button>
             <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button>
-            <label for='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}>X</label>
+            <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}>X</label>
             <button id='modal-close-btn' style={{ display: 'none' }} />
           </fieldset>
         </form>
