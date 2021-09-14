@@ -21,8 +21,6 @@ function Visualizer () {
     setCrrentMusic(playList[index]);
   }
 
-  // 팝 하고 복사해서 합치고 새로운 배열로 state set
-
   function handlePreviousMusic (action, music) {
     if (action === 'push') {
       const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
