@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN, INPUT_MUSIC, DELETE_MUSIC } from '../actions/actions';
+import { USER_INFO, IS_LOGIN, IS_LOGIN_MODAL_OPEN, INPUT_MUSIC, TRACK_DETAIL, DELETE_MUSIC } from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
   isLoginReducer,
+  isLoginModalOpenReducer,
   userInfoReducer,
-  playListReducer
+  playListReducer,
+  trackDetailReducer
 });
 
 // reducer : 변화를 일으키는 함수
@@ -16,6 +18,16 @@ function isLoginReducer (state = initialState.isLogin, action) {
     case IS_LOGIN:
       return Object.assign({}, state, {
         isLogin: action.payload.isLogin
+      });
+    default: return state;
+  }
+}
+
+function isLoginModalOpenReducer (state = initialState.isLoginModalOpen, action) {
+  switch (action.type) {
+    case IS_LOGIN_MODAL_OPEN:
+      return Object.assign({}, state, {
+        isLoginModalOpen: action.payload.isLoginModalOpen
       });
     default: return state;
   }
@@ -41,6 +53,16 @@ function playListReducer (state = initialState, action) {
     case DELETE_MUSIC:
       return Object.assign({}, state, {
         playList: state.playList.filter((el) => el.id !== action.payload.playList.id)
+      });
+    default: return state;
+  }
+}
+
+function trackDetailReducer (state = initialState.trackDetail, action) {
+  switch (action.type) {
+    case TRACK_DETAIL:
+      return Object.assign({}, state, {
+        trackDetail: action.payload.trackDetail
       });
     default: return state;
   }
