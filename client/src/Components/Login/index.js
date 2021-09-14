@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Portal from './Portal';
 import './index.scss';
 
-function Login ({ visible, setIsLoginModalOpen, handleSignUpBtn, setIsLLogin }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
+function Login ({ visible, setIsLoginModalOpen, setIsLLogin }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
   // const [isLLogin, setIsLLogin] = useState(false);
+
+
+  const history = useHistory();
 
   function handleModalBack (e) {
     e.preventDefault();
@@ -26,6 +30,12 @@ function Login ({ visible, setIsLoginModalOpen, handleSignUpBtn, setIsLLogin }) 
   function handleModalCloseBtn (e) {
     e.preventDefault();
     setIsLoginModalOpen(false);
+  }
+
+
+  function handleSignUpBtn (e) {
+    e.preventDefault();
+    history.push('/signup');
   }
 
   function requestLogin (e) {
@@ -91,7 +101,10 @@ function Login ({ visible, setIsLoginModalOpen, handleSignUpBtn, setIsLLogin }) 
             </div>
             <button
               className='modal__login-btn' type='submit' name='login-btn'
-              onClick={() => { setIsLLogin(true); }}
+              onClick={(e) => { 
+              setIsLLogin(true) 
+              handleModalCloseBtn(e)}
+            }
             >로그인
             </button>
             <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button>
