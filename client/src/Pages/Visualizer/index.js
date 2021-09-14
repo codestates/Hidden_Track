@@ -6,7 +6,8 @@ import PlayList from '../../Components/PlayList';
 import './index.scss';
 
 function Visualizer () {
-  const playList = useSelector(state => state.playListReducer);
+  const playList = useSelector(state => state.playListReducer.playList);
+  console.log('플레이리스트', playList);
 
   function getRandomNumber (min, max) {
     return parseInt(Math.random() * ((Number(max) - Number(min)) + 1));
@@ -22,6 +23,20 @@ function Visualizer () {
 
   // 팝 하고 복사해서 합치고 새로운 배열로 state set
 
+
+  function handlePreviousMusic (action, music) {
+    if (action === 'push') {
+      const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
+      newPreviousMusic.push(music);
+      setPreviousMusic(newPreviousMusic);
+    } else if (action === 'pop') {
+      const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
+      newPreviousMusic.pop();
+      setPreviousMusic(newPreviousMusic);
+    }
+  }
+
+
   function isValid (index) {
     if (!playList[index]) {
       return false;
@@ -30,18 +45,17 @@ function Visualizer () {
     }
   }
 
-  const handleCheckValue = (key) => {
-
-  };
 
   return (
     <div>
       <div className='title'>{crrentMusic.title}</div>
       <div className='artist'>{crrentMusic.user.nickname}</div>
-      <img className='inner-circle' src={crrentMusic.img} />
-      <div className='lyrics-container'>
-        <span className='lyrics'>Lyrics</span>
-        <div className='lyrics-box'>{crrentMusic.lyric}</div>
+      <div className='music-info'>
+        <img className='inner-circle' src={crrentMusic.img} />
+        <div className='lyrics-container'>
+          <span className='lyrics'>Lyrics</span>
+          <div className='lyrics-box'>{crrentMusic.lyric}</div>
+        </div>
       </div>
       <div className='visualizer-box'>Visualizer</div>
       <div className='play-list-box'>
@@ -66,7 +80,8 @@ function Visualizer () {
                 setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
               }
             } else {
-              setPreviousMusic();
+
+              handlePreviousMusic('push', playList.indexOf(crrentMusic));
               setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
             }
           }}
@@ -81,7 +96,8 @@ function Visualizer () {
               if (!previousMusic.length) {
                 setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
               } else {
-                setCrrentMusic(previousMusic.shift());
+                setCrrentMusic(playList[previousMusic[previousMusic.length - 1]]);
+                handlePreviousMusic('pop', playList.indexOf(crrentMusic));
               }
             }
           }}
@@ -93,7 +109,7 @@ function Visualizer () {
                 setCrrentMusic(playList[0]);
               }
             } else {
-              setPreviousMusic(playList.indexOf(crrentMusic));
+              handlePreviousMusic('push', playList.indexOf(crrentMusic));
               setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
             }
           }}

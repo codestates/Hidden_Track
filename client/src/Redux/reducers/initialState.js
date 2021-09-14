@@ -2,6 +2,9 @@ export const initialState = {
   isLogin: {
     isLogin: false
   },
+  isLoginModalOpen: {
+    isLoginModalOpen: false
+  },
   userInfo: {
     id: '',
     loginId: '',
@@ -14,6 +17,78 @@ export const initialState = {
       email: '',
       debut: ''
     }
+  },
+
+  trackDetail: {
+    id: 1,
+    title: '신호등',
+    artist: '이무진',
+    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
+    genre: '록/메탈',
+    releaseAt: '2021-05-14',
+    lyric: `이제야 목적지를 정했지만
+    가려한 날 막아서네 난 갈 길이 먼데
+    새빨간 얼굴로 화를 냈던
+    친구가 생각나네
+    이미 난 발걸음을 떼었지만
+    가려한 날 재촉하네 걷기도 힘든데
+    새파랗게 겁에 질려 도망간
+    친구가 뇌에 맴도네
+    건반처럼 생긴 도로 위
+    수많은 동그라미들 모두가
+    멈췄다 굴렀다 말은 잘 들어
+    그건 나도 문제가 아냐
+    붉은색 푸른색 그 사이
+    3초 그 짧은 시간
+    노란색 빛을 내는
+    저기 저 신호등이
+    내 머릿속을 텅 비워버려
+    내가 빠른지도
+    느린지도 모르겠어
+    그저 눈앞이 샛노랄 뿐이야
+    솔직히 말하자면 차라리
+    운전대를 못 잡던 어릴 때가
+    더 좋았었던 것 같아
+    그땐 함께 온 세상을
+    거닐 친구가 있었으니
+    건반처럼 생긴 도로 위
+    수많은 조명들이 날 빠르게
+    번갈아 가며 비추고 있지만
+    난 아직 초짜란 말이야
+    붉은색 푸른색 그 사이
+    3초 그 짧은 시간
+    노란색 빛을 내는 저기 저 신호등이
+    내 머릿속을 텅 비워버려
+    내가 빠른지도
+    느린지도 모르겠어
+    그저 눈앞이 샛노랄 뿐이야
+    꼬질꼬질한 사람이나
+    부자 곁엔 아무도 없는
+    삼색 조명과 이색 칠 위에
+    서 있어 괴롭히지 마
+    붉은색 푸른색 그 사이
+    3초 그 짧은 시간
+    노란색 빛을 내는 저기 저 신호등이
+    내 머릿속을 텅 비워버려
+    내가 빠른지도
+    느린지도 모르겠어
+    그저 눈앞이 샛노랄 뿐이야`,
+    like: {
+      count: 57
+    },
+    post: {
+      id: 2,
+      views: 387,
+      gradeAev: 4.7
+    },
+    reply: [{
+      id: 3,
+      content: '노래 좋다~~!',
+      user: {
+        profile: 'https://randomuser.me/api/portraits/men/10.jpg',
+        nickname: '김코딩'
+      }
+    }]
   },
 
   playList: [
@@ -448,6 +523,121 @@ export const initialState = {
       soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/DPR+LIVE+-+To+Myself.mp3',
       user: {
         nickname: 'DPR LIVE'
+      }
+    },
+    {
+      id: 6,
+      title: 'Better Now',
+      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/betterNow.jpg',
+      genre: '랩/힙합',
+      releaseAt: '2018.04.27',
+      lyric: `You probably think that
+      you are better now better now
+      You only say that
+      'cause I'm not around
+      not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say that
+      I am better nowbetter now
+      I only say that
+      'cause you're not around
+      not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      I did not believe
+      that it would end no
+      Everything came second
+      to the Benzo
+      You're not even speakin'
+      to my friends no
+      You knew all my uncles
+      and my aunts though
+      Twenty candles blow 'em out
+      and open your eyes
+      We were lookin' forward to the
+      rest of our lives
+      Used to keep my picture posted
+      by your bedside
+      Now it's in your dresser
+      with the socks you don't like
+      And I'm rollin' rollin' rollin' rollin'
+      With my brothers
+      like it's Jonas Jonas
+      Drinkin' Henny and I'm tryna forget
+      But I can't get this
+      shit outta my head
+      You probably think
+      that you are better now better now
+      You only say that
+      'cause I'm not around
+      not around
+      You know I never meant to
+      let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say
+      that I am better now better now
+      I only say that
+      'cause you're not around
+      not around
+      You know I never meant to
+      let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      I seen you with your other dude
+      He seemed like he was pretty cool
+      I was so broken over you
+      Life it goes on what can you do
+      I just wonder what it’s gonna take
+      Another foreign or a bigger chain
+      Because no matter how
+      my life has changed
+      I keep on looking back on better days
+      You probably think
+      that you are better now better now
+      You only say that
+      'cause I'm not around not around
+      You know I never
+      meant to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say
+      that I am better now better now
+      I only say that
+      'cause you're not around not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      Oh-oh
+      I promise
+      I swear to you I'll be okay
+      You're only the love of my life
+      You probably think
+      that you are better now better now
+      You only say that
+      'cause I'm not around not around
+      You know I never meant
+      to let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      You know I say
+      that I am better now better now
+      I only say that
+      'cause you're not around not around
+      You know I never meant to
+      let you down let you down
+      Woulda gave you anything
+      woulda gave you everything
+      Oh-oh`,
+      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Better+Now.mp3',
+      user: {
+        nickname: 'Post Malone'
       }
     }
   ]

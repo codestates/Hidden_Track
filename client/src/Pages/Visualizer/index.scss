@@ -1,3 +1,7 @@
+.music-info {
+    display: flex;
+}
+
 .lyrics-container {
     border: 5px solid #764abc;
     .lyrics {
@@ -5,6 +9,18 @@
     }
     .lyrics-box {
         border: 1px solid #764abc;
+    }
+}
+
+.play-list-box {
+    border: 5px solid #764abc; 
+    .play-list {
+        list-style: none;
+        overflow-y: auto;
+        overflow-wrap: break-word;
+    }
+    .track {
+        border: 1px solid #764abc;   
     }
 }
 
