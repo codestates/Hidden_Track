@@ -2,9 +2,9 @@ import React from 'react';
 
 function Lyrics ({ dummyTrack }) {
   return (
-    <div className='lyrics'>
+    <pre className='lyrics'>
       {dummyTrack.track.lyric}
-    </div>
+    </pre>
   );
 }
 

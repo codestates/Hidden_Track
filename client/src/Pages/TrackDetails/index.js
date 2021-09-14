@@ -14,7 +14,7 @@ function TrackDetails () {
         <Lyrics dummyTrack={dummyTrack} />
       </div>
       <div>
-        <Replys dummyTrack={dummyTrack} />
+        <Replys />
       </div>
     </div>
   );
