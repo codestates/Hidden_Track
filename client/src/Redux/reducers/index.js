@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN,  } from '../actions/actions';
+import { USER_INFO, IS_LOGIN, INPUT_MUSIC, DELETE_MUSIC } from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
@@ -31,11 +31,16 @@ function userInfoReducer (state = initialState.userInfo, action) {
   }
 }
 
-function playListReducer (state = initialState.playList, action) {
+function playListReducer (state = initialState, action) {
   switch (action.type) {
     case INPUT_MUSIC:
       return Object.assign({}, state, {
-        playList: action.payload.playList
+        playList: [...state.playList, action.payload.playList]
+      });
+
+    case DELETE_MUSIC:
+      return Object.assign({}, state, {
+        playList: state.playList.filter((el) => el.id !== action.payload.playList.id)
       });
     default: return state;
   }

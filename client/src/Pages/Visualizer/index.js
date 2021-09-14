@@ -6,7 +6,8 @@ import PlayList from '../../Components/PlayList';
 import './index.scss';
 
 function Visualizer () {
-  const playList = useSelector(state => state.playListReducer);
+  const playList = useSelector(state => state.playListReducer.playList);
+  console.log('플레이리스트', playList);
 
   function getRandomNumber (min, max) {
     return parseInt(Math.random() * ((Number(max) - Number(min)) + 1));
@@ -14,14 +15,25 @@ function Visualizer () {
 
   const [crrentMusic, setCrrentMusic] = useState(playList[0]);
   const [isRandom, setIsRandom] = useState(false);
-  const [previousMusic, setPreviousMusic] = useState([])
+  const [previousMusic, setPreviousMusic] = useState([]);
 
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
   }
 
-//팝 하고 복사해서 합치고 새로운 배열로 state set
+  // 팝 하고 복사해서 합치고 새로운 배열로 state set
 
+  function handlePreviousMusic (action, music) {
+    if (action === 'push') {
+      const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
+      newPreviousMusic.push(music);
+      setPreviousMusic(newPreviousMusic);
+    } else if (action === 'pop') {
+      const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
+      newPreviousMusic.pop();
+      setPreviousMusic(newPreviousMusic);
+    }
+  }
 
   function isValid (index) {
     if (!playList[index]) {
@@ -31,19 +43,16 @@ function Visualizer () {
     }
   }
 
-  const handleCheckValue = (key) => {
-
-    
-  };
-
   return (
     <div>
       <div className='title'>{crrentMusic.title}</div>
       <div className='artist'>{crrentMusic.user.nickname}</div>
-      <img className='inner-circle' src={crrentMusic.img} />
-      <div className='lyrics-container'>
-        <span className='lyrics'>Lyrics</span>
-        <div className='lyrics-box'>{crrentMusic.lyric}</div>
+      <div className='music-info'>
+        <img className='inner-circle' src={crrentMusic.img} />
+        <div className='lyrics-container'>
+          <span className='lyrics'>Lyrics</span>
+          <div className='lyrics-box'>{crrentMusic.lyric}</div>
+        </div>
       </div>
       <div className='visualizer-box'>Visualizer</div>
       <div className='play-list-box'>
@@ -57,7 +66,7 @@ function Visualizer () {
         </ul>
       </div>
       <div className='controller'>
-      <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom?'현재 랜덤재생 ON':'현재 랜덤재생 OFF'}</button>
+        <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
         <AudioPlayer
           src={crrentMusic.soundtrack} controls volume={0.1}
           autoPlay
@@ -68,8 +77,8 @@ function Visualizer () {
                 setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
               }
             } else {
-                setPreviousMusic();
-                setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
+              handlePreviousMusic('push', playList.indexOf(crrentMusic));
+              setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
             }
           }}
           onClickPrevious={() => {
@@ -80,12 +89,12 @@ function Visualizer () {
                 setCrrentMusic(playList[playList.length - 1]);
               }
             } else {
-              if(!previousMusic.length){
+              if (!previousMusic.length) {
                 setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
-              }else {
-                setCrrentMusic(previousMusic.shift())
+              } else {
+                setCrrentMusic(playList[previousMusic[previousMusic.length - 1]]);
+                handlePreviousMusic('pop', playList.indexOf(crrentMusic));
               }
-              
             }
           }}
           onClickNext={() => {
@@ -96,7 +105,7 @@ function Visualizer () {
                 setCrrentMusic(playList[0]);
               }
             } else {
-              setPreviousMusic(playList.indexOf(crrentMusic));
+              handlePreviousMusic('push', playList.indexOf(crrentMusic));
               setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
             }
           }}
