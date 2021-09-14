@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN, INPUT_MUSIC, TRACK_DETAIL } from '../actions/actions';
+import { USER_INFO, IS_LOGIN, IS_LOGIN_MODAL_OPEN, INPUT_MUSIC, TRACK_DETAIL } from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
   isLoginReducer,
+  isLoginModalOpenReducer,
   userInfoReducer,
   playListReducer,
   trackDetailReducer
@@ -17,6 +18,16 @@ function isLoginReducer (state = initialState.isLogin, action) {
     case IS_LOGIN:
       return Object.assign({}, state, {
         isLogin: action.payload.isLogin
+      });
+    default: return state;
+  }
+}
+
+function isLoginModalOpenReducer (state = initialState.isLoginModalOpen, action) {
+  switch (action.type) {
+    case IS_LOGIN_MODAL_OPEN:
+      return Object.assign({}, state, {
+        isLoginModalOpen: action.payload.isLoginModalOpen
       });
     default: return state;
   }

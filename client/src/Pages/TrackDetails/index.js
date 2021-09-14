@@ -8,7 +8,7 @@ function TrackDetails () {
   return (
     <div className='track-details'>
       <div>
-        <TrackInfo dummyTrack={dummyTrack} />
+        <TrackInfo />
       </div>
       <div>
         <Lyrics dummyTrack={dummyTrack} />

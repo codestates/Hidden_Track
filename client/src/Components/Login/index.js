@@ -62,7 +62,7 @@ function Login ({ visible, setIsLoginModalOpen, handleSignUpBtn, setIsLLogin }) 
       <Portal elementId='modal-root'>
         <div
           className='modal-backdrop__login' style={visible ? { display: 'block' } : { display: 'none' }}
-          visible={visible.toString()} onClick={handleModalBack}
+          visible={visible} onClick={handleModalBack}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>

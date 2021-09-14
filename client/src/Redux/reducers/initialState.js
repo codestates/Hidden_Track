@@ -2,6 +2,9 @@ export const initialState = {
   isLogin: {
     isLogin: false
   },
+  isLoginModalOpen: {
+    isLoginModalOpen: false
+  },
   userInfo: {
     id: '',
     loginId: '',

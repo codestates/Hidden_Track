@@ -27,11 +27,11 @@ function App () {
         <Route path='/signup'>
           <SignUp />
         </Route>
-        <Route path='/login'>
-          <Login />
-        </Route>
         <Route path='/visual'>
           <Visualizer />
+        </Route>
+        <Route path='/trackdetails'>
+          <TrackDetails />
         </Route>
       </Switch>
     </>
