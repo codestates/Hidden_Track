@@ -3,7 +3,7 @@ const dummyTrack = {
     id: 1,
     title: '신호등',
     artist: '이무진',
-    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/10607796_20210513201807_500.jpg',
+    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
     genre: '록/메탈',
     releaseAt: '2021-05-14',
     lyric: `이제야 목적지를 정했지만
@@ -65,7 +65,7 @@ const dummyTrack = {
       id: 3,
       content: '노래 좋다~~!',
       user: {
-        profile: 'https://randomuser.me/api/portraits/women/10.jpg',
+        profile: 'https://randomuser.me/api/portraits/men/10.jpg',
         nickname: '김코딩'
       }
     }]

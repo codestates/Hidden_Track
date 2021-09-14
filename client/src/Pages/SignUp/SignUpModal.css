@@ -1,0 +1,54 @@
+.modal-backdrop__signup {
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.modal-container__signup {
+  z-index: 999;
+  position: absolute;
+  text-align: center;
+  width: 300px;
+  height: 200px;
+  border-radius: 20px;
+  background-color: #a6bbbb;
+}
+
+.modal-view {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  width: 300px;
+  height: 200px;
+}
+
+.desc {
+  font-size: large;
+  font-style: initial;
+  margin-top: 20%;
+}
+
+.modal__signup-btn {
+  background-color: #6222ec;
+  text-decoration: none;
+  width: 50px;
+  margin-top: 10%;
+  margin-left: 35%;
+  border: none;
+  padding: 20px;
+  color: white;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.modal__signup-btn :hover {
+  background-color: lightcoral;
+}
