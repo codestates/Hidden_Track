@@ -21,7 +21,7 @@ function Visualizer () {
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
 
-  // 재생목록 클릭시 재생곡 변경 함수
+  // 재생곡 변경 함수
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
   }
@@ -80,12 +80,6 @@ function Visualizer () {
   function isValid (target, index) {
     if (target === 'playList') {
       if (!playList[index]) {
-        return false;
-      } else {
-        return true;
-      }
-    } else if (target === 'previousMusic') {
-      if (!previousMusic[previousMusic.length - 1]) {
         return false;
       } else {
         return true;
