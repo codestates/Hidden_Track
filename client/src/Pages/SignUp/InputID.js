@@ -1,22 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { inputIdValue } from '../../Redux/actions/actions';
 
 axios.defaults.withCredentials = true;
 
 function InputID ({ inputId, setInputId, duplicatedIdMessage, setDuplicatedIdMessage }) {
-  // const state = useSelector(state => state.inputIdReducer);
-  // const { inputId } = state;
-  // const dispatch = useDispatch();
-  // console.log(inputId);
-
+  // 아이디 입력값 상태에 반영
   function InputIdHandler (e) {
     setInputId(e.target.value);
-    // dispatch(inputIdValue(e.target.value));
     setDuplicatedIdMessage('');
   }
 
+  // 아이디 중복확인 요청 함수
   function isDuplicatedId (e) {
     console.log(e);
     e.preventDefault();

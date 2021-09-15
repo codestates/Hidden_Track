@@ -92,7 +92,7 @@ function Visualizer () {
       <div className='title'>{crrentMusic.title}</div>
       <div className='artist'>{crrentMusic.user.nickname}</div>
       <div className='music-info'>
-        <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title}/>
+        <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title} />
         <div className='lyrics-container'>
           <span className='lyrics'>Lyrics</span>
           <div className='lyrics-box'>
@@ -121,8 +121,8 @@ function Visualizer () {
       <div className='controller'>
         <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
         <AudioPlayer
-          src={crrentMusic.soundtrack} 
-          controls 
+          src={crrentMusic.soundtrack}
+          controls
           volume={0.1}
           // autoPlay
           showSkipControls

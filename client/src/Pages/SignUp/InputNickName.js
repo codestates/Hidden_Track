@@ -4,14 +4,13 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 function InputNickName ({ nickValue, setNickValue, duplicatedNickMessage, setDuplicatedNickMessage }) {
+  // 닉네임 입력시 상태에 반영
   function handleNick (e) {
     setNickValue(e.target.value);
-    // if (nickValue.length === 0) {
-    //   setDuplicatedNickMessage('')
-    // }
     setDuplicatedNickMessage('');
   }
 
+  // 닉네임 중복확인 요청 함수
   function isDuplicatedNick (e) {
     e.preventDefault();
     axios.post(`${process.env.REACT_APP_API_URL}/user/duplication`, {
