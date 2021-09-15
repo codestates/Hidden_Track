@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
-
 function InputID ({ inputId, setInputId, duplicatedIdMessage, setDuplicatedIdMessage }) {
   // 아이디 입력값 상태에 반영
   function InputIdHandler (e) {
