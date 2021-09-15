@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import './InputImage.scss';
 
-axios.defaults.withCredentials = true;
-
 function InputImage ({ imageFile, setImageFile, imageUrl, setImageUrl }) {
   // 프로필 이미지 파일 미리보기 구현 및 url 서버로부터 받아오는 함수
   function handleProfile (e) {

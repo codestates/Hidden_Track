@@ -21,7 +21,8 @@ export function AccessTokenRequest () {
   // 현재 액세스 토큰이 상태에 있다면 유저 정보 요청 보냄
   axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`, {
     headers: {
-      accessToken: accessToken
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
     }
   })
     .then(res => {
@@ -75,6 +76,7 @@ export function RefreshTokenRequest () {
       }
       // 만약 유효하지 않은 리프레시 토큰이라면, 로그인 상태 false로
       else {
+        console.log('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.');
         dispatch(isLoginHandler(false));
       }
     })
