@@ -6,6 +6,7 @@ import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import Login from '../../Components/Login';
 import ContentDeleteModal from './ContentDeleteModal.js';
+import Grade from './Grade';
 
 axios.defaults.withCredentials = true;
 
@@ -19,60 +20,7 @@ function TrackInfo () {
   const dispatch = useDispatch();
   console.log(trackDetail);
 
-  const [grade, setGrade] = useState('');
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
-
-  // 별점 부여한 상태 저장
-  function handleGrade (e) {
-    console.log(e.target.value);
-    setGrade(e.target.value);
-  }
-
-  // 부여한 별점을 서버로 요청하는 함수
-  function requestGrade (e) {
-    e.preventDefault();
-    if (!isLogin) {
-      return dispatch(isLoginModalOpenHandler(true));
-    }
-
-    axios.post(`${process.env.REACT_APP_API_URL}/post/grade`, {
-      postId: trackDetail.post.id,
-      grade: grade
-    })
-      .then(res => {
-        console.log(res.data);
-        if (res.status === 200) {
-          dispatch(getTrackDetails({
-            id: trackDetail.id,
-            title: trackDetail.title,
-            artist: trackDetail.artist,
-            img: trackDetail.img,
-            genre: trackDetail.genre,
-            releaseAt: trackDetail.releaseAt,
-            lyric: trackDetail.lyric,
-            like: {
-              count: trackDetail.like.count
-            },
-            post: {
-              id: trackDetail.post.id,
-              views: trackDetail.post.views,
-              gradeAev: res.data.gradeAev
-            },
-            reply: [{
-              id: trackDetail.reply.id,
-              content: trackDetail.reply.content,
-              user: {
-                profile: trackDetail.reply.user.profile,
-                nickname: trackDetail.reply.user.nickname
-              }
-            }]
-          }));
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
 
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike (e) {
@@ -132,7 +80,7 @@ function TrackInfo () {
       </div>
       <section>
         <p>{trackDetail.title}</p>
-        <span>
+        {/* <span>
           평점: {trackDetail.post.gradeAev}
           <select name='grade' onChange={(e) => handleGrade(e)}>
             <option value='none'>=별점선택=</option>
@@ -143,7 +91,9 @@ function TrackInfo () {
             <option value='1'>★☆☆☆☆</option>
           </select>
           <button onClick={(e) => requestGrade(e)}>별점주기</button>
-        </span>
+        </span> */}
+        <span>평점: {trackDetail.post.gradeAev}</span>
+        <Grade />
         <div>
           <span>
             아티스트 :

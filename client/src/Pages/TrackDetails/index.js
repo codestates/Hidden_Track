@@ -2,6 +2,7 @@ import React from 'react';
 import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
+import Grade from './Grade';
 import dummyTrack from '../../DummyData/dummyTrack';
 
 function TrackDetails () {
