@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN, IS_LOGIN_MODAL_OPEN, INPUT_PLAYLIST, TRACK_DETAIL, INPUT_MUSIC, DELETE_MUSIC } from '../actions/actions';
+import { USER_INFO, IS_LOGIN, IS_LOGIN_MODAL_OPEN, INPUT_PLAYLIST, TRACK_DETAIL, INPUT_MUSIC, DELETE_MUSIC, ACCESS_TOKEN } from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
@@ -7,7 +7,8 @@ const rootReducer = combineReducers({
   isLoginModalOpenReducer,
   userInfoReducer,
   playListReducer,
-  trackDetailReducer
+  trackDetailReducer,
+  accessTokenReducer
 });
 
 // reducer : 변화를 일으키는 함수
@@ -68,6 +69,16 @@ function trackDetailReducer (state = initialState.trackDetail, action) {
     case TRACK_DETAIL:
       return Object.assign({}, state, {
         trackDetail: action.payload.trackDetail
+      });
+    default: return state;
+  }
+}
+
+function accessTokenReducer (state = initialState.accessToken, action) {
+  switch (action.type) {
+    case ACCESS_TOKEN:
+      return Object.assign({}, state, {
+        accessToken: action.payload.accessToken
       });
     default: return state;
   }

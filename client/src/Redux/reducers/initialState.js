@@ -5,6 +5,9 @@ export const initialState = {
   isLoginModalOpen: {
     isLoginModalOpen: false
   },
+  accessToken: {
+    accessToken: ''
+  },
   userInfo: {
     id: '',
     loginId: '',

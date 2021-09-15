@@ -31,6 +31,7 @@ function Replys () {
   // 댓글 삭제요청 보내는 함수
   function deleteReply () {
     console.log('삭제할 댓글의 id:', selectedReplyId);
+    if (!selectedReplyId) return;
 
     axios.delete(`${process.env.REACT_APP_API_URL}/reply/reply`, {
       postId: trackDetail.post.id,
