@@ -8,11 +8,11 @@ import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 
-function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo }) {
+function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const state = useSelector(state => state.playListReducer)
+  const state = useSelector(state => state.playListReducer);
   const { playList } = state;
 
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -55,9 +55,10 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             reply: trackDetail.reply
           }));
         } else if (res.status === 401) {
-          console.log('권한이 없습니다.');
+          handleNotice('권한이 없습니다.', 5000);
         } else if (res.status === 409) {
-          console.log('해당 게시글이 없습니다.');
+          handleNotice('게시글이 존재하지 않습니다.', 5000);
+          history.push('/');
         }
       })
       .catch(err => {
@@ -67,12 +68,12 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
 
   // 플레이리스트에 해당 곡이 이미 있는지 확인하는 함수
   function isDuplicateTrack (playlist, trackId) {
-    for (let el of playlist) {
+    for (const el of playlist) {
       if (el.id === trackId) return true;
       else return false;
     }
   }
-  console.log('ewrwerer', playList)
+  console.log('ewrwerer', playList);
 
   // 플레이 리스트 담기 버튼 클릭시 실행되는 함수
   function addPlaylist (e) {
@@ -80,8 +81,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
     // 비로그인일 때
     if (!isLogin) {
       // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
-      let check = isDuplicateTrack(playList, trackDetail.id);
-      if (check) return console.log('리스트에 이미 있는 곡입니다.')
+      const check = isDuplicateTrack(playList, trackDetail.id);
+      // if (check) return console.log('리스트에 이미 있는 곡입니다.');
+      if (check) return handleNotice('이미 추가된 곡입니다.', 5000);
       else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
@@ -96,12 +98,13 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             nickname: trackDetail.user.nickname
           }
         }));
+        handleNotice('리스트에 곡이 추가되었습니다.', 5000);
       }
     } else {
       // 로그인 상태일 때
       // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
-      let check = isDuplicateTrack(playList, trackDetail.id);
-      if (check) return console.log('리스트에 이미 있는 곡입니다.')
+      const check = isDuplicateTrack(playList, trackDetail.id);
+      if (check) return handleNotice('이미 추가된 곡입니다.', 5000);
       else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist/playlist`, {
@@ -116,6 +119,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                   console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
                     dispatch(inputPlayList(res.data.playList));
+                    handleNotice('리스트에 곡이 추가되었습니다.', 5000);
                   }
                 })
                 .catch(err => {
@@ -196,6 +200,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             setIsContentDeleteModalOpen={setIsContentDeleteModalOpen}
             trackDetail={trackDetail}
             accessToken={accessToken}
+            handleNotice={handleNotice}
           />}
       </section>
     </div>

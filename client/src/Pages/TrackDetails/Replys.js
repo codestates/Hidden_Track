@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import WriteReply from './WriteReply';
 
-function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken }) {
+function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken, handleNotice }) {
   const [selectedReplyId, setSelectedReplyId] = useState('');
   const [clickedBtn, setClickedBtn] = useState('');
 
@@ -66,17 +66,19 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                   },
                   reply: res.data.track.reply
                 }));
+                handleNotice('댓글이 삭제 되었습니다.', 5000);
               }
             })
             .catch(err => {
               console.log(err);
             });
-          setSelectedReplyId('');
-          setClickedBtn('');
-        } else {
-          setSelectedReplyId('');
-          setClickedBtn('');
+        } else if (res.status === 401) {
+          handleNotice('권한이 없습니다.', 5000);
+        } else if (res.status === 404) {
+          handleNotice('해당 댓글이 존재하지 않습니다.', 5000);
         }
+        setSelectedReplyId('');
+        setClickedBtn('');
       })
       .catch(err => {
         console.log(err);
@@ -116,6 +118,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
           setClickedBtn={setClickedBtn}
           selectedReplyId={selectedReplyId}
           setSelectedReplyId={setSelectedReplyId}
+          handleNotice={handleNotice}
         />
       </div>
     </div>

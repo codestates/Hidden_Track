@@ -7,7 +7,7 @@ import {
   TRACK_DETAIL,
   INPUT_MUSIC,
   DELETE_MUSIC,
-  ACCESS_TOKEN,
+  ACCESS_TOKEN
 } from '../actions/actions';
 import { initialState } from './initialState';
 
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   userInfoReducer,
   playListReducer,
   trackDetailReducer,
-  accessTokenReducer,
+  accessTokenReducer
 });
 
 // reducer : 변화를 일으키는 함수
