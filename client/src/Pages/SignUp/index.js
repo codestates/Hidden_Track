@@ -10,8 +10,6 @@ import SignUpModal from './SignUpModal';
 
 import './index.scss';
 
-axios.defaults.withCredentials = true;
-
 function SignUp () {
   const [inputId, setInputId] = useState('');
   const [duplicatedIdMessage, setDuplicatedIdMessage] = useState('');
@@ -32,6 +30,7 @@ function SignUp () {
 
   const history = useHistory();
 
+  // 리스너, 아티스트 권한 선택 상태를 변경하는 함수
   function handleRadioBtn (e) {
     if (e.target.value === 'artist') {
       setSelectBtn(true);
@@ -40,6 +39,7 @@ function SignUp () {
     }
   }
 
+  // 가입하기 버튼 클릭시 유저 정보를 서버에 보내는 함수
   function requestSignUp (e) {
     e.preventDefault();
 

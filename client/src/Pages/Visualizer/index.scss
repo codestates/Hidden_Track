@@ -1,32 +1,69 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
 .music-info {
     display: flex;
 }
 
 .lyrics-container {
-    border: 5px solid #764abc;
+
     .lyrics {
-        border: 1px solid #764abc;
+
     }
     .lyrics-box {
-        border: 1px solid #764abc;
+        background-color: rgb(95, 93, 124);
+        width: 500px;
+        height: 500px;
+        overflow-y: scroll;
+        .lyrics-content{
+            text-align: center;
+        }
     }
+}
+
+.lyrics-box::-webkit-scrollbar {
+    display: none;
 }
 
 .play-list-box {
-    border: 5px solid #764abc; 
+    height: 300px;
+    display: flex;
+    overflow-y: scroll;
     .play-list {
+        margin: 0.4rem;
+        flex-direction: column;
         list-style: none;
-        overflow-y: auto;
-        overflow-wrap: break-word;
+
     }
     .track {
-        border: 1px solid #764abc; 
-        .track-img{
-            width: 100px;
+        display: flex;
+        .track-img {
+            width: 150px;
         }  
+        .track-info {
+            display: flex;
+            flex-direction: column;
+
+            .track-title {
+                font-size: 22px;
+                flex: 7 0 0;
+            }
+
+            .track-artist{
+                flex: 4 0 0;
+            }
+        }
+
     }
 }
 
+.play-list-box::-webkit-scrollbar {
+    display: none;
+}
 
 .rhap_container {
 

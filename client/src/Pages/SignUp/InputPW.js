@@ -10,14 +10,17 @@ function InputPW ({
   matchPWMessage,
   setMatchPWMessage
 }) {
+  // 비밀번호 입력 상태 변경
   function handlePW (e) {
     setInputPW(e.target.value);
   }
 
+  // 비밀번호 확인 입력 상태 변경
   function handleMatchPW (e) {
     setInputMatchPW(e.target.value);
   }
 
+  // 비밀번호 유효성 검사 함수
   function isValidPW () {
     // const pattern1 = /[a-zA-Z]/;
     // const pattern2 = /[~!@#$%^&]/;
@@ -48,6 +51,7 @@ function InputPW ({
     }
   }
 
+  // 비밀번호 일치 여부 검사 함수
   function isMatchPW () {
     if (inputPW !== inputMatchPW) {
       setMatchPWMessage('비밀번호가 일치하지 않습니다.');

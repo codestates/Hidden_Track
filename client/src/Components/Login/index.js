@@ -6,8 +6,7 @@ import { isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/act
 import Portal from './Portal';
 import './index.scss';
 
-
-axios.defaults.baseURL = "http://localhost:4000/user";
+axios.defaults.baseURL = 'http://localhost:4000/user';
 axios.defaults.withCredentials = true;
 
 function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
@@ -64,34 +63,31 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
       .then(res => {
         // console.log('서버에 보낸 로그인 데이터  >>>>>');
         // console.log(res);
-        const {accessToken} = res.data
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-        
+        const { accessToken } = res.data;
+        axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       })
       .catch(
 
       );
-      // axios.post('/signin', body)
-      // .then(res => {
-      //   console.log('서버에 보낸 로그인 데이터  >>>>>');
-      //   console.log(res);
-      //   // 1. accessToken 을 리덕스 state 에 저장해야 한다.
-      //   // refreshToken 은 쿠키
+    // axios.post('/signin', body)
+    // .then(res => {
+    //   console.log('서버에 보낸 로그인 데이터  >>>>>');
+    //   console.log(res);
+    //   // 1. accessToken 을 리덕스 state 에 저장해야 한다.
+    //   // refreshToken 은 쿠키
 
-        
-      //   // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다.
-      //   // (토큰은 cookies 에 담겨져있을 것이다.)
-      //   // axios.post('https://hiddentrack.link/user/accesstoken',
-      //   //  withCredentials : true => 헤더에 쿠키를 자동으로 보내주는 역할을 한다.
-      //   // {withCredentials : true }
-      //   // 토큰을 body 보내면 안된다. 헤더에 보내야 한다.
-      //   // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-      //   // .then(res => if())      // <- res 의 body에 있는 유저정보가 담겨있을 것이다. /  res 에 유저정보가 안 담겨있을 것이다.
-      //   // <- 받아온 유저정보를 리덕스 store 의 상태에 저장시키는 코드를 써야 한다. : dispatch 메소드를 사용해야 한다는 것이다.
-      //   // <- 리덕스의 store에 있는 isLogin 이라는 State을 true 로 바꿔서 저장시키는 역할을 하는  dispatch 메소드를 사용해야 한다.
-      //   // <- isLogin 이 true 가 되면 로그인 버튼은 프로필 사진으로 바뀌어야 한다. <- 이건 굳이 이 파일에서 안해도 된다.
-      // });
+    //   // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다.
+    //   // (토큰은 cookies 에 담겨져있을 것이다.)
+    //   // axios.post('https://hiddentrack.link/user/accesstoken',
+    //   //  withCredentials : true => 헤더에 쿠키를 자동으로 보내주는 역할을 한다.
+    //   // {withCredentials : true }
+    //   // 토큰을 body 보내면 안된다. 헤더에 보내야 한다.
+    //   // accessToken을 localStorage, cookie 등에 저장하지 않는다!
+    //   // .then(res => if())      // <- res 의 body에 있는 유저정보가 담겨있을 것이다. /  res 에 유저정보가 안 담겨있을 것이다.
+    //   // <- 받아온 유저정보를 리덕스 store 의 상태에 저장시키는 코드를 써야 한다. : dispatch 메소드를 사용해야 한다는 것이다.
+    //   // <- 리덕스의 store에 있는 isLogin 이라는 State을 true 로 바꿔서 저장시키는 역할을 하는  dispatch 메소드를 사용해야 한다.
+    //   // <- isLogin 이 true 가 되면 로그인 버튼은 프로필 사진으로 바뀌어야 한다. <- 이건 굳이 이 파일에서 안해도 된다.
+    // });
   }
 
   return (

@@ -6,28 +6,32 @@ import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import Login from '../../Components/Login';
 import ContentDeleteModal from './ContentDeleteModal.js';
-
-axios.defaults.withCredentials = true;
+import Grade from './Grade';
 
 function TrackInfo () {
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const state1 = useSelector(state => state.isLoginReducer);
   const state2 = useSelector(state => state.isLoginModalOpenReducer);
+  const state3 = useSelector(state => state.accessTokenReducer);
   const { isLogin } = state1;
   const { isLoginModalOpen } = state2;
+  const { accessToken } = state3;
   // const { trackDetail } = state;
   const dispatch = useDispatch();
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   console.log(trackDetail);
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
 
-  function requestLike () {
+  // 좋아요 버튼 클릭시 서버로 요청하는 함수
+  function requestLike (e) {
+    e.preventDefault();
     if (!isLogin) {
       return dispatch(isLoginModalOpenHandler(true));
     }
 
     axios.post(`${process.env.REACT_APP_API_URL}/post/good`, {
-      postid: trackDetail.id
+      postId: trackDetail.post.id
     })
       .then(res => {
         console.log(res.data);
@@ -59,6 +63,10 @@ function TrackInfo () {
               }
             }]
           }));
+        } else if (res.status === 401) {
+          console.log('권한이 없습니다.');
+        } else if (res.status === 409) {
+          console.log('해당 게시글이 없습니다.');
         }
       })
       .catch(err => {
@@ -73,13 +81,26 @@ function TrackInfo () {
       </div>
       <section>
         <p>{trackDetail.title}</p>
-        <span>평점 : {trackDetail.post.gradeAev}</span>
+        {/* <span>
+          평점: {trackDetail.post.gradeAev}
+          <select name='grade' onChange={(e) => handleGrade(e)}>
+            <option value='none'>=별점선택=</option>
+            <option value='5'>★★★★★</option>
+            <option value='4'>★★★★☆</option>
+            <option value='3'>★★★☆☆</option>
+            <option value='2'>★★☆☆☆</option>
+            <option value='1'>★☆☆☆☆</option>
+          </select>
+          <button onClick={(e) => requestGrade(e)}>별점주기</button>
+        </span> */}
+        <span>평점: {trackDetail.post.gradeAev}</span>
+        <Grade />
         <div>
           <span>
             아티스트 :
           </span>
           <span>
-            {trackDetail.artist}
+            {trackDetail.user.nickname}
           </span>
         </div>
         <div>
@@ -100,7 +121,7 @@ function TrackInfo () {
         </div>
         <button>플레이 리스트에 담기</button>
         <button>바로 듣기</button>
-        <button onClick={requestLike}>
+        <button onClick={(e) => requestLike(e)}>
           <img className='like-btn' src={likeImage} alt='' />
         </button>
         {!isLoginModalOpen ? null : <Login />}
