@@ -8,16 +8,17 @@ import Login from '../../Components/Login';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 
-axios.defaults.withCredentials = true;
-
 function TrackInfo () {
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const state1 = useSelector(state => state.isLoginReducer);
   const state2 = useSelector(state => state.isLoginModalOpenReducer);
+  const state3 = useSelector(state => state.accessTokenReducer);
   const { isLogin } = state1;
   const { isLoginModalOpen } = state2;
+  const { accessToken } = state3;
   // const { trackDetail } = state;
   const dispatch = useDispatch();
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   console.log(trackDetail);
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);

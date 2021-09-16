@@ -1,8 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
-
 function InputNickName ({ nickValue, setNickValue, duplicatedNickMessage, setDuplicatedNickMessage }) {
   // 닉네임 입력시 상태에 반영
   function handleNick (e) {

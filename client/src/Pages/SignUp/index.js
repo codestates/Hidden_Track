@@ -10,8 +10,6 @@ import SignUpModal from './SignUpModal';
 
 import './index.scss';
 
-axios.defaults.withCredentials = true;
-
 function SignUp () {
   const [inputId, setInputId] = useState('');
   const [duplicatedIdMessage, setDuplicatedIdMessage] = useState('');

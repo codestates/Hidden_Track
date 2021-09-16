@@ -5,6 +5,7 @@ export const DELETE_MUSIC = 'DELETE_MUSIC';
 export const INPUT_MUSIC = 'INPUT_MUSIC';
 export const IS_LOGIN_MODAL_OPEN = 'IS_LOGIN_MODAL_OPEN';
 export const TRACK_DETAIL = 'TRACK_DETAIL';
+export const ACCESS_TOKEN = 'ACCESS_TOKEN';
 
 export function getUserInfo (userInfo) {
   return {
@@ -65,6 +66,15 @@ export function getTrackDetails (trackDetail) {
     type: TRACK_DETAIL,
     payload: {
       trackDetail: trackDetail
+    }
+  };
+}
+
+export function getAccessToken (accessToken) {
+  return {
+    type: ACCESS_TOKEN,
+    payload: {
+      accessToken: accessToken
     }
   };
 }

@@ -4,19 +4,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import Login from '../../Components/Login';
 
-axios.defaults.withCredentials = true;
-
 function Replys () {
   const userInfo = useSelector(state => state.userInfoReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const state1 = useSelector(state => state.isLoginReducer);
   const state2 = useSelector(state => state.isLoginModalOpenReducer);
+  const state3 = useSelector(state => state.accessTokenReducer);
   const { isLogin } = state1;
   const { isLoginModalOpen } = state2;
+  const { accessToken } = state3;
 
   const [selectedReplyId, setSelectedReplyId] = useState('');
 
   const dispatch = useDispatch();
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
   useEffect(() => {
     deleteReply();
@@ -31,6 +32,7 @@ function Replys () {
   // 댓글 삭제요청 보내는 함수
   function deleteReply () {
     console.log('삭제할 댓글의 id:', selectedReplyId);
+    if (!selectedReplyId) return;
 
     axios.delete(`${process.env.REACT_APP_API_URL}/reply/reply`, {
       postId: trackDetail.post.id,
