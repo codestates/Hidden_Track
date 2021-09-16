@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './Grade.scss';
 
-function Grade () {
+function Grade ({ trackDetail, isLogin, accessToken }) {
   const [grade, setGrade] = useState(0);
-
-  const trackDetail = useSelector(state => state.trackDetailReducer);
-  const state1 = useSelector(state => state.isLoginReducer);
-  const state3 = useSelector(state => state.accessTokenReducer);
-  const { isLogin } = state1;
-  const { accessToken } = state3;
   const dispatch = useDispatch();
 
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -52,14 +46,7 @@ function Grade () {
               views: trackDetail.post.views,
               gradeAev: res.data.gradeAev
             },
-            reply: [{
-              id: trackDetail.reply.id,
-              content: trackDetail.reply.content,
-              user: {
-                profile: trackDetail.reply.user.profile,
-                nickname: trackDetail.reply.user.nickname
-              }
-            }]
+            reply: trackDetail.reply
           }));
         }
       })
