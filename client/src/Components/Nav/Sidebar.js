@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import PlayList from '../../Components/PlayList';
+import PlayList from '../PlayList';
 import axios from 'axios';
-import './index.scss';
+import './Sidebar.scss';
+import shuffle from '../../assets/active_shuffle.png';
+import active_shuffle from '../../assets/shuffle.png';
 
-axios.defaults.withCredentials = true;
-
-function Visualizer () {
-  // redux에 저장된 state 가져오기
+function Sidebar () {
   const playList = useSelector(state => state.playListReducer.playList);
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
 
   const dispatch = useDispatch();
-
-  const history = useHistory();
 
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
   const [crrentMusic, setCrrentMusic] = useState(playList[0]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
 
+  console.log('이전 재생곡', previousMusic);
+  console.log('현재 재생곡', crrentMusic);
   // 재생곡 변경 함수
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
@@ -93,23 +91,72 @@ function Visualizer () {
   }
 
   return (
-    <div>
-      <div className='title'>{crrentMusic.title}</div>
-      <div className='artist'>{crrentMusic.user.nickname}</div>
-      <button onClick={() => { history.push('/'); }}>메인으로 가기</button>
-      <div className='music-info'>
-        <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title} />
-        <div className='lyrics-container'>
-          <div className='lyrics'>Lyrics</div>
-          <div className='lyrics-box'>
-            <pre className='lyrics-contents'>{crrentMusic.lyric}</pre>
+    <div id='sidebar'>
+      <div className='sidebar-control'>
+        <div className='sidebar-info'>
+          <div className='square'>
+            <img className='inner-square' src={crrentMusic.img} alt={crrentMusic.title} />
+          </div>
+          <div className='info'>
+            <p className='inner-title'>{crrentMusic.title}</p>
+            <p className='inner-nickname'>{crrentMusic.user.nickname}</p>
+          </div>
+          <div className='shuffle'>
+            <div id='random-button'><button onClick={() => { setIsRandom(!isRandom); }}><img id='random-button-img' src={isRandom ? active_shuffle : shuffle} /></button></div>
           </div>
         </div>
+        <div>
+          <AudioPlayer
+            src={crrentMusic.soundtrack}
+            controls
+            volume={0.1}
+          // autoPlay
+            showSkipControls
+            onEnded={() => {
+              if (!isRandom) {
+                if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
+                  handleChangeMusic(playList.indexOf(crrentMusic) + 1);
+                }
+              } else {
+                handlePreviousMusic('push', crrentMusic);
+                handleChangeMusic(getRandomNumber(0, playList.length - 1));
+              }
+            }}
+            onClickNext={() => {
+              if (!isRandom) {
+                if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
+                  handleChangeMusic(playList.indexOf(crrentMusic) + 1);
+                } else {
+                  handleChangeMusic(0);
+                }
+              } else {
+                handlePreviousMusic('push', crrentMusic);
+                handleChangeMusic(getRandomNumber(0, playList.length - 1));
+              }
+            }}
+            onClickPrevious={() => {
+              if (!isRandom) {
+                if (isValid('playList', playList.indexOf(crrentMusic) - 1)) {
+                  handleChangeMusic(playList.indexOf(crrentMusic) - 1);
+                } else {
+                  handleChangeMusic(playList.length - 1);
+                }
+              } else {
+                if (!previousMusic.length) {
+                  console.log('랜덤-이전곡 없음');
+                  handleChangeMusic(getRandomNumber(0, playList.length - 1));
+                } else {
+                  console.log('랜덤-이전곡 있음');
+                  handleChangeMusic(playList.indexOf(previousMusic[previousMusic.length - 1]));
+                  handlePreviousMusic('pop');
+                }
+              }
+            }}
+          />
+        </div>
       </div>
-
-      <div className='visualizer-box' />
-      <div className='play-list-box'>
-        <ul className='play-list'>
+      <div className='sidebar-paly-list-box'>
+        <ul className='sidebar-play-list'>
           {
             playList.map((el, idx) => {
               return (
@@ -122,62 +169,11 @@ function Visualizer () {
                 />
               );
             })
-          }
+        }
         </ul>
-      </div>
-      <div className='controller'>
-        <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
-        <AudioPlayer
-          className='audio-element'
-          src={crrentMusic.soundtrack}
-          controls
-          volume={0.1}
-          // autoPlay
-          showSkipControls
-          onEnded={() => {
-            if (!isRandom) {
-              if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
-                setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
-              }
-            } else {
-              handlePreviousMusic('push', crrentMusic);
-              setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
-            }
-          }}
-          onClickNext={() => {
-            if (!isRandom) {
-              if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
-                setCrrentMusic(playList[playList.indexOf(crrentMusic) + 1]);
-              } else {
-                setCrrentMusic(playList[0]);
-              }
-            } else {
-              handlePreviousMusic('push', crrentMusic);
-              setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
-            }
-          }}
-          onClickPrevious={() => {
-            if (!isRandom) {
-              if (isValid('playList', playList.indexOf(crrentMusic) - 1)) {
-                setCrrentMusic(playList[playList.indexOf(crrentMusic) - 1]);
-              } else {
-                setCrrentMusic(playList[playList.length - 1]);
-              }
-            } else {
-              if (!previousMusic.length) {
-                console.log('랜덤-이전곡 없음');
-                setCrrentMusic(playList[getRandomNumber(0, playList.length - 1)]);
-              } else {
-                console.log('랜덤-이전곡 있음');
-                setCrrentMusic(previousMusic[previousMusic.length - 1]);
-                handlePreviousMusic('pop');
-              }
-            }
-          }}
-        />
       </div>
     </div>
   );
 }
 
-export default Visualizer;
+export default Sidebar;
