@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/actions';
-import { RefreshTokenRequest } from '../../Components/TokenFunction';
+import { getTrackDetails, isLoginModalOpenHandler, getAccessToken, isLoginHandler } from '../../Redux/actions/actions';
+// import { RefreshTokenRequest } from '../../Components/TokenFunction';
 
 function WriteReply ({
   trackDetail,
@@ -65,6 +65,7 @@ function WriteReply ({
                   artist: res.data.track.artist,
                   img: res.data.track.img,
                   genre: res.data.track.genre,
+                  soundtrack: res.data.track.soundtrack,
                   releaseAt: res.data.track.releaseAt,
                   lyric: res.data.track.lyric,
                   like: {
@@ -82,6 +83,7 @@ function WriteReply ({
             .catch(err => {
               console.log(err);
             });
+          // 등록 완료 후 input값 초기화
           setInputText('');
         }
       })
@@ -95,9 +97,28 @@ function WriteReply ({
     e.preventDefault();
     console.log(inputText);
 
+    if (!inputText) return console.log('댓글을 입력하세요');
+
     if (!accessToken) {
       // 만약 액세스 토큰이 상태에 없으면 다시 받아옴
-      RefreshTokenRequest();
+      // RefreshTokenRequest();
+      axios.get(`${process.env.REACT_APP_API_URL}/user/accesstoken`, {
+        withCredentials: true
+      })
+        .then(res => {
+          console.log('리프레시 토큰 요청 응답', res.data);
+          if (res.status === 200) {
+            dispatch(getAccessToken(res.data.accessToken));
+          }
+          // 만약 유효하지 않은 리프레시 토큰이라면, 로그인 상태 false로
+          else {
+            console.log('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.');
+            dispatch(isLoginHandler(false));
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
 
     axios.patch(`${process.env.REACT_APP_API_URL}/reply/reply`, {
@@ -107,7 +128,45 @@ function WriteReply ({
     })
       .then(res => {
         console.log(res.data);
-      // 수정 요청 완료 후 input값 초기화
+        if (res.status === 200) {
+          // 수정 완료되면 음원 상세 정보 다시 받아옴
+          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+            params: {
+              id: trackDetail.post.id
+            }
+          })
+            .then(res => {
+              console.log(res.data);
+              if (res.status === 200) {
+                dispatch(getTrackDetails({
+                  id: res.data.track.id,
+                  title: res.data.track.title,
+                  artist: res.data.track.artist,
+                  img: res.data.track.img,
+                  genre: res.data.track.genre,
+                  soundtrack: res.data.track.soundtrack,
+                  releaseAt: res.data.track.releaseAt,
+                  lyric: res.data.track.lyric,
+                  like: {
+                    count: res.data.track.like.count
+                  },
+                  post: {
+                    id: res.data.track.post.id,
+                    views: res.data.track.post.views,
+                    gradeAev: res.data.track.post.gradeAev
+                  },
+                  reply: res.data.track.reply
+                }));
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          // 수정 요청 완료 후 input값 초기화
+          setInputText('');
+        } else if (res.status === 404) {
+          console.log('게시글 혹은 해당 댓글을 찾을 수 없습니다.');
+        }
       })
       .catch(err => {
         console.log(err);

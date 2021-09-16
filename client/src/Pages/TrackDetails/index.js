@@ -22,6 +22,7 @@ function TrackDetails () {
           isLoginModalOpen={isLoginModalOpen}
           accessToken={accessToken}
           trackDetail={trackDetail}
+          userInfo={userInfo}
         />
       </div>
       <div>
