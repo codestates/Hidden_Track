@@ -13,8 +13,10 @@ function InputID ({ inputId, setInputId, duplicatedIdMessage, setDuplicatedIdMes
     console.log(e);
     e.preventDefault();
 
-    axios.post(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      loginId: inputId
+    axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
+      params: {
+        loginId: inputId
+      }
     })
       .then(res => {
         console.log(res);

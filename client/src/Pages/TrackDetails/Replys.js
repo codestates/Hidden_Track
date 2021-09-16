@@ -1,31 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
-import Login from '../../Components/Login';
+import WriteReply from './WriteReply';
 
-function Replys () {
-  const userInfo = useSelector(state => state.userInfoReducer);
-  const trackDetail = useSelector(state => state.trackDetailReducer);
-  const state1 = useSelector(state => state.isLoginReducer);
-  const state2 = useSelector(state => state.isLoginModalOpenReducer);
-  const state3 = useSelector(state => state.accessTokenReducer);
-  const { isLogin } = state1;
-  const { isLoginModalOpen } = state2;
-  const { accessToken } = state3;
-
+function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken }) {
   const [selectedReplyId, setSelectedReplyId] = useState('');
+  const [clickedBtn, setClickedBtn] = useState('');
 
   const dispatch = useDispatch();
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
   useEffect(() => {
-    deleteReply();
+    // console.log(clickedBtn)
+    if (clickedBtn === '삭제') {
+      deleteReply();
+    }
   }, [selectedReplyId]);
 
-  // 삭제 버튼 누를시 삭제할 댓글 id로 상태 변경하는 함수
+  // 수정 or 삭제 버튼 누를시 수정/삭제할 댓글 id로 상태 변경하는 함수
   function getReplyId (e) {
     e.preventDefault();
+    console.log(e.target.parentElement.getAttribute('id'));
+    setClickedBtn(e.target.value);
     setSelectedReplyId(e.target.parentElement.getAttribute('id'));
   }
 
@@ -66,25 +63,25 @@ function Replys () {
                     views: res.data.track.post.views,
                     gradeAev: res.data.track.post.gradeAev
                   },
-                  reply: [{
-                    id: res.data.track.reply.id,
-                    content: res.data.track.reply.content,
-                    user: {
-                      profile: res.data.track.reply.user.profile,
-                      nickname: res.data.track.reply.user.nickname
-                    }
-                  }]
+                  reply: res.data.track.reply
                 }));
               }
             })
             .catch(err => {
               console.log(err);
             });
+          setSelectedReplyId('');
+          setClickedBtn('');
+        } else {
+          setSelectedReplyId('');
+          setClickedBtn('');
         }
       })
       .catch(err => {
         console.log(err);
       });
+    setSelectedReplyId('');
+    setClickedBtn('');
   }
 
   return (
@@ -97,16 +94,29 @@ function Replys () {
                 <img src={el.user.profile} alt='' />
                 <p>{el.user.nickname}</p>
                 <p>{el.content}</p>
-                {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname ? */}
-                <button onClick={(e) => getReplyId(e)}>
-                  댓글삭제
-                </button>
+                {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname && clickedBtn !== '수정' ? */}
+                <button value='수정' onClick={(e) => getReplyId(e)}>댓글수정</button>
+                {/* : null} */}
+                {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname && clickedBtn !== '수정' ? */}
+                <button value='삭제' onClick={(e) => getReplyId(e)}>댓글삭제</button>
                 {/* : null} */}
               </li>
             );
           })
           : null}
       </ul>
+      <div>
+        <WriteReply
+          trackDetail={trackDetail}
+          isLogin={isLogin}
+          isLoginModalOpen={isLoginModalOpen}
+          accessToken={accessToken}
+          clickedBtn={clickedBtn}
+          setClickedBtn={setClickedBtn}
+          selectedReplyId={selectedReplyId}
+          setSelectedReplyId={setSelectedReplyId}
+        />
+      </div>
     </div>
   );
 }

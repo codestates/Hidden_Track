@@ -11,8 +11,10 @@ function InputNickName ({ nickValue, setNickValue, duplicatedNickMessage, setDup
   // 닉네임 중복확인 요청 함수
   function isDuplicatedNick (e) {
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      nickname: nickValue
+    axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
+      params: {
+        nickname: nickValue
+      }
     })
       .then(res => {
         console.log(res.data);

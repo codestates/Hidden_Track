@@ -1,10 +1,14 @@
 import React from 'react';
+import './Lyrics.scss';
 
-function Lyrics ({ dummyTrack }) {
+function Lyrics ({ trackDetail }) {
   return (
-    <pre className='lyrics'>
-      {dummyTrack.track.lyric}
-    </pre>
+    <details className='lyrics-open'>
+      <summary>가사 보기</summary>
+      <pre className='lyrics'>
+        {trackDetail.lyric}
+      </pre>
+    </details>
   );
 }
 

@@ -16,6 +16,7 @@ export function AccessTokenRequest () {
   if (!accessToken) {
     // 리프레시 토큰으로 액세스 토큰 받아오는 요청 보냄
     RefreshTokenRequest();
+    // AccessTokenRequest();
   }
 
   // 현재 액세스 토큰이 상태에 있다면 유저 정보 요청 보냄

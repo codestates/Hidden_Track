@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
-import Login from '../../Components/Login';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 
-function TrackInfo () {
-  const trackDetail = useSelector(state => state.trackDetailReducer);
-  const state1 = useSelector(state => state.isLoginReducer);
-  const state2 = useSelector(state => state.isLoginModalOpenReducer);
-  const state3 = useSelector(state => state.accessTokenReducer);
-  const { isLogin } = state1;
-  const { isLoginModalOpen } = state2;
-  const { accessToken } = state3;
-  // const { trackDetail } = state;
+function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail }) {
   const dispatch = useDispatch();
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   console.log(trackDetail);
@@ -54,14 +45,7 @@ function TrackInfo () {
               views: trackDetail.post.views,
               gradeAev: trackDetail.post.gradeAev
             },
-            reply: [{
-              id: trackDetail.reply.id,
-              content: trackDetail.reply.content,
-              user: {
-                profile: trackDetail.reply.user.profile,
-                nickname: trackDetail.reply.user.nickname
-              }
-            }]
+            reply: trackDetail.reply
           }));
         } else if (res.status === 401) {
           console.log('권한이 없습니다.');
@@ -94,7 +78,7 @@ function TrackInfo () {
           <button onClick={(e) => requestGrade(e)}>별점주기</button>
         </span> */}
         <span>평점: {trackDetail.post.gradeAev}</span>
-        <Grade />
+        <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} />
         <div>
           <span>
             아티스트 :
@@ -124,10 +108,15 @@ function TrackInfo () {
         <button onClick={(e) => requestLike(e)}>
           <img className='like-btn' src={likeImage} alt='' />
         </button>
-        {!isLoginModalOpen ? null : <Login />}
         <span>{trackDetail.like.count}</span>
         <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
-        {isContentDeleteModalOpen && <ContentDeleteModal visible={isContentDeleteModalOpen} setIsContentDeleteModalOpen={setIsContentDeleteModalOpen} />}
+        {isContentDeleteModalOpen &&
+          <ContentDeleteModal
+            visible={isContentDeleteModalOpen}
+            setIsContentDeleteModalOpen={setIsContentDeleteModalOpen}
+            trackDetail={trackDetail}
+            accessToken={accessToken}
+          />}
       </section>
     </div>
   );

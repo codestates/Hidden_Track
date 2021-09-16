@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/actions';
+import axios from 'axios';
 import './Grade.scss';
 
-function Grade () {
-  const [isGrade, setGrade] = useState(0);
+function Grade ({ trackDetail, isLogin, accessToken }) {
+  const [grade, setGrade] = useState(0);
+  const dispatch = useDispatch();
 
+  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+  // 별점 부여한 상태 저장
   function handleGrade (e) {
     console.log(e.target.value);
     setGrade(e.target.value);
@@ -11,7 +18,40 @@ function Grade () {
 
   function requestGrade (e) {
     e.preventDefault();
-    console.log(isGrade);
+    if (!isLogin) {
+      return dispatch(isLoginModalOpenHandler(true));
+    }
+
+    axios.post(`${process.env.REACT_APP_API_URL}/post/grade`, {
+      postId: trackDetail.post.id,
+      grade: grade
+    })
+      .then(res => {
+        console.log(res.data);
+        if (res.status === 200) {
+          dispatch(getTrackDetails({
+            id: trackDetail.id,
+            title: trackDetail.title,
+            artist: trackDetail.artist,
+            img: trackDetail.img,
+            genre: trackDetail.genre,
+            releaseAt: trackDetail.releaseAt,
+            lyric: trackDetail.lyric,
+            like: {
+              count: trackDetail.like.count
+            },
+            post: {
+              id: trackDetail.post.id,
+              views: trackDetail.post.views,
+              gradeAev: res.data.gradeAev
+            },
+            reply: trackDetail.reply
+          }));
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   return (
