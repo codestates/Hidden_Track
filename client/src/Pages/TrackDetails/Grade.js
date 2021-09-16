@@ -16,7 +16,6 @@ function Grade ({ trackDetail, isLogin, accessToken }) {
     setGrade(e.target.value);
   }
 
-  // 부여한 별점을 서버로 요청하는 함수
   function requestGrade (e) {
     e.preventDefault();
     if (!isLogin) {

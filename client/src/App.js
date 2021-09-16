@@ -7,7 +7,7 @@ import Main from './Pages/Main';
 import Test from './Test';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
-import Sidebar from './Components/Nav/sidebar';
+import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
 
 function App () {
@@ -16,7 +16,7 @@ function App () {
   return (
     <>
       <div className='nav-container'>
-        {loca.pathname === '/visual' || loca.pathname === '/signup'
+        {loca.pathname === '/visual' || loca.pathname === '/signup' || loca.pathname === '/sidebar'
           ? (
             <></>)
           : (
