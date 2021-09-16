@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import PlayList from '../../Components/PlayList';
+import PlayList from '../PlayList';
 import axios from 'axios';
+import './Sidebar.scss';
+import shuffle from '../../assets/active_shuffle.png';
+import active_shuffle from '../../assets/shuffle.png';
 
 function Sidebar () {
   const playList = useSelector(state => state.playListReducer.playList);
@@ -17,6 +20,8 @@ function Sidebar () {
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
 
+  console.log('이전 재생곡', previousMusic);
+  console.log('현재 재생곡', crrentMusic);
   // 재생곡 변경 함수
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
@@ -36,9 +41,11 @@ function Sidebar () {
   // stack으로 구현된 이전곡 핸들링 함수
   function handlePreviousMusic (action, music) {
     if (action === 'push') {
-      const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
-      newPreviousMusic.push(music);
-      setPreviousMusic(newPreviousMusic);
+      if (playList.indexOf(music) !== -1) {
+        const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
+        newPreviousMusic.push(music);
+        setPreviousMusic(newPreviousMusic);
+      }
     } else if (action === 'pop') {
       const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
       newPreviousMusic.pop();
@@ -84,66 +91,72 @@ function Sidebar () {
   }
 
   return (
-    <div>
+    <div id='sidebar'>
       <div className='sidebar-control'>
-        <div className='sidebarInfo'>
-          <img className='inner-square' src={crrentMusic.img} alt={crrentMusic.title} />
-          <div>
+        <div className='sidebar-info'>
+          <div className='square'>
+            <img className='inner-square' src={crrentMusic.img} alt={crrentMusic.title} />
+          </div>
+          <div className='info'>
             <p className='inner-title'>{crrentMusic.title}</p>
             <p className='inner-nickname'>{crrentMusic.user.nickname}</p>
           </div>
+          <div className='shuffle'>
+            <div id='random-button'><button onClick={() => { setIsRandom(!isRandom); }}><img id='random-button-img' src={isRandom ? active_shuffle : shuffle} /></button></div>
+          </div>
         </div>
-        <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
-        <AudioPlayer
-          src={crrentMusic.soundtrack}
-          controls
-          volume={0.1}
+        <div>
+          <AudioPlayer
+            src={crrentMusic.soundtrack}
+            controls
+            volume={0.1}
           // autoPlay
-          showSkipControls
-          onEnded={() => {
-            if (!isRandom) {
-              if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
-                handleChangeMusic(playList.indexOf(crrentMusic) + 1);
-              }
-            } else {
-              handlePreviousMusic('push', crrentMusic);
-              handleChangeMusic(getRandomNumber(0, playList.length - 1));
-            }
-          }}
-          onClickNext={() => {
-            if (!isRandom) {
-              if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
-                handleChangeMusic(playList.indexOf(crrentMusic) + 1);
+            showSkipControls
+            onEnded={() => {
+              if (!isRandom) {
+                if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
+                  handleChangeMusic(playList.indexOf(crrentMusic) + 1);
+                }
               } else {
-                handleChangeMusic(0);
-              }
-            } else {
-              handlePreviousMusic('push', crrentMusic);
-              handleChangeMusic(getRandomNumber(0, playList.length - 1));
-            }
-          }}
-          onClickPrevious={() => {
-            if (!isRandom) {
-              if (isValid('playList', playList.indexOf(crrentMusic) - 1)) {
-                handleChangeMusic(playList.indexOf(crrentMusic) - 1);
-              } else {
-                handleChangeMusic(playList[playList.length - 1]);
-              }
-            } else {
-              if (!previousMusic.length) {
-                console.log('랜덤-이전곡 없음');
+                handlePreviousMusic('push', crrentMusic);
                 handleChangeMusic(getRandomNumber(0, playList.length - 1));
-              } else {
-                console.log('랜덤-이전곡 있음');
-                handleChangeMusic(playList.indexOf(previousMusic[previousMusic.length - 1]));
-                handlePreviousMusic('pop');
               }
-            }
-          }}
-        />
+            }}
+            onClickNext={() => {
+              if (!isRandom) {
+                if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
+                  handleChangeMusic(playList.indexOf(crrentMusic) + 1);
+                } else {
+                  handleChangeMusic(0);
+                }
+              } else {
+                handlePreviousMusic('push', crrentMusic);
+                handleChangeMusic(getRandomNumber(0, playList.length - 1));
+              }
+            }}
+            onClickPrevious={() => {
+              if (!isRandom) {
+                if (isValid('playList', playList.indexOf(crrentMusic) - 1)) {
+                  handleChangeMusic(playList.indexOf(crrentMusic) - 1);
+                } else {
+                  handleChangeMusic(playList.length - 1);
+                }
+              } else {
+                if (!previousMusic.length) {
+                  console.log('랜덤-이전곡 없음');
+                  handleChangeMusic(getRandomNumber(0, playList.length - 1));
+                } else {
+                  console.log('랜덤-이전곡 있음');
+                  handleChangeMusic(playList.indexOf(previousMusic[previousMusic.length - 1]));
+                  handlePreviousMusic('pop');
+                }
+              }
+            }}
+          />
+        </div>
       </div>
-      <div className='play-list-box'>
-        <ul className='play-list'>
+      <div className='sidebar-paly-list-box'>
+        <ul className='sidebar-play-list'>
           {
             playList.map((el, idx) => {
               return (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
 import AudioPlayer from 'react-h5-audio-player';
@@ -15,6 +16,8 @@ function Visualizer () {
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
   const [crrentMusic, setCrrentMusic] = useState(playList[0]);
@@ -40,9 +43,11 @@ function Visualizer () {
   // stack으로 구현된 이전곡 핸들링 함수
   function handlePreviousMusic (action, music) {
     if (action === 'push') {
-      const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
-      newPreviousMusic.push(music);
-      setPreviousMusic(newPreviousMusic);
+      if (playList.indexOf(music) !== -1) {
+        const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
+        newPreviousMusic.push(music);
+        setPreviousMusic(newPreviousMusic);
+      }
     } else if (action === 'pop') {
       const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
       newPreviousMusic.pop();
@@ -91,16 +96,18 @@ function Visualizer () {
     <div>
       <div className='title'>{crrentMusic.title}</div>
       <div className='artist'>{crrentMusic.user.nickname}</div>
+      <button onClick={() => { history.push('/'); }}>메인으로 가기</button>
       <div className='music-info'>
         <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title} />
         <div className='lyrics-container'>
-          <span className='lyrics'>Lyrics</span>
+          <div className='lyrics'>Lyrics</div>
           <div className='lyrics-box'>
-            <pre>{crrentMusic.lyric}</pre>
+            <pre className='lyrics-contents'>{crrentMusic.lyric}</pre>
           </div>
         </div>
       </div>
-      <div className='visualizer-box'>Visualizer</div>
+
+      <div className='visualizer-box' />
       <div className='play-list-box'>
         <ul className='play-list'>
           {
@@ -121,6 +128,7 @@ function Visualizer () {
       <div className='controller'>
         <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
         <AudioPlayer
+          className='audio-element'
           src={crrentMusic.soundtrack}
           controls
           volume={0.1}
