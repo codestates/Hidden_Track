@@ -2,7 +2,7 @@ const { user } = require("../../models")
 const { sign,verify } = require("jsonwebtoken")
 
 module.exports = async (req, res) => {
- //req.cookie : refreshtoken    
+ //req.cookie -> refreshtoken    
  
  //refreshtoken 값저장후  만약에 안들어왔다라면 에러핸들링
  const refreshToken = req.cookies.refreshToken;

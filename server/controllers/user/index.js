@@ -4,6 +4,7 @@ module.exports = {
     token: require('./Token'),
     signout: require('./SignOut'),
     duplication: require('./duplication'),
-    
+    signup : require('./SignUp'),
+    password : require('./password'),
 };
   
