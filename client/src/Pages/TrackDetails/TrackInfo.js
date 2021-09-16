@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
@@ -11,6 +11,9 @@ import Grade from './Grade';
 function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo }) {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const state = useSelector(state => state.playListReducer)
+  const { playList } = state;
 
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   console.log(trackDetail);
@@ -62,44 +65,65 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       });
   }
 
+  // 플레이리스트에 해당 곡이 이미 있는지 확인하는 함수
+  function isDuplicateTrack (playlist, trackId) {
+    for (let el of playlist) {
+      if (el.id === trackId) return true;
+      else return false;
+    }
+  }
+  console.log('ewrwerer', playList)
+
   // 플레이 리스트 담기 버튼 클릭시 실행되는 함수
   function addPlaylist (e) {
     e.preventDefault();
-    // 비로그인시 그냥 전역상태에 저장만 함
+    // 비로그인일 때
     if (!isLogin) {
-      dispatch(inputMusic({
-        id: trackDetail.id,
-        title: trackDetail.title,
-        img: trackDetail.img,
-        genre: trackDetail.genre,
-        releaseaAt: trackDetail.releaseAt,
-        lyric: trackDetail.lyric,
-        soundtrack: trackDetail.soundtrack,
-        user: {
-          nickname: trackDetail.user.nickname
-        }
-      }));
-    } else {
-      // 로그인 상태라면 서버에 플레이 리스트 추가 axios 요청
-      axios.post(`${process.env.REACT_APP_API_URL}/playlist/playlist`, {
-        trackId: trackDetail.id
-      })
-        .then(res => {
-          console.log('플레이리스트 추가 요청 응답', res.data);
-          if (res.status === 200) {
-          // 성공 요청시 플레이리스트 상태 다시 받아옴
-            axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
-              .then(res => {
-                console.log('플레이리스트 요청 응답', res.data);
-                if (res.status === 200) {
-                  dispatch(inputPlayList(res.data.playList));
-                }
-              })
-              .catch(err => {
-                console.log(err);
-              });
+      // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
+      let check = isDuplicateTrack(playList, trackDetail.id);
+      if (check) return console.log('리스트에 이미 있는 곡입니다.')
+      else {
+        // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
+        dispatch(inputMusic({
+          id: trackDetail.id,
+          title: trackDetail.title,
+          img: trackDetail.img,
+          genre: trackDetail.genre,
+          releaseaAt: trackDetail.releaseAt,
+          lyric: trackDetail.lyric,
+          soundtrack: trackDetail.soundtrack,
+          user: {
+            nickname: trackDetail.user.nickname
           }
-        });
+        }));
+      }
+    } else {
+      // 로그인 상태일 때
+      // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
+      let check = isDuplicateTrack(playList, trackDetail.id);
+      if (check) return console.log('리스트에 이미 있는 곡입니다.')
+      else {
+        // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
+        axios.post(`${process.env.REACT_APP_API_URL}/playlist/playlist`, {
+          trackId: trackDetail.id
+        })
+          .then(res => {
+            console.log('플레이리스트 추가 요청 응답', res.data);
+            if (res.status === 200) {
+            // 성공 요청시 플레이리스트 상태 다시 받아옴
+              axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
+                .then(res => {
+                  console.log('플레이리스트 요청 응답', res.data);
+                  if (res.status === 200) {
+                    dispatch(inputPlayList(res.data.playList));
+                  }
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            }
+          });
+      }
     }
   }
 
@@ -160,11 +184,11 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           <img className='like-btn' src={likeImage} alt='' />
         </button>
         <span>{trackDetail.like.count}</span>
-        {/* {isLogin && userInfo.nickName === trackDetail.user.nickname */}
-        ? <>
+        {/* {isLogin && userInfo.nickName === trackDetail.user.nickname ? */}
+        <>
           <button onClick={(e) => clickModifyBtn(e)}>수정</button>
           <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
-          </>
+        </>
         {/* : null} */}
         {isContentDeleteModalOpen &&
           <ContentDeleteModal
