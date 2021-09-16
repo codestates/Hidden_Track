@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 app.use('/user', usersRouter);
 
 
-const HTTPS_PORT = 4000;
+const HTTPS_PORT = 80;
 let server;
 
 server = app.listen(HTTPS_PORT, () => {
