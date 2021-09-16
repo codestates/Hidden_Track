@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
-import './Rate.scss'
+import './Grade.scss'
 
-function Rate(){
+function Grade(){
 
   const [isGrade, setGrade] = useState(0)
 
@@ -55,4 +55,4 @@ function Rate(){
   )
 }
 
-export default Rate
+export default Grade
