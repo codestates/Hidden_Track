@@ -4,11 +4,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import Search from '../Search';
 import Login from '../Login';
+import Sidebar from './Sidebar';
 import './index.scss';
 import headphone from '../../assets/headphones.png';
 
 function Nav () {
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
   const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
@@ -20,6 +22,11 @@ function Nav () {
   console.log('>>>>>>>>', isLogin, isLoginModalOpen);
 
   const history = useHistory();
+
+  function showSidebar (e) {
+    e.preventDefault();
+    setIsSidebarOpen(!isSidebarOpen)
+  }
 
   function showModal (e) {
     e.preventDefault();
@@ -50,10 +57,12 @@ function Nav () {
 
   return (
     <header>
+      <Sidebar isSidebarOpen={isSidebarOpen}/>
       <nav className='navigation'>
         <Link to='/'>
           <h1 className='logo'>Hidden Track</h1>
         </Link>
+        
         <Search />
 
         {
@@ -80,7 +89,7 @@ function Nav () {
             </button>
             <button className='navigation__sign-up-btn'>회원가입</button>
             <button className='navigation__player-btn'>
-              <img className='player-image' src={headphone} alt='player' />
+              <img className='player-image' src={headphone} alt='player' onClick={(e)=>{ showSidebar(e)}} />
             </button>
           </div>
           }

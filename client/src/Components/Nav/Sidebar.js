@@ -9,7 +9,7 @@ import './Sidebar.scss';
 import shuffle from '../../assets/active_shuffle.png';
 import active_shuffle from '../../assets/shuffle.png';
 
-function Sidebar () {
+function Sidebar ({ isSidebarOpen }) {
   const playList = useSelector(state => state.playListReducer.playList);
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
 
@@ -91,7 +91,7 @@ function Sidebar () {
   }
 
   return (
-    <div id='sidebar'>
+    <div id='sidebar' className={isSidebarOpen? 'sidebar-opened': 'sidebar-closed'}>
       <div className='sidebar-control'>
         <div className='sidebar-info'>
           <div className='square'>
@@ -102,11 +102,14 @@ function Sidebar () {
             <p className='inner-nickname'>{crrentMusic.user.nickname}</p>
           </div>
           <div className='shuffle'>
-            <div id='random-button'><button onClick={() => { setIsRandom(!isRandom); }}><img id='random-button-img' src={isRandom ? active_shuffle : shuffle} /></button></div>
+            <button id='random-button' onClick={() => { setIsRandom(!isRandom); }}>
+              <img id='random-button-img' src={isRandom ? active_shuffle : shuffle} />
+            </button>
           </div>
         </div>
         <div>
           <AudioPlayer
+            id='sidebar-audio'
             src={crrentMusic.soundtrack}
             controls
             volume={0.1}
@@ -155,8 +158,8 @@ function Sidebar () {
           />
         </div>
       </div>
-      <div className='sidebar-paly-list-box'>
-        <ul className='sidebar-play-list'>
+      <div className='sidebar-play-list-box'>
+        <ul className='sidebar-play-ul'>
           {
             playList.map((el, idx) => {
               return (
