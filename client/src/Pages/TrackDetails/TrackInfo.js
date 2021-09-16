@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 
-function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail }) {
+function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo }) {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   console.log(trackDetail);
 
@@ -35,6 +38,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail }) {
             artist: trackDetail.artist,
             img: trackDetail.img,
             genre: trackDetail.genre,
+            soundtrack: trackDetail.soundtrack,
             releaseAt: trackDetail.releaseAt,
             lyric: trackDetail.lyric,
             like: {
@@ -56,6 +60,53 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail }) {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  // 플레이 리스트 담기 버튼 클릭시 실행되는 함수
+  function addPlaylist (e) {
+    e.preventDefault();
+    // 비로그인시 그냥 전역상태에 저장만 함
+    if (!isLogin) {
+      dispatch(inputMusic({
+        id: trackDetail.id,
+        title: trackDetail.title,
+        img: trackDetail.img,
+        genre: trackDetail.genre,
+        releaseaAt: trackDetail.releaseAt,
+        lyric: trackDetail.lyric,
+        soundtrack: trackDetail.soundtrack,
+        user: {
+          nickname: trackDetail.user.nickname
+        }
+      }));
+    } else {
+      // 로그인 상태라면 서버에 플레이 리스트 추가 axios 요청
+      axios.post(`${process.env.REACT_APP_API_URL}/playlist/playlist`, {
+        trackId: trackDetail.id
+      })
+        .then(res => {
+          console.log('플레이리스트 추가 요청 응답', res.data);
+          if (res.status === 200) {
+          // 성공 요청시 플레이리스트 상태 다시 받아옴
+            axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
+              .then(res => {
+                console.log('플레이리스트 요청 응답', res.data);
+                if (res.status === 200) {
+                  dispatch(inputPlayList(res.data.playList));
+                }
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        });
+    }
+  }
+
+  // 수정 버튼 클릭시 게시글 수정창으로 이동하는 함수
+  function clickModifyBtn (e) {
+    e.preventDefault();
+    history.push('/modify');
   }
 
   return (
@@ -103,13 +154,18 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail }) {
             {trackDetail.releaseAt}
           </span>
         </div>
-        <button>플레이 리스트에 담기</button>
+        <button onClick={(e) => addPlaylist(e)}>플레이 리스트에 담기</button>
         <button>바로 듣기</button>
         <button onClick={(e) => requestLike(e)}>
           <img className='like-btn' src={likeImage} alt='' />
         </button>
         <span>{trackDetail.like.count}</span>
-        <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+        {/* {isLogin && userInfo.nickName === trackDetail.user.nickname */}
+        ? <>
+          <button onClick={(e) => clickModifyBtn(e)}>수정</button>
+          <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+          </>
+        {/* : null} */}
         {isContentDeleteModalOpen &&
           <ContentDeleteModal
             visible={isContentDeleteModalOpen}

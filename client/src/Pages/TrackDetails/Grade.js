@@ -35,6 +35,7 @@ function Grade ({ trackDetail, isLogin, accessToken }) {
             artist: trackDetail.artist,
             img: trackDetail.img,
             genre: trackDetail.genre,
+            soundtrack: trackDetail.soundtrack,
             releaseAt: trackDetail.releaseAt,
             lyric: trackDetail.lyric,
             like: {

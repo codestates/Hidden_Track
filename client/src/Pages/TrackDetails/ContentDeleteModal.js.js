@@ -35,6 +35,7 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
             title: '',
             img: '',
             genre: '',
+            soundtrack: '',
             releaseAt: '',
             lyric: '',
             like: {

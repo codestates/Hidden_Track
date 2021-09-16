@@ -53,6 +53,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                   artist: res.data.track.artist,
                   img: res.data.track.img,
                   genre: res.data.track.genre,
+                  soundtrack: res.data.track.soundtrack,
                   releaseAt: res.data.track.releaseAt,
                   lyric: res.data.track.lyric,
                   like: {
