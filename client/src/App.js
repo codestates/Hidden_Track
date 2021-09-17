@@ -57,7 +57,7 @@ function App () {
           <TrackDetails handleNotice={handleNotice} />
         </Route>
         <Route path='/modicreate'>
-          <ModiCreate />
+          <ModiCreate handleNotice={handleNotice} />
         </Route>
         <Route path='/sidebar'>
           <Sidebar />
