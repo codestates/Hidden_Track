@@ -91,7 +91,7 @@ function Sidebar ({ isSidebarOpen }) {
   }
 
   return (
-    <div id='sidebar' className={isSidebarOpen? 'sidebar-opened': 'sidebar-closed'}>
+    <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'}>
       <div className='sidebar-control'>
         <div className='sidebar-info'>
           <div className='square'>

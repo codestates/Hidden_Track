@@ -12,7 +12,8 @@ function WriteReply ({
   clickedBtn,
   setClickedBtn,
   selectedReplyId,
-  setSelectedReplyId
+  setSelectedReplyId,
+  handleNotice
 }) {
   const [inputText, setInputText] = useState('');
 
@@ -36,7 +37,7 @@ function WriteReply ({
   // 작성한 댓글 등록 요청 보내는 함수
   function requestReply (e) {
     e.preventDefault();
-    if (!inputText) return console.log('댓글을 입력하세요');
+    if (!inputText) return handleNotice('댓글을 입력하세요', 5000);
 
     // 만약 비로그인 상태라면 로그인 모달창 떠야함
     if (!isLogin) {
@@ -85,6 +86,7 @@ function WriteReply ({
             });
           // 등록 완료 후 input값 초기화
           setInputText('');
+          handleNotice('댓글이 등록되었습니다.', 5000);
         }
       })
       .catch(err => {
@@ -97,7 +99,7 @@ function WriteReply ({
     e.preventDefault();
     console.log(inputText);
 
-    if (!inputText) return console.log('댓글을 입력하세요');
+    if (!inputText) return handleNotice('댓글을 입력하세요', 5000);
 
     if (!accessToken) {
       // 만약 액세스 토큰이 상태에 없으면 다시 받아옴
@@ -112,7 +114,7 @@ function WriteReply ({
           }
           // 만약 유효하지 않은 리프레시 토큰이라면, 로그인 상태 false로
           else {
-            console.log('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.');
+            handleNotice('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.', 5000);
             dispatch(isLoginHandler(false));
           }
         })
@@ -164,8 +166,9 @@ function WriteReply ({
             });
           // 수정 요청 완료 후 input값 초기화
           setInputText('');
+          handleNotice('댓글이 수정되었습니다.', 5000);
         } else if (res.status === 404) {
-          console.log('게시글 혹은 해당 댓글을 찾을 수 없습니다.');
+          handleNotice('게시글 혹은 해당 댓글을 찾을 수 없습니다.', 5000);
         }
       })
       .catch(err => {

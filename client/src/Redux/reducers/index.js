@@ -1,5 +1,14 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN, IS_LOGIN_MODAL_OPEN, INPUT_PLAYLIST, TRACK_DETAIL, INPUT_MUSIC, DELETE_MUSIC, ACCESS_TOKEN } from '../actions/actions';
+import {
+  USER_INFO,
+  IS_LOGIN,
+  IS_LOGIN_MODAL_OPEN,
+  INPUT_PLAYLIST,
+  TRACK_DETAIL,
+  INPUT_MUSIC,
+  DELETE_MUSIC,
+  ACCESS_TOKEN
+} from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
