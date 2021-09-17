@@ -3,7 +3,9 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const db = require("./models");
+
 const usersRouter = require('./routers/user');
+const postRouter = require('./routers/post');
 
 const app = express();
 app.use(express.json());
@@ -30,7 +32,7 @@ app.get("/", (req, res) => {
 
 
 app.use('/user', usersRouter);
-
+app.use('/post', postRouter);
 
 const HTTPS_PORT = 4000;
 let server;

@@ -5,6 +5,8 @@ module.exports = {
     signout: require('./SignOut'),
     duplication: require('./duplication'),
     signup : require('./SignUp'),
-    password : require('./password'),
+    password : require('./Password'),
+    nickname : require('./NickName'),
+    artist : require('./artist'),
 };
   

@@ -5,6 +5,11 @@ module.exports = async (req, res) => {
   //req.headers accesstoken //req.body : currentPassword,password
   accessToken = req.headers["accesstoken"]
   const { currentPassword, password } =req.body;
+ 
+  if(!currentPassword || !password) {
+    res.status(400).json({message:"input values"});
+  }
+
   //accesstoken 있는지 확인
   if(!accessToken){
     res.status(400).json({message:"no token"})
@@ -17,12 +22,14 @@ module.exports = async (req, res) => {
   res.status(401).json({message: "unauthorized" })
 }
 
+//password 맞는지 확인
 const findUserInfo = await user.findOne({
     where: { loginId: userInfo.loginId, password:currentPassword },
   })
   
+  //아니면 권한x 맞으면 password 바꿔줌
   if(!findUserInfo){
-   res.status(401).json({message : "unauthorized"})
+   res.status(401).json({message : "wrong password"})
   }else{
    await user.update({password:password},{
        where: {loginId: userInfo.loginId }
