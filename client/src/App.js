@@ -43,6 +43,9 @@ function App () {
         <Route path='/modicreate'>
           <ModiCreate />
         </Route>
+        <Route path='/sidebar'>
+          <Sidebar />
+        </Route>
       </Switch>
     </>
   );
