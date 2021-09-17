@@ -8,9 +8,14 @@ axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 let file;
 
+
+// 등록 .then 200 게시물 상세 axios.get 파람스 res.postId .then dispatch 한다음에 가장 바깥 axios .history push
+
+
+
 function ModiCreate ({handleNotice}) {
   const [inputValue, setInputValue] = useState({
-    title: '',
+    title: true?'바보':'',
     img: default_album_img,
     genre: '',
     releaseAt: '',
@@ -48,6 +53,7 @@ function ModiCreate ({handleNotice}) {
     // 서버에 formdata형식으로 파일을 보내기 위한 로직
     if (!isValidImg(key, file)) {
       handleNotice(`${key} 파일만 업로드 가능합니다.`, 5000);
+      history.push('/')
     } else if (key === '이미지') {
       // 파일을 읽기 위해 FileReader를 호출함 파일을 아직 읽은것은 아님
       const reader = new FileReader();
@@ -116,7 +122,7 @@ function ModiCreate ({handleNotice}) {
               <input id='album-input-btn' className='contents__btn' type='file' onChange={(e) => { handleImgSrc('이미지', e); }} />
             </div>
             <section>
-              <input type='text' className='music-input' placeholder='곡 제목' onChange={(e) => { handleInputValue('title', e); }} required />
+              <input type='text' className='music-input' placeholder='곡 제목' value={false? inputValue.title :null} onChange={(e) => { handleInputValue('title', e); }} required />
               <select name='genre' className='genre-select' defaultValue='' onChange={(e) => { handleInputValue('genre', e); }} required>
                 <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
                 <option value='Ballad'>Ballad</option>
