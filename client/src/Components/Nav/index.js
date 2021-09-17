@@ -25,7 +25,7 @@ function Nav () {
 
   function showSidebar (e) {
     e.preventDefault();
-    setIsSidebarOpen(!isSidebarOpen)
+    setIsSidebarOpen(!isSidebarOpen);
   }
 
   function showModal (e) {
@@ -57,12 +57,12 @@ function Nav () {
 
   return (
     <header>
-      <Sidebar isSidebarOpen={isSidebarOpen}/>
+      <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} />
       <nav className='navigation'>
         <Link to='/'>
           <h1 className='logo'>Hidden Track</h1>
         </Link>
-        
+
         <Search />
 
         {
@@ -89,7 +89,7 @@ function Nav () {
             </button>
             <button className='navigation__sign-up-btn'>회원가입</button>
             <button className='navigation__player-btn'>
-              <img className='player-image' src={headphone} alt='player' onClick={(e)=>{ showSidebar(e)}} />
+              <img className='player-image' src={headphone} alt='player' onClick={(e) => { showSidebar(e); }} />
             </button>
           </div>
           }
