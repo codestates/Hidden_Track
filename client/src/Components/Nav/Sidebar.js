@@ -92,7 +92,9 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
 
   return (
     <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'}>
+
       <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}>X</button>
+
       <div className='sidebar-control'>
         <div className='sidebar-info'>
           <div className='square'>
