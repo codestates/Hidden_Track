@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
@@ -10,9 +10,25 @@ import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/Contents/ContentsModiCreate';
+import Notification from './Pages/TrackDetails/Notification';
 
 function App () {
   const loca = useLocation();
+
+  const [notice, setNotice] = useState([]);
+
+  // 알림 추가, 삭제 핸들러
+  function handleNotice (message, dismissTime) {
+    for (const el of notice) {
+      if (el.message === message) return;
+    }
+    const uuid = notice.length;
+    setNotice([...notice, { message: message, dismissTime: dismissTime, uuid: uuid }]);
+
+    setTimeout(() => {
+      setNotice(notice.slice(1));
+    }, dismissTime);
+  }
 
   return (
     <>
@@ -38,7 +54,7 @@ function App () {
           <MyPage />
         </Route>
         <Route path='/trackdetails'>
-          <TrackDetails />
+          <TrackDetails handleNotice={handleNotice} />
         </Route>
         <Route path='/modicreate'>
           <ModiCreate />
@@ -47,6 +63,7 @@ function App () {
           <Sidebar />
         </Route>
       </Switch>
+      <Notification notice={notice} />
     </>
   );
 }

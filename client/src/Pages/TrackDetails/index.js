@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
-import Notification from './Notification';
 
-function TrackDetails () {
+function TrackDetails ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const state1 = useSelector(state => state.isLoginReducer);
@@ -14,23 +13,6 @@ function TrackDetails () {
   const { isLogin } = state1;
   const { isLoginModalOpen } = state2;
   const { accessToken } = state3;
-
-  const [notice, setNotice] = useState([]);
-
-  // 알림 추가, 삭제 핸들러
-  function handleNotice (message, dismissTime) {
-    // console.log('실행')
-    // const uuid = Math.random()
-    for (const el of notice) {
-      if (el.message === message) return;
-    }
-    const uuid = notice.length;
-    setNotice([...notice, { message: message, dismissTime: dismissTime, uuid: uuid }]);
-
-    setTimeout(() => {
-      setNotice(notice.slice(1));
-    }, dismissTime);
-  }
 
   return (
     <div className='track-details'>
@@ -57,7 +39,6 @@ function TrackDetails () {
           handleNotice={handleNotice}
         />
       </div>
-      <Notification notice={notice} />
     </div>
   );
 }
