@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 let file;
 
-function ModiCreate ({ handleNotice }) {
+function ModiCreate ({handleNotice}) {
   const [inputValue, setInputValue] = useState({
     title: '',
     img: default_album_img,
@@ -26,6 +26,20 @@ function ModiCreate ({ handleNotice }) {
   console.log('유저@!@@', userInfo.nickName, '트랙@@@@@', trackDetail.user.nickname);
 
   const history = useHistory();
+
+  function handleInputValue (key, e) {
+    e.preventDefault();
+    setInputValue({ ...inputValue, [key]: e.target.value });
+  }
+
+  // image 파일 업로드 유효성 검사 함수
+  function isValidImg (key, file) {
+    if (key === '이미지') {
+      return file.type.match('image/');
+    } else if (key === '오디오') {
+      return file.type.match('audio/');
+    }
+  }
 
   // 이미지 미리보기 적용 함수
   function handleImgSrc (key, e) {
