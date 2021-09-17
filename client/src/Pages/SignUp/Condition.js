@@ -23,7 +23,8 @@ function Condition ({ setAgency, setDate, setEmail }) {
         데뷔일: <input type='date' onChange={(e) => handleDate(e)} />
       </div>
       <div>
-        <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} />
+        {/* <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} /> */}
+        <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
     </div>
   );

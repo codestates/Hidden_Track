@@ -4,7 +4,7 @@ import { getTrackDetails, isLoginModalOpenHandler } from '../../Redux/actions/ac
 import axios from 'axios';
 import './Grade.scss';
 
-function Grade ({ trackDetail, isLogin, accessToken }) {
+function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
   const [grade, setGrade] = useState(0);
   const dispatch = useDispatch();
 
@@ -16,9 +16,15 @@ function Grade ({ trackDetail, isLogin, accessToken }) {
     setGrade(e.target.value);
   }
 
+  // 별점 등록 요청 보내는 함수
   function requestGrade (e) {
     e.preventDefault();
+    if (!grade) {
+      return handleNotice('별점을 부여 해주세요.', 5000);
+    }
+
     if (!isLogin) {
+      handleNotice('로그인 후 이용하실 수 있습니다.', 5000);
       return dispatch(isLoginModalOpenHandler(true));
     }
 
@@ -29,25 +35,28 @@ function Grade ({ trackDetail, isLogin, accessToken }) {
       .then(res => {
         console.log(res.data);
         if (res.status === 200) {
-          dispatch(getTrackDetails({
-            id: trackDetail.id,
-            title: trackDetail.title,
-            artist: trackDetail.artist,
-            img: trackDetail.img,
-            genre: trackDetail.genre,
-            soundtrack: trackDetail.soundtrack,
-            releaseAt: trackDetail.releaseAt,
-            lyric: trackDetail.lyric,
-            like: {
-              count: trackDetail.like.count
-            },
-            post: {
-              id: trackDetail.post.id,
-              views: trackDetail.post.views,
-              gradeAev: res.data.gradeAev
-            },
-            reply: trackDetail.reply
-          }));
+          // 별점 등록 요청 완료 후 음원 상세 정보 다시 받아옴
+          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+            params: {
+              id: trackDetail.post.id
+            }
+          })
+            .then(res => {
+              console.log(res.data);
+              if (res.status === 200) {
+                dispatch(getTrackDetails(res.data.track));
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          handleNotice(`별점 ${grade}점 등록!`, 5000);
+        } else if (res.status === 401) {
+          handleNotice('권한이 없습니다.', 5000);
+        } else if (res.status === 404) {
+          handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+        } else if (res.status === 409) {
+          handleNotice('이미 별점을 부여했습니다.', 5000);
         }
       })
       .catch(err => {
@@ -88,7 +97,7 @@ function Grade ({ trackDetail, isLogin, accessToken }) {
         <input type='radio' id='rating1' name='rating' value='0.5' />
         <label className='half' htmlFor='rating1' title='1/2 star' />
 
-        <button type='submit'>별점주기</button>
+        <button className='contents__btn' type='submit'>별점주기</button>
       </fieldset>
     </form>
   );
