@@ -2,8 +2,8 @@ import React from 'react';
 
 function PlayList ({ num, music, handleChangeMusic, handleDeleteMusic }) {
   return (
-    <li className='track' >
-      <div  onClick={() => { handleChangeMusic(num); }}>
+    <li className='track'>
+      <div onClick={() => { handleChangeMusic(num); }}>
         <img className='track-img' src={music.img} alt={music.title} />
         <div className='track-info'>
           <p className='track-title'>{music.title}</p>
@@ -11,7 +11,7 @@ function PlayList ({ num, music, handleChangeMusic, handleDeleteMusic }) {
         </div>
       </div>
       <div>
-      <button className='track-delete' onClick={(e) => { handleDeleteMusic(e, num); }}>X</button>
+        <button className='track-delete' onClick={(e) => { handleDeleteMusic(e, num); }}>X</button>
       </div>
     </li>
   );

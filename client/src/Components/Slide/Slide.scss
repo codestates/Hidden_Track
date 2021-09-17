@@ -48,15 +48,30 @@
   float: left;
 }
 
-/* li ->*/
-
-
 /* 막내 li제외하고 모든 li  */
-.slides li:not(li:nth-child(4)) {
+.slide:not(:last-child) {
   margin-right: 30px;
 }
 
+.btn-box {
+  // width: 100%;
+  // position: absolute;
+  position: relative;
+  // top: 40%;
+  display: flex;
+  justify-content: space-between;
+  background-color: red;
 
+  .prev,
+  .next {
+    cursor: pointer;
+    margin: 0 10px;
+    border: 0;
+    opacity: .7;
+    width: 35px;
+    height: 35px;
+  }
+}
 
 
 // .slide.img2 {
