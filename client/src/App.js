@@ -9,6 +9,7 @@ import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
+import ModiCreate from './Pages/Contents/ContentsModiCreate';
 
 function App () {
   const loca = useLocation();
@@ -38,6 +39,9 @@ function App () {
         </Route>
         <Route path='/trackdetails'>
           <TrackDetails />
+        </Route>
+        <Route path='/modicreate'>
+          <ModiCreate />
         </Route>
         <Route path='/sidebar'>
           <Sidebar />

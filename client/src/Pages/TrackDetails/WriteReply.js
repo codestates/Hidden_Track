@@ -12,7 +12,8 @@ function WriteReply ({
   clickedBtn,
   setClickedBtn,
   selectedReplyId,
-  setSelectedReplyId
+  setSelectedReplyId,
+  handleNotice
 }) {
   const [inputText, setInputText] = useState('');
 
@@ -29,17 +30,33 @@ function WriteReply ({
     }
   }, [clickedBtn]);
 
+  useEffect(() => {
+    isValidLength();
+  }, [inputText]);
+
+  // text 인풋값 상태에 저장
   function handleInputText (e) {
     setInputText(e.target.value);
+  }
+
+  // 글자수 제한 유효성 검사 함수
+  function isValidLength () {
+    // console.log('유효성 검사 함수',inputText.length)
+    if (inputText.length >= 8) {
+      handleNotice('댓글은 7자를 초과할 수 없습니다.', 5000);
+      setInputText(inputText.slice(0, 7));
+    }
   }
 
   // 작성한 댓글 등록 요청 보내는 함수
   function requestReply (e) {
     e.preventDefault();
-    if (!inputText) return console.log('댓글을 입력하세요');
+    // 댓글 유효성 검사
+    if (!inputText) return handleNotice('댓글을 입력하세요', 5000);
 
     // 만약 비로그인 상태라면 로그인 모달창 떠야함
     if (!isLogin) {
+      handleNotice('로그인 후 이용할 수 있습니다.', 5000);
       return dispatch(isLoginModalOpenHandler(true));
     }
 
@@ -59,25 +76,7 @@ function WriteReply ({
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
-                dispatch(getTrackDetails({
-                  id: res.data.track.id,
-                  title: res.data.track.title,
-                  artist: res.data.track.artist,
-                  img: res.data.track.img,
-                  genre: res.data.track.genre,
-                  soundtrack: res.data.track.soundtrack,
-                  releaseAt: res.data.track.releaseAt,
-                  lyric: res.data.track.lyric,
-                  like: {
-                    count: res.data.track.like.count
-                  },
-                  post: {
-                    id: res.data.track.post.id,
-                    views: res.data.track.post.views,
-                    gradeAev: res.data.track.post.gradeAev
-                  },
-                  reply: res.data.track.reply
-                }));
+                dispatch(getTrackDetails(res.data.track));
               }
             })
             .catch(err => {
@@ -85,6 +84,11 @@ function WriteReply ({
             });
           // 등록 완료 후 input값 초기화
           setInputText('');
+          handleNotice('댓글이 등록되었습니다.', 5000);
+        } else if (res.status === 401) {
+          handleNotice('권한이 없습니다.', 5000);
+        } else if (res.status === 404) {
+          handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
         }
       })
       .catch(err => {
@@ -97,7 +101,7 @@ function WriteReply ({
     e.preventDefault();
     console.log(inputText);
 
-    if (!inputText) return console.log('댓글을 입력하세요');
+    if (!inputText) return handleNotice('댓글을 입력하세요', 5000);
 
     if (!accessToken) {
       // 만약 액세스 토큰이 상태에 없으면 다시 받아옴
@@ -112,7 +116,7 @@ function WriteReply ({
           }
           // 만약 유효하지 않은 리프레시 토큰이라면, 로그인 상태 false로
           else {
-            console.log('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.');
+            handleNotice('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.', 5000);
             dispatch(isLoginHandler(false));
           }
         })
@@ -138,25 +142,7 @@ function WriteReply ({
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
-                dispatch(getTrackDetails({
-                  id: res.data.track.id,
-                  title: res.data.track.title,
-                  artist: res.data.track.artist,
-                  img: res.data.track.img,
-                  genre: res.data.track.genre,
-                  soundtrack: res.data.track.soundtrack,
-                  releaseAt: res.data.track.releaseAt,
-                  lyric: res.data.track.lyric,
-                  like: {
-                    count: res.data.track.like.count
-                  },
-                  post: {
-                    id: res.data.track.post.id,
-                    views: res.data.track.post.views,
-                    gradeAev: res.data.track.post.gradeAev
-                  },
-                  reply: res.data.track.reply
-                }));
+                dispatch(getTrackDetails(res.data.track));
               }
             })
             .catch(err => {
@@ -164,9 +150,9 @@ function WriteReply ({
             });
           // 수정 요청 완료 후 input값 초기화
           setInputText('');
-        } else if (res.status === 404) {
-          console.log('게시글 혹은 해당 댓글을 찾을 수 없습니다.');
-        }
+          handleNotice('댓글이 수정되었습니다.', 5000);
+        } else if (res.status === 401) handleNotice('권한이 없습니다.', 5000);
+        else if (res.status === 404) handleNotice('게시글 혹은 해당 댓글을 찾을 수 없습니다.', 5000);
       })
       .catch(err => {
         console.log(err);
@@ -188,10 +174,10 @@ function WriteReply ({
         : <textarea className='write-reply-area' value={inputText} onChange={(e) => handleInputText(e)} />}
       {clickedBtn === '수정'
         ? <>
-          <button onClick={(e) => requestModifyReply(e)}>댓글 수정</button>
-          <button onClick={(e) => cancelModify(e)}>취소</button>
+          <button className='contents__btn' onClick={(e) => requestModifyReply(e)}>댓글 수정</button>
+          <button className='contents__btn' onClick={(e) => cancelModify(e)}>취소</button>
         </>
-        : <button onClick={(e) => requestReply(e)}>댓글 등록</button>}
+        : <button className='contents__btn' onClick={(e) => requestReply(e)}>댓글 등록</button>}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import Portal from './Portal';
 import './ContentDeleteModal.scss';
 // import './index.scss';
 
-function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail, accessToken }) {
+function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail, accessToken, handleNotice }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -52,10 +52,11 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
             reply: []
           }));
           setIsContentDeleteModalOpen(false);
+          handleNotice('게시글이 삭제 되었습니다.', 5000);
           history.push('/');
         } else if (res.status === 401) {
           setIsContentDeleteModalOpen(false);
-          console.log('삭제할 권한이 없습니다.');
+          handleNotice('권한이 없습니다.', 5000);
         }
       })
       .catch(err => {

@@ -56,6 +56,7 @@ function Visualizer () {
   }
   // 곡 삭제시 이전곡 리프레쉬 함수
   function refreshPreviousMusic (deleted) {
+    console.log('두번째');
     const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
     const filteredPreviousMusic = newPreviousMusic.filter(el => el.id !== deleted.id);
     setPreviousMusic(filteredPreviousMusic);
@@ -79,6 +80,7 @@ function Visualizer () {
         })
         .catch(err => console.log(err))
       : dispatch(deleteMusic(playList[index]));
+    // history.push('/sidebar')
     refreshPreviousMusic(playList[index]);
   }
 
