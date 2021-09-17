@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
@@ -19,6 +19,13 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   console.log(trackDetail);
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
+  const [listenBtn, setListenBtn] = useState(false);
+
+  useEffect(() => {
+    if (listenBtn) {
+      addPlaylist();
+    }
+  }, [listenBtn]);
 
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike (e) {
@@ -35,25 +42,21 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         if (res.status === 200) {
         // let likeCount = res.data.likecount
         // dispatch(getTrackDetails(...trackDetail, [like]: {count: likeCount}))
-          dispatch(getTrackDetails({
-            id: trackDetail.id,
-            title: trackDetail.title,
-            artist: trackDetail.artist,
-            img: trackDetail.img,
-            genre: trackDetail.genre,
-            soundtrack: trackDetail.soundtrack,
-            releaseAt: trackDetail.releaseAt,
-            lyric: trackDetail.lyric,
-            like: {
-              count: res.data.likecount
-            },
-            post: {
-              id: trackDetail.post.id,
-              views: trackDetail.post.views,
-              gradeAev: trackDetail.post.gradeAev
-            },
-            reply: trackDetail.reply
-          }));
+        // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
+          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+            params: {
+              id: trackDetail.post.id
+            }
+          })
+            .then(res => {
+              console.log(res.data);
+              if (res.status === 200) {
+                dispatch(getTrackDetails(res.data.track));
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else if (res.status === 401) {
           handleNotice('권한이 없습니다.', 5000);
         } else if (res.status === 409) {
@@ -67,24 +70,28 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   }
 
   // 플레이리스트에 해당 곡이 이미 있는지 확인하는 함수
-  function isDuplicateTrack (playlist, trackId) {
-    for (const el of playlist) {
+  function isDuplicateTrack (list, trackId) {
+    for (const el of list) {
       if (el.id === trackId) return true;
-      else return false;
     }
+    return false;
   }
   console.log('ewrwerer', playList);
 
-  // 플레이 리스트 담기 버튼 클릭시 실행되는 함수
-  function addPlaylist (e) {
-    e.preventDefault();
-    // 비로그인일 때
+  // 플레이 리스트 담기 or 바로 듣기 버튼 클릭시 실행되는 함수
+  function addPlaylist () {
+    // -------------------비로그인일 때-----------------------
     if (!isLogin) {
       // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
       const check = isDuplicateTrack(playList, trackDetail.id);
-      // if (check) return console.log('리스트에 이미 있는 곡입니다.');
-      if (check) return handleNotice('이미 추가된 곡입니다.', 5000);
-      else {
+      // 이미 있는 곡 & 바로듣기 버튼을 안 눌렀다면 알림 뜸
+      if (check && !listenBtn) return handleNotice('이미 추가된 곡입니다.', 5000);
+      // 이미 있는 곡 & 바로듣기 버튼을 눌렀다면
+      else if (check && listenBtn) {
+        // 알림 메시지 안띄우고 비주얼 페이지로 이동
+        setListenBtn(false);
+        return history.push('/visual');
+      } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
           id: trackDetail.id,
@@ -98,14 +105,26 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             nickname: trackDetail.user.nickname
           }
         }));
-        handleNotice('리스트에 곡이 추가되었습니다.', 5000);
+        // 바로 듣기 버튼 안 눌렀다면 알림 뜸
+        if (!listenBtn) handleNotice('리스트에 곡이 추가되었습니다.', 5000);
+        else {
+          // 바로 듣기 버튼을 눌렀다면 비주얼 페이지로 이동
+          setListenBtn(false);
+          return history.push('/visual');
+        }
       }
     } else {
-      // 로그인 상태일 때
+      // --------------------로그인 상태일 때------------------------
       // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
       const check = isDuplicateTrack(playList, trackDetail.id);
-      if (check) return handleNotice('이미 추가된 곡입니다.', 5000);
-      else {
+      // 이미 있는 곡 & 바로듣기 버튼을 안 눌렀다면 알림 뜸
+      if (check && !listenBtn) return handleNotice('이미 추가된 곡입니다.', 5000);
+      // 이미 있는 곡 & 바로듣기 버튼을 눌렀다면
+      else if (check && listenBtn) {
+        // 알림 메시지 안띄우고 비주얼 페이지로 이동
+        setListenBtn(false);
+        return history.push('/visual');
+      } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist/playlist`, {
           trackId: trackDetail.id
@@ -119,16 +138,39 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                   console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
                     dispatch(inputPlayList(res.data.playList));
-                    handleNotice('리스트에 곡이 추가되었습니다.', 5000);
+                  }
+                })
+                .then(res => {
+                  // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
+                  if (!listenBtn) handleNotice('리스트에 곡이 추가되었습니다.', 5000);
+                  // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
+                  else {
+                    setListenBtn(false);
+                    return history.push('/visual');
                   }
                 })
                 .catch(err => {
                   console.log(err);
                 });
+            } else if (res.status === 401) {
+              handleNotice('권한이 없습니다', 5000);
+            } else if (res.status === 404) {
+              handleNotice('해당 음악을 찾을 수 없습니다.', 5000);
             }
+          })
+          .catch(err => {
+            console.log(err);
           });
       }
     }
+    // 바로듣기 버튼 클릭 상태 초기화
+    setListenBtn(false);
+  }
+
+  // 바로 듣기 버튼 클릭시 실행되는 함수
+  function clickListenBtn (e) {
+    e.preventDefault();
+    setListenBtn(true);
   }
 
   // 수정 버튼 클릭시 게시글 수정창으로 이동하는 함수
@@ -157,7 +199,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           <button onClick={(e) => requestGrade(e)}>별점주기</button>
         </span> */}
         <span>평점: {trackDetail.post.gradeAev}</span>
-        <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} />
+        <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
         <div>
           <span>
             아티스트 :
@@ -182,16 +224,16 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             {trackDetail.releaseAt}
           </span>
         </div>
-        <button onClick={(e) => addPlaylist(e)}>플레이 리스트에 담기</button>
-        <button>바로 듣기</button>
-        <button onClick={(e) => requestLike(e)}>
+        <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
+        <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
+        <button className='contents__btn' onClick={(e) => requestLike(e)}>
           <img className='like-btn' src={likeImage} alt='' />
         </button>
         <span>{trackDetail.like.count}</span>
         {/* {isLogin && userInfo.nickName === trackDetail.user.nickname ? */}
         <>
-          <button onClick={(e) => clickModifyBtn(e)}>수정</button>
-          <button onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+          <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
+          <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
         </>
         {/* : null} */}
         {isContentDeleteModalOpen &&

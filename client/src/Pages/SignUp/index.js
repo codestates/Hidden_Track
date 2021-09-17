@@ -39,6 +39,12 @@ function SignUp () {
     }
   }
 
+  // 이메일 유효성 검사 함수
+  function validateEmail (email) {
+    const regex = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    return (email !== '' && email !== 'undefined' && regex.test(email));
+  }
+
   // 가입하기 버튼 클릭시 유저 정보를 서버에 보내는 함수
   function requestSignUp (e) {
     e.preventDefault();
@@ -88,8 +94,8 @@ function SignUp () {
       } else if (!date) {
         setText('데뷔일을 입력해주세요.');
         setIsOpen(true);
-      } else if (!email) {
-        setText('이메일을 입력해주세요.');
+      } else if (!validateEmail(email)) {
+        setText('이메일이 유효하지 않습니다.');
         setIsOpen(true);
       }
 
