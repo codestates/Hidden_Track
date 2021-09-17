@@ -31,6 +31,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   function requestLike (e) {
     e.preventDefault();
     if (!isLogin) {
+      handleNotice('로그인 후 이용할 수 있습니다.', 5000);
       return dispatch(isLoginModalOpenHandler(true));
     }
 
