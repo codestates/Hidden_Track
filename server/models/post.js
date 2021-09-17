@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.user);
       this.hasMany(models.reply);
-      //this.hasOne(models.track);
+      this.hasOne(models.track);
       this.belongsToMany(models.user, {
         through: "likes",
         foreignKey: "postId",
@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
   post.init({
     userId: DataTypes.INTEGER,
     viwes: DataTypes.INTEGER,
-    gradeAev: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'post',

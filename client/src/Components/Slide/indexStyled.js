@@ -1,7 +1,6 @@
 import Slider from 'react-slick';
 import styled from 'styled-components';
 
-
 export const StyledSlider = styled(Slider)`
   .slick-list { // container 와 같음
       width: 890px;
@@ -10,7 +9,7 @@ export const StyledSlider = styled(Slider)`
       height: 200px;
       overflow: hidden;
     }
-`
+`;
 
 export const ImgSlide = styled.div`
   width: 200px;
@@ -18,5 +17,4 @@ export const ImgSlide = styled.div`
   background-image: url(${props => props.url});
   background-size: cover;
   background-position: center;
-`
-
+`;

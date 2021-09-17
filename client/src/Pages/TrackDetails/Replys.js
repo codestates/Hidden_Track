@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import WriteReply from './WriteReply';
 
-function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken }) {
+function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken, handleNotice }) {
   const [selectedReplyId, setSelectedReplyId] = useState('');
   const [clickedBtn, setClickedBtn] = useState('');
 
@@ -29,7 +29,8 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   // 댓글 삭제요청 보내는 함수
   function deleteReply () {
     console.log('삭제할 댓글의 id:', selectedReplyId);
-    if (!selectedReplyId) return;
+    if (!selectedReplyId) return handleNotice('댓글을 선택하세요', 5000);
+    if (!isLogin) return handleNotice('로그인 후 이용하실 수 있습니다.', 5000);
 
     axios.delete(`${process.env.REACT_APP_API_URL}/reply/reply`, {
       postId: trackDetail.post.id,
@@ -47,36 +48,20 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
-                dispatch(getTrackDetails({
-                  id: res.data.track.id,
-                  title: res.data.track.title,
-                  artist: res.data.track.artist,
-                  img: res.data.track.img,
-                  genre: res.data.track.genre,
-                  soundtrack: res.data.track.soundtrack,
-                  releaseAt: res.data.track.releaseAt,
-                  lyric: res.data.track.lyric,
-                  like: {
-                    count: res.data.track.like.count
-                  },
-                  post: {
-                    id: res.data.track.post.id,
-                    views: res.data.track.post.views,
-                    gradeAev: res.data.track.post.gradeAev
-                  },
-                  reply: res.data.track.reply
-                }));
+                dispatch(getTrackDetails(res.data.track));
+                handleNotice('댓글이 삭제 되었습니다.', 5000);
               }
             })
             .catch(err => {
               console.log(err);
             });
-          setSelectedReplyId('');
-          setClickedBtn('');
-        } else {
-          setSelectedReplyId('');
-          setClickedBtn('');
+        } else if (res.status === 401) {
+          handleNotice('권한이 없습니다.', 5000);
+        } else if (res.status === 404) {
+          handleNotice('해당 댓글이 존재하지 않습니다.', 5000);
         }
+        setSelectedReplyId('');
+        setClickedBtn('');
       })
       .catch(err => {
         console.log(err);
@@ -96,10 +81,10 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                 <p>{el.user.nickname}</p>
                 <p>{el.content}</p>
                 {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname && clickedBtn !== '수정' ? */}
-                <button value='수정' onClick={(e) => getReplyId(e)}>댓글수정</button>
+                <button className='contents__btn' value='수정' onClick={(e) => getReplyId(e)}>댓글수정</button>
                 {/* : null} */}
                 {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname && clickedBtn !== '수정' ? */}
-                <button value='삭제' onClick={(e) => getReplyId(e)}>댓글삭제</button>
+                <button className='contents__btn' value='삭제' onClick={(e) => getReplyId(e)}>댓글삭제</button>
                 {/* : null} */}
               </li>
             );
@@ -116,6 +101,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
           setClickedBtn={setClickedBtn}
           selectedReplyId={selectedReplyId}
           setSelectedReplyId={setSelectedReplyId}
+          handleNotice={handleNotice}
         />
       </div>
     </div>

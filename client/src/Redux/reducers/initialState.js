@@ -12,8 +12,10 @@ export const initialState = {
     id: '',
     loginId: '',
     profile: '',
-    nickName: '',
-    admin: 'listener',
+    nickName: '이무진',
+    // nickName: '',
+    // admin: 'listener',
+    admin: 'artist',
     // 만약 admin이 'artist'라면 아래 정보도 받음
     userArtist: {
       agency: '',

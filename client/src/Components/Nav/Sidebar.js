@@ -9,7 +9,7 @@ import './Sidebar.scss';
 import shuffle from '../../assets/active_shuffle.png';
 import active_shuffle from '../../assets/shuffle.png';
 
-function Sidebar ({ isSidebarOpen }) {
+function Sidebar ({ isSidebarOpen, showSidebar }) {
   const playList = useSelector(state => state.playListReducer.playList);
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
 
@@ -92,6 +92,9 @@ function Sidebar ({ isSidebarOpen }) {
 
   return (
     <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'}>
+
+      <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}>X</button>
+
       <div className='sidebar-control'>
         <div className='sidebar-info'>
           <div className='square'>
@@ -107,7 +110,7 @@ function Sidebar ({ isSidebarOpen }) {
             </button>
           </div>
         </div>
-        <div>
+        <div className='audio'>
           <AudioPlayer
             id='sidebar-audio'
             src={crrentMusic.soundtrack}

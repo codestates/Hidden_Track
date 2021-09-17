@@ -8,6 +8,12 @@ module.exports = async (req, res) => {
  if(!loginId || !password || !nickName || !profile || !admin){
   res.status(400).json( { message: "input values" } );
  } 
+
+ if(admin === "artist"){
+   if(!agency || !debut || !email){
+    res.status(400).json( { message: "input values" } );
+   }
+ }
  
  const [userInfo, created] = await user.findOrCreate({
     where: { loginId: loginId },

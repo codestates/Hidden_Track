@@ -4,7 +4,7 @@ import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
 
-function TrackDetails () {
+function TrackDetails ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const state1 = useSelector(state => state.isLoginReducer);
@@ -23,6 +23,7 @@ function TrackDetails () {
           accessToken={accessToken}
           trackDetail={trackDetail}
           userInfo={userInfo}
+          handleNotice={handleNotice}
         />
       </div>
       <div>
@@ -35,6 +36,7 @@ function TrackDetails () {
           isLogin={isLogin}
           isLoginModalOpen={isLoginModalOpen}
           accessToken={accessToken}
+          handleNotice={handleNotice}
         />
       </div>
     </div>

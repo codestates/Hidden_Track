@@ -6,7 +6,7 @@ function Lyrics ({ trackDetail }) {
     <details className='lyrics-open'>
       <summary>가사 보기</summary>
       <pre className='lyrics'>
-        {trackDetail.lyric}
+        {trackDetail.lyric || '가사 정보가 없습니다.'}
       </pre>
     </details>
   );

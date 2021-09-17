@@ -57,7 +57,9 @@ function Nav () {
 
   return (
     <header>
-      <Sidebar isSidebarOpen={isSidebarOpen} />
+
+      <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} />
+
       <nav className='navigation'>
         <Link to='/'>
           <h1 className='logo'>Hidden Track</h1>
