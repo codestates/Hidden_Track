@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const { usersController } = require("../controllers");
+const { userController } = require("../controllers");
 
-router.post('/signin', usersController.signin);
-router.post('/signup',usersController.signup);
-router.get('/signout',usersController.signout);
-router.get('/userinfo',usersController.userinfo);
-router.get('/token',usersController.token);
-router.get('/duplication',usersController.duplication);
-router.patch('/password',usersController.password);
+router.post('/signin', userController.signin);
+router.post('/signup',userController.signup);
+router.get('/signout',userController.signout);
+router.get('/userinfo',userController.userinfo);
+router.get('/token',userController.token);
+router.get('/duplication',userController.duplication);
+router.patch('/password',userController.password);
+router.patch('/nickname',userController.nickname);
+router.patch('/artist',userController.artist);
+
+
 module.exports = router;

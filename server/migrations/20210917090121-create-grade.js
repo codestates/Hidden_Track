@@ -1,19 +1,21 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('posts', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
+    await queryInterface.createTable('grades', {
       userId: {
+        allowNull: false,
+        primaryKey: true,
         type: Sequelize.INTEGER,
-        references :{model: 'users', key: 'id'},
+        references :{model: 'users', key: 'id'}
       },
-      views: {
-        type: Sequelize.INTEGER
+      postId: {
+        allowNull: false,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        references :{model: 'posts', key: 'id'}
+      },
+      userGrade: {
+        type: Sequelize.FLOAT
       },
       createdAt: {
         allowNull: false,
@@ -23,9 +25,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
+    });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('posts');
+    await queryInterface.dropTable('grades');
   }
 };
