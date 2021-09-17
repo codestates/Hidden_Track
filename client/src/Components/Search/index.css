@@ -1,0 +1,33 @@
+.a11yHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  -webkit-clip-path: polygon(0 0, 0 0, 0 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.search {
+  width: 400px;
+  background: url("../../assets/glass.png") no-repeat;
+  background-size: 20px;
+  background-position: right 10px bottom 13px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.search[type="search"]::-webkit-search-decoration, .search[type="search"]::-webkit-search-cancel-button, .search[type="search"]::-webkit-search-results-button, .search[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}

@@ -1,0 +1,81 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.music-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.lyrics-container .lyrics-box {
+  background-color: #5f5d7c;
+  width: 500px;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.lyrics-container .lyrics-box .lyrics-content {
+  text-align: center;
+}
+
+.lyrics-box::-webkit-scrollbar {
+  display: none;
+}
+
+.play-list-box {
+  height: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-y: scroll;
+}
+
+.play-list-box .play-list {
+  margin: 0.4rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  list-style: none;
+}
+
+.play-list-box .track {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.play-list-box .track .track-img {
+  width: 150px;
+}
+
+.play-list-box .track .track-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.play-list-box .track .track-info .track-title {
+  font-size: 22px;
+  -webkit-box-flex: 7;
+      -ms-flex: 7 0 0px;
+          flex: 7 0 0;
+}
+
+.play-list-box .track .track-info .track-artist {
+  -webkit-box-flex: 4;
+      -ms-flex: 4 0 0px;
+          flex: 4 0 0;
+}
+
+.play-list-box::-webkit-scrollbar {
+  display: none;
+}

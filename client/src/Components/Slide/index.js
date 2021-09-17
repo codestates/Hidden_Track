@@ -1,3 +1,31 @@
+<<<<<<< HEAD
+import React from 'react';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+import styled from 'styled-components';
+import './index.scss'
+// import StyledSlider from './indexStyled'
+// import ImgSlide from './indexStyled'
+// import './App.css'
+import playList from '../../DummyData/playList'
+
+const settings = {
+  className: "center",
+  infinite: true,
+  speed: 500,
+  autoplay: true,
+  autoplaySpeed: 5000,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  centerMode: true,
+  // centerPadding: "60px",
+  centerPadding: "0px",
+  afterChange: function(index) {
+    console.log(
+      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    );
+=======
 
 import React, { useState, useRef, useEffect } from 'react';
 
@@ -69,8 +97,36 @@ function Slide () {
   // 이전버튼 눌렀을때 실행되는 이벤트 핸들러
   function prevSlide () {
     moveSlide(currentSlideIndex - 1);
+>>>>>>> 2e3b695279400128c373a68b8e386426fa3172bd
+  }
+};
+
+<<<<<<< HEAD
+function Slide () {
+  
+  function GoToServey(id){
+    console.log('성공?');
+    console.log(id);
   }
 
+
+  return (
+    <section className="slide-container">
+      {/* <SlideTitle>인기 서비스</SlideTitle> */}
+      {/* <ul> */}
+      <StyledSlider {...settings}>
+      {playList.map((slider, i) => {
+          const {img} = slider;
+          return (
+            <div className="slide" key={i} onClick={() => GoToServey(i)}>
+              <ImgSlide url={img}/>
+            </div>
+          )
+      })}
+        </StyledSlider>
+        {/* </ul> */}
+    </section>
+=======
   // 인덱스라는 숫자가 넘어와야지만 작동한다.
   function moveSlide (num) {
   // 현재의 left 값에서 width 값 + margin-left 만큼 이동해야 한다.
@@ -125,7 +181,27 @@ function Slide () {
         <button className='next' ref={nextBtn} onClick={() => { nextSlide(); }}>&#10095;</button>
       </div>
     </div>
+>>>>>>> 2e3b695279400128c373a68b8e386426fa3172bd
   );
 }
 
 export default Slide;
+
+export const StyledSlider = styled(Slider)`
+  .slick-list { // container 와 같음
+      width: 890px;
+      /* 890 내로 li가 안들어가는 건 overflow hidden 으로 안보이게 해놓음*/
+      margin: 0 auto;
+      height: 200px;
+      overflow: hidden;
+    }
+`
+
+export const ImgSlide = styled.div`
+  width: 200px;
+  height: 200px;
+  background-image: url(${props => props.url});
+  background-size: cover;
+  background-position: center;
+`
+

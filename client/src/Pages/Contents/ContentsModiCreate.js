@@ -8,7 +8,7 @@ axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 let file;
 
-function ModiCreate ({handleNotice}) {
+function ModiCreate ({ handleNotice }) {
   const [inputValue, setInputValue] = useState({
     title: '',
     img: default_album_img,

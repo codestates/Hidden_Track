@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+body {
+  margin: 0;
+}
+
+.navigation h1 {
+  font-family: 'Staatliches', cursive;
+  display: _;
+  -webkit-box-pack: _;
+      -ms-flex-pack: _;
+          justify-content: _;
+  -webkit-box-align: _;
+      -ms-flex-align: _;
+          align-items: _;
+  margin: 0;
+  padding: 0;
+  font-size: 3em;
+}
+
+.button-list button[class^="navigation__"], .button-list-of-profile-image button[class^="navigation__"] {
+  width: _;
+  height: 50px;
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.navigation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: _;
+  padding: 0 70px;
+  width: _;
+  height: 150px;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: black;
+}
+
+.button-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: _;
+      -ms-flex-align: _;
+          align-items: _;
+  margin: _;
+  padding: _;
+  width: 230px;
+  height: _;
+  position: relative;
+}
+
+.button-list .player-image {
+  width: 30px;
+  height: 30px;
+}
+
+.button-list-of-profile-image {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: _;
+      -ms-flex-align: _;
+          align-items: _;
+  margin: _;
+  padding: _;
+  width: 150px;
+  height: _;
+  position: relative;
+}
+
+.button-list-of-profile-image .navigation__profile-image {
+  width: 50px;
+  height: 50px;
+  background: url("https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/data/%ED%94%84%EB%A1%9C%ED%95%84+%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%94%84%EB%A1%9C%ED%95%84.jpg"), no-repeat;
+  background-size: contain;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.button-list-of-profile-image .show-user-profile-list {
+  position: absolute;
+  top: 80%;
+  left: -10%;
+  list-style: none;
+  padding: 0;
+}
+
+.button-list-of-profile-image .show-user-profile-list li {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.button-list-of-profile-image .player-image {
+  width: 30px;
+  height: 30px;
+}
+
+.hide {
+  display: none;
+}
