@@ -18,15 +18,12 @@ function Slide () {
   const slideMargin = 30;
   const slideCount = playList.length;
 
-
   const [isUlClassNameOn, setUlClassNameOn] = useState(false);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
 
   // 기존 li 데이터들이 들어온 이후에, 화면이 랜더되면 makeCloneLi 이 실행되고
   // makeCloneLi가 실행되면 기존 li의 데이터들이 들어있던 width 값이 늘어나야 한다.
   function updateWidth () {
-
     console.log(playList.length); // 5
 
     // 기존 li 데이터들 앞뒤로 복사본이 붙은 이후인 시점에서의 현재 슬라이드 li
@@ -37,7 +34,6 @@ function Slide () {
     const newSlideCount = currentSlides.length;
     // console.log(newSlideCount); // 15
 
-
     // 기존 li 데이터들 앞뒤로 복사본이 붙은 이후인 시점에서의 현재 ul 전체 영역의 너비
     /* (현재 모든 li 의 각 width + li 의 margin-left)* 현재 li 개수 - 마지막 li 의 margin-left   */
     const newWidth = `${(slideWidth + slideMargin) * newSlideCount - slideMargin}px`;
@@ -47,7 +43,6 @@ function Slide () {
     ulRef.current.style.width = newWidth;
     setInitialPosition();
     setTimeout(() => { setUlClassNameOn(true); }, 500);
-
   }
 
   // 현재 위치에서 보여지는 슬라이드를 left 를 바꿔서 보여지는게 바꾸는 함수 : 얼만큼 translate 마이너스 해줘야 하는지 알게 하는 함수
@@ -58,12 +53,9 @@ function Slide () {
     const initialTranslateValue = `-${(slideWidth + slideMargin) * slideCount}`;
     console.log(initialTranslateValue); // -1150
 
-
-
     /* slides {
       transform: translateX(-920px)
     } */
-
 
     ulRef.current.style.transform = `translateX(${initialTranslateValue}px)`;
   }
@@ -118,7 +110,6 @@ function Slide () {
       <span>인기</span>
       <span>최신</span>
       <section className='slide-container'>
-
 
         <ul className={isUlClassNameOn} ref={ulRef}>
           {cloneSlide}
