@@ -6,6 +6,7 @@ const db = require("./models");
 
 const usersRouter = require('./routers/user');
 const postRouter = require('./routers/post');
+const trackRouter = require('./routers/track');
 
 const app = express();
 app.use(express.json());
@@ -33,6 +34,8 @@ app.get("/", (req, res) => {
 
 app.use('/user', usersRouter);
 app.use('/post', postRouter);
+app.use('/track', trackRouter);
+
 
 const HTTPS_PORT = 4000;
 let server;

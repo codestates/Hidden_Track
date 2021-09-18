@@ -2,19 +2,13 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('hashtags', {
-      userId:{
-        type: Sequelize.INTEGER,
+      id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        references :{model: 'users', key: 'id'},
+        type: Sequelize.INTEGER
       },
-      postId:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        references :{model: 'posts', key: 'id'},
-      },
-      content: {
+      tag: {
         type: Sequelize.STRING(20)
       },
       createdAt: {
