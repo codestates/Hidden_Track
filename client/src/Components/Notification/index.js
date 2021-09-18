@@ -1,6 +1,6 @@
 import React from 'react';
 import Toast from './Toast';
-import './Notifications.scss';
+import './index.scss';
 
 function Notification ({ notice }) {
   return (

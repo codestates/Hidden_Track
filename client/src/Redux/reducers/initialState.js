@@ -24,7 +24,8 @@ export const initialState = {
     }
   },
   onClickModify: {
-    onClickModify: false
+    onClickModify: true
+    // onClickModify: false
   },
 
   trackDetail: {
