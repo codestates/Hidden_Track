@@ -1,0 +1,21 @@
+.track-list-container {
+  background-color: green;
+}
+
+.track-list-ul {
+  display: flex;
+  // background-color: hotpink;
+  justify-content: center;
+}
+
+.track-list-li {
+  display: block;
+  background-color: skyblue;
+  float: left; // 자식 태그들 왼쪽부터 채워지게
+  cursor: pointer;
+}
+
+.track-list-img {
+  width: 10em;
+  height: 10em;
+}
