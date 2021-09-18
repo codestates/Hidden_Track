@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
-import Notification from '../TrackDetails/Notification';
+import Notification from '../../Components/Notification';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;

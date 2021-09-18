@@ -9,8 +9,9 @@ import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
-import ModiCreate from './Pages/Contents/ContentsModiCreate';
-import Notification from './Pages/TrackDetails/Notification';
+import ModiCreate from './Pages/ContentsModiCreate';
+import SearchTrack from './Pages/SearchTrack';
+import Notification from './Components/Notification/index';
 
 function App () {
   const loca = useLocation();
@@ -61,6 +62,9 @@ function App () {
         </Route>
         <Route path='/sidebar'>
           <Sidebar />
+        </Route>
+        <Route path='/searchtrack'>
+          <SearchTrack handleNotice={handleNotice} />
         </Route>
       </Switch>
       <Notification notice={notice} />
