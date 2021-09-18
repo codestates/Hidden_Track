@@ -8,34 +8,30 @@ axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 let file;
 
-// 등록 .then 200 게시물 상세 axios.get 파람스 res.postId .then dispatch 한다음에 가장 바깥 axios .history push
-
 function ModiCreate ({ handleNotice }) {
-  const [inputValue, setInputValue] = useState({
-    title: true ? '바보' : '',
-    img: default_album_img,
-    genre: '',
-    releaseAt: '',
-    soundtrack: '',
-    lyrics: '등록된 가사가 없습니다.'
-  });
-  console.log(inputValue);
-  const [notice, setNotice] = useState([]);
-  const [src, setSrc] = useState(default_album_img);
   const userInfo = useSelector(state => state.userInfoReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
-
-  console.log('유저@!@@', userInfo.nickName, '트랙@@@@@', trackDetail.user.nickname);
+  const isModify = useSelector(state => state.modifyReducer.onClickModify)
+  const [inputValue, setInputValue] = useState({
+    title: isModify ? trackDetail.title : null,
+    img: isModify ? trackDetail.img : default_album_img,
+    genre: isModify ? trackDetail.genre : '',
+    releaseAt: isModify ? trackDetail.releaseAt : null,
+    soundtrack: isModify ? trackDetail.soundtrack : null,
+    lyrics: isModify ? trackDetail.lyric : '등록된 가사가 없습니다.',
+  });
+  console.log(inputValue);
+  const [src, setSrc] = useState(isModify ? trackDetail.img : default_album_img,);
 
   const history = useHistory();
-
+  // props로 받아온 알림창 띄우기 함수
   function handleInputValue (key, e) {
     e.preventDefault();
     setInputValue({ ...inputValue, [key]: e.target.value });
   }
 
   // image 파일 업로드 유효성 검사 함수
-  function isValidImg (key, file) {
+  function isValidFile (key, file) {
     if (key === '이미지') {
       return file.type.match('image/');
     } else if (key === '오디오') {
@@ -43,12 +39,12 @@ function ModiCreate ({ handleNotice }) {
     }
   }
 
-  // 이미지 미리보기 적용 함수
-  function handleImgSrc (key, e) {
+  // 이미지, 오디오 파일 업로드 및 이미지 미리보기 함수
+  function handleFile (key, e) {
     e.preventDefault();
     file = e.target.files[0];
     // 서버에 formdata형식으로 파일을 보내기 위한 로직
-    if (!isValidImg(key, file)) {
+    if (!isValidFile(key, file)) {
       handleNotice(`${key} 파일만 업로드 가능합니다.`, 5000);
       history.push('/');
     } else if (key === '이미지') {
@@ -101,26 +97,57 @@ function ModiCreate ({ handleNotice }) {
         });
     }
   }
-
+  // 음원 등록 요청 함수
   function requestCreate () {
-
+    
+    let method
+    
+    if(!isModify){
+      method = axios.post
+    }
+    else {
+      method = axios.patch
+    }
+    method(`${process.env.REACT_APP_API_URL}/track/track`,inputValue)
+        .then(res => {
+          if(res.status === 200){
+            handleNotice('음원이 등록에 성공하였습니다.', 5000);
+            history.push('/trackdetail')
+          }
+          else if(res.status === 400){
+            handleNotice('입력값이 부족합니다!', 5000)
+          }
+          else if(res.status === 401){
+            handleNotice('권한이 없습니다.', 5000)
+          }
+        })
   }
 
-  const isValidUser = userInfo.admin === 'artist' && userInfo.nickName === trackDetail.user.nickname;
+  //접근 권한 유효성 검사 함수
+  function isValidUser () {
+    // 음원 등록으로 들어왔을 경우
+    if(!isModify){
+      return userInfo.admin === 'artist'
+    }
+    // 수정 버튼으로 들어왔을 경우
+    else {
+      return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.user.nickname;
+    }
+  }
 
   return (
     <div>
-      {isValidUser
+      {isValidUser()
         ? <form id='modi-create' onSubmit={() => { requestCreate(); }}>
           <fieldset>
             <legend className='legend-Hidden'>음원 등록 폼</legend>
             <div className='album-img-box'>
               <img className='album-img' src={src} style={{ width: '350px', height: '350px' }} />
-              <input id='album-input-btn' className='contents__btn' type='file' onChange={(e) => { handleImgSrc('이미지', e); }} />
+              <input id='album-input-btn' className='contents__btn' type='file' onChange={(e) => { handleFile('이미지', e); }} />
             </div>
             <section>
-              <input type='text' className='music-input' placeholder='곡 제목' value={false ? inputValue.title : null} onChange={(e) => { handleInputValue('title', e); }} required />
-              <select name='genre' className='genre-select' defaultValue='' onChange={(e) => { handleInputValue('genre', e); }} required>
+              <input type='text' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => { handleInputValue('title', e); }} required />
+              <select name='genre' className='genre-select' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
                 <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
                 <option value='Ballad'>Ballad</option>
                 <option value='Rap/Hiphop'>Rap/Hiphop</option>
@@ -128,11 +155,11 @@ function ModiCreate ({ handleNotice }) {
                 <option value='Rock/Metal'>Rock/Metal</option>
                 <option value='Jazz'>Jazz</option>
               </select>
-              <input type='date' className='music-input' onChange={(e) => { handleInputValue('releaseAt', e); }} required />
-              <input type='file' id='music-input-btn' className='contents__btn' onChange={(e) => { handleImgSrc('오디오', e); }} required />
+              <input type='date' className='music-input' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
+              <input type='file' id='music-input-btn' className='contents__btn' onChange={(e) => { handleFile('오디오', e); }} required={isModify?false:true}/>
             </section>
             <div className='music-lyrics-input'>
-              <input type='text' className='input-lyrics' placeholder='가사' onChange={(e) => { handleInputValue('lyrics', e); }} />
+              <textarea style={{ resize: 'none', width: '500px', height: '600px'} } className='input-lyrics' placeholder='가사' value={inputValue.lyrics} onChange={(e) => { handleInputValue('lyrics', e); }} />
             </div>
             <section>
               {/* 해시태그 */}
