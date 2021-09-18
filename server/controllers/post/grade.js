@@ -11,8 +11,7 @@ module.exports = async (req, res) => {
     res.status(400).json({message: "input values"})
   }
 
-   console.log(req.body); 
-   if (!accessTokenData) {
+  if (!accessTokenData) {
      res.status(401).json({ message : "unauthorized"});
    }
      

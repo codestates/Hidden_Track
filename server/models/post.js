@@ -21,14 +21,15 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.user, {
         through: "grades"
       });
-      this.belongsToMany(models.user, {
-        through: "hashtags"
+      this.belongsToMany(models.hashtag, {
+        through: "tagposts",
+        foreignKey: "postId"
       });
     }
   };
   post.init({
     userId: DataTypes.INTEGER,
-    viwes: DataTypes.INTEGER,
+    views: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'post',

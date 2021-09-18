@@ -23,9 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.post, {
         through: "grades"
       });
-      this.belongsToMany(models.post, {
-        through: "hashtags"
-      });
     }
   };
   user.init({

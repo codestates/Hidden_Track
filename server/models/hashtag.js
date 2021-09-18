@@ -11,17 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsToMany(models.post, {
+        through: "tagposts",
+        foreignKey: "hashtagId"
+      });
     }
   };
   hashtag.init({
-    userId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER,
-    content: DataTypes.STRING
+    tag: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'hashtag',
   });
-
-  hashtag.removeAttribute('id');
   return hashtag;
 };
