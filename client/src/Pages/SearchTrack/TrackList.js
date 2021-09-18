@@ -1,13 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { getTrackDetails } from '../../Redux/actions/actions';
+// import { getTrackDetails } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackList.scss';
 
-function TrackList ({ trackList, handleNotice }) {
+function TrackList ({ trackList, handleTrackList, handleNotice }) {
   const history = useHistory();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // 특정 음원을 클릭 했을 때 실행되는 함수
   function moveToTrackDetails (e) {
@@ -22,8 +22,9 @@ function TrackList ({ trackList, handleNotice }) {
       .then(res => {
         console.log('음원 클릭시 요청 응답', res.data);
         if (res.status === 200) {
-        // 요청 성공시 상세 음원 정보 전역 상태에 저장
-          dispatch(getTrackDetails(res.data.track));
+        // 요청 성공시 상세 음원 정보 상태에 저장
+          // dispatch(getTrackDetails(res.data.track));
+          handleTrackList(res.data.track);
         }
         // 요청 응답 실패시 함수 종료 후 알림 메시지
         else if (res.status === 404) return handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
