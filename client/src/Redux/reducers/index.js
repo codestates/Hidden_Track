@@ -7,7 +7,8 @@ import {
   TRACK_DETAIL,
   INPUT_MUSIC,
   DELETE_MUSIC,
-  ACCESS_TOKEN
+  ACCESS_TOKEN,
+  CLICK_MODIFY
 } from '../actions/actions';
 import { initialState } from './initialState';
 
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   userInfoReducer,
   playListReducer,
   trackDetailReducer,
-  accessTokenReducer
+  accessTokenReducer,
+  modifyReducer
 });
 
 // reducer : 변화를 일으키는 함수
@@ -88,6 +90,16 @@ function accessTokenReducer (state = initialState.accessToken, action) {
     case ACCESS_TOKEN:
       return Object.assign({}, state, {
         accessToken: action.payload.accessToken
+      });
+    default: return state;
+  }
+}
+
+function modifyReducer (state = initialState.onClickModify, action) {
+  switch (action.type) {
+    case CLICK_MODIFY:
+      return Object.assign({}, state, {
+        onClickModify: action.payload.onClickModify
       });
     default: return state;
   }

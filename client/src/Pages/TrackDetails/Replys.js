@@ -29,7 +29,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   // 댓글 삭제요청 보내는 함수
   function deleteReply () {
     console.log('삭제할 댓글의 id:', selectedReplyId);
-    if (!selectedReplyId) return handleNotice('댓글을 선택하세요', 5000);
+    if (!selectedReplyId) return;
     if (!isLogin) return handleNotice('로그인 후 이용하실 수 있습니다.', 5000);
 
     axios.delete(`${process.env.REACT_APP_API_URL}/reply/reply`, {
