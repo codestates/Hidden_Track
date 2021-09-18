@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
-import Notification from '../TrackDetails/Notification';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
@@ -11,17 +10,17 @@ let file;
 function ModiCreate ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
-  const isModify = useSelector(state => state.modifyReducer.onClickModify)
+  const isModify = useSelector(state => state.modifyReducer.onClickModify);
   const [inputValue, setInputValue] = useState({
     title: isModify ? trackDetail.title : null,
     img: isModify ? trackDetail.img : default_album_img,
     genre: isModify ? trackDetail.genre : '',
     releaseAt: isModify ? trackDetail.releaseAt : null,
     soundtrack: isModify ? trackDetail.soundtrack : null,
-    lyrics: isModify ? trackDetail.lyric : '등록된 가사가 없습니다.',
+    lyrics: isModify ? trackDetail.lyric : '등록된 가사가 없습니다.'
   });
   console.log(inputValue);
-  const [src, setSrc] = useState(isModify ? trackDetail.img : default_album_img,);
+  const [src, setSrc] = useState(isModify ? trackDetail.img : default_album_img);
 
   const history = useHistory();
   // props로 받아온 알림창 띄우기 함수
@@ -99,35 +98,31 @@ function ModiCreate ({ handleNotice }) {
   }
   // 음원 등록 요청 함수
   function requestCreate () {
-    
-    let method
-    
-    if(!isModify){
-      method = axios.post
+    let method;
+
+    if (!isModify) {
+      method = axios.post;
+    } else {
+      method = axios.patch;
     }
-    else {
-      method = axios.patch
-    }
-    method(`${process.env.REACT_APP_API_URL}/track/track`,inputValue)
-        .then(res => {
-          if(res.status === 200){
-            handleNotice('음원이 등록에 성공하였습니다.', 5000);
-            history.push('/trackdetail')
-          }
-          else if(res.status === 400){
-            handleNotice('입력값이 부족합니다!', 5000)
-          }
-          else if(res.status === 401){
-            handleNotice('권한이 없습니다.', 5000)
-          }
-        })
+    method(`${process.env.REACT_APP_API_URL}/track/track`, inputValue)
+      .then(res => {
+        if (res.status === 200) {
+          handleNotice('음원이 등록에 성공하였습니다.', 5000);
+          history.push('/trackdetail');
+        } else if (res.status === 400) {
+          handleNotice('입력값이 부족합니다!', 5000);
+        } else if (res.status === 401) {
+          handleNotice('권한이 없습니다.', 5000);
+        }
+      });
   }
 
-  //접근 권한 유효성 검사 함수
+  // 접근 권한 유효성 검사 함수
   function isValidUser () {
     // 음원 등록으로 들어왔을 경우
-    if(!isModify){
-      return userInfo.admin === 'artist'
+    if (!isModify) {
+      return userInfo.admin === 'artist';
     }
     // 수정 버튼으로 들어왔을 경우
     else {
@@ -156,10 +151,10 @@ function ModiCreate ({ handleNotice }) {
                 <option value='Jazz'>Jazz</option>
               </select>
               <input type='date' className='music-input' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
-              <input type='file' id='music-input-btn' className='contents__btn' onChange={(e) => { handleFile('오디오', e); }} required={isModify?false:true}/>
+              <input type='file' id='music-input-btn' className='contents__btn' onChange={(e) => { handleFile('오디오', e); }} required={!isModify} />
             </section>
             <div className='music-lyrics-input'>
-              <textarea style={{ resize: 'none', width: '500px', height: '600px'} } className='input-lyrics' placeholder='가사' value={inputValue.lyrics} onChange={(e) => { handleInputValue('lyrics', e); }} />
+              <textarea style={{ resize: 'none', width: '500px', height: '600px' }} className='input-lyrics' placeholder='가사' value={inputValue.lyrics} onChange={(e) => { handleInputValue('lyrics', e); }} />
             </div>
             <section>
               {/* 해시태그 */}
