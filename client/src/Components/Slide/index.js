@@ -21,16 +21,16 @@ const settings = {
   // centerPadding: "60px",
   centerPadding: '0px',
   afterChange: function (index) {
-    console.log(
-      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    );
+    // console.log(
+    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    // );
   }
 };
 
 function Slide () {
   function GoToServey (id) {
-    console.log('성공?');
-    console.log(id);
+    // console.log('성공?');
+    // console.log(id);
   }
 
   return (

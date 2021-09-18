@@ -11,7 +11,7 @@ import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
-import Notification from './Components/Notification/index';
+import Notification from './Components/Notification';
 
 function App () {
   const loca = useLocation();
