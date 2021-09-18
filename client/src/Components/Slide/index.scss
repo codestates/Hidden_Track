@@ -1,3 +1,27 @@
 .slide-container {
-  position: relative;
+  // position: relative;
+  // display: flex;
+  // flex-flow: column;
+  // justify-content: flex-start;
+  // background-color: burlywood;
+  // margin-left: 20px;
+  // margin: 0 auto;
+  // width: 890px;
+  // margin-right: -px;
+}
+
+.popular::after {
+  content: '/';
+  margin: 0 10px;
+  // position: absolute;
+  // top: 0;
+}
+
+.slide-btn {
+  width: 90px;
+  padding: 10px 0;
+
+  .popular {
+    // background-color: aqua;
+  }
 }
