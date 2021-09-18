@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, isClickModify } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
@@ -13,7 +13,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   const history = useHistory();
 
   const state = useSelector(state => state.playListReducer);
+  const modifyBtn = useSelector(state => state.modifyReducer);
   const { playList } = state;
+  const { onClickModify } = modifyBtn;
 
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
   console.log(trackDetail);
@@ -177,7 +179,8 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   // 수정 버튼 클릭시 게시글 수정창으로 이동하는 함수
   function clickModifyBtn (e) {
     e.preventDefault();
-    history.push('/modify');
+    dispatch(isClickModify(true));
+    history.push('/modicreate');
   }
 
   return (

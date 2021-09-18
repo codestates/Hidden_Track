@@ -23,6 +23,9 @@ export const initialState = {
       debut: ''
     }
   },
+  onClickModify: {
+    onClickModify: false
+  },
 
   trackDetail: {
     id: 1,
