@@ -49,6 +49,9 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
             user: {
               nickname: ''
             },
+            hashtag: {
+              tag: []
+            },
             reply: []
           }));
           setIsContentDeleteModalOpen(false);
