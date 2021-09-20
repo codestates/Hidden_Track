@@ -12,12 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.user);
-      this.belongsTo(models.post);
+      this.belongsTo(models.track);
     }
   };
   reply.init({
     userId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER,
+    trackId: DataTypes.INTEGER,
     content: DataTypes.STRING
   }, {
     sequelize,

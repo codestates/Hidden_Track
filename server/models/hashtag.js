@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.post, {
-        through: "tagposts",
+      this.belongsToMany(models.track, {
+        through: "tagtracks",
         foreignKey: "hashtagId"
       });
     }

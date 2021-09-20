@@ -4,6 +4,5 @@ module.exports = {
   good : require('./good'),
   post : require('./post'),
   hashtag : require('./hashtag'),
-  
 };
   

@@ -12,9 +12,9 @@ module.exports = {
         type: Sequelize.INTEGER,
         references :{model: 'users', key: 'id'}
       },
-      postId: {
+      trackId: {
         type: Sequelize.INTEGER,
-        references :{model: 'posts', key: 'id'}
+        references :{model: 'tracks', key: 'id'}
       },
       content: {
         type: Sequelize.STRING(500)
