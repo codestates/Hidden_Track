@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import './index.scss';
 
 function Genre () {
   const genreList = ['Jazz', 'Hip Hop', 'Rock', 'Ballad', 'R&B'];
+  const [selectGenre, setSelectGenre] = useState('');
   const history = useHistory();
+
+  useEffect(() => {
+    const genre = localStorage.getItem('search').slice(1);
+    if (genreList.includes(genre)) {
+      setSelectGenre(genre);
+    }
+  }, [localStorage.getItem('search')]);
 
   // 장르 선택시 실행되는 함수
   function clickGenre (e) {
@@ -23,7 +31,7 @@ function Genre () {
       <div className='genre-box'>
         {genreList.map((el, idx) => {
           return (
-            <span className='genre-name' value={el} key={idx} onClick={(e) => clickGenre(e)}>
+            <span className='genre-name' id={selectGenre === el ? 'selected-genre' : null} value={el} key={idx} onClick={(e) => clickGenre(e)}>
               {el}
             </span>
           );

@@ -129,7 +129,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         return history.push('/visual');
       } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
-        axios.post(`${process.env.REACT_APP_API_URL}/playlist/playlist`, {
+        axios.post(`${process.env.REACT_APP_API_URL}/playlist`, {
           trackId: trackDetail.id
         })
           .then(res => {

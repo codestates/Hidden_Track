@@ -56,7 +56,7 @@ function App () {
           <Main />
         </Route>
         <Route path='/signup'>
-          <SignUp />
+          <SignUp handleNotice={handleNotice} />
         </Route>
         <Route path='/visual'>
           <Visualizer />
