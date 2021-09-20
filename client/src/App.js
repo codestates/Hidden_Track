@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { isClickModify } from './Redux/actions/actions';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Login from './Components/Login';
@@ -15,8 +17,16 @@ import Notification from './Components/Notification';
 
 function App () {
   const loca = useLocation();
-
+  const dispatch = useDispatch();
+  console.log(loca.pathname);
   const [notice, setNotice] = useState([]);
+  const state = useSelector(state => state.modifyReducer);
+  console.log('eeeeeeeeeeeeeee', state);
+
+  useEffect(() => {
+    // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
+    if (loca.pathname !== '/modicreate') dispatch(isClickModify(false));
+  }, [loca.pathname]);
 
   // 알림 추가, 삭제 핸들러
   function handleNotice (message, dismissTime) {

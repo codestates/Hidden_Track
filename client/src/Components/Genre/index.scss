@@ -1,3 +1,29 @@
+.genre-container {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.genre-box {
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  width: 700px;
+  // height: 10vh;
+  padding: 10px 0;
+}
+
 .genre-name {
   cursor: pointer;
+  background-color: yellow;
+  margin: 0 1% 0 1% ;
+  flex: 1 1 auto;
+  width: 50px;
+  height: 70px;
+  border-radius: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // text-align: center;
+  // vertical-align: middle;
 }

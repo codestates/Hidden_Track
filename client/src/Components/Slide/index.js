@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import styled from 'styled-components';
-import axios from 'axios'
+import axios from 'axios';
 import './index.scss';
 import playList from '../../DummyData/playList'; // 인기 리스트
 // import  from '../../DummyData/playList'; // 최신 리스트
@@ -27,16 +27,14 @@ const settings = {
 };
 
 function Slide () {
-
-
   // useEffect(()= >{
   //   axios.get()
   //   .then(res => useState(res))
   // }, [])
-  const [isPopular, setPopular] = useState(false)
-  const [isRecent, setRecent] = useState(false)
+  const [isPopular, setPopular] = useState(false);
+  const [isRecent, setRecent] = useState(false);
 
-  const [isPopularList , setPopularList] = useState(playList)
+  const [isPopularList, setPopularList] = useState(playList);
 
   function GoToServey (id) {
     // console.log('성공?');
@@ -45,14 +43,12 @@ function Slide () {
 
   // function handlePopular(){
 
-    
   //   setPopular(true)
   //   setRecent(false)
 
   // }
 
-
-  function handleRecent(){
+  function handleRecent () {
     // axios.get('http://localhost:4000/recentList')
     // .then(res => playList = recentList)
   }
@@ -61,9 +57,9 @@ function Slide () {
     <section className='slide-container'>
       {/* <SlideTitle>인기 서비스</SlideTitle> */}
       {/* <ul> */}
-      <div className="slide-btn">
-        <span className="popular">인기</span>
-        <span className="recent" onClick={() => {handleRecent()}}>최신</span>
+      <div className='slide-btn'>
+        <span className='popular'>인기</span>
+        <span className='recent' onClick={() => { handleRecent(); }}>최신</span>
       </div>
       <StyledSlider {...settings}>
         {playList.map((slider, i) => {
@@ -104,8 +100,8 @@ export const ImgSlide = styled.div`
   background-image: url(${props => props.url});
   background-size: cover;
   background-position: center;
-  width: ${props => props.className ?' 150px' : '200px'};
-  height: ${props => props.className ?' 150px' : '200px'};
+  width: ${props => props.className ? ' 150px' : '200px'};
+  height: ${props => props.className ? ' 150px' : '200px'};
   padding: ${props => props.className ? '5px' : 0} ;
   /* margin-left: ${props => props.className ? '20px' : 0}; */
 `;
