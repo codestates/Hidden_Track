@@ -18,14 +18,17 @@ function Genre () {
   }
 
   return (
-    <section>
-      {genreList.map((el, idx) => {
-        return (
-          <span className='genre-name' value={el} key={idx} onClick={(e) => clickGenre(e)}>
-            {el}
-          </span>
-        );
-      })}
+    <section className='genre-container'>
+      <h2 className='a11yHidden'>장르</h2>
+      <div className='genre-box'>
+        {genreList.map((el, idx) => {
+          return (
+            <span className='genre-name' value={el} key={idx} onClick={(e) => clickGenre(e)}>
+              {el}
+            </span>
+          );
+        })}
+      </div>
     </section>
   );
 }
