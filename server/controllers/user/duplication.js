@@ -3,16 +3,17 @@ const { user } = require("../../models")
 module.exports = async (req, res) => {
   
   //req.query -> loginId나 nickname 
- const {loginId, nickName} = req.query;
-
- if(!loginId && !nickName ){
+ const {loginid, nickname} = req.headers;
+  
+ console.log(loginid,nickname)
+ if(!loginid && !nickname ){
   res.status(400).json( { message: "input loginId or nickname" } )
  }
 
- if(!nickName){
+ if(!nickname){
    //loginId 중복검사 
    const findUserInfo = await user.findOne({
-    where: { loginId: loginId },
+    where: { loginId: loginid },
   })
   
   if(findUserInfo){
@@ -23,7 +24,7 @@ module.exports = async (req, res) => {
  }else{
    //nickname 중복검사  
     const findUserInfo = await user.findOne({
-        where: { nickName: nickName },
+        where: { nickName: nickname },
       })
     
     if(findUserInfo){
