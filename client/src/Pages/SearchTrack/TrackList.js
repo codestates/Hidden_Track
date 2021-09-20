@@ -46,8 +46,8 @@ function TrackList ({ trackList, handleTrackList, handleNotice }) {
             return (
               <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
                 <img className='track-list-img' src={el.img} value={el.id} alt='' />
-                <p value={el.id}>{el.title}</p>
-                <p value={el.id}>{el.user.nickname}</p>
+                <p className='track-list-title' value={el.id}>{el.title}</p>
+                <p className='track-list-artist' value={el.id}>{el.user.nickname}</p>
               </li>
             );
           })

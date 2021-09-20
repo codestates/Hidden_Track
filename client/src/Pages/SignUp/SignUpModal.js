@@ -2,12 +2,12 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import './SignUpModal.scss';
 
-function SignUpModal ({ isOpen, setIsOpen, text, setText }) {
+function SignUpModal ({ isOpen, handleModalOpen, text }) {
   const history = useHistory();
 
   // 가입완료 모달창 확인 버튼 클릭시 메인 페이지로 이동하는 함수
   function openModalHandler () {
-    setIsOpen(!isOpen);
+    handleModalOpen();
     if (text === '가입이 완료되었습니다.') {
       history.push('/');
     }
