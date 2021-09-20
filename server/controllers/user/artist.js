@@ -21,8 +21,6 @@ module.exports = async (req, res) => {
     } catch {
       res.status(401).json({message: "unauthorized" })
     }
-    
-    console.log(userInfo);
 
     if(userInfo.admin === 'artist'){
       res.status(409).json({message:"already an artist"})  

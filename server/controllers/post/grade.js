@@ -1,5 +1,4 @@
 const { isAuthorized } = require('../tokenFunctions');
-const db = require("../../models");
 const { grade } = require("../../models")
 
 module.exports = async (req, res) => {  

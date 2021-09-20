@@ -13,7 +13,6 @@ module.exports = {
     if(!title || !img || !genre || !releaseAt || !soundtrack  ) {
       res.status(400).json({message: "input values"})
     }
-
     if (!accessTokenData) {
        res.status(401).json({ message : "unauthorized"});
     }
@@ -35,10 +34,11 @@ module.exports = {
     });
 
     for(let i =0;i<tag.length;i++){
-        const findHashTag =  await hashtag.create({
-           tag: tag[i],
+       const [findHashTag,created] =  await hashtag.findOrCreate({
+           where : { tag : tag[i] },
+           default : { tag : tag[i] }
         })
-
+        
         await tagposts.create({
             postId:findPost.dataValues.id,
             hashtagId : findHashTag.dataValues.id
@@ -46,5 +46,47 @@ module.exports = {
     }
     
      res.status(201).json( {postId: findPost.dataValues.id } );
+    },
+
+   patch :  async (req,res) =>{ 
+    const accessTokenData = isAuthorized(req);
+    const { id, tag ,title,img,genre,releaseAt,soundTrack,lyric,postId } = req.body;
+    const tagposts = db.sequelize.models.tagposts;
+
+    if(!id || !postId ||!title || !img || !genre || !releaseAt || !soundTrack ) {
+     res.status(400).json({message: "input values"})
     }
+    
+    if (!accessTokenData) {
+      res.status(401).json({ message : "unauthorized"});
+    }
+    
+    await track.update({
+      title : title,
+      img :img,
+      gerne : genre,
+      releaseAt : releaseAt,
+      soundTrack : soundTrack,
+      lyric: lyric
+    },{
+    where : { id: id }
+    })
+    
+    for(let i =0;i<tag.length;i++){
+      const [findHashTag,created] =  await hashtag.findOrCreate({
+          where : { tag : tag[i] },
+          default : { tag : tag[i] }
+       })
+       
+    await tagposts.create({
+           postId: postId,
+           hashtagId : findHashTag.dataValues.id
+       })
+   }
+    res.status(200).json( {postId: postId } );
+   },
+   delete :  async (req,res) =>{ 
+    
+    res.status(200).json({message:"ok"});
+   }
  }

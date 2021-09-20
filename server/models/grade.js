@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   grade.init({
     userId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER,
+    trackId: DataTypes.INTEGER,
     userGrade: DataTypes.FLOAT
   }, {
     sequelize,
