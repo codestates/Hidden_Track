@@ -11,28 +11,28 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 
 function Visualizer () {
-  let audioCtx = new AudioContext();
-  console.log(audioCtx)
+  const audioCtx = new AudioContext();
+  console.log(audioCtx);
   // redux에 저장된 state 가져오기
   const playList = useSelector(state => state.playListReducer.playList);
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
-  const accessToken = useSelector(state=> state.accessTokenReducer)
+  const accessToken = useSelector(state => state.accessTokenReducer);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(()=> {
-    if(isLogin){
-    axios.get(`${process.env.REACT_APP_API_URL}playlist/playlist`)
-      .then(res => {
-        if(res.status === 200){
-          dispatch(inputPlayList(res.data.playList))
-        }
-      })
+  useEffect(() => {
+    if (isLogin) {
+      axios.get(`${process.env.REACT_APP_API_URL}playlist/playlist`)
+        .then(res => {
+          if (res.status === 200) {
+            dispatch(inputPlayList(res.data.playList));
+          }
+        });
     }
-  },[])
+  }, []);
 
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length-1]);
+  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
 
@@ -46,8 +46,8 @@ function Visualizer () {
   // 랜덤 인덱스 생성 함수
   function getRandomNumber (min, max) {
     const randomIndex = parseInt(Math.random() * ((Number(max) - Number(min)) + 1));
-    if (min === max){
-      return 0
+    if (min === max) {
+      return 0;
     } else if (randomIndex === playList.indexOf(crrentMusic)) {
       return getRandomNumber(min, max);
     } else {
@@ -80,7 +80,7 @@ function Visualizer () {
   function handleDeleteMusic (e, index) {
     e.preventDefault();
     isLogin
-      ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist`, {id: playList[index].id, headers: { accesstoken: accessToken}})
+      ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist`, { id: playList[index].id, headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
             axios.get(`${process.env.REACT_APP_API_URL}/playlist`, {})
@@ -114,9 +114,9 @@ function Visualizer () {
       <button onClick={() => { history.push('/'); }}>메인으로 가기</button>
       <div className='music-info'>
         <div className='circle'>
-        <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title} />
+          <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title} />
         </div>
- 
+
         <div className='lyrics-container'>
           <div className='lyrics'>Lyrics</div>
           <div className='lyrics-box'>
@@ -152,7 +152,7 @@ function Visualizer () {
           volume={0.1}
           // autoPlay
           showSkipControls
-          onPlay={() => {  audioCtx.close()}}
+          onPlay={() => { audioCtx.close(); }}
           onEnded={() => {
             if (!isRandom) {
               if (isValid('playList', playList.indexOf(crrentMusic) + 1)) {
