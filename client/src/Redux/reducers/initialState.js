@@ -9,18 +9,18 @@ export const initialState = {
     accessToken: ''
   },
   userInfo: {
-    id: '',
-    loginId: '',
-    profile: '',
+    id: '1',
+    loginId: 'joo',
+    profile: 'image.png',
     nickName: '이무진',
     // nickName: '',
     // admin: 'listener',
     admin: 'artist',
     // 만약 admin이 'artist'라면 아래 정보도 받음
     userArtist: {
-      agency: '',
-      email: '',
-      debut: ''
+      agency: 'sm',
+      email: 'sm@sm.com',
+      debut: '2008.12.12'
     }
   },
   onClickModify: {

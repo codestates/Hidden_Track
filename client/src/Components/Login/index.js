@@ -59,7 +59,7 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
       password: inputPw
     };
 
-    axios.post('/signin', body)
+    axios.patch('/signin', body)
       .then(res => {
         // console.log('서버에 보낸 로그인 데이터  >>>>>');
         // console.log(res);
@@ -69,6 +69,7 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
       .catch(
 
       );
+
     // axios.post('/signin', body)
     // .then(res => {
     //   console.log('서버에 보낸 로그인 데이터  >>>>>');

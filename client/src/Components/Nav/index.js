@@ -89,7 +89,9 @@ function Nav () {
               onClick={(e) => showModal(e)}
             >로그인
             </button>
-            <button className='navigation__sign-up-btn'>회원가입</button>
+            <Link to='/signup'>
+              <button className='navigation__sign-up-btn'>회원가입</button>
+            </Link>
             <button className='navigation__player-btn'>
               <img className='player-image' src={headphone} alt='player' onClick={(e) => { showSidebar(e); }} />
             </button>
