@@ -21,7 +21,7 @@ function InputPW ({
   }
 
   // 비밀번호 유효성 검사 함수
-  function isValidPW () {
+   function isValidPW () {
     // const pattern1 = /[a-zA-Z]/;
     // const pattern2 = /[~!@#$%^&]/;
     // console.log(pattern1, pattern2)
