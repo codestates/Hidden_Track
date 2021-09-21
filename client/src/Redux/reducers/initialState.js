@@ -122,6 +122,9 @@ export const initialState = {
     user: {
       nickname: '이무진'
     },
+    hashtag: {
+      tag: ['신나는', '이무진', '라라라']
+    },
     reply: [{
       id: 3,
       content: '노래 좋다~~!',
@@ -688,5 +691,6 @@ export const initialState = {
       }
     }
   ]
+  // playList: []
 
 };
