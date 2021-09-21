@@ -3,5 +3,6 @@ module.exports = {
   grade : require('./grade'),
   good : require('./good'),
   post : require('./post'),
+  hashtag : require('./hashtag'),
 };
   

@@ -1,0 +1,40 @@
+.genre-container {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.genre-box {
+  background-color: blue;
+  display: flex;
+  // align-items: center;
+  justify-content: space-around;
+  width: 1400px;
+  // height: 10vh;
+  padding: 10px 0;
+}
+
+.genre-name {
+  cursor: pointer;
+  background-color: yellow;
+  margin: 0.5% 1% 0.5% 1% ;
+  // flex: 1 1 auto;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#selected-genre {
+  background-color: brown;
+  font-weight: bold;
+}
+
+.genre-name:hover {
+  background-color: blueviolet;
+  font-weight: bold;
+  transform: scale(1.1);
+  transition: .3s;
+}

@@ -12,19 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasOne(models.userArtist)
-      this.hasMany(models.post);
       this.hasMany(models.reply);
       this.hasMany(models.track);
       this.hasMany(models.playlist);
-      this.belongsToMany(models.post, {
+      this.belongsToMany(models.track, {
         through: "likes",
         foreignKey: "userId",
       });
-      this.belongsToMany(models.post, {
+      this.belongsToMany(models.track, {
         through: "grades"
-      });
-      this.belongsToMany(models.post, {
-        through: "hashtags"
       });
     }
   };

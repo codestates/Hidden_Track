@@ -1,6 +1,9 @@
-const { user } = require("../../models")
-const { sign } = require("jsonwebtoken")
-
+const { user } = require("../../models");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  sendRefreshToken,
+} = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
   
@@ -9,7 +12,7 @@ module.exports = async (req, res) => {
   
   //값이 덜들어왔을 때
   if(!loginId || !password) {
-    res.status(400).json({message:"input loginId or password"})
+    res.status(400).json({message:"input values"})
   } 
 
   // 아이디와 패스워드가 맞는것 찾기
@@ -28,25 +31,16 @@ module.exports = async (req, res) => {
     delete userInfo.RT
 
     //refreshToken,accessToken 만들고 유저DB에 RT값 추가
-    const accessToken = sign(userInfo, process.env.ACCESS_SECRET, {
-      expiresIn: "1h",
-    })
-    const refreshToken = sign(userInfo, process.env.REFRESH_SECRET, {
-      expiresIn: "14d",
-    })
+    const accessToken = generateAccessToken(userInfo);
+    const refreshToken = generateRefreshToken(userInfo);
     
-    //user 테이블에 RT값 저장하기
+    // user 테이블에 RT값 저장하기
     await user.update({RT: refreshToken},{
-      where: { loginId: loginId, password:password }
+      where: { loginId: loginId, password: password }
     })
        
    //refreshToken은 쿠키로 accesstoken은 body로.
-    await res.cookie("refreshToken", refreshToken, {
-      HttpOnly: true,
-      Secure: false, //배포 환경에서는 true로.
-      SameSite: "None", //배포환경에서는 hiddentrack만..
-    })
-    
+    sendRefreshToken(res, refreshToken);
     res.status(200).json({ data : accessToken, message:'ok' })
   }
   

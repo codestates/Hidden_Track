@@ -1,17 +1,17 @@
 import React from 'react';
 
-function Condition ({ setAgency, setDate, setEmail }) {
+function Condition ({ handleInputValue }) {
   function handleAgency (e) {
-    setAgency(e.target.value);
+    handleInputValue('agency', e.target.value);
   }
 
-  function handleDate (e) {
-    setDate(e.target.value);
+  function handleDebut (e) {
     console.log(e);
+    handleInputValue('debut', e.target.value);
   }
 
   function handleEmail (e) {
-    setEmail(e.target.value);
+    handleInputValue('email', e.target.value);
   }
 
   return (
@@ -20,7 +20,7 @@ function Condition ({ setAgency, setDate, setEmail }) {
         <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
       </div>
       <div>
-        데뷔일: <input type='date' onChange={(e) => handleDate(e)} />
+        데뷔일: <input type='date' onChange={(e) => handleDebut(e)} />
       </div>
       <div>
         {/* <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} /> */}

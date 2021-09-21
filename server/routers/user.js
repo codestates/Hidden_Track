@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const { userController } = require("../controllers");
 
 router.post('/signin', userController.signin);
@@ -9,9 +8,8 @@ router.get('/signout',userController.signout);
 router.get('/userinfo',userController.userinfo);
 router.get('/token',userController.token);
 router.get('/duplication',userController.duplication);
-router.patch('/password',userController.password);
+router.patch('/password',userController.password.patch);
 router.patch('/nickname',userController.nickname);
 router.patch('/artist',userController.artist);
-
 
 module.exports = router;

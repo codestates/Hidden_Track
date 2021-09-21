@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 
-function InputNickName ({ nickValue, setNickValue, duplicatedNickMessage, setDuplicatedNickMessage }) {
+function InputNickName ({ inputValue, handleInputValue, validMessage, handleValidMessage }) {
   // 닉네임 입력시 상태에 반영
   function handleNick (e) {
-    setNickValue(e.target.value);
-    setDuplicatedNickMessage('');
+    handleInputValue('nickName', e.target.value);
+    handleValidMessage('duplicatedNick', '');
   }
 
   // 닉네임 중복확인 요청 함수
@@ -13,16 +13,16 @@ function InputNickName ({ nickValue, setNickValue, duplicatedNickMessage, setDup
     e.preventDefault();
     axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
       params: {
-        nickname: nickValue
+        nickname: inputValue.nickName
       }
     })
       .then(res => {
         console.log(res.data);
         if (res.status === 200) {
-          setDuplicatedNickMessage('사용 가능한 닉네임 입니다.');
+          handleValidMessage('duplicatedNick', '사용 가능한 닉네임 입니다.');
         }
         if (res.status === 409) {
-          setDuplicatedNickMessage('중복된 닉네임 입니다.');
+          handleValidMessage('duplicatedNick', '중복된 닉네임 입니다.');
         }
       })
       .catch(err => {
@@ -34,7 +34,7 @@ function InputNickName ({ nickValue, setNickValue, duplicatedNickMessage, setDup
     <div>
       닉네임: <input type='text' placeholder='닉네임을 입력하세요' onChange={(e) => handleNick(e)} />
       <button onClick={(e) => isDuplicatedNick(e)}>중복확인</button>
-      {duplicatedNickMessage ? <p>{duplicatedNickMessage}</p> : null}
+      {validMessage.duplicatedNick ? <p>{validMessage.duplicatedNick}</p> : null}
     </div>
   );
 }
