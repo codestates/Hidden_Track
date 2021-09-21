@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './inputHashTag.scss'
+import './inputHashTag.scss';
 
 function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
   // 태그 삭제 함수
@@ -24,7 +24,8 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
   // setInputText(inputText.slice(0, 7));
   return (
     <div id='input-hashtag-section'>
-      <input className='hashtag-input'
+      <input
+        className='hashtag-input'
         type='text'
         placeholder='HashTag 추가시 Enter를 눌러주세요'
         // style={{ width: '200px' }}
@@ -34,9 +35,9 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
             if (e.target.value !== '') {
-              if(tagList.length >= 5){
-                handleNotice('HashTag는 5개까지 추가 가능합니다.', 5000)
-              }else{
+              if (tagList.length >= 5) {
+                handleNotice('HashTag는 5개까지 추가 가능합니다.', 5000);
+              } else {
                 handleInputValue('tag', e);
                 e.target.value = null;
               }

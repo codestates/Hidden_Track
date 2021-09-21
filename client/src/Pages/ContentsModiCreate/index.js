@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTrackDetails, getUserInfo } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
 import axios from 'axios';
-import './index.scss'
+import './index.scss';
 // import { noExtendLeft } from 'sequelize/types/lib/operators';
 // isModify 값은 수정 버튼을 눌렀을때 localstorage에 저장시킨다. 여기서는 값만 가져오고 페이지를 벗어날때는 삭제시킨다.
 // trackdetail의 id값을 localstorage에 저장해서 새로고침시 값이 날라가지 않게 한다.
@@ -15,7 +15,7 @@ function TestMo ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const isModify = useSelector(state => state.modifyReducer.onClickModify);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
     id: isModify ? trackDetail.id : '',
@@ -177,14 +177,14 @@ function TestMo ({ handleNotice }) {
           .then(res => {
             if (res.status === 200) {
               handleNotice('음원 등록이 성공하였습니다.', 5000);
-              const parameters = res.data.id // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수정 필요
+              const parameters = res.data.id; // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수정 필요
               axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.id}`)
                 .then(res => {
-                    if(res.status === 200){
-                      dispatch(getTrackDetails(res.data.track))
-                    }else if (res.status === 400){
-                      handleNotice('페이지를 찾을 수 없습니다.', 5000);
-                    }
+                  if (res.status === 200) {
+                    dispatch(getTrackDetails(res.data.track));
+                  } else if (res.status === 400) {
+                    handleNotice('페이지를 찾을 수 없습니다.', 5000);
+                  }
                 })
                 .catch(err => console.log(err));
             } else if (res.status === 400) {
@@ -205,48 +205,47 @@ function TestMo ({ handleNotice }) {
   return (
     <div id='modi-create'>
       {isValidUser()
-        ? 
-          <>
+        ? <>
           <div className='default-input-box'>
-          <div className='album-img-box'>
-            <img className='album-img' src={src} />
-            <label htmlFor='album-input-btn' className='contents__btn'>앨범 이미지 첨부</label>
-            <span>{!files.image.name?'No file chosen': `${files.image.name}`}</span>
-            <input id='album-input-btn' type='file' style={{display: 'none'}} onChange={(e) => { handleFileRead('image', e); }} />
-          </div>
-          <section className='default-input-section'>
-            <input type='text' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => { handleInputValue('title', e); }} required />
-            <select name='genre' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
-              <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
-              <option value='Ballad'>Ballad</option>
-              <option value='Rap/Hiphop'>Rap/Hiphop</option>
-              <option value='R&B/Soul'>R&B/Soul</option>
-              <option value='Rock/Metal'>Rock/Metal</option>
-              <option value='Jazz'>Jazz</option>
-            </select>
-            <div>
-            <span style={{fontSize: '20px'}}>발매일 : </span>
-            <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
+            <div className='album-img-box'>
+              <img className='album-img' src={src} />
+              <label htmlFor='album-input-btn' className='contents__btn'>앨범 이미지 첨부</label>
+              <span>{!files.image.name ? 'No file chosen' : `${files.image.name}`}</span>
+              <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
             </div>
-            <div>
-            <label htmlFor='music-input-btn' className='contents__btn'>음원파일첨부</label>
-            <div>{!files.audio.name?'No file chosen': `${files.audio.name}`}</div>
-            <input type='file' id='music-input-btn' style={{display:'none'}}onChange={(e) => { handleFileRead('audio', e); }} required={!isModify} />
-            </div>
-            
-          </section>
+            <section className='default-input-section'>
+              <input type='text' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => { handleInputValue('title', e); }} required />
+              <select name='genre' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
+                <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
+                <option value='Ballad'>Ballad</option>
+                <option value='Rap/Hiphop'>Rap/Hiphop</option>
+                <option value='R&B/Soul'>R&B/Soul</option>
+                <option value='Rock/Metal'>Rock/Metal</option>
+                <option value='Jazz'>Jazz</option>
+              </select>
+              <div>
+                <span style={{ fontSize: '20px' }}>발매일 : </span>
+                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
+              </div>
+              <div>
+                <label htmlFor='music-input-btn' className='contents__btn'>음원파일첨부</label>
+                <div>{!files.audio.name ? 'No file chosen' : `${files.audio.name}`}</div>
+                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} required={!isModify} />
+              </div>
+
+            </section>
           </div>
           <section className='music-lyrics-hashtag-box'>
-          <div className='music-lyrics-input'>
-            <span>가사</span>
-            <textarea  className='input-lyrics' placeholder='가사' value={inputValue.lyrics} onChange={(e) => { handleInputValue('lyrics', e); }} />
-          </div>
-          <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
+            <div className='music-lyrics-input'>
+              <span>가사</span>
+              <textarea className='input-lyrics' placeholder='가사' value={inputValue.lyrics} onChange={(e) => { handleInputValue('lyrics', e); }} />
+            </div>
+            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
           </section>
           <div className='post-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>음원 등록</button>
           </div>
-          </>
+        </>
         : <h1>잘못된 접근 입니다.</h1>}
     </div>
   );
