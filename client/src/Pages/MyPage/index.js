@@ -11,22 +11,18 @@ import SignOutModal from '../MyPage/SignOutModal';
 import './index.scss';
 // var vaildPW=require("request")
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 function MyPage () {
   const userInfo = useSelector(state => state.userInfoReducer);
   const dispatch = useDispatch();
-  const inputNickNameValue = useRef('')
-
-  useEffect(() => {
-    console.log('>>>>>>>' , userInfo); // 이무진
-  }, [userInfo])
+  
 
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const [user, setUser] = useState(userInfo );
   const [isCheck, setIsCheck] = useState(true);
-  const [isImageFile, setIsImageFile] = useState('')
-  const [isImageUrl, setIsImageUrl] = useState('')
+  const [isImageUrl, setIsImageUrl] = useState('https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg')
+  const [nickName, setNickName] = useState('')
 
 
   function requestPW (e) {
@@ -35,14 +31,15 @@ function MyPage () {
     // let changedUser = { ...user.userInfo, ['nickName'] : inputValue.current.value}
     // dispatch(getUserInfo(changedUser))
     // console.log(changedUser);
-
-    axios.get('https://hiddentrack.link/user/token',
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
     { withCredentials: true })
     .then(res => { // <- res.data 에 accessToken 담겨있을 것임
       if(res.status === 200){
       // 1. res.data <- 유저정보 빼와서
-      axios.patch('https://hiddentrack.link/user/password', 
-      {headers: {'accesstoken' : res.data}}  // <- nickname api 에서 얘를 요청 보내라고 했음
+      axios.patch(`${process.env.REACT_APP_API_URL}/user/password`, 
+      // {headers: {'accesstoken' : res.data}} 
+      {headers: {'accesstoken' : res.data.data}}// <- nickname api 에서 얘를 요청 보내라고 했음
       )}}
     ).catch(
     console.log('response error')
@@ -50,79 +47,98 @@ function MyPage () {
   } 
 
 
+  // function test(e){
+  //   // e.preventDefault();
+  //   requestNickName(e)
+  //   console.log(userInfo);
+  // }
+
+  useEffect(()=> {
+    console.log(userInfo);
+  }, [userInfo])
 
 
   function requestNickName (e) {
     e.preventDefault();
-    console.log('>>>>>', user);
-    let changedUser = { ...user, ['nickName'] : inputNickNameValue.current.value}
-    dispatch(getUserInfo(changedUser))
-    console.log(userInfo); // 이무진
-    console.log(changedUser); // ㄸㄸㄸ
-
-    // axios.get('https://hiddentrack.link/user/token',
-    // // axios.get('http://localhost:4000/user/token',
-    // )
-    //   .then(res => { // <- res.data 에 accessToken 담겨있을 것임
-    //     if(res.status === 200){
-    //     // 1. res.data <- 유저정보 빼와서
-    //     axios.patch('https://hiddentrack.link/user/nickname', 
-    //     // axios.patch('http://localhost:4000/user/nickname', 
-    //     {headers: {'Authorization' : `Bearer ${res.data}`}}) // <- nickname api 에서 얘를 요청 보내라고 했음
-    //       // 2. 리덕스에 있는 유저 인포 업뎃 (dispatch)
-    //     .then(res => {
-    //       if(res.status === 200){
-    //         // onChange 하면 set 하면 바뀔때마다 실행되기때문에 set 함수가 부담이 될수도 있음
-    //         // 그래서 버튼 누르면 onChange 이 아니라 onClick 해서 ref 로 값 불러옴
-    //         let changedUser = { ...user.userInfo, ['nickName'] : inputNickNameValue.current.value}
-    //         dispatch(getUserInfo(changedUser))
-    //       }else{
-    //         console.log('err');
-    //       }})
-    //     }else{
-    //       console.log('err');
-    //     }}
-    //   )
-    //   .catch(
-    //     console.log('response error')
-    //   )
+    // let changedUser = {...user, ['nickName'] : inputNickNameValue.current.value}
+    // dispatch(getUserInfo(changedUser))
+    // console.log(userInfo); // 이무진
+    // console.log(changedUser); // ㄸㄸㄸ
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/user/token`,{ withCredentials: true }
+    // axios.get('http://localhost:4000/user/token',
+    )
+      .then(res => { // <- res.data 에 accessToken 담겨있을 것임
+        if(res.status === 200){
+        // 1. res.data <- 유저정보 빼와서
+        
+        axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`, 
+        {nickName}, // <- body
+        // axios.patch('http://localhost:4000/user/nickname', 
+        {headers: {'accesstoken' : res.data.data}}) // <- nickname api 에서 얘를 요청 보내라고 했음
+          // 2. 리덕스에 있는 유저 인포 업뎃 (dispatch)
+        .then(res => {
+          if(res.status === 200){
+            // onChange 하면 set 하면 바뀔때마다 실행되기때문에 set 함수가 부담이 될수도 있음
+            // 그래서 버튼 누르면 onChange 이 아니라 onClick 해서 ref 로 값 불러옴
+            let changedUser = { ...user, ['nickName'] : nickName}
+            dispatch(getUserInfo(changedUser))
+          }else{
+            console.log('err');
+          }})
+        }else{
+          console.log('err');
+        }}
+      )
+      .catch(
+        console.log('response error')
+      )
     }
+
+    function changeNickName(e){
+      setNickName(e.target.value)
+    }
+
 
   function requestProfileImage (e) {
     e.preventDefault();
 
+    
 
-    const reader = new FileReader();
+    // const reader = new FileReader();
+    // reader.onload = function () {
+    //   console.log(reader.result);
+    //   setIsImageUrl(reader.result); // img 태그의 src 안에 넣을 state
+    // };
+    // reader.readAsDataURL(file); // <- 이건 모지?
+
+
     const file = e.target.files[0];
     console.log(file);
 
-    reader.onload = function () {
-      setIsImageFile(reader.result); // img 태그의 src 안에 넣을 state
-    };
-    reader.readAsDataURL(file); // <- 이건 모지?
-
     const formData = new FormData(); // <- form 태그랑은 다른거임.
     formData.append('img', file);
-    let changedUser = { ...user.userInfo, ['profile'] : 'url'}
-    dispatch(getUserInfo(changedUser))
-    console.log(changedUser);
 
-    // axios.get('https://hiddentrack.link/user/token'
-    // ).then(res => { // <- res.data 에 accessToken 담겨있을 것임
-    //     if(res.status === 200){
-    //       axios.patch('https://hiddentrack.link/user/userimage', formData,
-    //       {headers: {'Authorization' : `Bearer ${res.data}`}}
-    //       ).then(res => {
-    //         if (res.status === 200) {
-    //           let changedUser = { ...user.userInfo, ['profile'] : res.profile}
-    //           dispatch(getUserInfo(changedUser))
-    //         }
-    //         })
-    //         .catch(err => {
-    //           console.log(err);
-    //         })   
-    //     }}
-    // ).catch(err => console.log(err))
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/user/token`, { withCredentials: true }
+    ).then(res => { // <- res.data 에 accessToken 담겨있을 것임
+        console.log('test1'); 
+        if(res.status === 200){
+        console.log('test2'); 
+        
+          axios.patch(`${process.env.REACT_APP_API_URL}/user/userimage`, formData,
+          {headers: {'accesstoken' : res.data.data}}
+          ).then(res => {
+            if (res.status === 200) {
+              let changedUser = { ...user, ['profile'] : res.profile}
+              dispatch(getUserInfo(changedUser))
+            }
+            })
+            .catch(err => {
+              console.log(err);
+            })   
+        }}
+    ).catch(err => console.log(err))
   }
   
   function handleCheckAdmin () {
@@ -149,20 +165,23 @@ function MyPage () {
       </form>
 
       <form onSubmit={requestNickName}>
-        <input type='text'name='nickName' id='' defaultValue={user.nickName} ref={inputNickNameValue}/>
-        {/* <input type='text'id='' defaultValue={user.userInfo.nickName} ref={inputNickNameValue}/> */}
+        <input type='text'name='nickName' id='nickName' placeholder={user.nickName} value={nickName} onChange={(e) => {changeNickName(e)}}/>
+        {/* <input type='text'name='nickName' id='nickName' value={user.nickName} ref={inputNickNameValue}/> */}
         <button>중복확인</button>
         <button type="submit">닉네임 변경</button>
       </form>
 
-      <input type='checkbox' name='' id='' onChange={() => { handleCheckAdmin(); }} />
+      <input type='checkbox' name='' id='' onChange={() => {handleCheckAdmin()}} />
       <p>아티스트 계정으로 전환하기</p>
       {isCheck && <Condition />}
 
       <form onSubmit={requestProfileImage}>
-        <div>프로필 사진 미리보기</div>
+        <div>
+          프로필 사진 미리보기
+          <img src={isImageUrl} alt="" />
+        </div>
         <input type='file' name='img' id='imageChange' style={{ display: 'none' }} onChange={(e) =>{requestProfileImage(e)}}/>
-        <label htmlFor='imageChange'>이미지 변경</label>
+        <label htmlFor='imageChange' type="submit">이미지 변경</label>
         <button>이미지 삭제</button>
       </form>
 

@@ -13,7 +13,7 @@ export function getUserInfo (userInfo) {
   return {
     type: USER_INFO,
     payload: {
-      userInfo: userInfo
+      userInfo
     }
   };
 }
