@@ -3,7 +3,8 @@ const { isAuthorized } = require('../tokenFunctions');
 
 module.exports =  {
   //req.headers accesstoken //req.body : currentPassword,password
-  patch : async (req, res) =>{ const accessTokenData = isAuthorized(req);
+  patch : async (req, res) =>{ 
+  const accessTokenData = isAuthorized(req);
   const { password } =req.body;
  
   if(!password) {

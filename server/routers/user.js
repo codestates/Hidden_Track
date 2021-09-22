@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const upload = require("../modules/Profile");
 const { userController } = require("../controllers");
 
 router.post('/signin', userController.signin);
@@ -11,5 +12,9 @@ router.get('/duplication',userController.duplication);
 router.patch('/password',userController.password.patch);
 router.patch('/nickname',userController.nickname);
 router.patch('/artist',userController.artist);
+
+router.post('/profile', upload.single("profile"),userController.profile.post);
+router.patch('/profile', upload.single("profile"),userController.profile.patch);
+router.delete('/profile', userController.profile.delete);
 
 module.exports = router;

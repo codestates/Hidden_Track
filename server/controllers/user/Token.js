@@ -40,6 +40,6 @@ module.exports = async (req, res) => {
  const accessToken = sign(userInfo, process.env.ACCESS_SECRET, {
     expiresIn: "1h",
   })
-  res.status(200).json({data:accessToken, message:"ok"})
+  res.status(200).json({data:accessToken})
 }
     
