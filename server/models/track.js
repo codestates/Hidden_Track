@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsToMany(models.hashtag, {
         through: "tagtracks",
-        foreignKey: "trackId"
+        foreignKey: "trackId",
+        otherKey: "hashtagId"
       });
     }
   };
