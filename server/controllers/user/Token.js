@@ -6,6 +6,7 @@ module.exports = async (req, res) => {
  
  //refreshtoken 값저장후  만약에 안들어왔다라면 에러핸들링
  const refreshToken = req.cookies.refreshToken;
+ console.log(refreshToken);
  if(!refreshToken){
    res.status(400).json({message:"no token"});
  }

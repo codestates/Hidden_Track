@@ -15,13 +15,13 @@ function Nav () {
   const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
   const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { isLogin } = state1;
   const { isLoginModalOpen } = state2;
 
   console.log('>>>>>>>>', isLogin, isLoginModalOpen);
 
-  const history = useHistory();
 
   function showSidebar (e) {
     e.preventDefault();
@@ -43,10 +43,11 @@ function Nav () {
     }
   }
 
-  function moveMyPage (e) {
-    history.push('/mypage');
-    setIsShowUserProfileList('hide');
+  function moveMyPage(e){
+    e.preventDefault();
+    history.push('/mypage')
   }
+
 
   function logOut (e) {
     e.preventDefault();
@@ -64,9 +65,7 @@ function Nav () {
         <Link to='/'>
           <h1 className='logo'>Hidden Track</h1>
         </Link>
-
         <Search />
-
         {
         isLogin
           ? <div className='button-list-of-profile-image'>
@@ -76,6 +75,7 @@ function Nav () {
             />
             <ul className={isShowUserProfileList}>
               <li>음원 등록</li>
+
               <li onClick={(e) => moveMyPage(e)}>마이 페이지</li>
               <li onClick={(e) => logOut(e)}>로그아웃</li>
             </ul>
