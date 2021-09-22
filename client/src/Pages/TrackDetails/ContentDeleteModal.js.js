@@ -23,8 +23,8 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
   function requestDeleteTrack (e) {
     e.preventDefault();
 
-    axios.delete(`${process.env.REACT_APP_API_URL}/track/track`, {
-      id: trackDetail.post.id
+    axios.delete(`${process.env.REACT_APP_API_URL}/track`, {
+      id: trackDetail.id
     })
       .then(res => {
         console.log('음원 삭제 요청 응답', res.data);

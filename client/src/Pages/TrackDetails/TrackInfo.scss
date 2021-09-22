@@ -1,3 +1,42 @@
+.trackinfo-container {
+  display: flex;
+  justify-content: center;
+  background-color: wheat;
+}
+
+.trackinfo-desc {
+  display: flex;
+  flex-direction: column;
+  // flex-wrap: wrap;
+}
+
+.trackinfo-box {
+  // display: block;
+  // justify-content: left;
+  background-color: yellowgreen;
+}
+
+.trackinfo-info {
+  // width: 300px;
+  height: 70px;
+  display: flex;
+  // justify-content: left;
+}
+
+.trackinfo-key {
+  background-color: red;
+  width: 50px;
+  flex-basis: 30%;
+}
+
+.trackinfo-value {
+  flex-basis: 70%;
+}
+
+.trackinfo-btn-box {
+  // flex: 1 1 auto;
+}
+
 .like-btn {
   width: 15px;
   height: 15px;

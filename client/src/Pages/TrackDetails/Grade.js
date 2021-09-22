@@ -28,17 +28,17 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
       return dispatch(isLoginModalOpenHandler(true));
     }
 
-    axios.post(`${process.env.REACT_APP_API_URL}/post/grade`, {
-      postId: trackDetail.post.id,
+    axios.post(`${process.env.REACT_APP_API_URL}/track/grade`, {
+      trackId: trackDetail.id,
       grade: grade
     })
       .then(res => {
         console.log(res.data);
         if (res.status === 200) {
           // 별점 등록 요청 완료 후 음원 상세 정보 다시 받아옴
-          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
             params: {
-              id: trackDetail.post.id
+              trackId: trackDetail.id
             }
           })
             .then(res => {

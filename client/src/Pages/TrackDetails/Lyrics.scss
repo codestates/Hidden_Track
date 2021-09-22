@@ -40,6 +40,14 @@ details[open] > summary ~ * {
   box-shadow: 1px 1px 2px gray;
 }
 
+.lyrics-menu:hover {
+  font-weight: bold;
+}
+
+#lyrics-click {
+  font-weight: bold;
+}
+
 @keyframes reveal {
   from {
     opacity: 0;
