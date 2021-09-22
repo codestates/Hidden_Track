@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsToMany(models.track, {
         through: "tagtracks",
-        foreignKey: "hashtagId"
+        foreignKey: "hashtagId",
+        otherKey: "trackId"
       });
     }
   };

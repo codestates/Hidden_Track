@@ -1,21 +1,53 @@
-const { track,hashtag } = require("../../models")
+const { track,hashtag,user,reply } = require("../../models")
 const db = require("../../models");
 const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = {  
    redirect: async (req,res) => {
      const { trackId } = req.params;
-     
-    // const findTrack = await track.findOne({
+     const likes = db.sequelize.models.likes;
+  
+     const allViews = await track.findOne({
+       where : { id : trackId }
+     })
 
-    // })
+     await track.update({views:allViews.dataValues.views+1 },{
+      where : {id : trackId}
+     })
 
+     const findTrack = await track.findAll({
+       where: { id : trackId },
+       attributes : ["id","title","img","genre","releaseAt","soundTrack","lyric"],
+       include:[{
+         model : user,
+         required : true,
+         attributes: ["nickName"]
+       },
+       {
+        model : reply,
+        required : true,
+        attributes : ["content"],
+        include: {
+          model : user,
+          required : true,
+          attributes : ["nickname","profile"]
+          }
+        },
+        {
+          model: hashtag,
+          required : true,
+          attributes : ["tag"]
+        }]
+     })
+    
+     const {count, rows } = await likes.findAndCountAll({
+      where: { trackId : trackId }
+     })
 
-    res.status(200).json({message:"ok"});
+     res.status(200).json({track:findTrack, like: count });
    },
 
     post: async (req,res) =>{ 
-
      //req.header -> accesstoken, req.body ->tag(array),title,img,genre,releaseAt,soundtrack,lyric
      const accessTokenData = isAuthorized(req);
      const { tag ,title,img,genre,releaseAt,soundTrack,lyric } = req.body;
@@ -46,7 +78,7 @@ module.exports = {
         })
         
         await tagtracks.create({
-            trackId:createTrack.dataValues.id,
+            trackId : createTrack.dataValues.id,
             hashtagId : findHashTag.dataValues.id
         })
     }
@@ -103,7 +135,7 @@ module.exports = {
     
    const { id } = req.body;
 
-   await comment.destroy({
+   await track.destroy({
     where: { id: id },
   });
   

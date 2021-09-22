@@ -29,7 +29,6 @@ module.exports = async (req, res) => {
   if (!created) {
     res.status(409).json({ message: "already registered grade" });
   } else {
-      
     const gradeAll = await grade.findAll({
         where : { 
           trackId: trackId,

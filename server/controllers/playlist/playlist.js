@@ -23,6 +23,7 @@ module.exports =  {
     
         res.status(201).json({message:"ok"});
     },
+    
     delete: async (req, res) =>{
         const accessTokenData = isAuthorized(req);
         const { id } = req.body;
@@ -54,6 +55,7 @@ module.exports =  {
            }
         }
     },
+
     get: async (req, res) =>{
         const accessTokenData = isAuthorized(req);
         if (!accessTokenData) {
