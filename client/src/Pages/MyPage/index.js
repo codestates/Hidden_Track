@@ -18,9 +18,12 @@ function MyPage () {
   const dispatch = useDispatch();
   const inputNickNameValue = useRef('')
 
+  useEffect(() => {
+    console.log('>>>>>>>' , userInfo); // 이무진
+  }, [userInfo])
 
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
-  const [user, setUser] = useState({ userInfo });
+  const [user, setUser] = useState(userInfo );
   const [isCheck, setIsCheck] = useState(true);
   const [isImageFile, setIsImageFile] = useState('')
   const [isImageUrl, setIsImageUrl] = useState('')
@@ -46,13 +49,16 @@ function MyPage () {
     )
   } 
 
+
+
+
   function requestNickName (e) {
     e.preventDefault();
     console.log('>>>>>', user);
-    let changedUser = { ...user.userInfo, ['nickName'] : inputNickNameValue.current.value}
+    let changedUser = { ...user, ['nickName'] : inputNickNameValue.current.value}
     dispatch(getUserInfo(changedUser))
-    console.log(userInfo);
-    console.log(changedUser);
+    console.log(userInfo); // 이무진
+    console.log(changedUser); // ㄸㄸㄸ
 
     // axios.get('https://hiddentrack.link/user/token',
     // // axios.get('http://localhost:4000/user/token',
@@ -143,9 +149,10 @@ function MyPage () {
       </form>
 
       <form onSubmit={requestNickName}>
-        <input type='text' name='nickName' id='' defaultValue={user.userInfo.nickName} ref={inputNickNameValue}/>
+        <input type='text'name='nickName' id='' defaultValue={user.nickName} ref={inputNickNameValue}/>
+        {/* <input type='text'id='' defaultValue={user.userInfo.nickName} ref={inputNickNameValue}/> */}
         <button>중복확인</button>
-        <button  type="submit">닉네임 변경</button>
+        <button type="submit">닉네임 변경</button>
       </form>
 
       <input type='checkbox' name='' id='' onChange={() => { handleCheckAdmin(); }} />
