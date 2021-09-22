@@ -30,7 +30,7 @@ function isLoginReducer (state = initialState.isLogin, action) {
   // 리듀서는 꼭 불변성을 지켜줘야 함
   switch (action.type) {
     case IS_LOGIN:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         isLogin: action.payload.isLogin
       });
     default: return state;
@@ -40,7 +40,7 @@ function isLoginReducer (state = initialState.isLogin, action) {
 function isLoginModalOpenReducer (state = initialState.isLoginModalOpen, action) {
   switch (action.type) {
     case IS_LOGIN_MODAL_OPEN:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         isLoginModalOpen: action.payload.isLoginModalOpen
       });
     default: return state;
@@ -50,9 +50,7 @@ function isLoginModalOpenReducer (state = initialState.isLoginModalOpen, action)
 function userInfoReducer (state = initialState.userInfo, action) {
   switch (action.type) {
     case USER_INFO:
-      return Object.assign({}, state, {
-        userInfo: action.payload.userInfo
-      });
+      return Object.assign({}, action.payload.userInfo);
     default: return state;
   }
 }
@@ -60,17 +58,17 @@ function userInfoReducer (state = initialState.userInfo, action) {
 function playListReducer (state = initialState, action) {
   switch (action.type) {
     case INPUT_PLAYLIST:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         playList: [...action.payload.playList]
       });
 
     case INPUT_MUSIC:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         playList: [...state.playList, action.payload.playList]
       });
 
     case DELETE_MUSIC:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         playList: state.playList.filter(el => el.id !== action.payload.playList.id)
       });
     default: return state;
@@ -80,9 +78,7 @@ function playListReducer (state = initialState, action) {
 function trackDetailReducer (state = initialState.trackDetail, action) {
   switch (action.type) {
     case TRACK_DETAIL:
-      return Object.assign({}, state, {
-        trackDetail: action.payload.trackDetail
-      });
+      return Object.assign({}, action.payload.trackDetail);
     default: return state;
   }
 }
@@ -90,7 +86,7 @@ function trackDetailReducer (state = initialState.trackDetail, action) {
 function accessTokenReducer (state = initialState.accessToken, action) {
   switch (action.type) {
     case ACCESS_TOKEN:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         accessToken: action.payload.accessToken
       });
     default: return state;
@@ -100,7 +96,7 @@ function accessTokenReducer (state = initialState.accessToken, action) {
 function modifyReducer (state = initialState.onClickModify, action) {
   switch (action.type) {
     case CLICK_MODIFY:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         onClickModify: action.payload.onClickModify
       });
     default: return state;
@@ -110,7 +106,7 @@ function modifyReducer (state = initialState.onClickModify, action) {
 // function trackListReducer (state = initialState.trackList, action) {
 //   switch (action.type) {
 //     case TRACK_LIST:
-//       return Object.assign({}, state, {
+//       return Object.assign({}, {
 //         trackList: action.payload.trackList
 //       });
 //     default: return state;

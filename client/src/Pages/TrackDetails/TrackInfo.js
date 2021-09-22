@@ -38,7 +38,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
     }
 
     axios.post(`${process.env.REACT_APP_API_URL}/post/good`, {
-      postId: trackDetail.post.id
+      trackId: trackDetail.id
     })
       .then(res => {
         console.log(res.data);
@@ -46,9 +46,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         // let likeCount = res.data.likecount
         // dispatch(getTrackDetails(...trackDetail, [like]: {count: likeCount}))
         // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
-          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
             params: {
-              id: trackDetail.post.id
+              trackId: trackDetail.id
             }
           })
             .then(res => {
@@ -184,11 +184,11 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   }
 
   return (
-    <div>
+    <div className='trackinfo-container'>
       <div>
         <img src={trackDetail.img} alt='' />
       </div>
-      <section>
+      <section className='trackinfo-desc'>
         <p>{trackDetail.title}</p>
         {/* <span>
           평점: {trackDetail.post.gradeAev}
@@ -204,41 +204,33 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         </span> */}
         <span>평점: {trackDetail.post.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
-        <div>
-          <span>
-            아티스트 :
-          </span>
-          <span>
-            {trackDetail.user.nickname}
-          </span>
+        <div className='trackinfo-box'>
+          <div className='trackinfo-info'>
+            <span className='trackinfo-key'>아티스트</span>
+            <span className='trackinfo-value'>{trackDetail.user.nickname}</span>
+          </div>
+          <div className='trackinfo-info'>
+            <span className='trackinfo-key'>장르</span>
+            <span className='trackinfo-value'>{trackDetail.genre}</span>
+          </div>
+          <div className='trackinfo-info'>
+            <span className='trackinfo-key'>발매일</span>
+            <span className='trackinfo-value'>{trackDetail.releaseAt}</span>
+          </div>
         </div>
-        <div>
-          <span>
-            장르 :
-          </span>
-          <span>
-            {trackDetail.genre}
-          </span>
+        <div className='trackinfo-btn-box'>
+          <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
+          <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
+          <button className='contents__btn' onClick={(e) => requestLike(e)}>
+            <img className='like-btn' src={likeImage} alt='' />
+          </button>
+          <span>{trackDetail.like.count}</span>
         </div>
-        <div>
-          <span>
-            발매일 :
-          </span>
-          <span>
-            {trackDetail.releaseAt}
-          </span>
-        </div>
-        <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
-        <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
-        <button className='contents__btn' onClick={(e) => requestLike(e)}>
-          <img className='like-btn' src={likeImage} alt='' />
-        </button>
-        <span>{trackDetail.like.count}</span>
         {/* {isLogin && userInfo.nickName === trackDetail.user.nickname ? */}
-        <>
+        <div>
           <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
           <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
-        </>
+        </div>
         {/* : null} */}
         {isContentDeleteModalOpen &&
           <ContentDeleteModal

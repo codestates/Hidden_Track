@@ -60,17 +60,17 @@ function WriteReply ({
       return dispatch(isLoginModalOpenHandler(true));
     }
 
-    axios.post(`${process.env.REACT_APP_API_URL}/reply/reply`, {
-      postId: trackDetail.post.id,
+    axios.post(`${process.env.REACT_APP_API_URL}/reply`, {
+      trackId: trackDetail.id,
       content: inputText
     })
       .then(res => {
         console.log('댓글 등록 요청 응답', res.data);
         if (res.status === 200) {
           // 댓글 등록 성공시 음원 상세 정보 새로 받아오는 요청
-          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
             params: {
-              id: trackDetail.post.id
+              trackId: trackDetail.id
             }
           })
             .then(res => {
@@ -125,8 +125,8 @@ function WriteReply ({
         });
     }
 
-    axios.patch(`${process.env.REACT_APP_API_URL}/reply/reply`, {
-      postId: trackDetail.post.id,
+    axios.patch(`${process.env.REACT_APP_API_URL}/reply`, {
+      trackId: trackDetail.id,
       replyId: selectedReplyId,
       content: inputText
     })
@@ -134,9 +134,9 @@ function WriteReply ({
         console.log(res.data);
         if (res.status === 200) {
           // 수정 완료되면 음원 상세 정보 다시 받아옴
-          axios.get(`${process.env.REACT_APP_API_URL}/post/track`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
             params: {
-              id: trackDetail.post.id
+              trackId: trackDetail.id
             }
           })
             .then(res => {
