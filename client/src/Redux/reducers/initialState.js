@@ -6,7 +6,7 @@ export const initialState = {
     isLoginModalOpen: false
   },
   accessToken: {
-    accessToken: ''
+    accessToken: '액세스토큰'
   },
   userInfo: {
     id: '',
