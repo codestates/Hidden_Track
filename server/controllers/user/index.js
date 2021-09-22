@@ -8,5 +8,6 @@ module.exports = {
     password : require('./Password'),
     nickname : require('./NickName'),
     artist : require('./artist'),
+    profile: require('./profile')
 };
   

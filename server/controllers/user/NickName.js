@@ -1,5 +1,4 @@
 const { user } = require("../../models")
-const { sign,verify } = require("jsonwebtoken")
 const { isAuthorized,
   generateAccessToken,
   generateRefreshToken,
@@ -48,6 +47,6 @@ module.exports = async (req, res) => {
          
      //refreshToken은 쿠키로 accesstoken은 body로.
      sendRefreshToken(res, refreshToken);
-     res.status(200).json({data:accessToken ,message:"ok"});
+     res.status(200).json({data:accessToken });
     }
  }
