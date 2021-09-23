@@ -4,7 +4,7 @@ module.exports =  {
     redirect: async (req, res) =>{ 
         const { genre } =req.params;
         if(!genre){
-            res.status(404).json({message: "not found"});
+            res.status(400).json({message: "input values"});
         }
         
         const findTrack = await track.findAll({

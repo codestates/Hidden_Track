@@ -14,7 +14,7 @@ module.exports = {
         }
     },
     generateAccessToken: (data) => {
-      return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
+      return sign(data, process.env.ACCESS_SECRET, { expiresIn: "24d" });
     },
 
     generateRefreshToken: (data) => {
