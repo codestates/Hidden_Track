@@ -4,5 +4,8 @@ module.exports = {
      good: require('./good'),
      hashtag: require('./hashtag'),
      genre: require('./genre'),
+     trackimage: require('./trackimage'),
+     trackfile: require('./trackfile'),
+     
   };
     

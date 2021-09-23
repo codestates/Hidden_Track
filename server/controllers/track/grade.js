@@ -31,8 +31,7 @@ module.exports = async (req, res) => {
   } else {
     const gradeAll = await grade.findAll({
         where : { 
-          trackId: trackId,
-          userId: accessTokenData.id
+          trackId: trackId
         }
     })
     
