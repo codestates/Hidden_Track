@@ -36,14 +36,14 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
     if (!isLogin) return handleNotice('로그인 후 이용하실 수 있습니다.', 5000);
 
     axios.delete(`${process.env.REACT_APP_API_URL}/reply`, {
-      trackId: trackDetail.id,
-      replyId: selectedReplyId
+      // trackId: trackDetail.id,
+      id: selectedReplyId
     })
       .then(res => {
         console.log('댓글 삭제 요청 응답', res.data);
         if (res.status === 200) {
           // 삭제 요청이 성공하면 다시 상세 음원 목록 받아오는 axios요청 보냄
-          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
               trackId: trackDetail.id
             }
@@ -52,22 +52,21 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
               console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data.track));
-                handleNotice('댓글이 삭제 되었습니다.', 5000);
               }
             })
             .catch(err => {
-              console.log(err);
+              console.log(err.response);
+              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
             });
-        } else if (res.status === 401) {
-          handleNotice('권한이 없습니다.', 5000);
-        } else if (res.status === 404) {
-          handleNotice('해당 댓글이 존재하지 않습니다.', 5000);
         }
         setSelectedReplyId('');
         setClickedBtn('');
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        if (err.response.status === 404) handleNotice('해당 댓글이 존재하지 않습니다.', 5000);
       });
     setSelectedReplyId('');
     setClickedBtn('');

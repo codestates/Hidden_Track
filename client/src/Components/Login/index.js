@@ -61,46 +61,45 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
       password: inputPw
     };
 
-    
-    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, 
+    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`,
     // { withCredentials: true },
-    body)
-    .then(res => { // <- res 에 accessToken 이  있을 것이다.
-      if(res.status === 200){ // 너가 보낸 유저 정보를 디비에서 찾음 완료
+      body)
+      .then(res => { // <- res 에 accessToken 이  있을 것이다.
+        if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
         // 1. accessToken 을 리덕스 state 에 저장해야 한다.
-          dispatch(getAccessToken(res.data)) 
+          dispatch(getAccessToken(res.data));
           // const headers = {
           //   'accesstoken': 'application/json',
           //   'Authorization': 'JWT fefege...'
           // }
-        // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다.
-        // console.log(`Bearer ${res.data}`)
-        console.log(res.data);
-        axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
-        {headers: {'accesstoken' : res.data.data}},
-        { withCredentials: true },
-          ).then(res => { // <- res 에 userInfo 가 담길것이다. 
-            if(res.status === 200){ // <- 너가 보낸 accessToken이 내가 보냈던 accessToken 이랑 맞아 
-                                    // <- 유저 정보 보내줄게 
-              dispatch(getUserInfo(res.data))
-              
+          // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다.
+          // console.log(`Bearer ${res.data}`)
+          console.log(res.data);
+          axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
+            { headers: { accesstoken: res.data.data } },
+            { withCredentials: true }
+          ).then(res => { // <- res 에 userInfo 가 담길것이다.
+            if (res.status === 200) { // <- 너가 보낸 accessToken이 내가 보냈던 accessToken 이랑 맞아
+              // <- 유저 정보 보내줄게
+              dispatch(getUserInfo(res.data));
+
               // 리덕스의 store에 있는 isLogin 이라는 State을 true 로 바꿔서 저장시키는 역할을 하는  dispatch 메소드를 사용해야 한다.
-              dispatch(isLoginHandler(true))
+              dispatch(isLoginHandler(true));
               handleModalCloseBtn(e);
             }
-          })
-      }}
-    )
-      // refreshToken 은 쿠키
-      // (토큰은 cookies 에 담겨져있을 것이다.)
-      //  withCredentials : true => 헤더에 쿠키를 자동으로 보내주는 역할을 한다.
-      // {withCredentials : true }
-      // 토큰을 body 보내면 안된다. 헤더에 보내야 한다.
-      // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-      // .then(res => if())      // <- res 의 body에 있는 유저정보가 담겨있을 것이다. /  res 에 유저정보가 안 담겨있을 것이다.
-      // <- 받아온 유저정보를 리덕스 store 의 상태에 저장시키는 코드를 써야 한다. : dispatch 메소드를 사용해야 한다는 것이다.
-      // <- isLogin 이 true 가 되면 로그인 버튼은 프로필 사진으로 바뀌어야 한다. <- 이건 굳이 이 파일에서 안해도 된다.
-    
+          });
+        }
+      }
+      );
+    // refreshToken 은 쿠키
+    // (토큰은 cookies 에 담겨져있을 것이다.)
+    //  withCredentials : true => 헤더에 쿠키를 자동으로 보내주는 역할을 한다.
+    // {withCredentials : true }
+    // 토큰을 body 보내면 안된다. 헤더에 보내야 한다.
+    // accessToken을 localStorage, cookie 등에 저장하지 않는다!
+    // .then(res => if())      // <- res 의 body에 있는 유저정보가 담겨있을 것이다. /  res 에 유저정보가 안 담겨있을 것이다.
+    // <- 받아온 유저정보를 리덕스 store 의 상태에 저장시키는 코드를 써야 한다. : dispatch 메소드를 사용해야 한다는 것이다.
+    // <- isLogin 이 true 가 되면 로그인 버튼은 프로필 사진으로 바뀌어야 한다. <- 이건 굳이 이 파일에서 안해도 된다.
   }
 
   return (

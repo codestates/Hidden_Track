@@ -38,7 +38,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       return dispatch(isLoginModalOpenHandler(true));
     }
 
-    axios.post(`${process.env.REACT_APP_API_URL}/post/good`, {
+    axios.post(`${process.env.REACT_APP_API_URL}/track/good`, {
       trackId: trackDetail.id
     })
       .then(res => {
@@ -47,7 +47,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         // let likeCount = res.data.likecount
         // dispatch(getTrackDetails(...trackDetail, [like]: {count: likeCount}))
         // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
-          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
               trackId: trackDetail.id
             }
@@ -59,17 +59,18 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
               }
             })
             .catch(err => {
-              console.log(err);
+              console.log(err.response);
+              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
             });
-        } else if (res.status === 401) {
-          handleNotice('권한이 없습니다.', 5000);
-        } else if (res.status === 409) {
-          handleNotice('게시글이 존재하지 않습니다.', 5000);
-          history.push('/');
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 400) {
+          handleNotice('게시글이 존재하지 않습니다.', 5000);
+          history.push('/');
+        }
+        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
       });
   }
 
@@ -137,12 +138,12 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             console.log('플레이리스트 추가 요청 응답', res.data);
             if (res.status === 200) {
             // 성공 요청시 플레이리스트 상태 다시 받아옴
-              axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
+              axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
                 .then(res => {
                   console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
                     dispatch(inputPlayList(res.data.playList));
-                  }
+                  } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
                 })
                 .then(res => {
                   // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
@@ -154,16 +155,15 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                   }
                 })
                 .catch(err => {
-                  console.log(err);
+                  console.log(err.response);
+                  if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
                 });
-            } else if (res.status === 401) {
-              handleNotice('권한이 없습니다', 5000);
-            } else if (res.status === 404) {
-              handleNotice('해당 음악을 찾을 수 없습니다.', 5000);
             }
           })
           .catch(err => {
-            console.log(err);
+            console.log(err.response);
+            if (err.response.status === 401) handleNotice('권한이 없습니다', 5000);
+            if (err.response.status === 404) handleNotice('해당 음악을 찾을 수 없습니다.', 5000);
           });
       }
     }

@@ -76,8 +76,23 @@ function WriteReply ({
           })
             .then(res => {
               console.log(res.data);
-              if (res.status === 200) {
-                dispatch(getTrackDetails(res.data.track));
+              if (res.status === 201) {
+                // 댓글 등록 성공후 음원 상세 정보 다시 받아옴
+                axios.get(`${process.env.REACT_APP_API_URL}/track`, {
+                  params: {
+                    trackId: trackDetail.id
+                  }
+                })
+                  .then(res => {
+                    console.log(res.data);
+                    if (res.status === 200) {
+                      dispatch(getTrackDetails(res.data.track));
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err.response);
+                    if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+                  });
               }
             })
             .catch(err => {
@@ -86,14 +101,12 @@ function WriteReply ({
           // 등록 완료 후 input값 초기화
           setInputText('');
           handleNotice('댓글이 등록되었습니다.', 5000);
-        } else if (res.status === 401) {
-          handleNotice('권한이 없습니다.', 5000);
-        } else if (res.status === 404) {
-          handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
       });
   }
 
@@ -107,35 +120,33 @@ function WriteReply ({
     if (!accessToken) {
       // 만약 액세스 토큰이 상태에 없으면 다시 받아옴
       // RefreshTokenRequest();
-      axios.get(`${process.env.REACT_APP_API_URL}/user/accesstoken`, {
+      axios.get(`${process.env.REACT_APP_API_URL}/user/token`, {
         withCredentials: true
       })
         .then(res => {
           console.log('리프레시 토큰 요청 응답', res.data);
           if (res.status === 200) {
-            dispatch(getAccessToken(res.data.accessToken));
-          }
-          // 만약 유효하지 않은 리프레시 토큰이라면, 로그인 상태 false로
-          else {
-            handleNotice('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.', 5000);
-            dispatch(isLoginHandler(false));
+            dispatch(getAccessToken(res.data.data));
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response);
+          // 만약 유효하지 않은 리프레시 토큰이라면, 로그인 상태 false로
+          handleNotice('refresh token이 만료되어 불러올 수 없습니다. 다시 로그인 해주시기 바랍니다.', 5000);
+          dispatch(isLoginHandler(false));
         });
     }
 
     axios.patch(`${process.env.REACT_APP_API_URL}/reply`, {
-      trackId: trackDetail.id,
-      replyId: selectedReplyId,
+      // trackId: trackDetail.id,
+      id: selectedReplyId,
       content: inputText
     })
       .then(res => {
         console.log(res.data);
         if (res.status === 200) {
           // 수정 완료되면 음원 상세 정보 다시 받아옴
-          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
               trackId: trackDetail.id
             }
@@ -147,16 +158,19 @@ function WriteReply ({
               }
             })
             .catch(err => {
-              console.log(err);
+              console.log(err.response);
+              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
             });
           // 수정 요청 완료 후 input값 초기화
           setInputText('');
           handleNotice('댓글이 수정되었습니다.', 5000);
-        } else if (res.status === 401) handleNotice('권한이 없습니다.', 5000);
-        else if (res.status === 404) handleNotice('게시글 혹은 해당 댓글을 찾을 수 없습니다.', 5000);
+        }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        if (err.response.status === 404) handleNotice('게시글 혹은 해당 댓글을 찾을 수 없습니다.', 5000);
       });
   }
 

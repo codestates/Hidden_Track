@@ -57,13 +57,14 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
           setIsContentDeleteModalOpen(false);
           handleNotice('게시글이 삭제 되었습니다.', 5000);
           history.push('/');
-        } else if (res.status === 401) {
-          setIsContentDeleteModalOpen(false);
-          handleNotice('권한이 없습니다.', 5000);
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 401) {
+          setIsContentDeleteModalOpen(false);
+          handleNotice('권한이 없습니다.', 5000);
+        }
       });
   }
 

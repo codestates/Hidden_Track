@@ -36,7 +36,7 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
         console.log(res.data);
         if (res.status === 200) {
           // 별점 등록 요청 완료 후 음원 상세 정보 다시 받아옴
-          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
+          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
               trackId: trackDetail.id
             }
@@ -48,19 +48,17 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
               }
             })
             .catch(err => {
-              console.log(err);
+              console.log(err.response);
+              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
             });
           handleNotice(`별점 ${grade}점 등록!`, 5000);
-        } else if (res.status === 401) {
-          handleNotice('권한이 없습니다.', 5000);
-        } else if (res.status === 404) {
-          handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
-        } else if (res.status === 409) {
-          handleNotice('이미 별점을 부여했습니다.', 5000);
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+        if (err.response.status === 409) handleNotice('이미 별점을 부여했습니다.', 5000);
       });
   }
 

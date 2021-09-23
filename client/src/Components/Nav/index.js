@@ -22,7 +22,6 @@ function Nav () {
 
   console.log('>>>>>>>>', isLogin, isLoginModalOpen);
 
-
   function showSidebar (e) {
     e.preventDefault();
     setIsSidebarOpen(!isSidebarOpen);
@@ -43,11 +42,10 @@ function Nav () {
     }
   }
 
-  function moveMyPage(e){
+  function moveMyPage (e) {
     e.preventDefault();
-    history.push('/mypage')
+    history.push('/mypage');
   }
-
 
   function logOut (e) {
     e.preventDefault();

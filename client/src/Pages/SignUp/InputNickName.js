@@ -11,6 +11,9 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
   // 닉네임 중복확인 요청 함수
   function isDuplicatedNick (e) {
     e.preventDefault();
+
+    if (!inputValue.nickName) return handleValidMessage('duplicatedNick', '닉네임을 입력하세요.');
+
     axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
       headers: {
         nickname: inputValue.nickName
@@ -21,12 +24,15 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
         if (res.status === 200) {
           handleValidMessage('duplicatedNick', '사용 가능한 닉네임 입니다.');
         }
-        if (res.status === 409) {
-          handleValidMessage('duplicatedNick', '중복된 닉네임 입니다.');
-        }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 400) {
+          handleValidMessage('duplicatedNick', '잘못된 요청입니다.');
+        }
+        if (err.response.status === 409) {
+          handleValidMessage('duplicatedNick', '이미 존재하는 닉네임 입니다.');
+        }
       });
   }
 
