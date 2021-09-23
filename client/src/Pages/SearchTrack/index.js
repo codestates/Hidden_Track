@@ -8,7 +8,7 @@ import TrackList from './TrackList';
 import './index.scss';
 
 function SearchTrack ({ handleNotice }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [trackList, setTrackList] = useState([{
     id: 1,
     img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
@@ -59,14 +59,12 @@ function SearchTrack ({ handleNotice }) {
       })
         .then(res => {
           console.log('장르 선택 요청 응답', res.data);
-          if (res.status === 200) {
-            setTrackList(res.data.track);
-          } else {
-            setTrackList([]);
-          }
+          if (res.status === 200) setTrackList(res.data.track);
+          else setTrackList([]);
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response);
+          if (err.response.status === 404) setTrackList([]);
         });
     }
     // ------------해시태그 검색시 요청--------------
@@ -78,14 +76,12 @@ function SearchTrack ({ handleNotice }) {
       })
         .then(res => {
           console.log('해시태그 선택 요청 응답', res.data);
-          if (res.status === 200) {
-            setTrackList(res.data.track);
-          } else {
-            setTrackList([]);
-          }
+          if (res.status === 200) setTrackList(res.data.track);
+          else setTrackList([]);
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response);
+          if (err.response.status === 404) setTrackList([]);
         });
     }
     // --------------검색어 입력시 요청----------------
@@ -97,14 +93,14 @@ function SearchTrack ({ handleNotice }) {
       })
         .then(res => {
           console.log('검색어 요청 응답', res.data);
-          if (res.status === 200) {
-            setTrackList(res.data.track);
-          } else {
-            setTrackList([]);
-          }
+          if (res.status === 200) setTrackList(res.data.track);
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response);
+          if (err.response.status === 414) {
+            handleNotice('검색어는 30자 이내로 입력해주세요.', 5000);
+            setTrackList([]);
+          }
         });
     }
   }

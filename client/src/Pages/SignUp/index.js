@@ -91,12 +91,10 @@ function SignUp ({ handleNotice }) {
       const formData = new FormData();
       formData.append('profile', inputValue.imageFile);
       // S3에 이미지 파일 폼데이터 전송 후 url 값 받아오기
-      axios.post(`${process.env.REACT_APP_API_URL}/user/userimage`, formData)
+      axios.post(`${process.env.REACT_APP_API_URL}/user/profile`, formData)
         .then(res => {
           console.log('S3 이미지 url 요청 응답', res.data);
           if (res.status === 200) handleInputValue('imageUrl', res.data.profile);
-          else return handleNotice('프로필 이미지 등록에 실패했습니다.', 5000);
-          // else if (res.status === 409) return handleNotice('이미 등록된 이미지입니다.', 5000);
         })
         .then(res => {
           // 이미지 url을 성공적으로 받아왔다면
@@ -106,7 +104,9 @@ function SignUp ({ handleNotice }) {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response);
+          if (err.response.status === 400) handleNotice('프로필 이미지 등록에 실패했습니다.', 5000);
+          // if (err.response.status === 409) return handleNotice('이미 등록된 이미지입니다.', 5000);
         });
     }
     // 이미지 첨부 안했으면 기본 이미지로 회원가입 요청
@@ -136,17 +136,17 @@ function SignUp ({ handleNotice }) {
           setText('가입이 완료되었습니다.');
           setIsOpen(true);
         }
-        if (res.status === 400) {
+      })
+      .catch(err => {
+        console.log(err.response);
+        if (err.response.status === 400) {
           setText('잘못된 요청입니다.');
           setIsOpen(true);
         }
-        if (res.status === 409) {
+        if (err.response.status === 409) {
           setText('이미 등록된 사용자 입니다.');
           setIsOpen(true);
         }
-      })
-      .catch(err => {
-        console.log(err);
       });
   }
 

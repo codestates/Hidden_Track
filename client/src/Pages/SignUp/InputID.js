@@ -12,11 +12,11 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
   function isDuplicatedId (e) {
     e.preventDefault();
 
-    if (inputValue.id.length < 4) return;
+    if (inputValue.id.length < 4) return handleValidMessage('duplicatedId', '아이디를 입력하세요.');
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
       headers: {
-        loginId: inputValue.id
+        loginid: inputValue.id
       }
     })
       .then(res => {
@@ -24,12 +24,15 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
         if (res.status === 200) {
           handleValidMessage('duplicatedId', '사용 가능한 아이디 입니다.');
         }
-        if (res.status === 409) {
-          handleValidMessage('duplicatedId', '중복된 아이디 입니다.');
-        }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response.status === 400) {
+          handleValidMessage('duplicatedId', '잘못된 요청입니다.');
+        }
+        if (err.response.status === 409) {
+          handleValidMessage('duplicatedId', '이미 존재하는 아이디 입니다.');
+        }
       });
   }
 

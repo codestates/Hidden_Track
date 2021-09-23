@@ -29,59 +29,47 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
     ).then(res =>{
       console.log(res.data.data)
     })
+      .then(res => {
+        console.log('음원 삭제 요청 응답', res.data);
+        if (res.status === 200) {
+        // trackDetail 상태 삭제
+          dispatch(getTrackDetails({
+            id: '',
+            title: '',
+            img: '',
+            genre: '',
+            soundtrack: '',
+            releaseAt: '',
+            lyric: '',
+            like: {
+              count: ''
+            },
+            post: {
+              id: '',
+              views: '',
+              gradeAev: ''
+            },
+            user: {
+              nickname: ''
+            },
+            hashtag: {
+              tag: []
+            },
+            reply: []
+          }));
+          setIsContentDeleteModalOpen(false);
+          handleNotice('게시글이 삭제 되었습니다.', 5000);
+          history.push('/');
+        }
+      })
+      .catch(err => {
+        console.log(err.response);
+        if (err.response.status === 401) {
+          setIsContentDeleteModalOpen(false);
+          handleNotice('권한이 없습니다.', 5000);
+        }
+      });
   }
-
-    //   console.log(res)
-    //   if(res.status === 200){
-    //     axios.delete(`${process.env.REACT_APP_API_URL}/track`, 
-    //     {id: trackDetail.id},
-    //     {headers: {'accesstoken' : res.data.data}}
-    //     ).then(res => {
-    //       console.log('음원 삭제 요청 응답', res.data);
-    //       if(res.status === 200){
-    //         // trackDetail 상태 삭제
-    //         dispatch(getTrackDetails(
-    //           { id: '',
-    //             title: '',
-    //             img: '',
-    //             genre: '',
-    //             soundtrack: '',
-    //             releaseAt: '',
-    //             lyric: '',
-    //             like: {
-    //               count: ''
-    //             },
-    //             post: {
-    //               id: '',
-    //               views: '',
-    //               gradeAev: ''
-    //             },
-    //             user: {
-    //               nickname: ''
-    //             },
-    //             hashtag: {
-    //               tag: []
-    //             },
-    //             reply: []
-    //         }));
-    //         setIsContentDeleteModalOpen(false);
-    //         handleNotice('게시글이 삭제 되었습니다.', 5000);
-    //         history.push('/');
-    //       }else if(res.status === 401){
-    //         setIsContentDeleteModalOpen(false);
-    //         handleNotice('권한이 없습니다.', 5000);
-    //       }}
-    //     ).catch(err => {
-    //       console.log(err);
-    //     });
-    //   }else{
-    //     console.log('err');
-    //   }}
-    // ).catch(err => {
-    //   console.log(err);
-    // )
-      
-  // }
 
   // 삭제 확인 모달창 아니오 클릭시 모달창 닫히는 함수
   function handleContentDeleteModalCloseBtn (e) {

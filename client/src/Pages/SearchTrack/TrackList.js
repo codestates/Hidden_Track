@@ -32,7 +32,7 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice }) {
         console.log(err);
       });
   }
-console.log(trackList)
+  console.log(trackList);
   return (
     <section className='track-list-container'>
       <ul className='track-list-ul'>

@@ -58,17 +58,17 @@ function userInfoReducer (state = initialState.userInfo, action) {
 function playListReducer (state = initialState, action) {
   switch (action.type) {
     case INPUT_PLAYLIST:
-      return Object.assign({}, {
+      return Object.assign({}, state, {
         playList: [...action.payload.playList]
       });
 
     case INPUT_MUSIC:
-      return Object.assign({}, {
+      return Object.assign({}, state, {
         playList: [...state.playList, action.payload.playList]
       });
 
     case DELETE_MUSIC:
-      return Object.assign({}, {
+      return Object.assign({}, state, {
         playList: state.playList.filter(el => el.id !== action.payload.playList.id)
       });
     default: return state;
