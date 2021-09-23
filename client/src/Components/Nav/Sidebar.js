@@ -20,7 +20,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
 
   useEffect(() => {
     if (isLogin) {
-      axios.get(`${process.env.REACT_APP_API_URL}playlist/playlist`)
+      axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
         .then(res => {
           if (res.status === 200) {
             dispatch(inputPlayList(res.data.playList));

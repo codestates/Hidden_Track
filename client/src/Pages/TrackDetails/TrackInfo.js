@@ -229,15 +229,15 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         {/* {isLogin && userInfo.nickName === trackDetail.user.nickname ? */}
         <div>
           <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
-          <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+          <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true)}}>삭제</button>
         </div>
         {/* : null} */}
         {isContentDeleteModalOpen &&
           <ContentDeleteModal
             visible={isContentDeleteModalOpen}
             setIsContentDeleteModalOpen={setIsContentDeleteModalOpen}
-            trackDetail={trackDetail}
-            accessToken={accessToken}
+            // trackDetail={trackDetail}
+            // accessToken={accessToken}
             handleNotice={handleNotice}
           />}
       </section>
