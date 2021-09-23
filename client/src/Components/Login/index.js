@@ -1,15 +1,19 @@
+// 라이브러리
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+
+// 리덕스 import
 import { getAccessToken, getUserInfo, isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/actions';
+
+// 컴포넌트 import
 import Portal from './Portal';
+
 import './index.scss';
 
-// axios.defaults.baseURL = 'http://localhost:4000/user';
-// axios.defaults.withCredentials = true;
 
-function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
+function Login ({showUserProfileList,isShowUserProfileList,setIsShowUserProfileList}) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
 
@@ -22,85 +26,97 @@ function Login () { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오�
   const { isLoginModalOpen } = state2;
   const { accessToken } = state3;
 
-  console.log(isLogin, isLoginModalOpen);
 
   const history = useHistory();
 
+
+  // 로그인 모달창 밖의 배경을 누르면 모달창이 꺼지는 onClick 이벤트
   function handleModalBack (e) {
     e.preventDefault();
-    // setIsLoginModalOpen(false);
+
+    // isLoginModalOpenHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
     dispatch(isLoginModalOpenHandler(false));
   }
 
+
+  // id 인풋값 바꿔주는 onChange 이벤트
   function changeIdValue (e) {
     e.preventDefault();
+    
+    // id 인풋값 바꿔주는 setState 
     setInputId(e.target.value);
   }
 
+
+  // password 인풋값 바꿔주는 onChange 이벤트
   function changePwValue (e) {
     e.preventDefault();
+
+    // password 인풋값 바꿔주는 setState 
     setInputPw(e.target.value);
   }
 
+
+  // 모달창의 x 버튼 눌렀을때 모달창이 꺼지는 onClick 이벤트
   function handleModalCloseBtn (e) {
     e.preventDefault();
-    // setIsLoginModalOpen(false);
+
+     // isLoginModalOpenHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
     dispatch(isLoginModalOpenHandler(false));
   }
 
+
+  // 회원가입 페이지로 넘어가주는 onClick 이벤트
   function handleSignUpBtn (e) {
     e.preventDefault();
     history.push('/signup');
   }
 
+
+  // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
   async function requestLogin (e) {
     e.preventDefault();
 
+    // inputId 와 inputPw 는 state 다
     const body = {
       loginId: inputId,
       password: inputPw
     };
 
-    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`,
-    // { withCredentials: true },
+    // 로그인 서버 요청
+    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, 
+      { withCredentials: true },
       body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
-        if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
-        // 1. accessToken 을 리덕스 state 에 저장해야 한다.
-          dispatch(getAccessToken(res.data));
-          // const headers = {
-          //   'accesstoken': 'application/json',
-          //   'Authorization': 'JWT fefege...'
-          // }
-          // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다.
-          // console.log(`Bearer ${res.data}`)
-          console.log(res.data);
-          axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
-            { headers: { accesstoken: res.data.data } },
-            { withCredentials: true }
-          ).then(res => { // <- res 에 userInfo 가 담길것이다.
-            if (res.status === 200) { // <- 너가 보낸 accessToken이 내가 보냈던 accessToken 이랑 맞아
-              // <- 유저 정보 보내줄게
-              dispatch(getUserInfo(res.data));
+        if(res.status === 200){ // 너가 보낸 유저 정보를 디비에서 찾음 완료
 
-              // 리덕스의 store에 있는 isLogin 이라는 State을 true 로 바꿔서 저장시키는 역할을 하는  dispatch 메소드를 사용해야 한다.
-              dispatch(isLoginHandler(true));
-              handleModalCloseBtn(e);
-            }
-          });
-        }
-      }
-      );
-    // refreshToken 은 쿠키
-    // (토큰은 cookies 에 담겨져있을 것이다.)
-    //  withCredentials : true => 헤더에 쿠키를 자동으로 보내주는 역할을 한다.
-    // {withCredentials : true }
-    // 토큰을 body 보내면 안된다. 헤더에 보내야 한다.
-    // accessToken을 localStorage, cookie 등에 저장하지 않는다!
-    // .then(res => if())      // <- res 의 body에 있는 유저정보가 담겨있을 것이다. /  res 에 유저정보가 안 담겨있을 것이다.
-    // <- 받아온 유저정보를 리덕스 store 의 상태에 저장시키는 코드를 써야 한다. : dispatch 메소드를 사용해야 한다는 것이다.
-    // <- isLogin 이 true 가 되면 로그인 버튼은 프로필 사진으로 바뀌어야 한다. <- 이건 굳이 이 파일에서 안해도 된다.
-  }
+          // 1. accessToken 을 리덕스 state 에 저장해야 한다.
+            dispatch(getAccessToken(res.data)) 
+
+            // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다. (헤더에 서버가 보내준 accessToken 받아서 보내줘야 한다.)
+          axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
+          {headers: {'accesstoken' : res.data.data}},
+          { withCredentials: true },
+            ).then(res => { // <- res 에 userInfo 가 담길것이다. 
+              if(res.status === 200){ // <- 너가 보낸 accessToken이 내가 보냈던 accessToken 이랑 맞아 
+                                      // <- 맞으니까, 너가 보낸 유저 정보 보내줄게 
+
+                // 서버에서 받아온, 내가 보냈던 유저 정보와 같은 유저 정보로 리덕스 state 업데이트
+                dispatch(getUserInfo(res.data.data))
+                
+                // 리덕스의 store에 있는 isLogin 이라는 State을 true 로 바꿔서 저장시키는 역할을 하는  dispatch 메소드를 사용해야 한다.
+                dispatch(isLoginHandler(true))
+
+                // 모달창 꺼주는 함수
+                handleModalCloseBtn(e);
+
+                // 프로필 사진 눌렀을때 보이는 리스트들 숨겨주는 setState
+                setIsShowUserProfileList('hide')
+              }
+            })
+        }}
+      )
+    }
 
   return (
     <>

@@ -1,17 +1,17 @@
+// 라이브러리
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+
+// 리덕스 import
 import { getUserInfo } from '../../Redux/actions/actions';
 
-import axios from 'axios';
+// 컴포넌트 import
 import Condition from '../SignUp/Condition';
-// import {isValidPW} from '../SignUp/InputPW';
-// import * as vaildPW from '../SignUp/InputPW';
-// import SignOutModal from '../../Components/SignOutModal';
-import SignOutModal from '../MyPage/SignOutModal';
-import './index.scss';
-// var vaildPW=require("request")
+import WithDrawalModal from './WithDrawalModal';
 
-// axios.defaults.withCredentials = true;
+import './index.scss';
+
 
 function MyPage () {
   const userInfo = useSelector(state => state.userInfoReducer);
@@ -20,8 +20,10 @@ function MyPage () {
   const [isSignOutModalOpen, setIsSignOutModalOpen] = useState(false);
   const [user, setUser] = useState(userInfo);
   const [isCheck, setIsCheck] = useState(true);
-  const [isImageUrl, setIsImageUrl] = useState('https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg');
-  const [nickName, setNickName] = useState('');
+  const [isImageUrl, setIsImageUrl] = useState('https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg')
+  const [password, setPassword] = useState('')
+
+  console.log(user.nickName);
 
   function requestPW (e) {
     e.preventDefault();
@@ -29,6 +31,20 @@ function MyPage () {
     // let changedUser = { ...user.userInfo, ['nickName'] : inputValue.current.value}
     // dispatch(getUserInfo(changedUser))
     // console.log(changedUser);
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
+    // {curerentPassword : , password }
+    { withCredentials: true })
+    .then(res => { // <- res.data 에 accessToken 담겨있을 것임
+      if(res.status === 200){
+      // 1. 비밀번호 번경 요청 서버에 보냄
+      axios.patch(`${process.env.REACT_APP_API_URL}/user/password`, 
+      {headers: {'accesstoken' : res.data.data}}// <- nickname api 에서 얘를 요청 보내라고 했음
+      )}}
+    ).catch(
+    console.log('response error')
+    )
+  } 
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
       { withCredentials: true })
@@ -46,15 +62,6 @@ function MyPage () {
       );
   }
 
-  // function test(e){
-  //   // e.preventDefault();
-  //   requestNickName(e)
-  //   console.log(userInfo);
-  // }
-
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
 
   function requestNickName (e) {
     e.preventDefault();
@@ -62,38 +69,38 @@ function MyPage () {
     // dispatch(getUserInfo(changedUser))
     // console.log(userInfo); // 이무진
     // console.log(changedUser); // ㄸㄸㄸ
-
-    axios.get(`${process.env.REACT_APP_API_URL}/user/token`, { withCredentials: true }
-    // axios.get('http://localhost:4000/user/token',
-    )
-      .then(res => { // <- res.data 에 accessToken 담겨있을 것임
-        if (res.status === 200) {
-        // 1. res.data <- 유저정보 빼와서
-
-          axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`,
-            { nickName }, // <- body
-            // axios.patch('http://localhost:4000/user/nickname',
-            { headers: { accesstoken: res.data.data } }) // <- nickname api 에서 얘를 요청 보내라고 했음
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
+    { withCredentials: true }
+      ).then(res => { // <- res.data 에 accessToken 담겨있을 것임
+        if(res.status === 200){
+      // 1. 닉네임 변경 요청 서버에 보냄
+        axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`, 
+        {nickName: user.nickName }, // <- body
+        {headers: {'accesstoken' : res.data.data}}) // <- nickname api 에서 얘를 요청 보내라고 했음
           // 2. 리덕스에 있는 유저 인포 업뎃 (dispatch)
-            .then(res => {
-              if (res.status === 200) {
-                // onChange 하면 set 하면 바뀔때마다 실행되기때문에 set 함수가 부담이 될수도 있음
-                // 그래서 버튼 누르면 onChange 이 아니라 onClick 해서 ref 로 값 불러옴
-                const changedUser = { ...user, nickName: nickName };
-                dispatch(getUserInfo(changedUser));
-              } else {
-                console.log('err');
-              }
-            });
-        } else {
+        .then(res => {
+          if(res.status === 200){
+            // onChange 하면 set 하면 바뀔때마다 실행되기때문에 set 함수가 부담이 될수도 있음
+            // 그래서 버튼 누르면 onChange 이 아니라 onClick 해서 ref 로 값 불러옴
+            let changedUser = { ...userInfo, ['nickName'] : user.nickName}
+            dispatch(getUserInfo(changedUser))
+          }else{
+            console.log('err');
+          }})
+        }else{
           console.log('err');
         }
       }
       )
       .catch(
         console.log('response error')
-      );
-  }
+      )
+    }
+
+    function changeValue(key, e){
+      setUser({ ...user, [key] : e.target.value})
+    }
 
   function changeNickName (e) {
     setNickName(e.target.value);
@@ -101,13 +108,6 @@ function MyPage () {
 
   function requestProfileImage (e) {
     e.preventDefault();
-
-    // const reader = new FileReader();
-    // reader.onload = function () {
-    //   console.log(reader.result);
-    //   setIsImageUrl(reader.result); // img 태그의 src 안에 넣을 state
-    // };
-    // reader.readAsDataURL(file); // <- 이건 모지?
 
     const file = e.target.files[0];
     console.log(file);
@@ -117,25 +117,25 @@ function MyPage () {
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/token`, { withCredentials: true }
     ).then(res => { // <- res.data 에 accessToken 담겨있을 것임
-      console.log('test1');
-      if (res.status === 200) {
-        console.log('test2');
-
-        axios.patch(`${process.env.REACT_APP_API_URL}/user/userimage`, formData,
-          { headers: { accesstoken: res.data.data } }
-        ).then(res => {
-          if (res.status === 200) {
-            const changedUser = { ...user, profile: res.profile };
-            dispatch(getUserInfo(changedUser));
-          }
-        })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-    }
-    ).catch(err => console.log(err));
+        console.log('test1'); 
+        if(res.status === 200){
+        console.log('test2'); 
+        
+          axios.patch(`${process.env.REACT_APP_API_URL}/user/profile`, formData,
+          {headers: {'accesstoken' : res.data.data}}
+          ).then(res => {
+            if (res.status === 200) {
+              let changedUser = { ...user, ['profile'] : res.profile}
+              dispatch(getUserInfo(changedUser))
+            }
+            })
+            .catch(err => {
+              console.log(err);
+            })   
+        }}
+    ).catch(err => console.log(err))
   }
+  
 
   function handleCheckAdmin () {
     setIsCheck(true);
@@ -151,18 +151,17 @@ function MyPage () {
       <p>{userInfo.nickName}님의 회원정보</p>
       <form onSubmit={requestPW}>
         <div>
-          <input type='password' name='currentPassword' />
-          <input type='password' name='password' id='' />
+          <input type="password" name="currentPassword" />
+          <input type='password' name='password' id='password' value={password} onChange={(e) => changeValue('password',e)}/>
           <p>비밀번호 유효성 검사</p>
-          <input type='password' name='' id='' />
+          <input type='password' name='password' id='password'/>
           <p>비밀번호 확인 유효성 검사</p>
           <button type='submit'>비밀번호 변경</button>
         </div>
       </form>
 
       <form onSubmit={requestNickName}>
-        <input type='text' name='nickName' id='nickName' placeholder={user.nickName} value={nickName} onChange={(e) => { changeNickName(e); }} />
-        {/* <input type='text'name='nickName' id='nickName' value={user.nickName} ref={inputNickNameValue}/> */}
+        <input type='text'name='nickName' id='nickName' value={user.nickName} onChange={(e) => changeValue('nickName',e)}/>
         <button>중복확인</button>
         <button type='submit'>닉네임 변경</button>
       </form>
@@ -182,7 +181,7 @@ function MyPage () {
       </form>
 
       <button className='sign-out-btn' onClick={(e) => showSignOutModal(e)}>회원 탈퇴</button>
-      {isSignOutModalOpen && <SignOutModal visible={isSignOutModalOpen} setIsSignOutModalOpen={setIsSignOutModalOpen} />}
+      {isSignOutModalOpen && <WithDrawalModal visible={isSignOutModalOpen} setIsSignOutModalOpen={setIsSignOutModalOpen} />}
     </>
 
   );

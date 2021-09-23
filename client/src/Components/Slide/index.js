@@ -1,12 +1,15 @@
+// 라이브러리
 import React, { useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Slider from 'react-slick';
 import styled from 'styled-components';
-import axios from 'axios';
+
+// 컴포넌트 import
+import Slider from 'react-slick';
+
 import './index.scss';
-import playList from '../../DummyData/playList'; // 인기 리스트
-// import  from '../../DummyData/playList'; // 최신 리스트
+import playList from '../../DummyData/playList'; 
+
 
 const settings = {
   className: 'center',
@@ -17,36 +20,22 @@ const settings = {
   slidesToShow: 4,
   slidesToScroll: 1,
   centerMode: true,
-  // centerPadding: "60px",
   centerPadding: '0px',
   afterChange: function (index) {
-    // console.log(
-    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    // );
+    console.log(
+      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    );
   }
 };
 
 function Slide () {
-  // useEffect(()= >{
-  //   axios.get()
-  //   .then(res => useState(res))
-  // }, [])
+
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
 
   const [isPopularList, setPopularList] = useState(playList);
 
-  function GoToServey (id) {
-    // console.log('성공?');
-    // console.log(id);
-  }
 
-  // function handlePopular(){
-
-  //   setPopular(true)
-  //   setRecent(false)
-
-  // }
 
   function handleRecent () {
     // axios.get('http://localhost:4000/recentList')
@@ -65,7 +54,7 @@ function Slide () {
         {playList.map((slider, i) => {
           const { img } = slider;
           return (
-            <div className='slide' key={i} onClick={() => GoToServey(i)}>
+            <div className='slide' key={i}>
               <ImgSlide url={img} />
             </div>
           );
