@@ -2,41 +2,115 @@
   background-color: red;
   display: flex;
   justify-content: center;
-}
+  
+  .genre-box {
+    background-color: blue;
+    display: flex;
+    // align-items: center;
+    justify-content: space-evenly;
+    width: 1400px;
+    // height: 10vh;
+    padding: 10px 0;
+    overflow: hidden;
+  
+    .genre-image {
+      cursor: pointer;
+      background-color: white;
+      margin: 0.5% 1% 0.5% 1% ;
+      // flex: 1 1 auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      z-index: 1;
+      
+      .genre-name {
+        font-size: 2em;
+        font-family: serif;
+      }
+    }
 
-.genre-box {
-  background-color: blue;
-  display: flex;
-  // align-items: center;
-  justify-content: space-evenly;
-  width: 1400px;
-  // height: 10vh;
-  padding: 10px 0;
-}
-
-.genre-name {
-  cursor: pointer;
-  background-color: yellow;
-  margin: 0.5% 1% 0.5% 1% ;
-  // flex: 1 1 auto;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: x-large;
-  font-family: serif;
-}
-
-#selected-genre {
-  background-color: brown;
-  font-weight: bold;
-}
-
-.genre-name:hover {
-  background-color: blueviolet;
-  font-weight: bold;
-  transform: scale(1.1);
-  transition: .3s;
+    .genre-image[value=Jazz]::after {
+      background-image: url('../../assets/jazz.jpg');
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      position:absolute;
+      background-size:cover;
+      background-position: center;
+      opacity:0.5;
+      z-index:-1;
+      content:"";
+      width:100%;
+      height:100%;
+    }
+    .genre-image[value=HipHop]::after {
+      background-image: url('../../assets/hiphop.jpg');
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      position:absolute;
+      background-size:cover;
+      background-position: center;
+      opacity:0.5;
+      z-index:-1;
+      content:"";
+      width:100%;
+      height:100%;
+    }
+    .genre-image[value=Rock]::after {
+      background-image: url('../../assets/rock.jpg');
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      position:absolute;
+      background-size:cover;
+      background-position: center;
+      opacity:0.5;
+      z-index:-1;
+      content:"";
+      width:100%;
+      height:100%;
+    }
+    .genre-image[value=Ballad]::after {
+      background-image: url('../../assets/ballad.jpg');
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      position:absolute;
+      background-size:cover;
+      background-position: center;
+      opacity:0.5;
+      z-index:-1;
+      content:"";
+      width:100%;
+      height:100%;
+    }
+    .genre-image[value='R&B']::after {
+      background-image: url('../../assets/hiphop.jpg');
+      background-repeat: no-repeat;
+      border-radius: 50%;
+      position:absolute;
+      background-size:cover;
+      background-position: center;
+      opacity:0.5;
+      z-index:-1;
+      content:"";
+      width:100%;
+      height:100%;
+    }
+  }
+  
+  .genre-image:hover {
+    // background-color: white;
+    font-weight: bold;
+    transform: scale(1.1);
+    transition: .3s;
+  }
+  
+  .selected-genre {
+    font-weight: bold;
+  }
 }

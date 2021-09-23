@@ -119,7 +119,7 @@ function SignUp ({ handleNotice }) {
   function postSignUp () {
     let admin = 'listener';
     if (selectBtn) admin = 'artist';
-
+    console.log('dsfsdfsdfsd');
     axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {
       loginId: inputValue.id,
       password: inputValue.password,
@@ -136,6 +136,10 @@ function SignUp ({ handleNotice }) {
           setText('가입이 완료되었습니다.');
           setIsOpen(true);
         }
+        if (res.status === 400) {
+          setText('잘못된 요청입니다.');
+          setIsOpen(true);
+        }
         if (res.status === 409) {
           setText('이미 등록된 사용자 입니다.');
           setIsOpen(true);
@@ -150,24 +154,20 @@ function SignUp ({ handleNotice }) {
     <div className='sign-up'>
       <h1 onClick={() => history.push('/')}>HIDDEN TRACK</h1>
       <h2>SignUp</h2>
-      <form className='container'>
-        <div>
+      <form className='sign-up-container'>
+        <div className='sign-up-input'>
           <InputID
             inputValue={inputValue}
             handleInputValue={handleInputValue}
             validMessage={validMessage}
             handleValidMessage={handleValidMessage}
           />
-        </div>
-        <div>
           <InputPW
             inputValue={inputValue}
             handleInputValue={handleInputValue}
             validMessage={validMessage}
             handleValidMessage={handleValidMessage}
           />
-        </div>
-        <div>
           <InputNickName
             inputValue={inputValue}
             handleInputValue={handleInputValue}
@@ -175,12 +175,16 @@ function SignUp ({ handleNotice }) {
             handleValidMessage={handleValidMessage}
           />
         </div>
-        <div>
-          <InputImage inputValue={inputValue} handleInputValue={handleInputValue} initialImage={initialImage} />
+        <InputImage inputValue={inputValue} handleInputValue={handleInputValue} initialImage={initialImage} />
+        <div className='sign-up-radio-box'>
+          <div>
+            <input type='radio' name='authority' value='listener' defaultChecked onClick={(e) => handleRadioBtn(e)} />리스너 권한으로 가입
+          </div>
+          <div>
+            <input type='radio' name='authority' value='artist' onClick={(e) => handleRadioBtn(e)} />아티스트 권한으로 가입
+          </div>
         </div>
-        <input type='radio' name='authority' value='listener' defaultChecked onClick={(e) => handleRadioBtn(e)} />리스너 권한으로 가입
-        <input type='radio' name='authority' value='artist' onClick={(e) => handleRadioBtn(e)} />아티스트 권한으로 가입
-        {selectBtn ? <div><Condition handleInputValue={handleInputValue} /></div> : null}
+        {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
         <button onClick={(e) => requestSignUp(e)}>가입하기</button>
       </form>
       {isOpen

@@ -12,7 +12,7 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
   function isDuplicatedNick (e) {
     e.preventDefault();
     axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      params: {
+      headers: {
         nickname: inputValue.nickName
       }
     })
@@ -31,10 +31,12 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
   }
 
   return (
-    <div>
-      닉네임: <input type='text' placeholder='닉네임을 입력하세요' onChange={(e) => handleNick(e)} />
-      <button onClick={(e) => isDuplicatedNick(e)}>중복확인</button>
-      {validMessage.duplicatedNick ? <p>{validMessage.duplicatedNick}</p> : null}
+    <div className='sign-up-nick-box'>
+      <div>
+        닉네임: <input type='text' placeholder='닉네임을 입력하세요' onChange={(e) => handleNick(e)} />
+        <button onClick={(e) => isDuplicatedNick(e)}>중복확인</button>
+      </div>
+      {validMessage.duplicatedNick ? <p className='sign-up-nick-msg' id={validMessage.duplicatedNick === '사용 가능한 닉네임 입니다.' ? 'nick-ok-msg' : null}>{validMessage.duplicatedNick}</p> : <p className='sign-up-nick-msg' />}
     </div>
   );
 }

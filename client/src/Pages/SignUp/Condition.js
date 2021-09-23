@@ -15,16 +15,16 @@ function Condition ({ handleInputValue }) {
   }
 
   return (
-    <div>
+    <div className='sign-up-condition'>
       <div>
-        <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
+        소속사: <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
       </div>
       <div>
         데뷔일: <input type='date' onChange={(e) => handleDebut(e)} />
       </div>
       <div>
         {/* <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} /> */}
-        <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
+        이메일: <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
     </div>
   );

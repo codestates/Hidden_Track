@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { getTrackList } from '../../Redux/actions/actions';
+import { useDispatch } from 'react-redux';
+import { getTrackDetails } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
+import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
+import './index.scss';
 
 function SearchTrack ({ handleNotice }) {
-  // const trackList = useSelector(state => state.trackListReducer);
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [trackList, setTrackList] = useState([{
     id: 1,
     img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
@@ -41,9 +42,9 @@ function SearchTrack ({ handleNotice }) {
     getSearchContents();
   }, [localStorage.getItem('search')]);
 
-  function handleTrackList (trackList) {
-    setTrackList(trackList);
-  }
+  // function handleTrackList (trackList) {
+  //   setTrackList(trackList);
+  // }
 
   // 검색 페이지에 랜더링될 목록 요청하는 함수
   function getSearchContents () {
@@ -51,7 +52,7 @@ function SearchTrack ({ handleNotice }) {
 
     // -------------장르 선택시 장르 목록 요청------------
     if (search[0] === '@') {
-      axios.get(`${process.env.REACT_APP_API_URL}/post/genre`, {
+      axios.get(`${process.env.REACT_APP_API_URL}/track/genre`, {
         params: {
           genre: search.slice(1)
         }
@@ -70,7 +71,7 @@ function SearchTrack ({ handleNotice }) {
     }
     // ------------해시태그 검색시 요청--------------
     else if (search[0] === '#') {
-      axios.get(`${process.env.REACT_APP_API_URL}/post/hashtag`, {
+      axios.get(`${process.env.REACT_APP_API_URL}/track/hashtag/`, {
         params: {
           tag: search.slice(1)
         }
@@ -89,7 +90,7 @@ function SearchTrack ({ handleNotice }) {
     }
     // --------------검색어 입력시 요청----------------
     else {
-      axios.get(`${process.env.REACT_APP_API_URL}/post/search`, {
+      axios.get(`${process.env.REACT_APP_API_URL}/track/search`, {
         params: {
           query: search
         }
@@ -110,16 +111,10 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <div>
-      <div>
-        <Genre />
-      </div>
-      <div>
-        해시태그 컴포넌트
-      </div>
+      <Genre />
+      <HashTag />
       <p>{localStorage.getItem('search')}(으)로 검색한 결과</p>
-      <div>
-        <TrackList trackList={trackList} handleTrackList={handleTrackList} handleNotice={handleNotice} />
-      </div>
+      <TrackList trackList={trackList} dispatch={dispatch} getTrackDetails={getTrackDetails} handleNotice={handleNotice} />
     </div>
   );
 }

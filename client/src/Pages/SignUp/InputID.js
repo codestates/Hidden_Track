@@ -10,11 +10,12 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
 
   // 아이디 중복확인 요청 함수
   function isDuplicatedId (e) {
-    console.log(e);
     e.preventDefault();
 
+    if (inputValue.id.length < 4) return;
+
     axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      params: {
+      headers: {
         loginId: inputValue.id
       }
     })
@@ -33,13 +34,16 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
   }
 
   return (
-    <div>
-      <span>
-        아이디: <input type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} required />
-      </span>
-      <button onClick={(e) => isDuplicatedId(e)}>중복확인</button>
-      {inputValue.id.length >= 4 || inputValue.id.length === 0 ? null : <p>아이디는 4글자 이상이어야 합니다.</p>}
-      {validMessage.duplicatedId ? <p>{validMessage.duplicatedId}</p> : null}
+    <div className='sign-up-id-box'>
+      <div>
+        <span>
+          아이디: <input type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} required />
+        </span>
+        <button onClick={(e) => isDuplicatedId(e)}>중복확인</button>
+      </div>
+      {validMessage.duplicatedId
+        ? <p className='sign-up-id-msg' id={validMessage.duplicatedId === '사용 가능한 아이디 입니다.' ? 'id-ok-msg' : null}>{validMessage.duplicatedId}</p>
+        : <>{inputValue.id.length >= 4 || inputValue.id.length === 0 ? <p className='sign-up-id-msg' /> : <p className='sign-up-id-msg'>아이디는 4글자 이상이어야 합니다.</p>}</>}
     </div>
   );
 }
