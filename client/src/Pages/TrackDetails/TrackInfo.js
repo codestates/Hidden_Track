@@ -7,6 +7,7 @@ import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
+import HashTag from '../../Components/HashTag';
 
 function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice }) {
   const dispatch = useDispatch();
@@ -189,7 +190,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         <img src={trackDetail.img} alt='' />
       </div>
       <section className='trackinfo-desc'>
-        <p>{trackDetail.title}</p>
+        <h2>{trackDetail.title}</h2>
         {/* <span>
           평점: {trackDetail.post.gradeAev}
           <select name='grade' onChange={(e) => handleGrade(e)}>
@@ -217,6 +218,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             <span className='trackinfo-key'>발매일</span>
             <span className='trackinfo-value'>{trackDetail.releaseAt}</span>
           </div>
+        </div>
+        <div className='trackinfo-hashtag-box'>
+          <HashTag />
         </div>
         <div className='trackinfo-btn-box'>
           <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>

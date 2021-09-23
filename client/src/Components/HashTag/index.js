@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 
 function HashTag () {
-  const tagList = ['#사랑', '우정', '자전거 타고 싶을때 듣고싶은 용기', 'ㄹㅇㄴㅁㄻ', '라라라', 'fdsafsda', 'fdsfsadfas', 'fdsafsdafasd', 'fdsfsdafsd', 'fdsafdsfsa', 'fdsafsdafsda', 'fdsafsdaf', 'fdsafdsfsdaf', 'fdsafsdafsadf', 'fdsafsdafsadfas', 'fdsafsdafsda', 'fdsfsadfsdafasd', 'fdsafdsafsdafasdf', 'fdsafdsafsdaf', 'fdsafsdfsdafdsf'];
+  const tagList = ['사랑', '우정', '자전거 타고 싶을때 듣고싶은 노래', '가을', '겨울'];
 
   return (
     <section id='hashtag-section'>

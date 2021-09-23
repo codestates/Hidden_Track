@@ -1,6 +1,6 @@
 import React from 'react';
 // import axios from 'axios';
-import './InputImage.scss';
+// import './InputImage.scss';
 
 function InputImage ({ inputValue, handleInputValue, initialImage }) {
   // 프로필 이미지 파일 미리보기 구현
@@ -40,13 +40,17 @@ function InputImage ({ inputValue, handleInputValue, initialImage }) {
 
   return (
     <div className='profile-container'>
-      <div className='profile-box'>
-        <img className='profile-image' src={inputValue.previewFile || initialImage} alt='' />
+      <div className='profile-wrap'>
+        <div className='profile-box'>
+          <img className='profile-image' src={inputValue.previewFile || initialImage} alt='' />
+        </div>
+        <p>프로필 이미지(선택사항)</p>
       </div>
-      <label htmlFor='profile'>파일첨부</label>
-      <input id='profile' style={{ display: 'none' }} type='file' accept='.jpg, .jpeg, png, gif, bmp' onChange={(e) => handleProfile(e)} />
-      <button onClick={(e) => deleteImage(e)}>이미지 삭제</button>
-      <p>프로필 이미지(선택사항)</p>
+      <div className='profile-btn-box'>
+        <label className='profile-input-btn' htmlFor='profile'>파일첨부</label>
+        <input id='profile' style={{ display: 'none' }} type='file' accept='.jpg, .jpeg, png, gif, bmp' onChange={(e) => handleProfile(e)} />
+        <button className='profile-delete-btn' onClick={(e) => deleteImage(e)}>이미지 삭제</button>
+      </div>
     </div>
   );
 }

@@ -24,9 +24,9 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   // 수정 or 삭제 버튼 누를시 수정/삭제할 댓글 id로 상태 변경하는 함수
   function getReplyId (e) {
     e.preventDefault();
-    console.log(e.target.parentElement.getAttribute('id'));
+    console.log(e.target.parentElement.parentElement.getAttribute('id'));
     setClickedBtn(e.target.alt);
-    setSelectedReplyId(e.target.parentElement.getAttribute('id'));
+    setSelectedReplyId(e.target.parentElement.parentElement.getAttribute('id'));
   }
 
   // 댓글 삭제요청 보내는 함수
@@ -92,7 +92,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                   <img className='replys-delete' src={deleteBtn} alt='삭제' onClick={(e) => getReplyId(e)} />
                   {/* : null} */}
                 </div>
-                <div>
+                <div className='replys-comment-box'>
                   <p className='replys-comment'>{el.content}</p>
                 </div>
               </li>

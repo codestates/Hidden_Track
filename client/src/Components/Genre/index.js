@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import './index.scss';
 
 function Genre () {
-  const genreList = ['Jazz', 'Hip Hop', 'Rock', 'Ballad', 'R&B'];
+  const genreList = ['Jazz', 'HipHop', 'Rock', 'Ballad', 'R&B'];
   const [selectGenre, setSelectGenre] = useState('');
   const history = useHistory();
 
@@ -31,8 +31,10 @@ function Genre () {
       <div className='genre-box'>
         {genreList.map((el, idx) => {
           return (
-            <span className='genre-name' id={selectGenre === el ? 'selected-genre' : null} value={el} key={idx} onClick={(e) => clickGenre(e)}>
-              {el}
+            <span className={selectGenre === el ? 'genre-image selected-genre' : 'genre-image'} value={el} key={idx} onClick={(e) => clickGenre(e)}>
+              <p className={selectGenre === el ? 'genre-name selected-genre' : 'genre-name'} value={el} onClick={(e) => clickGenre(e)}>
+                {el}
+              </p>
             </span>
           );
         })}
