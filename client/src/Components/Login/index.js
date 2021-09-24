@@ -66,7 +66,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
   }
 
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
-  async function requestLogin (e) {
+  function requestLogin (e) {
     e.preventDefault();
 
     // inputId 와 inputPw 는 state 다
@@ -74,11 +74,9 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
       loginId: inputId,
       password: inputPw
     };
-
+    console.log(body);
     // 로그인 서버 요청
-    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`,
-      { withCredentials: true },
-      body)
+    axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
           // 1. accessToken 을 리덕스 state 에 저장해야 한다.
@@ -107,7 +105,9 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
           });
         }
       }
-      );
+      ).catch(err => {
+        console.log(err);
+      });
   }
 
   return (

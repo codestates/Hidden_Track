@@ -22,7 +22,7 @@ function MyPage () {
   const [isImageUrl, setIsImageUrl] = useState('https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg');
   const [password, setPassword] = useState('');
 
-  console.log(user.nickName);
+  console.log(userInfo);
 
   function requestPW (e) {
     e.preventDefault();

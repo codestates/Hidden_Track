@@ -4,8 +4,7 @@ import axios from 'axios';
 export async function accessTokenRequest (accessToken) {
   const userInfo = await axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json'
+      accesstoken: accessToken
     }
   })
     .then(res => {
@@ -15,7 +14,7 @@ export async function accessTokenRequest (accessToken) {
       }
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
     });
 
   return userInfo;

@@ -45,13 +45,13 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
           // 삭제 요청이 성공하면 다시 상세 음원 목록 받아오는 axios요청 보냄
           axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
-              trackId: trackDetail.id
+              trackId: trackDetail.track.id
             }
           })
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
-                dispatch(getTrackDetails(res.data.track));
+                dispatch(getTrackDetails(res.data));
               }
             })
             .catch(err => {
@@ -75,18 +75,19 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   return (
     <div>
       <ul>
-        {trackDetail.reply
-          ? trackDetail.reply.map((el) => {
+        {trackDetail.track.replies
+          ? trackDetail.track.replies.map((el) => {
+            console.log(el);
             return (
               <li className='replys-li' key={el.id} id={el.id}>
                 <div className='replys-info'>
                   <img className='replys-profile' src={el.user.profile} alt='' />
                   <p className='replys-nickname'>{el.user.nickname}</p>
-                  {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname && clickedBtn !== '수정' ? */}
+                  {/* {isLogin && userInfo.nickName === trackDetail.track.reply.user.nickname && clickedBtn !== '수정' ? */}
                   {/* <button className='contents__btn' value='수정' onClick={(e) => getReplyId(e)}>댓글수정</button> */}
                   <img className='replys-modify' src={editBtn} alt='수정' onClick={(e) => getReplyId(e)} />
                   {/* : null} */}
-                  {/* {isLogin && userInfo.nickName === trackDetail.reply.user.nickname && clickedBtn !== '수정' ? */}
+                  {/* {isLogin && userInfo.nickName === trackDetail.track.reply.user.nickname && clickedBtn !== '수정' ? */}
                   {/* // <button className='contents__btn' value='삭제' onClick={(e) => getReplyId(e)}>댓글삭제</button> */}
                   <img className='replys-delete' src={deleteBtn} alt='삭제' onClick={(e) => getReplyId(e)} />
                   {/* : null} */}
