@@ -8,7 +8,6 @@ import Portal from './Portal';
 import './WithDrawalModal.scss';
 
 function WithDrawalModal ({ visible, setIsSignOutModalOpen }) {
-
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,24 +24,24 @@ function WithDrawalModal ({ visible, setIsSignOutModalOpen }) {
     setIsSignOutModalOpen(false);
   }
 
-  // 모달창의 예 버튼을 누르면 ( 회원탈퇴 서버 요청 & 리덕스 스테이트 업데이트 & refreshToken 삭제 & 메인페이지로 이동 ) 발생하는 이벤트 
+  // 모달창의 예 버튼을 누르면 ( 회원탈퇴 서버 요청 & 리덕스 스테이트 업데이트 & refreshToken 삭제 & 메인페이지로 이동 ) 발생하는 이벤트
   function requestSignOut (e) {
     e.preventDefault();
 
     // 회원 정보 서버에서 삭제되어야 함
     axios.get(`${process.env.REACT_APP_API_URL}/user/withdrawal`)
-    .then(res =>{
-      if(res.status === 200){
-        dispatch(isLoginHandler(false))
-        cookies.remove('refreshToken');
-        history.push('/');
-      }}
-    )
+      .then(res => {
+        if (res.status === 200) {
+          dispatch(isLoginHandler(false));
+          cookies.remove('refreshToken');
+          history.push('/');
+        }
+      }
+      );
   }
-    /* .then(res => if()) / 회원탈퇴 성공했을때 로그인 풀려야 함 dispatch(isLoginHandler(false)) & history.push('/');
+  /* .then(res => if()) / 회원탈퇴 성공했을때 로그인 풀려야 함 dispatch(isLoginHandler(false)) & history.push('/');
                           / 회원탈퇴 실패했을 경우 => 프론트단에서는 뭘 해야 할까? => 현재페이지에서 이미 탈퇴한 회원입니다
                             또는 서버단에서 실패 => 두가지 경우의 모달창? */
-  
 
   return (
     <>
