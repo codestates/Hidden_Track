@@ -46,21 +46,8 @@ function MyPage () {
     )
   } 
 
-    axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
-      { withCredentials: true })
-      .then(res => { // <- res.data 에 accessToken 담겨있을 것임
-        if (res.status === 200) {
-          // 1. res.data <- 유저정보 빼와서
-          axios.patch(`${process.env.REACT_APP_API_URL}/user/password`,
-            // {headers: {'accesstoken' : res.data}}
-            { headers: { accesstoken: res.data.data } }// <- nickname api 에서 얘를 요청 보내라고 했음
-          );
-        }
-      }
-      ).catch(
-        console.log('response error')
-      );
-  }
+   
+  
 
 
   function requestNickName (e) {
@@ -102,9 +89,6 @@ function MyPage () {
       setUser({ ...user, [key] : e.target.value})
     }
 
-  function changeNickName (e) {
-    setNickName(e.target.value);
-  }
 
   function requestProfileImage (e) {
     e.preventDefault();
