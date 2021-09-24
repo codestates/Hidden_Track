@@ -71,7 +71,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
   }
 
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
-  async function requestLogin (e) {
+  function requestLogin (e) {
     e.preventDefault();
 
     // inputId 와 inputPw 는 state 다
@@ -79,11 +79,10 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
       loginId: inputId,
       password: inputPw
     };
-
+    console.log(body);
     // 로그인 서버 요청
-    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`,
-      // { withCredentials: true }, // <- 쿠키를 보내려고 쓰는것 :리프레시 토큰을 프론트에서 서버로 보낼때 사용(쿠키가 서버로 보내진다. : 쿠키에는 리프레시토큰이 담겨있으니까)
-      body)
+
+    axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
 
@@ -137,7 +136,6 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
         }else if(err.response.status === 404){
           console.log('404 에러다');
         }
-
       })
   }
 

@@ -28,28 +28,32 @@ function App () {
   useEffect(() => {
     // 쿠키에 리프레시 토큰이 있다면(로그아웃을 안한 것) 로그인 유지, 액세스 토큰, 유저정보 받아옴
     if (cookies.get('refreshToken')) {
-      let token = refreshTokenRequest();
-      if (token) {
-        // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
-        dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
-        let userInfo = accessTokenRequest(token);
-        if (userInfo) {
-          // 유저 정보 얻어왔으면 전역 상태에 저장
-          dispatch(getUserInfo(userInfo));
+      refreshTokenRequest().then(token => {
+        if (token) {
+          // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
+          dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
+          accessTokenRequest(token).then(userInfo => {
+            if (userInfo) {
+              // 유저 정보 얻어왔으면 전역 상태에 저장
+              dispatch(getUserInfo(userInfo));
+              dispatch(isLoginHandler(true));
+            }
+            // 유저 정보를 못 얻어왔다면 -> 액세스 토큰이 유효하지 x -> 리프레시 토큰으로 다시 얻어옴
+            else {
+              // token = refreshTokenRequest();
+              // dispatch(getAccessToken(token));
+              // userInfo = accessTokenRequest(token);
+              // dispatch(getUserInfo(userInfo));
+            }
+          });
         }
-        // 유저 정보를 못 얻어왔다면 -> 액세스 토큰이 유효하지 x -> 리프레시 토큰으로 다시 얻어옴
+        // 액세스 토큰을 못 얻어왔다면 리프레시 토큰이 유효하지 x -> 로그아웃 처리
         else {
-          token = refreshTokenRequest();
-          dispatch(getAccessToken(token));
-          userInfo = accessTokenRequest(token);
-          dispatch(getUserInfo(userInfo));
+          handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
+          dispatch(isLoginHandler(false));
+          cookies.remove('refreshToken');
         }
-      }
-      // 액세스 토큰을 못 얻어왔다면 리프레시 토큰이 유효하지 x -> 로그아웃 처리
-      else {
-        handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
-        dispatch(isLoginHandler(false));
-      }
+      });
     }
     // 쿠키에 리프레시 토큰이 없다면 로그인 false
     else {

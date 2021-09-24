@@ -39,7 +39,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
     }
 
     axios.post(`${process.env.REACT_APP_API_URL}/track/good`, {
-      trackId: trackDetail.id
+      trackId: trackDetail.track.id
     })
       .then(res => {
         console.log(res.data);
@@ -49,13 +49,13 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
           axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
-              trackId: trackDetail.id
+              trackId: trackDetail.track.id
             }
           })
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
-                dispatch(getTrackDetails(res.data.track));
+                dispatch(getTrackDetails(res.data));
               }
             })
             .catch(err => {
@@ -88,7 +88,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
     // -------------------비로그인일 때-----------------------
     if (!isLogin) {
       // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
-      const check = isDuplicateTrack(playList, trackDetail.id);
+      const check = isDuplicateTrack(playList, trackDetail.track.id);
       // 이미 있는 곡 & 바로듣기 버튼을 안 눌렀다면 알림 뜸
       if (check && !listenBtn) return handleNotice('이미 추가된 곡입니다.', 5000);
       // 이미 있는 곡 & 바로듣기 버튼을 눌렀다면
@@ -99,15 +99,15 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
-          id: trackDetail.id,
-          title: trackDetail.title,
-          img: trackDetail.img,
-          genre: trackDetail.genre,
-          releaseaAt: trackDetail.releaseAt,
-          lyric: trackDetail.lyric,
-          soundtrack: trackDetail.soundtrack,
+          id: trackDetail.track.id,
+          title: trackDetail.track.title,
+          img: trackDetail.track.img,
+          genre: trackDetail.track.genre,
+          releaseaAt: trackDetail.track.releaseAt,
+          lyric: trackDetail.track.lyric,
+          soundtrack: trackDetail.track.soundtrack,
           user: {
-            nickname: trackDetail.user.nickname
+            nickname: trackDetail.track.user.nickname
           }
         }));
         // 바로 듣기 버튼 안 눌렀다면 알림 뜸
@@ -121,7 +121,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
     } else {
       // --------------------로그인 상태일 때------------------------
       // 만약 이미 플레이 리스트에 있는 곡이면 저장 x
-      const check = isDuplicateTrack(playList, trackDetail.id);
+      const check = isDuplicateTrack(playList, trackDetail.track.id);
       // 이미 있는 곡 & 바로듣기 버튼을 안 눌렀다면 알림 뜸
       if (check && !listenBtn) return handleNotice('이미 추가된 곡입니다.', 5000);
       // 이미 있는 곡 & 바로듣기 버튼을 눌렀다면
@@ -132,7 +132,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist`, {
-          trackId: trackDetail.id
+          trackId: trackDetail.track.id
         })
           .then(res => {
             console.log('플레이리스트 추가 요청 응답', res.data);
@@ -187,10 +187,10 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   return (
     <div className='trackinfo-container'>
       <div>
-        <img src={trackDetail.img} alt='' />
+        <img src={trackDetail.track.img} alt='' />
       </div>
       <section className='trackinfo-desc'>
-        <h2>{trackDetail.title}</h2>
+        <h2>{trackDetail.track.title}</h2>
         {/* <span>
           평점: {trackDetail.post.gradeAev}
           <select name='grade' onChange={(e) => handleGrade(e)}>
@@ -203,20 +203,20 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           </select>
           <button onClick={(e) => requestGrade(e)}>별점주기</button>
         </span> */}
-        <span>평점: {trackDetail.post.gradeAev}</span>
+        <span>평점: {trackDetail.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
         <div className='trackinfo-box'>
           <div className='trackinfo-info'>
             <span className='trackinfo-key'>아티스트</span>
-            <span className='trackinfo-value'>{trackDetail.user.nickname}</span>
+            <span className='trackinfo-value'>{trackDetail.track.user.nickName}</span>
           </div>
           <div className='trackinfo-info'>
             <span className='trackinfo-key'>장르</span>
-            <span className='trackinfo-value'>{trackDetail.genre}</span>
+            <span className='trackinfo-value'>{trackDetail.track.genre}</span>
           </div>
           <div className='trackinfo-info'>
             <span className='trackinfo-key'>발매일</span>
-            <span className='trackinfo-value'>{trackDetail.releaseAt}</span>
+            <span className='trackinfo-value'>{trackDetail.track.releaseAt}</span>
           </div>
         </div>
         <div className='trackinfo-hashtag-box'>
@@ -228,9 +228,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           <button className='contents__btn' onClick={(e) => requestLike(e)}>
             <img className='like-btn' src={likeImage} alt='' />
           </button>
-          <span>{trackDetail.like.count}</span>
+          <span>{trackDetail.like}</span>
         </div>
-        {/* {isLogin && userInfo.nickName === trackDetail.user.nickname ? */}
+        {/* {isLogin && userInfo.nickName === trackDetail.track.user.nickname ? */}
         <div>
           <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
           <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
@@ -240,8 +240,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           <ContentDeleteModal
             visible={isContentDeleteModalOpen}
             setIsContentDeleteModalOpen={setIsContentDeleteModalOpen}
-            // trackDetail={trackDetail}
-            // accessToken={accessToken}
+            isLogin={isLogin}
+            trackDetail={trackDetail}
+            accessToken={accessToken}
             handleNotice={handleNotice}
           />}
       </section>
