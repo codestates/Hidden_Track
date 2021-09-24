@@ -1,4 +1,4 @@
-const { track,hashtag,user,reply } = require("../../models")
+const { track,hashtag,user,reply,grade,playlist } = require("../../models")
 const db = require("../../models");
 const { isAuthorized } = require('../tokenFunctions');
 
@@ -25,7 +25,6 @@ module.exports = {
        },
        {
         model : reply,
-        required : true,
         attributes : ["content"],
         include: {
           model : user,
@@ -35,16 +34,28 @@ module.exports = {
         },
         {
           model: hashtag,
-          required : true,
           attributes : ["tag"]
         }]
      })
     
+     console.log(findTrack)
      const {count, rows } = await likes.findAndCountAll({
       where: { trackId : trackId }
      })
+     
+     const gradeAll = await grade.findAll({
+      where : { 
+        trackId: trackId,
+      }
+     })
+  
+     let sum = 0;
+     for(let i =0;i<gradeAll.length;i++){
+     sum = sum + gradeAll[i].dataValues.userGrade
+     }
+     const gradeAev = gradeAll.length !== 0 ? sum/gradeAll.length : 0; 
 
-     res.status(200).json({track:findTrack, like: count });
+     res.status(200).json({track:findTrack[0], like: count,gredeAev :gradeAev});
    },
 
     post: async (req,res) =>{ 
@@ -99,6 +110,32 @@ module.exports = {
       res.status(401).json({ message : "unauthorized"});
     }
     
+    const findTrack = await track.findOne({
+      where : {id : id}
+    })
+
+    if(findTrack.soundTrack !== soundTrack){
+      const url =  findTrack.soundTrack.split('com/')
+      s3.deleteObject({
+        Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
+        Key: `${url[1]}` // 버켓 내 경로
+      }, (err, data) => {
+        if (err) { throw err; }
+        console.log('s3 deleteObject ', data)
+      })    
+    }
+  
+    if(findTrack.img !== img){
+      const url =  findTrack.img.split('com/')
+      s3.deleteObject({
+        Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
+        Key: `${url[1]}` // 버켓 내 경로
+      }, (err, data) => {
+        if (err) { throw err; }
+        console.log('s3 deleteObject ', data)
+      })    
+    }
+
     await track.update({
       title : title,
       img : img,
@@ -130,16 +167,58 @@ module.exports = {
       )
    }
     res.status(200).json( {trackId: id } );
+
    },
    delete :  async (req,res) =>{ 
     
    const { id } = req.body;
+   const tagtracks = db.sequelize.models.tagtracks;
+   const likes = db.sequelize.models.likes;
+   
+   const findTrack = await track.findOne({
+     where : {id : id },
+     include : {
+       model : hashtag,
+       attributes : ["id","tag"]
+     }
+    })
+ 
+    await tagtracks.destroy({
+      where : {trackId : id }
+    })
+  
+   for(let i=0;i<findTrack.hashtags.length;i++ ){
+      const {count, rows } = await tagtracks.findAndCountAll({
+        where: { hashtagId : findTrack.hashtags[i].id }
+       })
+       console.log(count)
+       if(count===0){
+        await hashtag.destroy({
+          where : {id : findTrack.hashtags[i].id}
+        }) 
+       }
+   }
 
-   await track.destroy({
+   await playlist.destroy({
+     where : {trackId : id}
+   })
+  
+   await likes.destroy({
+    where : {trackId : id }
+  })
+
+   await grade.destroy({
+     where: {trackId: id}
+   })
+
+   await reply.destroy({
+    where: { trackId: id },
+  });
+
+  await track.destroy({
     where: { id: id },
   });
-  
-  //관련된 tagtrack,hashtag,like,playlist,grade,reply 다 지우기 
-    res.status(200).json({message:"ok"});
+
+    res.status(200).json({message: "ok"});
    }
  }

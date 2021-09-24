@@ -8,8 +8,7 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 
 import './index.scss';
-import playList from '../../DummyData/playList'; 
-
+import playList from '../../DummyData/playList';
 
 const settings = {
   className: 'center',
@@ -29,13 +28,10 @@ const settings = {
 };
 
 function Slide () {
-
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
 
   const [isPopularList, setPopularList] = useState(playList);
-
-
 
   function handleRecent () {
     // axios.get('http://localhost:4000/recentList')
