@@ -7,12 +7,11 @@ import Portal from './Portal';
 import './ContentDeleteModal.scss';
 // import './index.scss';
 
+
 function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail, accessToken, handleNotice }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  // console.log(accessToken);
-  // axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
   // 삭제 확인 모달창 배경을 클릭하면 모달창이 닫히는 함수
   function handleContentModalBack (e) {

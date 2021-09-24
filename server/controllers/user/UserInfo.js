@@ -5,6 +5,7 @@ module.exports = async (req, res) => {
   
    //req.headers accesstoken
    const accessTokenData = isAuthorized(req);
+   console.log(accessTokenData);
    if (!accessTokenData) {
       res.status(401).json({ message : "unauthorized"});
     }
