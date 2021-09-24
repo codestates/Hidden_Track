@@ -18,16 +18,16 @@ function TestMo ({ handleNotice }) {
   const dispatch = useDispatch();
   // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
-    id: isModify ? trackDetail.id : '',
-    title: isModify ? trackDetail.title : '',
-    img: isModify ? trackDetail.img : default_album_img,
-    genre: isModify ? trackDetail.genre : '',
-    releaseAt: isModify ? trackDetail.releaseAt : '',
-    soundtrack: isModify ? trackDetail.soundtrack : '',
-    lyrics: isModify ? trackDetail.lyric : '등록된 가사가 없습니다.',
-    tag: isModify ? trackDetail.hashtag.tag : []
+    id: isModify ? trackDetail.track.id : '',
+    title: isModify ? trackDetail.track.title : '',
+    img: isModify ? trackDetail.track.img : default_album_img,
+    genre: isModify ? trackDetail.track.genre : '',
+    releaseAt: isModify ? trackDetail.track.releaseAt : '',
+    soundtrack: isModify ? trackDetail.track.soundtrack : '',
+    lyrics: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
+    tag: isModify ? trackDetail.track.hashtag : []
   });
-  const [src, setSrc] = useState(isModify ? trackDetail.img : default_album_img);
+  const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
@@ -83,7 +83,7 @@ function TestMo ({ handleNotice }) {
     }
     // 수정 버튼으로 들어왔을 경우
     else {
-      return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.user.nickname;
+      return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.track.user.nickname;
     }
   }
   // ?##############################################################################################
@@ -181,7 +181,7 @@ function TestMo ({ handleNotice }) {
               axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.id}`)
                 .then(res => {
                   if (res.status === 200) {
-                    dispatch(getTrackDetails(res.data.track));
+                    dispatch(getTrackDetails(res.data));
                   } else if (res.status === 400) {
                     handleNotice('페이지를 찾을 수 없습니다.', 5000);
                   }

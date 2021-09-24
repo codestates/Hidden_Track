@@ -7,8 +7,7 @@ import Portal from './Portal';
 import './ContentDeleteModal.scss';
 // import './index.scss';
 
-
-function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail, accessToken, handleNotice }) {
+function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, trackDetail, accessToken, handleNotice }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -23,10 +22,17 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
   function requestDeleteTrack (e) {
     e.preventDefault();
 
-    axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
-      { withCredentials: true }
-    ).then(res => {
-      console.log(res.data.data);
+    if (!isLogin) {
+      setIsContentDeleteModalOpen(false);
+      handleNotice('로그인이 필요합니다.', 5000);
+      return;
+    }
+
+    axios.delete(`${process.env.REACT_APP_API_URL}/track`, {
+      id: trackDetail.track.id,
+      headers: {
+        accessToken: accessToken
+      }
     })
       .then(res => {
         console.log('음원 삭제 요청 응답', res.data);

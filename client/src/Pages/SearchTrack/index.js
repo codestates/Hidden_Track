@@ -49,14 +49,12 @@ function SearchTrack ({ handleNotice }) {
   // 검색 페이지에 랜더링될 목록 요청하는 함수
   function getSearchContents () {
     const search = localStorage.getItem('search');
+    if (!search) return;
 
     // -------------장르 선택시 장르 목록 요청------------
     if (search[0] === '@') {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/genre`, {
-        params: {
-          genre: search.slice(1)
-        }
-      })
+      console.log(search.slice(1));
+      axios.get(`${process.env.REACT_APP_API_URL}/track/genre/${search.slice(1)}`)
         .then(res => {
           console.log('장르 선택 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);
@@ -64,16 +62,14 @@ function SearchTrack ({ handleNotice }) {
         })
         .catch(err => {
           console.log(err.response);
-          if (err.response.status === 404) setTrackList([]);
+          if (err.response) {
+            if (err.response.status === 404) setTrackList([]);
+          } else console.log(err);
         });
     }
     // ------------해시태그 검색시 요청--------------
     else if (search[0] === '#') {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/hashtag/`, {
-        params: {
-          tag: search.slice(1)
-        }
-      })
+      axios.get(`${process.env.REACT_APP_API_URL}/track/hashtag/${search.slice(1)}`)
         .then(res => {
           console.log('해시태그 선택 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);

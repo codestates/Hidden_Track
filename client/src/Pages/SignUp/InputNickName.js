@@ -31,7 +31,7 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
           handleValidMessage('duplicatedNick', '잘못된 요청입니다.');
         }
         if (err.response.status === 409) {
-          handleValidMessage('duplicatedNick', '이미 존재하는 닉네임 입니다.');
+          handleValidMessage('duplicatedNick', '이미 등록된 닉네임 입니다.');
         }
       });
   }

@@ -11,7 +11,7 @@ export async function accessTokenRequest (accessToken) {
       }
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
     });
 
   return userInfo;
