@@ -11,7 +11,7 @@ export const initialState = {
   userInfo: {
     id: '1',
     loginId: 'joo',
-    profile: 'image.png',
+    profile: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg',
     nickName: '이무진',
     // nickName: '',
     // admin: 'listener',
