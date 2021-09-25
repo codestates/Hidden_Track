@@ -15,7 +15,7 @@ import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
 import Notification from './Components/Notification';
-import HashTag from './Components/HashTag';
+
 
 function App () {
   const loca = useLocation();
@@ -97,7 +97,7 @@ function App () {
   return (
     <>
       <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname === '/sidebar'
+        {loca.pathname === '/signup' || loca.pathname === '/sidebar' || loca.pathname === '/canvas2'
           ? (
             <></>)
           : (
@@ -128,9 +128,6 @@ function App () {
         </Route>
         <Route path='/searchtrack'>
           <SearchTrack handleNotice={handleNotice} />
-        </Route>
-        <Route path='/hashtag'>
-          <HashTag handleNotice={handleNotice} />
         </Route>
       </Switch>
       <Notification notice={notice} />

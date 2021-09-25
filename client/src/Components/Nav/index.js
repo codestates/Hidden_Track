@@ -16,9 +16,7 @@ import Sidebar from './Sidebar';
 import './index.scss';
 import headphone from '../../assets/headphones.png';
 
-
 function Nav () {
-
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -31,13 +29,11 @@ function Nav () {
   const { isLogin } = state1;
   const { isLoginModalOpen } = state2;
 
-
   // 헤드폰 모양을 누르면 사이드바가 나타나도록 해주는 onClick 이벤트
   function showSidebar (e) {
     e.preventDefault();
     setIsSidebarOpen(!isSidebarOpen);
   }
-
 
   // 로그인 버튼을 눌렀을때 로그인 모달창 뜨도록 해주는 onClick 이벤트
   function showModal (e) {
@@ -46,7 +42,6 @@ function Nav () {
     // isLoginModalOpenHandler 라는 리덕스의 action 의 인수로, true 전달하여 리덕스의 state 업데이트
     dispatch(isLoginModalOpenHandler(true));
   }
-
 
   // 프로필 사진 눌렀을때 리스트들 보여주는 onClick 이벤트
   function showUserProfileList (e) {
@@ -62,16 +57,14 @@ function Nav () {
     }
   }
 
-
   // 마이페이지 버튼 누르면 마이페이지 로 넘어가주는 onClick 이벤트
-  function moveMyPage(e){
+  function moveMyPage (e) {
     e.preventDefault();
 
     // // 프로필 사진 눌렀을때 보이는 리스트들 숨겨주는 setState
     setIsShowUserProfileList('hide');
-    history.push('/mypage')
+    history.push('/mypage');
   }
-
 
   // 로그아웃 버튼 눌렀을 때 로그아웃 서버 요청 onClick 이벤트 함수
   function requestSignOut (e) {
@@ -79,27 +72,26 @@ function Nav () {
 
     // 로그아웃 서버 요청
     axios.get(`${process.env.REACT_APP_API_URL}/user/signout`,
-    {withCredentials: true})
-    .then(res =>{
-      if(res.status === 200){
-
+      { withCredentials: true })
+      .then(res => {
+        if (res.status === 200) {
         // isLoginHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
-        dispatch(isLoginHandler(false))
+          dispatch(isLoginHandler(false));
 
-        // refreshToken 가 담긴 cookie 삭제
-        cookies.remove('refreshToken');
-        history.push('/');
+          // refreshToken 가 담긴 cookie 삭제
+          cookies.remove('refreshToken');
+          history.push('/');
+        }
       }
-    }
-    ).catch(err =>{
+      ).catch(err => {
       // 뭔가 알림모달을 띄우게
-      console.log(err.response);
-      if(err.response.status === 400){
+        console.log(err.response);
+        if (err.response.status === 400) {
 
-      }else if(err.response.status === 404){
-        
-      }
-    })
+        } else if (err.response.status === 404) {
+
+        }
+      });
   }
 
   return (
@@ -144,7 +136,7 @@ function Nav () {
           </div>
           }
 
-        {isLoginModalOpen && <Login showUserProfileList={showUserProfileList} isShowUserProfileList={isShowUserProfileList} setIsShowUserProfileList={setIsShowUserProfileList}/>}
+        {isLoginModalOpen && <Login showUserProfileList={showUserProfileList} isShowUserProfileList={isShowUserProfileList} setIsShowUserProfileList={setIsShowUserProfileList} />}
       </nav>
     </header>
 

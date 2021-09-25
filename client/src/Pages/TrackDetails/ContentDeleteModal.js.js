@@ -25,9 +25,9 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
     e.preventDefault();
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/token`,
-    { withCredentials: true }
-    ).then(res =>{
-      console.log(res.data.data)
+      { withCredentials: true }
+    ).then(res => {
+      console.log(res.data.data);
     })
       .then(res => {
         console.log('음원 삭제 요청 응답', res.data);

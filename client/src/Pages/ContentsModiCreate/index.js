@@ -18,14 +18,14 @@ function TestMo ({ handleNotice }) {
   const dispatch = useDispatch();
   // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
-    id: isModify ? trackDetail.id : '',
-    title: isModify ? trackDetail.title : '',
-    img: isModify ? trackDetail.img : default_album_img,
-    genre: isModify ? trackDetail.genre : '',
-    releaseAt: isModify ? trackDetail.releaseAt : '',
-    soundtrack: isModify ? trackDetail.soundtrack : '',
-    lyrics: isModify ? trackDetail.lyric : '등록된 가사가 없습니다.',
-    tag: isModify ? trackDetail.hashtag.tag : []
+    id: isModify ? trackDetail.track.id : '',
+    title: isModify ? trackDetail.track.title : '',
+    img: isModify ? trackDetail.track.img : default_album_img,
+    genre: isModify ? trackDetail.track.genre : '',
+    releaseAt: isModify ? trackDetail.track.releaseAt : '',
+    soundtrack: isModify ? trackDetail.track.soundtrack : '',
+    lyrics: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
+    tag: isModify ? trackDetail.track.hashtag.tag : []
   });
   const [src, setSrc] = useState(isModify ? trackDetail.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
@@ -178,10 +178,10 @@ function TestMo ({ handleNotice }) {
             if (res.status === 200) {
               handleNotice('음원 등록이 성공하였습니다.', 5000);
               const parameters = res.data.id; // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수정 필요
-              axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.id}`)
+              axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.track.id}`)
                 .then(res => {
                   if (res.status === 200) {
-                    dispatch(getTrackDetails(res.data.track));
+                    dispatch(getTrackDetails(res.data));
                   } else if (res.status === 400) {
                     handleNotice('페이지를 찾을 수 없습니다.', 5000);
                   }
