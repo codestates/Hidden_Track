@@ -18,7 +18,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   const { playList } = state;
   const { onClickModify } = modifyBtn;
 
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  axios.defaults.headers.common.accesstoken = accessToken;
   console.log(trackDetail);
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
@@ -47,11 +47,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         // let likeCount = res.data.likecount
         // dispatch(getTrackDetails(...trackDetail, [like]: {count: likeCount}))
         // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
-          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
-            params: {
-              trackId: trackDetail.track.id
-            }
-          })
+          axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {

@@ -12,7 +12,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   const [clickedBtn, setClickedBtn] = useState('');
 
   const dispatch = useDispatch();
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  axios.defaults.headers.common.accesstoken = accessToken;
 
   useEffect(() => {
     // console.log(clickedBtn)
