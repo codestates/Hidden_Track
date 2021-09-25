@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
+import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import Canvas from './Canvas';
 import PlayList from '../../Components/PlayList';
 import axios from 'axios';
 import './index.scss';
@@ -14,15 +14,11 @@ function Visualizer () {
   // const audioCtx = new AudioContext();
   // console.log(audioCtx);
   // redux에 저장된 state 가져오기
-  const audio = useRef();
-  const canvas = useRef();
   const playList = useSelector(state => state.playListReducer.playList);
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
   const accessToken = useSelector(state => state.accessTokenReducer);
   const dispatch = useDispatch();
   const history = useHistory();
-
-  let context, source, analyser, ctx, frequency_array, rafId;
 
   useEffect(() => {
     if (isLogin) {
@@ -36,11 +32,10 @@ function Visualizer () {
   }, []);
 
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList[0]);
+  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
-  const [check, setCheck] = useState(false);
-
+  console.log(crrentMusic);
   // console.log('이전 재생곡', previousMusic);
   // console.log('현재 재생곡', crrentMusic);
   // 재생곡 변경 함수
@@ -112,88 +107,6 @@ function Visualizer () {
     }
   }
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-
-  console.log('ff');
-  useEffect(() => {
-    console.log('실행1111111');
-    console.log(audio.current);
-    audio.current.onplaying = () => { console.log('실행'); };
-    context = context || new (window.AudioContext || window.webkitAudioContext)();
-    source = source || context.createMediaElementSource(audio.current);
-    analyser = context.createAnalyser();
-    source.connect(analyser);
-    analyser.connect(context.destination);
-    frequency_array = new Uint8Array(analyser.frequencyBinCount);
-    return () => {
-      console.log('실행?');
-      cancelAnimationFrame(rafId);
-      analyser.disconnect();
-      source.disconnect();
-    };
-  }, [audio.current]);
-
-  function animationLooper (canvas) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    ctx = canvas.getContext('2d');
-    analyser.fftSize = 512;
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = frequency_array;
-    const barWidth = 5;
-    let barHeight;
-    const x = 0;
-    // draw a bar
-    drawBar(bufferLength, x, barWidth, barHeight, dataArray, canvas);
-  }
-
-  function drawBar (bufferLength, x, barWidth, barHeight, dataArray, canvas) {
-    for (let i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i] * 1.8 + 50;
-      ctx.save();
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      // ctx.rotate(i * Math.PI * 2.315 / bufferLength);
-      ctx.rotate(i * Math.PI * 4 / bufferLength);
-      // ctx.fillStyle = 'white'
-      // ctx.fillRect(0,1, barWidth, barHeight + 2)
-      // const red = i * barHeight / 10;
-      // const green = i * 4;
-      // const blue = barHeight;
-      // ctx.fillStyle = 'white';
-      const hue = i * 8;
-      // ctx.fillStyle = 'rgb(' + red + ',' + green + ',' + blue + ')';
-      ctx.fillStyle = 'hsl(' + hue + ',100%, 50%)';
-      ctx.fillRect(0, 0, barWidth, barHeight);
-      x += barWidth;
-      ctx.restore();
-    }
-  }
-
-  function tick () {
-    animationLooper(canvas.current);
-    analyser.getByteFrequencyData(frequency_array);
-    rafId = requestAnimationFrame(tick);
-  }
-
-  function togglePlay () {
-    if (!context) {
-      context = new (window.AudioContext || window.webkitAudioContext)();
-    }
-    context.resume();
-    if (audio.current.paused) {
-      audio.current.play();
-      rafId = requestAnimationFrame(tick);
-    } else {
-      audio.current.pause();
-      // cancelAnimationFrame(rafId);
-    }
-  }
-
-  function next () {
-    setCrrentMusic(playList[3]);
-  }
-
   return (
     <div id='visualizer'>
       <div className='title'>{crrentMusic.title}</div>
@@ -203,6 +116,7 @@ function Visualizer () {
         <div className='circle'>
           <img className='inner-circle' src={crrentMusic.img} alt={crrentMusic.title} />
         </div>
+
         <div className='lyrics-container'>
           <div className='lyrics'>Lyrics</div>
           <div className='lyrics-box'>
@@ -210,6 +124,7 @@ function Visualizer () {
           </div>
         </div>
       </div>
+
       <div className='visualizer-box' />
       <div className='play-list-box'>
         <ul className='play-list'>
@@ -230,7 +145,7 @@ function Visualizer () {
       </div>
       <div className='controller'>
         <button className='button' onClick={() => { setIsRandom(!isRandom); }}>{isRandom ? '현재 랜덤재생 ON' : '현재 랜덤재생 OFF'}</button>
-        {/* <AudioPlayer
+        <AudioPlayer
           className='audio-element'
           src={crrentMusic.soundtrack}
           controls
@@ -278,23 +193,7 @@ function Visualizer () {
               }
             }
           }}
-        /> */}
-        <div id='container'>
-          <canvas
-            id='canvas'
-            ref={canvas}
-          />
-          <div>
-            <button onClick={() => { togglePlay(); }}>play/pause</button>
-            <button onClick={() => { next(); }}>next</button>
-          </div>
-          <audio
-            id='audio1'
-            ref={audio}
-            src={crrentMusic.soundtrack}
-            crossOrigin='anonymous'
-          />
-        </div>
+        />
       </div>
     </div>
   );
