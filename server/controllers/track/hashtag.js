@@ -6,7 +6,7 @@ module.exports =  {
      const { tag } =req.params;
      
      if(!tag){
-         res.status(404).json({message: "not found"});
+         res.status(400).json({message: "input values"});
      }
 
      const findHashtag = await hashtag.findAll({

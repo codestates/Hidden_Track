@@ -20,12 +20,12 @@ function WriteReply ({
 
   const dispatch = useDispatch();
 
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  axios.defaults.headers.common.accesstoken = accessToken;
 
   useEffect(() => {
     // 댓글 수정 버튼 클릭시 댓글 작성란에 해당 댓글 내용 불러오기
     if (clickedBtn === '수정') {
-      const reply = trackDetail.reply.filter(el => el.id === Number(selectedReplyId));
+      const reply = trackDetail.track.reply.filter(el => el.id === Number(selectedReplyId));
       // console.log('ffff',reply[0].content)
       setInputText(reply[0].content);
     }
@@ -62,41 +62,25 @@ function WriteReply ({
     }
 
     axios.post(`${process.env.REACT_APP_API_URL}/reply`, {
-      trackId: trackDetail.id,
+      trackId: trackDetail.track.id,
       content: inputText
     })
       .then(res => {
         console.log('댓글 등록 요청 응답', res.data);
-        if (res.status === 200) {
+        if (res.status === 201) {
           // 댓글 등록 성공시 음원 상세 정보 새로 받아오는 요청
-          axios.get(`${process.env.REACT_APP_API_URL}/post/:trackId`, {
-            params: {
-              trackId: trackDetail.id
-            }
-          })
+          axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
               console.log(res.data);
-              if (res.status === 201) {
+              if (res.status === 200) {
                 // 댓글 등록 성공후 음원 상세 정보 다시 받아옴
-                axios.get(`${process.env.REACT_APP_API_URL}/track`, {
-                  params: {
-                    trackId: trackDetail.id
-                  }
-                })
-                  .then(res => {
-                    console.log(res.data);
-                    if (res.status === 200) {
-                      dispatch(getTrackDetails(res.data.track));
-                    }
-                  })
-                  .catch(err => {
-                    console.log(err.response);
-                    if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
-                  });
+                dispatch(getTrackDetails(res.data));
               }
             })
             .catch(err => {
-              console.log(err);
+              console.log(err.response);
+              if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+              if (err.response.status === 404) handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
             });
           // 등록 완료 후 input값 초기화
           setInputText('');
@@ -138,7 +122,7 @@ function WriteReply ({
     }
 
     axios.patch(`${process.env.REACT_APP_API_URL}/reply`, {
-      // trackId: trackDetail.id,
+      // trackId: trackDetail.track.id,
       id: selectedReplyId,
       content: inputText
     })
@@ -148,13 +132,13 @@ function WriteReply ({
           // 수정 완료되면 음원 상세 정보 다시 받아옴
           axios.get(`${process.env.REACT_APP_API_URL}/track`, {
             params: {
-              trackId: trackDetail.id
+              trackId: trackDetail.track.id
             }
           })
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
-                dispatch(getTrackDetails(res.data.track));
+                dispatch(getTrackDetails(res.data));
               }
             })
             .catch(err => {

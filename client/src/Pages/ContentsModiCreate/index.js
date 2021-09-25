@@ -27,7 +27,7 @@ function TestMo ({ handleNotice }) {
     lyrics: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
     tag: isModify ? trackDetail.track.hashtag.tag : []
   });
-  const [src, setSrc] = useState(isModify ? trackDetail.img : default_album_img);
+  const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
@@ -83,7 +83,7 @@ function TestMo ({ handleNotice }) {
     }
     // 수정 버튼으로 들어왔을 경우
     else {
-      return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.user.nickname;
+      return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.track.user.nickname;
     }
   }
   // ?##############################################################################################

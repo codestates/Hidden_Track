@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Test () {
+  const [obj, setObj] = useState({ id: '', pw: '' });
+
+  function change (key, value) {
+    // console.log(obj.id);
+    // const result1 = {...obj, key: value}
+    // console.log(result1);
+
+    // const result2 = {...obj, [key]: value}
+    // console.log(result2);
+    console.log(value);
+    console.log(obj);
+    console.log({ ...obj, [key]: value });
+    // setObj({...obj, [key]: value})
+  }
+  console.log(obj);
+  // console.log(obj);
   return (
-    <div>
-      테스트 메인페이지입니다
-    </div>
+    <span onClick={(e) => change('pw', '오잉')}>
+      버튼
+    </span>
   );
 }
 
