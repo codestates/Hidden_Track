@@ -16,7 +16,6 @@ import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
 import Notification from './Components/Notification';
 
-
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();

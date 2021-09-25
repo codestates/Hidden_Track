@@ -35,7 +35,7 @@ function Visualizer () {
   const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
-  console.log(crrentMusic)
+  console.log(crrentMusic);
   // console.log('이전 재생곡', previousMusic);
   // console.log('현재 재생곡', crrentMusic);
   // 재생곡 변경 함수
