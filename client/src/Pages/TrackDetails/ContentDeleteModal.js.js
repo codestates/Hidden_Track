@@ -11,7 +11,6 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
   const history = useHistory();
   const dispatch = useDispatch();
 
-
   // 삭제 확인 모달창 배경을 클릭하면 모달창이 닫히는 함수
   function handleContentModalBack (e) {
     e.preventDefault();

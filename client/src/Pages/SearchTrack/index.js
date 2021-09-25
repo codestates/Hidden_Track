@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import axios from 'axios';
@@ -9,6 +10,7 @@ import './index.scss';
 
 function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
+  const location = useLocation();
   const [trackList, setTrackList] = useState([{
     id: 1,
     img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
@@ -38,23 +40,23 @@ function SearchTrack ({ handleNotice }) {
   }]);
 
   useEffect(() => {
-    // 새로고침시 로컬 스토리지의 검색값 불러와서 다시 요청
+    // 새로고침시 pathname의 검색값 불러와서 다시 요청
     getSearchContents();
-  }, [localStorage.getItem('search')]);
-
-  // function handleTrackList (trackList) {
-  //   setTrackList(trackList);
-  // }
+  }, [location.pathname]);
 
   // 검색 페이지에 랜더링될 목록 요청하는 함수
   function getSearchContents () {
-    const search = localStorage.getItem('search');
-    if (!search) return;
+    console.log('dfgdfgdfgdfgdfdf', location.state);
+    const genre = location?.state?.genre;
+    const hashTag = location?.state?.hashTag;
+    const search = location?.state?.search;
+
+    if (!genre && !hashTag && !search) return setTrackList([]);
 
     // -------------장르 선택시 장르 목록 요청------------
-    if (search[0] === '@') {
-      console.log(search.slice(1));
-      axios.get(`${process.env.REACT_APP_API_URL}/track/genre/${search.slice(1)}`)
+    if (genre) {
+      console.log(genre);
+      axios.get(`${process.env.REACT_APP_API_URL}/track/genre/${genre}`)
         .then(res => {
           console.log('장르 선택 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);
@@ -68,8 +70,9 @@ function SearchTrack ({ handleNotice }) {
         });
     }
     // ------------해시태그 검색시 요청--------------
-    else if (search[0] === '#') {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/hashtag/${search.slice(1)}`)
+    else if (hashTag) {
+      console.log(hashTag);
+      axios.get(`${process.env.REACT_APP_API_URL}/track/hashtag/${hashTag}`)
         .then(res => {
           console.log('해시태그 선택 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);
@@ -77,26 +80,29 @@ function SearchTrack ({ handleNotice }) {
         })
         .catch(err => {
           console.log(err.response);
-          if (err.response.status === 404) setTrackList([]);
+          if (err.response) {
+            if (err.response.status === 404) setTrackList([]);
+          } else console.log(err);
         });
     }
     // --------------검색어 입력시 요청----------------
     else {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/search`, {
-        params: {
-          query: search
-        }
-      })
+      axios.get(`${process.env.REACT_APP_API_URL}/track/search/${search}`)
         .then(res => {
           console.log('검색어 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);
         })
         .catch(err => {
           console.log(err.response);
-          if (err.response.status === 414) {
-            handleNotice('검색어는 30자 이내로 입력해주세요.', 5000);
-            setTrackList([]);
-          }
+          if (err.response) {
+            if (err.response.status === 404) {
+              setTrackList([]);
+            }
+            if (err.response.status === 414) {
+              handleNotice('검색어는 30자 이내로 입력해주세요.', 5000);
+              setTrackList([]);
+            }
+          } else console.log(err);
         });
     }
   }
