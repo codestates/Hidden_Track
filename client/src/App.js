@@ -78,7 +78,7 @@ function App () {
   return (
     <>
       <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname === '/sidebar' || loca.pathname === '/canvas2'
+        {loca.pathname === '/signup' || loca.pathname === '/sidebar' || loca.pathname === '/visual'
           ? (
             <></>)
           : (
