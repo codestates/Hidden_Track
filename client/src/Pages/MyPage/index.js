@@ -12,7 +12,6 @@ import WithDrawalModal from './WithDrawalModal';
 
 // 함수 import
 import { accessTokenRequest } from '../../Components/TokenFunction';
-
 import './index.scss';
 
 function MyPage () {
@@ -48,7 +47,6 @@ function MyPage () {
   // 비밀번호 변경 눌렀을 때 비밀번호 변경 서버 요청 onSubmit 이벤트 함수
   function requestPW (e) {
     e.preventDefault();
-
     // 1. 비밀번호 번경 요청 서버에 보냄
     axios.patch(`${process.env.REACT_APP_API_URL}/user/password`, // <- 나 비밀번호 변경 해도 되니~?
       {currentPassword, password: ChangePassword}, // <- 현재 비밀번호와 바꿀 비밀번호를 body 에 담아서 서버로 전달
@@ -208,7 +206,6 @@ function MyPage () {
       <p>{userInfo.nickName}님의 회원정보</p>
       <form onSubmit={requestPW}>
         <div>
-
           {/* 현재 비밀번호 input */}
           <input  type='password' name='currentPassword' id="currentPassword" value={currentPassword} 
                   placeholder="현재 비밀번호를 입력해주세요"
@@ -240,7 +237,6 @@ function MyPage () {
           {message.validMatchPW && <p className='PasswordValidation'>{message.validMatchPW}</p>}
           {/* 비밀번호 일치 검사메세지는 message.matchPW 가 truthy 할때만 나타나도록 해야 한다. */}
           {message.matchPW && <p className='PasswordMatchCheck'>{message.matchPW}</p>}
-
           <button type='submit'>비밀번호 변경</button>
         </div>
       </form>
