@@ -12,7 +12,6 @@ import Portal from './Portal';
 
 // 함수 import
 import { accessTokenRequest } from '../../Components/TokenFunction';
-
 import './index.scss';
 
 function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfileList }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
@@ -30,6 +29,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
 
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
+
 
   // 로그인 모달창 밖의 배경을 누르면 모달창이 꺼지는 onClick 이벤트
   function handleModalBack (e) {

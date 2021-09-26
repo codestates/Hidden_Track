@@ -20,7 +20,6 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
   // 예 버튼 클릭시 삭제 요청 보내는 함수
   function requestDeleteTrack (e) {
     e.preventDefault();
-
     if (!isLogin) {
       setIsContentDeleteModalOpen(false);
       handleNotice('로그인이 필요합니다.', 5000);

@@ -19,7 +19,13 @@ function HashTag ({ tagList }) {
       }
     });
   }
+
   console.log(tagList);
+
+  if( tagList === undefined ){
+    
+  }
+
   return (
     <section id='hashtag-section'>
       <ul className='hashtag-ul'>
