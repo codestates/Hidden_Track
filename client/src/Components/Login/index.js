@@ -30,7 +30,6 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
 
-
   // 로그인 모달창 밖의 배경을 누르면 모달창이 꺼지는 onClick 이벤트
   function handleModalBack (e) {
     e.preventDefault();
@@ -106,7 +105,9 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
           // });
 
           // 위의 주석코드를 tokenFunction 으로 리펙토링 한 코드
-          // console.log(accessTokenResult); // Promise
+          const accessToken = res.data.data;
+          console.log('엑세스토큰', accessToken);
+
           accessTokenRequest(accessToken) // <- userInfo 담길것이다. (status 200)
             .then(accessTokenResult => {
               if (accessTokenResult) { // <- userInfo 가 있다면

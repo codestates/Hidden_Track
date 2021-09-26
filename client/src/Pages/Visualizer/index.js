@@ -40,15 +40,16 @@ function Visualizer () {
   useEffect(() => {
     context = context || new AudioContext();
     source = source || context.createMediaElementSource(audio.current);
-    console.log(source)
+    console.log(source);
     analyser = context.createAnalyser();
     source.connect(analyser);
     analyser.connect(context.destination);
     frequency_array = new Uint8Array(analyser.frequencyBinCount);
-    console.log(context)
-    audio.current.volume='0.1'
-    audio.current.crossOrigin='anonymous'
-    audio.current.src=crrentMusic.soundtrack
+    console.log(context);
+    // audio.current.autoplay=true
+    // audio.current.volume='0.1'
+    // audio.current.crossOrigin='anonymous'
+    // audio.current.src=crrentMusic.soundtrack
     return () => {
       cancelAnimationFrame(rafId);
       analyser.disconnect();
@@ -128,7 +129,7 @@ function Visualizer () {
       //   analyser.connect(context.destination);
       //   frequency_array = new Uint8Array(analyser.frequencyBinCount);
       // }
-      context.resume()
+      context.resume();
       audio.current.play();
       // audio.current.autoplay=true
       const rafId = requestAnimationFrame(tick);

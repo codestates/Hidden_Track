@@ -27,12 +27,10 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
       })
       .catch(err => {
         console.log(err.response);
-        if (err.response.status === 400) {
-          handleValidMessage('duplicatedId', '잘못된 요청입니다.');
-        }
-        if (err.response.status === 409) {
-          handleValidMessage('duplicatedId', '이미 등록된 아이디 입니다.');
-        }
+        if (err.response) {
+          if (err.response.status === 400) handleValidMessage('duplicatedId', '잘못된 요청입니다.');
+          if (err.response.status === 409) handleValidMessage('duplicatedId', '이미 등록된 아이디 입니다.');
+        } else console.log(err);
       });
   }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTrackDetails, getUserInfo } from '../../Redux/actions/actions';
+import { getTrackDetails, getUserInfo, isClickModify } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
 import axios from 'axios';
 import './index.scss';
@@ -35,6 +35,14 @@ function TestMo ({ handleNotice }) {
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
   // const history = useHistory();
+
+  useEffect(() => {
+    // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
+    return () => {
+      dispatch(isClickModify(false));
+    };
+  }, []);
+
   // ?##############################################################################################
   // input값 state 저장 함수
   function handleInputValue (key, e, tag) {

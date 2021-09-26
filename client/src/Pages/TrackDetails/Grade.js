@@ -30,28 +30,26 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
 
     axios.post(`${process.env.REACT_APP_API_URL}/track/grade`, {
       trackId: trackDetail.track.id,
-      grade: grade
+      userGrade: grade
     })
       .then(res => {
         console.log(res.data);
         if (res.status === 200) {
           // 별점 등록 요청 완료 후 음원 상세 정보 다시 받아옴
-          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
-            params: {
-              trackId: trackDetail.track.id
-            }
-          })
+          axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
               }
+              handleNotice(`별점 ${grade}점 등록!`, 5000);
             })
             .catch(err => {
               console.log(err.response);
-              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+              if (err.response) {
+                if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+              } else console.log(err);
             });
-          handleNotice(`별점 ${grade}점 등록!`, 5000);
         }
       })
       .catch(err => {

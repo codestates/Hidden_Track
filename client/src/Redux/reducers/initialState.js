@@ -6,7 +6,7 @@ export const initialState = {
     isLoginModalOpen: false
   },
   accessToken: {
-    accessToken: '액세스토큰'
+    accessToken: ''
   },
   userInfo: {
     id: '1',
@@ -144,7 +144,7 @@ export const initialState = {
       releaseAt: '2021-05-14',
       lyric: 'lyric',
       user: {
-        nickname: '이무진'
+        nickName: '이무진'
       },
       hashtag: [{
         tag: 'tag1'
@@ -152,7 +152,7 @@ export const initialState = {
       {
         tag: 'tag2'
       }],
-      reply: [{
+      replies: [{
         id: 1,
         content: 'asdfasdf',
         user: {
