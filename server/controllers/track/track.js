@@ -180,7 +180,7 @@ module.exports = {
    },
    delete :  async (req,res) =>{ 
     
-   const { id } = req.body;
+   const { id } = req.params;
    const tagtracks = db.sequelize.models.tagtracks;
    const likes = db.sequelize.models.likes;
    

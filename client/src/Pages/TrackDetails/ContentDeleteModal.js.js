@@ -27,39 +27,32 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
       return;
     }
 
-    axios.delete(`${process.env.REACT_APP_API_URL}/track`, {
-      id: trackDetail.track.id,
+    axios.delete(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`, {
       headers: {
-        accessToken: accessToken
+        accesstoken: accessToken
       }
     })
       .then(res => {
         console.log('음원 삭제 요청 응답', res.data);
         if (res.status === 200) {
-        // trackDetail 상태 삭제
+        // trackDetail 상태 초기화
           dispatch(getTrackDetails({
-            id: '',
-            title: '',
-            img: '',
-            genre: '',
-            soundtrack: '',
-            releaseAt: '',
-            lyric: '',
-            like: {
-              count: ''
-            },
-            post: {
+            track: {
               id: '',
-              views: '',
-              gradeAev: ''
+              title: '',
+              img: '',
+              genre: '',
+              soundtrack: '',
+              releaseAt: '',
+              lyric: '',
+              user: {
+                nickName: ''
+              },
+              hashtag: [],
+              replies: []
             },
-            user: {
-              nickname: ''
-            },
-            hashtag: {
-              tag: []
-            },
-            reply: []
+            like: '',
+            gradeAev: ''
           }));
           setIsContentDeleteModalOpen(false);
           handleNotice('게시글이 삭제 되었습니다.', 5000);
@@ -68,10 +61,12 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
       })
       .catch(err => {
         console.log(err.response);
-        if (err.response.status === 401) {
-          setIsContentDeleteModalOpen(false);
-          handleNotice('권한이 없습니다.', 5000);
-        }
+        if (err.response) {
+          if (err.response.status === 401) {
+            setIsContentDeleteModalOpen(false);
+            handleNotice('권한이 없습니다.', 5000);
+          }
+        } else console.log(err);
       });
   }
 

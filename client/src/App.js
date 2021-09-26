@@ -22,7 +22,6 @@ function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
 
-  console.log(loca.pathname);
   const [notice, setNotice] = useState([]);
 
   // 알림 추가, 삭제 핸들러
@@ -43,6 +42,7 @@ function App () {
     async function tokenRequest () {
       if (cookies.get('refreshToken')) {
         const token = await refreshTokenRequest();
+        console.log(token);
         if (token) {
           // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
           dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
@@ -69,12 +69,12 @@ function App () {
       }
     }
     tokenRequest();
-  }, [dispatch, handleNotice]);
+  }, []);
 
-  useEffect(() => { // ------> 음원 수정 페이지에서 useEffect 안에 return문에 dispatch 써주면 됨(componentWillUnmount 개념)
-    // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
-    if (loca.pathname !== '/modicreate') dispatch(isClickModify(false));
-  }, [loca.pathname, dispatch]);
+  // useEffect(() => { // ------> 음원 수정 페이지에서 useEffect 안에 return문에 dispatch 써주면 됨(componentWillUnmount 개념)
+  //   // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
+  //   if (loca.pathname !== '/modicreate') dispatch(isClickModify(false));
+  // }, [loca.pathname, dispatch]);
 
   return (
     <>
@@ -99,7 +99,7 @@ function App () {
         <Route path='/mypage'>
           <MyPage />
         </Route>
-        <Route path='/trackdetails'>
+        <Route path='/trackdetails/:id'>
           <TrackDetails handleNotice={handleNotice} />
         </Route>
         <Route path='/modicreate'>
