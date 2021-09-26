@@ -16,7 +16,6 @@ import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
 function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfileList }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
-
   const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
   const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
   const state3 = useSelector(state => state.accessTokenReducer); // accessToken 관련
@@ -85,7 +84,6 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
     axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
-
           // 1. accessToken 을 리덕스 state 에 저장해야 한다.
           dispatch(getAccessToken(res.data.data));
 
@@ -107,36 +105,35 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
           //   }
           // });
 
-          
           // 위의 주석코드를 tokenFunction 으로 리펙토링 한 코드
           // console.log(accessTokenResult); // Promise
           accessTokenRequest(accessToken) // <- userInfo 담길것이다. (status 200)
-          .then(accessTokenResult => {
-            if(accessTokenResult){ // <- userInfo 가 있다면 
+            .then(accessTokenResult => {
+              if (accessTokenResult) { // <- userInfo 가 있다면
                 // 서버에서 받아온, 내가 보냈던 유저 정보와 같은 유저 정보로 리덕스 state 업데이트
                 dispatch(getUserInfo(accessTokenResult));
-  
+
                 // 리덕스의 store에 있는 isLogin 이라는 State을 true 로 바꿔서 저장시키는 역할을 하는  dispatch 메소드를 사용해야 한다.
                 dispatch(isLoginHandler(true));
-  
+
                 // 모달창 꺼주는 함수
                 handleModalCloseBtn(e);
-  
+
                 // 프로필 사진 눌렀을때 보이는 리스트들 숨겨주는 setState
                 setIsShowUserProfileList('hide');
-            }
-          })
+              }
+            });
         }
       })
-      .catch(err =>{
-        if(err.response.status === 400){ // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
+      .catch(err => {
+        if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
           console.log('400 에러다');
-        }else if(err.response.status === 401){
+        } else if (err.response.status === 401) {
           console.log('401 에러다');
-        }else if(err.response.status === 404){
+        } else if (err.response.status === 404) {
           console.log('404 에러다');
         }
-      })
+      });
   }
 
   return (

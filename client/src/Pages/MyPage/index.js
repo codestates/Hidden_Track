@@ -16,7 +16,6 @@ import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
 function MyPage () {
-
   const userInfo = useSelector(state => state.userInfoReducer);
   const state3 = useSelector(state => state.accessTokenReducer); // accessToken 관련
   const dispatch = useDispatch();
@@ -60,9 +59,9 @@ function MyPage () {
         return
       }}
     ).catch(err => {
-      if(err.response.status === 400){ // <- 비밀번호가 안들어왓을 때
+      if (err.response.status === 400) { // <- 비밀번호가 안들어왓을 때
 
-      }else if(err.response.status === 400){ // <- 비밀번호가 틀리거나, accessToken이 이상하거나 만료되었거나, 안들어왓을 때
+      } else if (err.response.status === 400) { // <- 비밀번호가 틀리거나, accessToken이 이상하거나 만료되었거나, 안들어왓을 때
 
       }}
     )
@@ -94,6 +93,8 @@ function MyPage () {
       ) 
   }
 
+      
+
 
   // 프로필 이미지 변경 눌렀을 때 프로필 이미지 변경 서버 요청 onSubmit 이벤트 함수
   function requestProfileImage (e) {
@@ -104,8 +105,7 @@ function MyPage () {
     const formData = new FormData(); // <- form 태그랑은 다른거임.
     formData.append('img', file);
 
-
-    axios.patch(`${process.env.REACT_APP_API_URL}/user/profile`, 
+    axios.patch(`${process.env.REACT_APP_API_URL}/user/profile`,
       formData,
       { headers: { accesstoken: accessToken } }
 
@@ -139,26 +139,31 @@ function MyPage () {
     setMessage({...message, [key]: value })
   }
 
+  // 중복확인 및 유효성검사 메세지 나타나게 하는 함수
+  function showCheckMessage (key, value) {
+    console.log(key);
+
+    setMessage({ ...message, [key]: value });
+  }
 
   // 닉네임 중복확인 하는 onClick 이벤트 함수
-  function CheckDuplicateNickname(key, e){
+  function CheckDuplicateNickname (key, e) {
     e.preventDefault();
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`,
-    { headers: {nickname: user.nickName }}
-      ).then(res => {
-        if(res.status === 200){
-          showCheckMessage(key, '사용 가능한 닉네임 입니다.');
-        }
+      { headers: { nickname: user.nickName } }
+    ).then(res => {
+      if (res.status === 200) {
+        showCheckMessage(key, '사용 가능한 닉네임 입니다.');
       }
-      ).catch(err =>{
-        if(err.response.status === 400){
-          showCheckMessage(key,'잘못된 요청입니다.');
-        }
-        else if(err.response.status === 409){
-          showCheckMessage(key,'이미 존재하는 닉네임 입니다.');
-        }
-      })
+    }
+    ).catch(err => {
+      if (err.response.status === 400) {
+        showCheckMessage(key, '잘못된 요청입니다.');
+      } else if (err.response.status === 409) {
+        showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
+      }
+    });
   }
 
  
@@ -175,19 +180,17 @@ function MyPage () {
     }else{
       showCheckMessage(key, '비밀번호는 8자 이상 16자 이하, 알파벳과 숫자 및 특수문자를 하나 이상 포함해야 합니다.');
     }
-
   }
 
-  function PasswordMatchCheck(key, e){
+  function PasswordMatchCheck (key, e) {
     console.log(e.target.value);
-    if(ChangePassword !== e.target.value){
+    if (ChangePassword !== e.target.value) {
       // console.log('노 일치')
-      showCheckMessage(key, '비밀번호가 일치하지 않습니다.')
-    }else{
+      showCheckMessage(key, '비밀번호가 일치하지 않습니다.');
+    } else {
       // console.log('일치')
-      showCheckMessage(key, '')
+      showCheckMessage(key, '');
     }
-
   }
 
   function handleCheckAdmin () {
@@ -198,7 +201,6 @@ function MyPage () {
     e.preventDefault();
     setIsSignOutModalOpen(true);
   }
-
 
 
   return (
@@ -224,7 +226,7 @@ function MyPage () {
                   required
                   onKeyUp={(e) => PasswordValidation('validPW', e.target.value)}/>
           {/* 유효성 검사메세지는 message.validPW 가 truthy 할때만 나타나도록 해야 한다. */}
-          {message.validPW && <p className="PasswordValidation">{message.validPW}</p>}
+          {message.validPW && <p className='PasswordValidation'>{message.validPW}</p>}
 
           {/* 비밀번호 확인 input */}
           <input  type='password' name='password' id='CheckPassword' value={checkedPassword}
@@ -235,14 +237,13 @@ function MyPage () {
                   }/>
                   
           {/* 확인 비밀번호 유효성 검사메세지는 message.validMatchPW 가 truthy 할때만 나타나도록 해야 한다. */}
-          {message.validMatchPW && <p className="PasswordValidation">{message.validMatchPW}</p>}
+          {message.validMatchPW && <p className='PasswordValidation'>{message.validMatchPW}</p>}
           {/* 비밀번호 일치 검사메세지는 message.matchPW 가 truthy 할때만 나타나도록 해야 한다. */}
-          {message.matchPW && <p className="PasswordMatchCheck">{message.matchPW}</p>}
-          
+          {message.matchPW && <p className='PasswordMatchCheck'>{message.matchPW}</p>}
+
           <button type='submit'>비밀번호 변경</button>
         </div>
       </form>
-
 
       <form onSubmit={requestNickName}>
         <input  type='text' name='nickName' id='nickName' value={user.nickName} 
@@ -250,10 +251,9 @@ function MyPage () {
                 onChange={(e) => setUser({ ...user, nickName: e.target.value })}/>
         <button onClick={(e) => CheckDuplicateNickname('duplicatedNick',e)}>중복확인</button>
         {/* 중복확인 메세지는 message.duplicatedNick 가 truthy 할때만 나타나도록 해야 한다. */}
-        {message.duplicatedNick && <p className="CheckDuplicateNickname">{message.duplicatedNick}</p>}
+        {message.duplicatedNick && <p className='CheckDuplicateNickname'>{message.duplicatedNick}</p>}
         <button type='submit'>닉네임 변경</button>
       </form>
-
 
       <input type='checkbox' name='' id='' onChange={() => { handleCheckAdmin(); }} />
       <p>아티스트 계정으로 전환하기</p>
@@ -263,7 +263,7 @@ function MyPage () {
         <div className="profile-image">
           <img src={user.profile} alt='프로필 이미지' />
         </div>
-        <input type='file' name='img' id='imageChange' style={{ display: 'none' }}  />
+        <input type='file' name='img' id='imageChange' style={{ display: 'none' }} />
         <label htmlFor='imageChange' type='submit'>이미지 변경</label>
         <button onClick={requestDeleteProfileImage}>이미지 삭제</button>
       </form>

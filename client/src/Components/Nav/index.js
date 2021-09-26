@@ -77,7 +77,6 @@ function Nav () {
         if (res.status === 200) {
         // isLoginHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
           dispatch(isLoginHandler(false));
-
           // refreshToken 가 담긴 cookie 삭제
           cookies.remove('refreshToken');
           history.push('/');

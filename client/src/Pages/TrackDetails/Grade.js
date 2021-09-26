@@ -8,7 +8,7 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
   const [grade, setGrade] = useState(0);
   const dispatch = useDispatch();
 
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  axios.defaults.headers.common.accesstoken = accessToken;
 
   // 별점 부여한 상태 저장
   function handleGrade (e) {
