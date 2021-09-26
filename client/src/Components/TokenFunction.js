@@ -4,17 +4,19 @@ import axios from 'axios';
 export async function accessTokenRequest (accessToken) {
   const userInfo = await axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
     { headers: { accesstoken: accessToken } })
-    .then(res => {
-      console.log('액세스 토큰 요청 응답', res.data);
-      if (res.status === 200) {
-        return res.data.data;
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    console.log(userInfo);
+  //   .then(res => {
+  //     console.log('액세스 토큰 요청 응답', res.data);
+  //     if (res.status !== 200) {
+  //       return res.data.data;
+  //     }
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
 
-  return userInfo;
+  // return userInfo;
+  // if(!userInfo)
 }
 
 // 액세스 토큰이 만료되거나, 상태가 초기화 됐을 때 리프레시 토큰으로 액세스 토큰 다시 받아오는 함수

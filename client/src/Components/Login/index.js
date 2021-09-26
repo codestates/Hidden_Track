@@ -126,12 +126,16 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
         }
       })
       .catch(err => {
-        if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
-          console.log('400 에러다');
-        } else if (err.response.status === 401) {
-          console.log('401 에러다');
-        } else if (err.response.status === 404) {
-          console.log('404 에러다');
+        if(err.response){
+          if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
+            console.log('400 에러다');
+          } else if (err.response.status === 401) {
+            console.log('401 에러다');
+          } else if (err.response.status === 404) {
+            console.log('404 에러다');
+          }
+        }else{
+          console.log(err);
         }
       });
   }
