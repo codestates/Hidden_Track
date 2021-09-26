@@ -30,7 +30,6 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
 
-
   // 로그인 모달창 밖의 배경을 누르면 모달창이 꺼지는 onClick 이벤트
   function handleModalBack (e) {
     e.preventDefault();
