@@ -1,7 +1,5 @@
 // import React, { Component, createRef } from 'react';
 
-
-
 // // Changing Variables
 // let ctx
 
@@ -9,14 +7,13 @@
 // const width = window.innerWidth;
 // const height = window.innerHeight;
 
-
 // class CanvasTwo extends Component {
 //     constructor(props) {
 //         super(props)
 //         this.audio = createRef();
 //         this.canvas = createRef();
 //     }
-    
+
 //      animationLooper(canvas) {
 //         canvas.width = width;
 //         canvas.height = height;
@@ -102,7 +99,7 @@
 
 //     render() {
 //         console.log(this.props)
-        
+
 //         return <>
 //             <audio ref={this.audio}></audio>
 //             <canvas ref={this.canvas}  />
@@ -110,7 +107,7 @@
 //             <button onClick={this.togglePlay}>Play/Pause</button>
 //             {/* <button>next</button> */}
 //             </div>
-            
+
 //         </>
 //     }
 // }
