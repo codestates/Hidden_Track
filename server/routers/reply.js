@@ -3,7 +3,7 @@ const router = express.Router();
 const { replyController } = require("../controllers");
 
 router.post('/', replyController.reply.post);
-router.delete('/', replyController.reply.delete);
+router.delete('/:id', replyController.reply.delete);
 router.patch('/', replyController.reply.patch);
 
 module.exports = router;

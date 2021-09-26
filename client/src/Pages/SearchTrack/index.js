@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
@@ -10,6 +10,7 @@ import './index.scss';
 
 function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
+  const trackDetail = useSelector(state => state.trackDetailReducer);
   const location = useLocation();
   const [trackList, setTrackList] = useState([{
     id: 1,
@@ -44,12 +45,13 @@ function SearchTrack ({ handleNotice }) {
     getSearchContents();
   }, [location.pathname]);
 
+  const genre = location?.state?.genre;
+  const hashTag = location?.state?.hashTag;
+  const search = location?.state?.search;
+
   // 검색 페이지에 랜더링될 목록 요청하는 함수
   function getSearchContents () {
     console.log('dfgdfgdfgdfgdfdf', location.state);
-    const genre = location?.state?.genre;
-    const hashTag = location?.state?.hashTag;
-    const search = location?.state?.search;
 
     if (!genre && !hashTag && !search) return setTrackList([]);
 
@@ -110,9 +112,15 @@ function SearchTrack ({ handleNotice }) {
   return (
     <div>
       <Genre />
-      <HashTag />
-      <p>{localStorage.getItem('search')}(으)로 검색한 결과</p>
-      <TrackList trackList={trackList} dispatch={dispatch} getTrackDetails={getTrackDetails} handleNotice={handleNotice} />
+      <HashTag tagList={[]} />
+      <p>{genre || hashTag || search}(으)로 검색한 결과</p>
+      <TrackList
+        trackList={trackList}
+        dispatch={dispatch}
+        getTrackDetails={getTrackDetails}
+        handleNotice={handleNotice}
+        trackDetail={trackDetail}
+      />
     </div>
   );
 }

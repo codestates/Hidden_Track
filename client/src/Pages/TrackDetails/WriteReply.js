@@ -25,11 +25,11 @@ function WriteReply ({
   useEffect(() => {
     // 댓글 수정 버튼 클릭시 댓글 작성란에 해당 댓글 내용 불러오기
     if (clickedBtn === '수정') {
-      const reply = trackDetail.track.reply.filter(el => el.id === Number(selectedReplyId));
+      const reply = trackDetail.track.replies.filter(el => el.id === Number(selectedReplyId));
       // console.log('ffff',reply[0].content)
-      setInputText(reply[0].content);
+      if (reply && reply.length !== 0) setInputText(reply[0].content);
     }
-  }, [clickedBtn]);
+  }, [clickedBtn, selectedReplyId, trackDetail]);
 
   useEffect(() => {
     isValidLength();
@@ -79,8 +79,10 @@ function WriteReply ({
             })
             .catch(err => {
               console.log(err.response);
-              if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
-              if (err.response.status === 404) handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
+              if (err.response) {
+                if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+                if (err.response.status === 404) handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
+              } else console.log(err);
             });
           // 등록 완료 후 input값 초기화
           setInputText('');
@@ -89,8 +91,10 @@ function WriteReply ({
       })
       .catch(err => {
         console.log(err.response);
-        if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
-        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        if (err.response) {
+          if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+          if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        } else console.log(err);
       });
   }
 
@@ -130,11 +134,7 @@ function WriteReply ({
         console.log(res.data);
         if (res.status === 200) {
           // 수정 완료되면 음원 상세 정보 다시 받아옴
-          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
-            params: {
-              trackId: trackDetail.track.id
-            }
-          })
+          axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
@@ -143,18 +143,25 @@ function WriteReply ({
             })
             .catch(err => {
               console.log(err.response);
-              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+              if (err.response) {
+                if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+                if (err.response.status === 404) handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
+              } else console.log(err);
             });
           // 수정 요청 완료 후 input값 초기화
           setInputText('');
+          setSelectedReplyId('');
+          setClickedBtn('삭제');
           handleNotice('댓글이 수정되었습니다.', 5000);
         }
       })
       .catch(err => {
         console.log(err.response);
-        if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
-        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
-        if (err.response.status === 404) handleNotice('게시글 혹은 해당 댓글을 찾을 수 없습니다.', 5000);
+        if (err.response) {
+          if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+          if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+          if (err.response.status === 404) handleNotice('게시글 혹은 해당 댓글을 찾을 수 없습니다.', 5000);
+        } else console.log(err);
       });
   }
 

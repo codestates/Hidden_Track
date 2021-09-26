@@ -70,7 +70,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
   }
 
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
-  function requestLogin (e) {
+  async function requestLogin (e) {
     e.preventDefault();
 
     // inputId 와 inputPw 는 state 다
@@ -81,12 +81,11 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
     console.log(body);
     // 로그인 서버 요청
 
-    axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
+    await axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
           // 1. accessToken 을 리덕스 state 에 저장해야 한다.
           dispatch(getAccessToken(res.data.data));
-
           // // 2. 받아온 토큰으로 다시 유저 정보를 주세요 하는 요청을 서버에 요청해야 한다. (헤더에 서버가 보내준 accessToken 받아서 보내줘야 한다.)
           // axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
           //   { headers: { accesstoken: res.data.data } },
@@ -104,7 +103,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
           //     setIsShowUserProfileList('hide');
           //   }
           // });
-
+          console.log('액세스토큰', accessToken);
           // 위의 주석코드를 tokenFunction 으로 리펙토링 한 코드
           // console.log(accessTokenResult); // Promise
           accessTokenRequest(accessToken) // <- userInfo 담길것이다. (status 200)
@@ -126,7 +125,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
         }
       })
       .catch(err => {
-        if(err.response){
+        if (err.response) {
           if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
             console.log('400 에러다');
           } else if (err.response.status === 401) {
@@ -134,9 +133,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
           } else if (err.response.status === 404) {
             console.log('404 에러다');
           }
-        }else{
-          console.log(err);
-        }
+        } else console.log(err);
       });
   }
 

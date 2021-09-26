@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 
-function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice }) {
+function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, trackDetail }) {
   const history = useHistory();
 
   // 특정 음원을 클릭 했을 때 실행되는 함수
@@ -16,11 +16,14 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice }) {
         if (res.status === 200) {
         // 요청 성공시 상세 음원 정보 상태에 저장
           dispatch(getTrackDetails(res.data));
+          // 상세 음원 정보 저장 성공 후 음원 상세 페이지 이동
+          history.push({
+            pathname: `/trackdetails/${trackId}`,
+            state: {
+              trackId: trackId
+            }
+          });
         }
-      })
-      .then(res => {
-        // 상세 음원 정보 저장 성공 후 음원 상세 페이지 이동
-        history.push('/trackdetails');
       })
       .catch(err => {
         console.log(err);

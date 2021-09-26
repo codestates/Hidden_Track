@@ -31,7 +31,7 @@ export async function refreshTokenRequest () {
       }
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
     });
 
   return token;
