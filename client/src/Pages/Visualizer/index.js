@@ -7,8 +7,8 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 
 function Visualizer () {
-  let MEDIA_ELEMENT_NODES = new WeakMap();
-  console.log(MEDIA_ELEMENT_NODES)
+  const MEDIA_ELEMENT_NODES = new WeakMap();
+  console.log(MEDIA_ELEMENT_NODES);
   // const audioCtx = new AudioContext();
   // console.log(audioCtx);
   // redux에 저장된 state 가져오기
@@ -28,12 +28,12 @@ function Visualizer () {
   useEffect(() => {
     context = context || new AudioContext();
     source = source || context.createMediaElementSource(audio.current);
-    console.log(source)
+    console.log(source);
     analyser = context.createAnalyser();
     source.connect(analyser);
     analyser.connect(context.destination);
     frequency_array = new Uint8Array(analyser.frequencyBinCount);
-    console.log(context)
+    console.log(context);
     // audio.current.autoplay=true
     // audio.current.volume='0.1'
     // audio.current.crossOrigin='anonymous'
@@ -67,7 +67,7 @@ function Visualizer () {
       // ctx.rotate(i * Math.PI * 2.315 / bufferLength);
       ctx.rotate(i * Math.PI * 4 / bufferLength);
       // ctx.fillStyle = 'white'
-      ctx.fillRect(0,1, barWidth, barHeight + 2)
+      ctx.fillRect(0, 1, barWidth, barHeight + 2);
       const red = i * barHeight / 10;
       const green = i * 4;
       const blue = barHeight;
@@ -97,9 +97,9 @@ function Visualizer () {
       //   analyser.connect(context.destination);
       //   frequency_array = new Uint8Array(analyser.frequencyBinCount);
       // }
-      context.resume()
+      context.resume();
       audio.current.play();
-      audio.current.autoplay=true
+      audio.current.autoplay = true;
       rafId = requestAnimationFrame(tick);
     } else {
       audio.current.pause();
@@ -114,29 +114,29 @@ function Visualizer () {
 
   return (
     <div id='visualizer'>
-      <button className="go-main-button" onClick={() => { history.push('/'); }}>메인으로 가기</button>
+      <button className='go-main-button' onClick={() => { history.push('/'); }}>메인으로 가기</button>
 
-        <div id='container'>
+      <div id='container'>
         <div className='circle'>
           <div className='inner-circle-controller'>
-          <div className='inner-circle-title'>{crrentMusic.title}</div>
-          <div className='inner-circle-artist'>{crrentMusic.user.nickname}</div>
-          <button className='inner-circle-button' onClick={() => { togglePlay(); }}>play/pause</button>
-          <button onClick={() => {next()}}>next</button>
-          <canvas
-            id='canvas'
-            ref={canvas}
-          />
-          <img className='inner-circle-img' src={crrentMusic.img} alt={crrentMusic.title} />
+            <div className='inner-circle-title'>{crrentMusic.title}</div>
+            <div className='inner-circle-artist'>{crrentMusic.user.nickname}</div>
+            <button className='inner-circle-button' onClick={() => { togglePlay(); }}>play/pause</button>
+            <button onClick={() => { next(); }}>next</button>
+            <canvas
+              id='canvas'
+              ref={canvas}
+            />
+            <img className='inner-circle-img' src={crrentMusic.img} alt={crrentMusic.title} />
           </div>
-      </div>
-          <audio
-            id='audio1'
-            ref={audio}
-            crossOrigin='anonymous'
-            src={crrentMusic.soundtrack}
-          />
         </div>
+        <audio
+          id='audio1'
+          ref={audio}
+          crossOrigin='anonymous'
+          src={crrentMusic.soundtrack}
+        />
+      </div>
     </div>
   );
 }

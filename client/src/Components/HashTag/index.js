@@ -22,8 +22,8 @@ function HashTag ({ tagList }) {
 
   console.log(tagList);
 
-  if( tagList === undefined ){
-    
+  if (tagList === undefined) {
+
   }
 
   return (
