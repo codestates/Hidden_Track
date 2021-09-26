@@ -19,7 +19,9 @@ function HashTag () {
       }
     });
   }
-
+  if( tagList === undefined ){
+    
+  }
   return (
     <section id='hashtag-section'>
       <ul className='hashtag-ul'>
