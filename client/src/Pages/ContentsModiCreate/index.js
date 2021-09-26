@@ -25,8 +25,11 @@ function TestMo ({ handleNotice }) {
     releaseAt: isModify ? trackDetail.track.releaseAt : '',
     soundtrack: isModify ? trackDetail.track.soundtrack : '',
     lyrics: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
-    tag: isModify ? trackDetail.track.hashtag.tag : []
+    tag: isModify ? trackDetail.track.hashtag.map(el => el.tag) : []
   });
+
+  console.log(inputValue)
+
   const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
   // console.log('인풋', inputValue)
@@ -224,7 +227,7 @@ function TestMo ({ handleNotice }) {
                 <option value='Jazz'>Jazz</option>
               </select>
               <div>
-                <span style={{ fontSize: '20px' }}>발매일 : </span>
+                <label htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
                 <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
               </div>
               <div>
