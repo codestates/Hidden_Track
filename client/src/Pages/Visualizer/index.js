@@ -88,11 +88,11 @@ function Visualizer () {
   function drawBar (bufferLength, x, barWidth, barHeight, dataArray, canvas, ctx) {
     let hue;
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i] * 1.7 + 221;
+      barHeight = dataArray[i] * 1.7 + 50;
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       // ctx.rotate(i * Math.PI * 2.315 / bufferLength);
-      ctx.rotate(i * Math.PI * 2.315 / bufferLength);
+      ctx.rotate(i * Math.PI * 4 / bufferLength);
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 3, barWidth, barHeight + 2);
       // const red = i * barHeight / 10;
@@ -160,7 +160,7 @@ function Visualizer () {
         </div> */}
       <div className='inner-circle-control'>
         <div className='inner-circle-title'>{crrentMusic.title}</div>
-        <div className='inner-circle-artist'>{crrentMusic.user.nickname}</div>
+        <div className='inner-circle-artist'>{crrentMusic.user.nickName}</div>
         <button className='inner-circle-button' onClick={() => { togglePlay(); }}>
           <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />
         </button>
@@ -173,7 +173,7 @@ function Visualizer () {
         id='audio1'
         ref={audio}
         crossOrigin='anonymous'
-        src={crrentMusic.soundtrack}
+        src={crrentMusic.soundTrack}
       />
     </div>
   );

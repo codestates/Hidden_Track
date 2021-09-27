@@ -24,8 +24,8 @@ export const initialState = {
     }
   },
   onClickModify: {
-    onClickModify: true
-    // onClickModify: false
+    // onClickModify: true
+    onClickModify: false
   },
   trackList: [
     {

@@ -12,32 +12,35 @@ axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 
 function TestMo ({ handleNotice }) {
+  const history = useHistory();
   const userInfo = useSelector(state => state.userInfoReducer);
+  const { accessToken } = useSelector(state => state.accessTokenReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const isModify = useSelector(state => state.modifyReducer.onClickModify);
   const dispatch = useDispatch();
+  // console.log(accessToken)
   // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
     id: isModify ? trackDetail.track.id : '',
     title: isModify ? trackDetail.track.title : '',
-    img: isModify ? trackDetail.track.img : default_album_img,
     genre: isModify ? trackDetail.track.genre : '',
     releaseAt: isModify ? trackDetail.track.releaseAt : '',
     soundtrack: isModify ? trackDetail.track.soundtrack : '',
-    lyrics: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
+    lyric: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
     tag: isModify ? trackDetail.track.hashtag.map(el => el.tag) : []
   });
 
-  console.log(inputValue);
-
   const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
+  const [s3Img, setS3Img] = useState(isModify ? trackDetail.track.img : default_album_img);
+  const [s3Audio, setS3Audio] = useState(isModify ? trackDetail.track.soundtrack : '');
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
   // const history = useHistory();
-
+  console.log('엑세스토큰', accessToken);
   useEffect(() => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
+
     return () => {
       dispatch(isClickModify(false));
     };
@@ -45,13 +48,21 @@ function TestMo ({ handleNotice }) {
 
   // ?##############################################################################################
   // input값 state 저장 함수
-  function handleInputValue (key, e, tag) {
-    e.preventDefault();
+  function handleInputValue (key, e, value) {
+    console.log('인풋중........');
     if (key === 'tag') {
+      e.preventDefault();
       setInputValue({ ...inputValue, [key]: [...inputValue.tag, e.target.value] });
     } else if (key === 'deleteTag') {
-      setInputValue({ ...inputValue, tag: tag });
-    } else {
+      e.preventDefault();
+      setInputValue({ ...inputValue, tag: value });
+    }
+    // else if (key === 'soundtrack' || key === 'img'){
+    //   console.log(key, value)
+    //   setInputValue({ ...inputValue, [key]: value });
+    // }
+    else {
+      e.preventDefault();
       setInputValue({ ...inputValue, [key]: e.target.value });
     }
   }
@@ -138,24 +149,36 @@ function TestMo ({ handleNotice }) {
       } else {
         path = 'trackimage';
         // formData.append('img', files.image);
-        formData.append('closet', files.image);
+        formData.append('trackimage', files.image);
       }
     } else if (key === 'audio') {
       path = 'trackfile';
       // formData.append('soundtrack', files.audio);
-      formData.append('closet', files.audio);
+      formData.append('trackfile', files.audio);
     }
-    // method(`http://localhost:4000/track/${path}`, formData)
-    return method('http://localhost:4000/upload', formData)
+    // return method('http://localhost:4000/upload', formData)
+    return method(`${process.env.REACT_APP_API_URL}/track/${path}`, formData)
       .then(res => {
-        if (res.status === 200) {
-          setInputValue({ ...inputValue, [key === 'image' ? 'img' : 'soundtrack']: res.data.image_url });
-          return 'success';
-        } else if (res.status === 401) {
-          handleNotice('권한이 없습니다.', 5000);
+        console.log(res.status);
+        if (res.status === 201) {
+          console.log(res.data);
+          // console.log('확인',{[key === 'image'?'img':'soundtrack']:key === 'image'?'res.data.image_url':'res.data.trackurl'})
+          let data;
+          if (key === 'image') {
+            // key = 'img'
+            return res.data.image_url;
+          } else {
+            key = 'soundtrack';
+            return res.data.trackUrl;
+          }
         }
       })
       .catch(err => {
+        if (err.response) {
+          if (err.status === 401) {
+            handleNotice('권한이 없습니다.', 5000);
+          }
+        }
         console.log(err);
         handleNotice('파일 업로드에 실패하였습니다.', 5000);
       });
@@ -170,7 +193,6 @@ function TestMo ({ handleNotice }) {
     // 유효성 통과 됐을 경우
     if (CheckEssential()) {
       let method;
-
       if (isModify) {
         method = axios.patch;
       } else {
@@ -179,32 +201,32 @@ function TestMo ({ handleNotice }) {
 
       handleNotice('업로드중.. 잠시 기다려주세요', 5000);
       const audioUpload = await uploadFile('audio', method);
-      console.log('오디오 완');
+      console.log('오디오 완', s3Audio);
       const imageUpload = await uploadFile('image', method);
-      console.log('이미지 완');
+      console.log('이미지 완', s3Img);
       if (audioUpload && imageUpload) {
-        console.log('실행?');
-        await method(`${process.env.REACT_APP_API_URL}/track/track`, inputValue)
+        // console.log('실행?');
+        // console.log('인풋 확인', inputValue)
+        const body = { ...inputValue, img: imageUpload, soundtrack: audioUpload };
+        console.log('바디', body);
+        await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            if (res.status === 200) {
+            if (res.status === 201) {
               handleNotice('음원 등록이 성공하였습니다.', 5000);
-              const parameters = res.data.id; // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수정 필요
-              axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.track.id}`)
-                .then(res => {
-                  if (res.status === 200) {
-                    dispatch(getTrackDetails(res.data));
-                  } else if (res.status === 400) {
-                    handleNotice('페이지를 찾을 수 없습니다.', 5000);
-                  }
-                })
-                .catch(err => console.log(err));
-            } else if (res.status === 400) {
-              handleNotice('입력값이 부족합니다!', 5000);
-            } else if (res.status === 401) {
-              handleNotice('권한이 없습니다.', 5000);
+              console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
+              history.push(`/trackdetails/${res.data.trackId}`);
             }
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            if (err.response) {
+              if (err.status === 400) {
+                handleNotice('입력값이 부족합니다!', 5000);
+              } else if (err.status === 401) {
+                handleNotice('권한이 없습니다.', 5000);
+              }
+            }
+            console.log(err);
+          });
       } else {
         console.log('못함?');
       }

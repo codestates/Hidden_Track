@@ -139,6 +139,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             // 성공 요청시 플레이리스트 상태 다시 받아옴
               axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
                 .then(res => {
+                  console.log('fdsafasd', res.data);
                   console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
                     dispatch(inputPlayList(res.data.playlist));

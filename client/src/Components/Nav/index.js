@@ -16,25 +16,22 @@ import Sidebar from './Sidebar';
 import './index.scss';
 import headphone from '../../assets/headphones.png';
 
-function Nav () {
+function Nav ({ handleNotice }) {
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
-  const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
+  const isLogin = useSelector(state => state.isLoginReducer).isLogin; // isLogin 관련
+  const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
+  const userInfo = useSelector(state => state.userInfoReducer); // isModalOpen 관련
   const dispatch = useDispatch();
   const history = useHistory();
   const cookies = new Cookies();
-
-  const { isLogin } = state1;
-  const { isLoginModalOpen } = state2;
 
   // 헤드폰 모양을 누르면 사이드바가 나타나도록 해주는 onClick 이벤트
   function showSidebar (e) {
     e.preventDefault();
     setIsSidebarOpen(!isSidebarOpen);
   }
-
   // 로그인 버튼을 눌렀을때 로그인 모달창 뜨도록 해주는 onClick 이벤트
   function showModal (e) {
     e.preventDefault();
@@ -109,15 +106,19 @@ function Nav () {
             <input
               type='button' className='navigation__profile-image'
               onClick={(e) => showUserProfileList(e)}
+              style={{ backgroundImage: `url(${userInfo.profile})` }}
             />
             <ul className={isShowUserProfileList}>
-              <li>음원 등록</li>
-
+              <li onClick={() => { history.push('/modicreate'); }}>음원 등록</li>
               <li onClick={(e) => moveMyPage(e)}>마이 페이지</li>
               <li onClick={(e) => requestSignOut(e)}>로그아웃</li>
             </ul>
             <button className='navigation__player-btn'>
-              <img className='player-image' src={headphone} alt='player' />
+              <img
+                className='player-image' src={headphone} alt='player' onClick={(e) => {
+                  showSidebar(e);
+                }}
+              />
             </button>
           </div>
           : <div className='button-list'>
@@ -130,12 +131,21 @@ function Nav () {
               <button className='navigation__sign-up-btn'>회원가입</button>
             </Link>
             <button className='navigation__player-btn'>
-              <img className='player-image' src={headphone} alt='player' onClick={(e) => { showSidebar(e); }} />
+              <img
+                className='player-image' src={headphone} alt='player' onClick={(e) => {
+                  showSidebar(e);
+                }}
+              />
             </button>
           </div>
           }
 
-        {isLoginModalOpen && <Login showUserProfileList={showUserProfileList} isShowUserProfileList={isShowUserProfileList} setIsShowUserProfileList={setIsShowUserProfileList} />}
+        {isLoginModalOpen && <Login
+          showUserProfileList={showUserProfileList}
+          isShowUserProfileList={isShowUserProfileList}
+          setIsShowUserProfileList={setIsShowUserProfileList}
+          handleNotice={handleNotice}
+                             />}
       </nav>
     </header>
 
