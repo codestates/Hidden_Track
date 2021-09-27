@@ -257,7 +257,7 @@ function TestMo ({ handleNotice }) {
                 <option value='Jazz'>Jazz</option>
               </select>
               <div>
-                <label htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
+                <label className='music-release-label' htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
                 <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
               </div>
               <div>
