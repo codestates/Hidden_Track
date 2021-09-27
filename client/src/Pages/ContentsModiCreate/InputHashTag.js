@@ -47,7 +47,7 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
           }
         }}
       />
-      <ul className='hashtag-ul'>
+      {tagList?<ul className='hashtag-ul'>
         {tagList.map((el, idx) => {
           return (
             <li key={idx} className='tag'>
@@ -56,7 +56,7 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
             </li>
           );
         })}
-      </ul>
+      </ul>:<></>}
     </div>
   );
 }

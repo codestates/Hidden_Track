@@ -2,10 +2,12 @@ import axios from 'axios';
 
 // 인자로 받은 액세스 토큰으로 유저정보 요청하는 함수
 export async function accessTokenRequest (accessToken) {
-  const userInfo = await axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`, 
-  {headers: {accesstoken : accessToken}})
+  const userInfo = axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,
+    { headers: { accesstoken: accessToken } })
+    // console.log(userInfo); // {data: {...}, status: 200, statusText: 'OK', headers: {...}}
+  // {data: {data: {id: 1, loginId: 'test1 ...}}}
     .then(res => {
-      console.log('액세스 토큰 요청 응답', res.data);
+      console.log('액세스 토큰 요청 응답', res.data); // res.data <- userInfo
       if (res.status === 200) {
         return res.data.data;
       }
@@ -29,7 +31,7 @@ export async function refreshTokenRequest () {
       }
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
     });
 
   return token;

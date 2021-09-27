@@ -16,10 +16,13 @@ function Search () {
   function moveToSearchTrack (e) {
     e.preventDefault();
     console.log(searchValue);
-    // 로컬 스토리지에 입력한 검색어 저장
-    localStorage.setItem('search', `${searchValue}`);
     // 검색 페이지로 이동
-    history.push('/searchtrack');
+    history.push({
+      pathname: `/searchtrack/${searchValue}`,
+      state: {
+        search: searchValue
+      }
+    });
   }
 
   return (
