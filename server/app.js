@@ -25,12 +25,12 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome, hidden_track! Server!");
 });
 
-// db.sequelize
-//   .sync()
-//   .then(() => {
-//     console.log("db 연결 ")
-//   })
-//   .catch(console.error)
+db.sequelize
+  .sync()
+  .then(() => {
+    console.log("db 연결 ")
+  })
+  .catch(console.error)
 
 
 app.use('/user', usersRouter);
@@ -39,10 +39,8 @@ app.use('/playlist', playlistRouter);
 app.use('/reply', replyController);
 
 const HTTPS_PORT = 4000;
-let server;
 
-server = app.listen(HTTPS_PORT, () => {
+app.listen(HTTPS_PORT, () => {
   console.log("server 실행");
 });
 
-module.exports = server;

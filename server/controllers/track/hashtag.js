@@ -2,7 +2,7 @@ const { track , hashtag, user } = require("../../models")
 
 module.exports =  {  
    
-    redirect: async (req, res) =>{ 
+    get: async (req, res) =>{ 
      const { tag } =req.params;
      
      if(!tag){
