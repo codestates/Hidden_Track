@@ -17,26 +17,38 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   const accessToken = useSelector(state => state.accessTokenReducer);
   const playList = useSelector(state => state.playListReducer.playList);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isLogin) {
-      axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
-        .then(res => {
-          if (res.status === 200) {
-            dispatch(inputPlayList(res.data.playList));
-          }
-        });
-    }
-  }, []);
-
+  // console.log('사이드바 오픈',isSidebarOpen)
+  // console.log('사이드바 로그인 상태',isLogin)
+  console.log(playList);
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
   const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
 
-  console.log('이전 재생곡', previousMusic);
-  // console.log('현재 재생곡', crrentMusic);
-  // 재생곡 변경 함수
+  useEffect(() => {
+    if (isLogin) {
+      axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
+        .then(res => {
+          if (res.status === 200) {
+            dispatch(inputPlayList(res.data.playList));
+            setCrrentMusic(playList[playList.length - 1]);
+          }
+        })
+        .catch(err => {
+          if (err.response) {
+            if (err.response.status === 404) {
+              dispatch(inputPlayList([]));
+              // setCrrentMusic(playList[playList.length-1])
+            }
+          } else console.log(err);
+        }
+        );
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    setCrrentMusic(playList[playList.length - 1]);
+  }, [playList]);
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
   }
@@ -117,7 +129,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
           </div>
           <div className='info'>
             <p className='inner-title'>{crrentMusic ? crrentMusic.title : ''}</p>
-            <p className='inner-nickname'>{crrentMusic ? crrentMusic.user.nickname : ''}</p>
+            <p className='inner-nickname'>{crrentMusic ? crrentMusic.user.nickName : ''}</p>
           </div>
           <div className='shuffle'>
             <button id='random-button' onClick={() => { setIsRandom(!isRandom); }}>
@@ -128,7 +140,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
         <div className='audio'>
           <AudioPlayer
             id='sidebar-audio'
-            src={crrentMusic ? crrentMusic.soundtrack : ''}
+            src={crrentMusic ? crrentMusic.soundTrack : ''}
             controls
             volume={0.1}
           // autoPlay

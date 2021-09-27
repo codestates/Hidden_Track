@@ -136,24 +136,28 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         })
           .then(res => {
             console.log('플레이리스트 추가 요청 응답', res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
             // 성공 요청시 플레이리스트 상태 다시 받아옴
               axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
                 .then(res => {
+                  console.log('fdsafasd', res.data);
                   console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
-                    dispatch(inputPlayList(res.data.playList));
+                    console.log('dddd');
+                    dispatch(inputPlayList(res.data.playlist));
+                    // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
+                    console.log('dddddddd');
+                    if (!listenBtn) handleNotice('리스트에 곡이 추가되었습니다.', 5000);
+                    // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
+                    else {
+                      setListenBtn(false);
+                      return history.push('/visual');
+                    }
                   } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
                 })
-                .then(res => {
-                  // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
-                  if (!listenBtn) handleNotice('리스트에 곡이 추가되었습니다.', 5000);
-                  // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
-                  else {
-                    setListenBtn(false);
-                    return history.push('/visual');
-                  }
-                })
+                // .then(res => {
+
+                // })
                 .catch(err => {
                   console.log(err.response);
                   if (err.response) {

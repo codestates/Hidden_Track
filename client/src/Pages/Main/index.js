@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import Slide from '../../Components/Slide';
-import Test from '../../Test';
 import Recommend from '../../Components/Recommend';
 
 import './index.scss';
@@ -20,7 +19,6 @@ function Main () {
       {/* <button className='test' onClick={(e) => { test(e); }}>이동</button> */}
       <div className='slides'>
         <Slide />
-        <Test />
         {/* <Recommend /> */}
       </div>
     </div>

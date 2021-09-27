@@ -6,7 +6,6 @@ import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Login from './Components/Login';
 import Main from './Pages/Main';
-import Test from './Test';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';

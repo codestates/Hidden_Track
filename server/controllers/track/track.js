@@ -25,7 +25,7 @@ module.exports = {
 
      const findTrack = await track.findAll({
        where: { id : trackId },
-       attributes : ["id","title","img","genre","releaseAt","soundTrack","lyric"],
+       attributes : ["id","title","img","genre","releaseAt","soundtrack","lyric"],
        include:[{
          model : user,
          required : true,
@@ -68,12 +68,14 @@ module.exports = {
    },
 
     post: async (req,res) =>{ 
+      console.log(req.body)
+      // console.log(req.headers)
      //req.header -> accesstoken, req.body ->tag(array),title,img,genre,releaseAt,soundtrack,lyric
      const accessTokenData = isAuthorized(req);
-     const { tag ,title,img,genre,releaseAt,soundTrack,lyric } = req.body;
+     const { tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
      const tagtracks = db.sequelize.models.tagtracks;
 
-    if(!title || !img || !genre || !releaseAt || !soundTrack  ) {
+    if(!title || !img || !genre || !releaseAt || !soundtrack  ) {
       res.status(400).json({message: "input values"})
     }
     if (!accessTokenData) {
@@ -85,7 +87,7 @@ module.exports = {
       img : img,
       genre : genre,
       releaseAt : releaseAt,
-      soundTrack : soundTrack,
+      soundTrack : soundtrack,
       userId : accessTokenData.id,
       lyric: lyric,
       views : 0
@@ -108,10 +110,10 @@ module.exports = {
 
    patch :  async (req,res) =>{ 
     const accessTokenData = isAuthorized(req);
-    const { id, tag ,title,img,genre,releaseAt,soundTrack,lyric } = req.body;
+    const { id, tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
     const tagtracks = db.sequelize.models.tagtracks;
 
-    if(!id  ||!title || !img || !genre || !releaseAt || !soundTrack ) {
+    if(!id  ||!title || !img || !genre || !releaseAt || !soundtrack ) {
      res.status(400).json({message: "input values"})
     }
     
@@ -123,8 +125,8 @@ module.exports = {
       where : {id : id}
     })
 
-    if(findTrack.soundTrack !== soundTrack){
-      const url =  findTrack.soundTrack.split('com/')
+    if(findTrack.soundtrack !== soundtrack){
+      const url =  findTrack.soundtrack.split('com/')
       s3.deleteObject({
         Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
         Key: `${url[1]}` // 버켓 내 경로
@@ -150,7 +152,7 @@ module.exports = {
       img : img,
       genre : genre,
       releaseAt : releaseAt,
-      soundTrack : soundTrack,
+      soundtrack : soundtrack,
       userId : accessTokenData.id,
       lyric: lyric,
     },{

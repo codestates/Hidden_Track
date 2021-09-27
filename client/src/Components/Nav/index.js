@@ -34,7 +34,6 @@ function Nav () {
     e.preventDefault();
     setIsSidebarOpen(!isSidebarOpen);
   }
-
   // 로그인 버튼을 눌렀을때 로그인 모달창 뜨도록 해주는 onClick 이벤트
   function showModal (e) {
     e.preventDefault();
@@ -111,13 +110,16 @@ function Nav () {
               onClick={(e) => showUserProfileList(e)}
             />
             <ul className={isShowUserProfileList}>
-              <li>음원 등록</li>
-
+              <li onClick={() => { history.push('/modicreate'); }}>음원 등록</li>
               <li onClick={(e) => moveMyPage(e)}>마이 페이지</li>
               <li onClick={(e) => requestSignOut(e)}>로그아웃</li>
             </ul>
             <button className='navigation__player-btn'>
-              <img className='player-image' src={headphone} alt='player' />
+              <img
+                className='player-image' src={headphone} alt='player' onClick={(e) => {
+                  showSidebar(e);
+                }}
+              />
             </button>
           </div>
           : <div className='button-list'>
@@ -130,7 +132,11 @@ function Nav () {
               <button className='navigation__sign-up-btn'>회원가입</button>
             </Link>
             <button className='navigation__player-btn'>
-              <img className='player-image' src={headphone} alt='player' onClick={(e) => { showSidebar(e); }} />
+              <img
+                className='player-image' src={headphone} alt='player' onClick={(e) => {
+                  showSidebar(e);
+                }}
+              />
             </button>
           </div>
           }

@@ -27,11 +27,15 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
       })
       .catch(err => {
         console.log(err.response);
-        if (err.response.status === 400) {
-          handleValidMessage('duplicatedNick', '잘못된 요청입니다.');
-        }
-        if (err.response.status === 409) {
-          handleValidMessage('duplicatedNick', '이미 등록된 닉네임 입니다.');
+        if (err.response) {
+          if (err.response.status === 400) {
+            handleValidMessage('duplicatedNick', '잘못된 요청입니다.');
+          }
+          if (err.response.status === 409) {
+            handleValidMessage('duplicatedNick', '이미 등록된 닉네임 입니다.');
+          }
+        } else {
+          console.log(err);
         }
       });
   }
