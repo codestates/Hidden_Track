@@ -22,7 +22,7 @@ function Visualizer () {
   const width = window.innerWidth;
   const height = window.innerHeight;
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList[0]);
+  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
   const [isPlay, setIsPlay] = useState(false);
   const img = new Image();
   img.src = crrentMusic.img;
@@ -88,7 +88,7 @@ function Visualizer () {
   function drawBar (bufferLength, x, barWidth, barHeight, dataArray, canvas, ctx) {
     let hue;
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i] * 1.7 + 50;
+      barHeight = dataArray[i] * 1.7 + 150;
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       // ctx.rotate(i * Math.PI * 2.315 / bufferLength);
@@ -172,6 +172,7 @@ function Visualizer () {
       <audio
         id='audio1'
         ref={audio}
+        volume={0.2}
         crossOrigin='anonymous'
         src={crrentMusic.soundTrack}
       />

@@ -220,9 +220,9 @@ export const initialState = {
       내가 빠른지도
       느린지도 모르겠어
       그저 눈앞이 샛노랄 뿐이야`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
       user: {
-        nickname: '이무진'
+        nickName: '이무진'
       }
     },
     {
@@ -291,9 +291,9 @@ export const initialState = {
       I travel the world
       And the seven seas
       Everybody's,`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Eurythmics_Sweet+Dreams.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Eurythmics_Sweet+Dreams.mp3',
       user: {
-        nickname: 'Eurythmics'
+        nickName: 'Eurythmics'
       }
     },
     {
@@ -375,9 +375,9 @@ export const initialState = {
       조금 슬퍼 보이면 어때
       나가서 바람이나 좀 쐐
       조금 슬퍼 보이면 어때`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/05.+%EB%B0%94%EB%9E%8C%EC%9D%B4%EB%82%98+%EC%A2%80+%EC%90%90+(Feat.+MIWOO).mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/05.+%EB%B0%94%EB%9E%8C%EC%9D%B4%EB%82%98+%EC%A2%80+%EC%90%90+(Feat.+MIWOO).mp3',
       user: {
-        nickname: '개리'
+        nickName: '개리'
       }
     },
     {
@@ -465,9 +465,9 @@ export const initialState = {
       들리니 I need you I love you
       이런이런 날 어서 가져가줘
       들리니 I need you I love you`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/003+%5B%EB%B8%8C%EB%9D%BC%EC%9A%B4+%EC%95%84%EC%9D%B4%EB%93%9C+%EA%B1%B8%EC%8A%A4+Single%5D+-+02+L.O.V.E.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/003+%5B%EB%B8%8C%EB%9D%BC%EC%9A%B4+%EC%95%84%EC%9D%B4%EB%93%9C+%EA%B1%B8%EC%8A%A4+Single%5D+-+02+L.O.V.E.mp3',
       user: {
-        nickname: '브라운 아이드 걸스'
+        nickName: '브라운 아이드 걸스'
       }
     },
     {
@@ -599,9 +599,9 @@ export const initialState = {
       then we out
       hold us down
       hold us down`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/DPR+LIVE+-+To+Myself.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/DPR+LIVE+-+To+Myself.mp3',
       user: {
-        nickname: 'DPR LIVE'
+        nickName: 'DPR LIVE'
       }
     },
     {
@@ -715,9 +715,9 @@ export const initialState = {
       Woulda gave you anything
       woulda gave you everything
       Oh-oh`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Better+Now.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Better+Now.mp3',
       user: {
-        nickname: 'Post Malone'
+        nickName: 'Post Malone'
       }
     }
   ]
