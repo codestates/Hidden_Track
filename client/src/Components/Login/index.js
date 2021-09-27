@@ -14,14 +14,13 @@ import Portal from './Portal';
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
-function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
+function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
-
 
   // 로그인 모달창 밖의 배경을 누르면 모달창이 꺼지는 onClick 이벤트
   function handleModalBack (e) {
@@ -31,7 +30,6 @@ function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값
     dispatch(isLoginModalOpenHandler(false));
   }
 
-
   // id 인풋값 바꿔주는 onChange 이벤트
   function changeIdValue (e) {
     e.preventDefault();
@@ -39,7 +37,6 @@ function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값
     // id 인풋값 바꿔주는 setState
     setInputId(e.target.value);
   }
-
 
   // password 인풋값 바꿔주는 onChange 이벤트
   function changePwValue (e) {
@@ -49,7 +46,6 @@ function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값
     setInputPw(e.target.value);
   }
 
-
   // 모달창의 x 버튼 눌렀을때 모달창이 꺼지는 onClick 이벤트
   function handleModalCloseBtn (e) {
     e.preventDefault();
@@ -58,7 +54,6 @@ function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값
     dispatch(isLoginModalOpenHandler(false));
   }
 
-
   // 회원가입 페이지로 넘어가주는 onClick 이벤트
   function handleSignUpBtn (e) {
     e.preventDefault();
@@ -66,7 +61,6 @@ function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값
     // console.log(e.key);
     history.push('/signup');
   }
-
 
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
   function requestLogin (e) {
@@ -123,18 +117,19 @@ function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값
                 setIsShowUserProfileList('hide');
               }
             });
-        }}
+        }
+      }
       ).catch(err => {
-        if(err.response){
+        if (err.response) {
           if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
             console.log('400 에러다');
-            handleNotice('존재하지 않는 회원입니다. 회원가입을 해주세요', 3000)
+            handleNotice('존재하지 않는 회원입니다. 회원가입을 해주세요', 3000);
           } else if (err.response.status === 401) { // <- not authorized
             console.log('401 에러다');
-            handleNotice('권한이 없습니다', 3000)
+            handleNotice('권한이 없습니다', 3000);
           } else if (err.response.status === 404) { // <- not found
             console.log('404 에러다');
-            handleNotice('잘못된 요청입니다', 3000)
+            handleNotice('잘못된 요청입니다', 3000);
           }
         }
       });

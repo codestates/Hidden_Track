@@ -95,7 +95,6 @@ function SignUp ({ handleNotice }) {
         .then(res => {
           console.log('S3 이미지 url 요청 응답', res.data);
           if (res.status === 200) {
-            
             handleInputValue('imageUrl', res.data.profile);
             postSignUp();
           }

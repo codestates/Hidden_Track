@@ -14,10 +14,9 @@ import WithDrawalModal from './WithDrawalModal';
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
-
 axios.defaults.withCredentials = true;
 
-function MyPage ({handleNotice}) {
+function MyPage ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer);
   const state3 = useSelector(state => state.accessTokenReducer); // accessToken 관련
   const dispatch = useDispatch();
@@ -39,8 +38,6 @@ function MyPage ({handleNotice}) {
     duplicatedNick: ''
   });
 
-
-
   // 비밀번호 변경 눌렀을 때 비밀번호 변경 서버 요청 onSubmit 이벤트 함수
   function requestPW (e) {
     e.preventDefault();
@@ -53,10 +50,11 @@ function MyPage ({handleNotice}) {
     ).then(res => {
       console.log('비밀번호 변경 요청 응답', res.data);
       if (res.status === 200) { // <- 응~ 변경해도 돼~
-        handleNotice('비밀번호가 변경되었습니다', 2000)
-      }}
+        handleNotice('비밀번호가 변경되었습니다', 2000);
+      }
+    }
     ).catch(err => {
-      if(err.response){
+      if (err.response) {
         if (err.response.status === 400) { // <- 비밀번호가 안들어왓을 때
           console.log('400 에러다');
           handleNotice('입력값이 부족합니다!', 3000);
@@ -64,10 +62,10 @@ function MyPage ({handleNotice}) {
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
         }
-      }}
+      }
+    }
     );
   }
-
 
   // 닉네임 중복확인 하는 onClick 이벤트 함수
   function CheckDuplicateNickname (key, e) {
@@ -81,7 +79,7 @@ function MyPage ({handleNotice}) {
       }
     }
     ).catch(err => {
-      if(err.response){
+      if (err.response) {
         if (err.response.status === 400) {
           showCheckMessage(key, '잘못된 요청입니다.');
         } else if (err.response.status === 409) {
@@ -90,14 +88,13 @@ function MyPage ({handleNotice}) {
       }
     });
   }
-  
 
   // input 창들의 값 setState 해주는 함수
-  function handleInputValue(key, value, admin){
-    if(!admin){
+  function handleInputValue (key, value, admin) {
+    if (!admin) {
       setUser({ ...user, [key]: value });
-    }else{
-      setUser({ ...user, [admin]: {...user.userArtist, [key]: value} });
+    } else {
+      setUser({ ...user, [admin]: { ...user.userArtist, [key]: value } });
     }
   }
 
@@ -114,16 +111,17 @@ function MyPage ({handleNotice}) {
       console.log('닉네임 변경 요청 응답', res.data);
       if (res.status === 200) {
         // setState
-        handleInputValue('nickName', user.nickName)
+        handleInputValue('nickName', user.nickName);
 
         // 리덕스에 있는 유저 인포 업뎃 (dispatch)
         const changedUser = { ...userInfo, nickName: user.nickName };
         dispatch(getUserInfo(changedUser));
 
-        handleNotice('닉네임이 수정되었습니다', 3000)
-      }}
+        handleNotice('닉네임이 수정되었습니다', 3000);
+      }
+    }
     ).catch(err => {
-      if(err.response){
+      if (err.response) {
         if (err.response.status === 400) { // 닉네임이 안들어 왔을 때
           console.log('400 에러다');
           handleNotice('입력값이 부족합니다!', 3000);
@@ -131,32 +129,31 @@ function MyPage ({handleNotice}) {
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
         }
-      }}
+      }
+    }
     );
   }
-  
 
   // 프로필 이미지 미리보기 함수
-  function ProfileImagePreview(e){
+  function ProfileImagePreview (e) {
     e.preventDefault();
 
     const file = e.target.files[0];
     console.log(file);
 
-    let reader = new FileReader() // -> 파일 읽기 완료
+    const reader = new FileReader(); // -> 파일 읽기 완료
     reader.onload = function () {
-      handleInputValue('profile', reader.result)
-    }
-    reader.readAsDataURL(file)    
+      handleInputValue('profile', reader.result);
+    };
+    reader.readAsDataURL(file);
   }
 
   // 프로필 이미지 변경 눌렀을 때 프로필 이미지 변경 서버 요청 onSubmit 이벤트 함수
   function requestChangeProfileImage (e) {
-    
     e.preventDefault();
 
     // 변경할 이미지 파일 (onSubmit 썼기때문에 input file 값에 접근하려면 e.target.img.files[0] 해야함)
-    const file = e.target.img.files[0]
+    const file = e.target.img.files[0];
 
     const formData = new FormData(); // <- form 태그랑은 다른거임.
     formData.append('profile', file);
@@ -170,66 +167,65 @@ function MyPage ({handleNotice}) {
       console.log('프로필 이미지 변경 요청 응답', res.data);
       if (res.status === 200) {
         // setState
-        handleInputValue('profile', res.data.profile)
+        handleInputValue('profile', res.data.profile);
 
         // 리덕스에 있는 유저 인포 업뎃 (dispatch)
         const changedUser = { ...userInfo, profile: res.data.profile };
         dispatch(getUserInfo(changedUser));
 
-        handleNotice('이미지가 변경되었습니다', 3000)
-      }}
+        handleNotice('이미지가 변경되었습니다', 3000);
+      }
+    }
     ).catch(err => {
-      if(err.response){
+      if (err.response) {
         if (err.response.status === 401) { // <- 유저 권한이 없는 경우
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
-        }else{
-          console.log('다른 에러다', err); 
+        } else {
+          console.log('다른 에러다', err);
         }
-      }}
-    )
+      }
+    }
+    );
   }
-
 
   // 프로필 이미지 삭제해서 기본 이미지로 프로필 이미지 변경 서버 요청 onClick 이벤트 함수
   function requestDeleteProfileImage () {
-
     // 프로필 이미지 삭제 요청 서버에 보냄
-    axios.delete(`${process.env.REACT_APP_API_URL}/user/profile`, 
-      {headers : {accesstoken : accessToken}}
-      
+    axios.delete(`${process.env.REACT_APP_API_URL}/user/profile`,
+      { headers: { accesstoken: accessToken } }
+
     ).then(res => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
       console.log('프로필 이미지 삭제 요청 응답', res.data);
       if (res.status === 200) {
         // setState
-        handleInputValue('profile', res.data.profile)
+        handleInputValue('profile', res.data.profile);
 
         // 리덕스에 있는 유저 인포 업뎃 (dispatch)
         const changedUser = { ...userInfo, profile: res.data.profile };
         dispatch(getUserInfo(changedUser));
 
-        handleNotice('이미지가 삭제되었습니다', 2000)
-      }}
+        handleNotice('이미지가 삭제되었습니다', 2000);
+      }
+    }
     ).catch(err => {
-      if(err.response){
-        if(err.response.status === 400){ // <- 이미 기본 이미지일 경우
+      if (err.response) {
+        if (err.response.status === 400) { // <- 이미 기본 이미지일 경우
           console.log('400 에러다');
-          handleNotice('삭제할 이미지가 없습니다', 3000)
-        }else if(err.response.status === 401){ // <- 유저 권한이 없는 경우
+          handleNotice('삭제할 이미지가 없습니다', 3000);
+        } else if (err.response.status === 401) { // <- 유저 권한이 없는 경우
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
         }
-      }}
-    )
+      }
+    }
+    );
   }
-
-
 
   // 중복확인 및 유효성검사 메세지 나타나게 하는 함수
   function showCheckMessage (key, value) {
     setMessage({ ...message, [key]: value });
   }
-
 
   // 비밀번호 유효성 검사 하여 검사 결과 메세지 나타나게 하는 onChange 이벤트 함수
   function PasswordValidation (key, inputValue) {
@@ -238,37 +234,32 @@ function MyPage ({handleNotice}) {
     if (check) { // <- 위 결과가 true 이면 false
       console.log('유효성 검사 성공');
       showCheckMessage(key, '');
-    } else{
+    } else {
       showCheckMessage(key, '비밀번호는 8자 이상 16자 이하, 알파벳과 숫자 및 특수문자를 하나 이상 포함해야 합니다.');
     }
   }
 
-
   // 수정할 비밀번호가 맞는지 확인 메세지 나타나게 하는 함수
   function PasswordMatchCheck (key, e) {
-
     // 비밀번호 확인 input 창의 값 = checkedPassword
     // 수정할 비밀번호 input 창의 값 = ChangePassword
-    if(!checkedPassword){
+    if (!checkedPassword) {
       showCheckMessage(key, '');
-    }
-    else{
+    } else {
       if (ChangePassword !== checkedPassword) {
-        console.log('일치하지 않음')
+        console.log('일치하지 않음');
         showCheckMessage(key, '비밀번호가 일치하지 않습니다.');
-      }else{
-        console.log('일치함')
+      } else {
+        console.log('일치함');
         showCheckMessage(key, '');
       }
     }
   }
 
-
   // 계정 전환 checkbox state setState 해주는 onChange 이벤트 함수
   function handleCheckAdmin () {
     setIsAdminCheck(!isAdminCheck);
   }
-
 
   // 회원탈퇴 모달창 나타나게 하는 onClick 이벤트 함수
   function showWithDrawalModal (e) {
@@ -276,36 +267,38 @@ function MyPage ({handleNotice}) {
     setIsWithDrawalModalOpen(true);
   }
 
-
   // 계정 전환 서버 요청 onClick 이벤트 함수 onSubmit 이벤트 함수(Condition 컴포넌트 내에 존재)
-  function requestAdminChange(e){
+  function requestAdminChange (e) {
     e.preventDefault();
 
     // 계정 전환 요청 서버에 보냄
-    axios.patch(`${process.env.REACT_APP_API_URL}/user/artist`, 
-      { agency: user.userArtist.agency, 
+    axios.patch(`${process.env.REACT_APP_API_URL}/user/artist`,
+      {
+        agency: user.userArtist.agency,
         debut: user.userArtist.debut,
-        email : user.userArtist.email}, 
-      { headers: { accesstoken: accessToken }}
+        email: user.userArtist.email
+      },
+      { headers: { accesstoken: accessToken } }
 
     ).then(res => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
       console.log('계정 전환 요청 응답', res);
-      if(res.status === 200){
-        handleNotice('계정 전환이 되었습니다', 2000)
-      }}
+      if (res.status === 200) {
+        handleNotice('계정 전환이 되었습니다', 2000);
+      }
+    }
     ).catch(err => {
-      if(err.response){
-        if(err.response.status === 400){ // <- 전환할 계정의 정보가 덜 들어오거나 토큰이 없을때 
+      if (err.response) {
+        if (err.response.status === 400) { // <- 전환할 계정의 정보가 덜 들어오거나 토큰이 없을때
           console.log('400 에러다');
           handleNotice('입력값이 부족합니다!', 3000);
-        }else if(err.response.status === 401){ // <- 토큰이 제대로 된게 아니거나 만료된것
+        } else if (err.response.status === 401) { // <- 토큰이 제대로 된게 아니거나 만료된것
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
         }
-      }}
-    )
+      }
+    }
+    );
   }
-
 
   return (
     <>
@@ -360,9 +353,8 @@ function MyPage ({handleNotice}) {
         <input
           type='text' name='nickName' id='nickName' value={user.nickName}
           required
-          onChange={(e) => 
-            handleInputValue('nickName', e.target.value)
-          }
+          onChange={(e) =>
+            handleInputValue('nickName', e.target.value)}
         />
         <button onClick={(e) => CheckDuplicateNickname('duplicatedNick', e)}>중복확인</button>
         {/* 중복확인 메세지는 message.duplicatedNick 가 truthy 할때만 나타나도록 해야 한다. */}
@@ -373,19 +365,21 @@ function MyPage ({handleNotice}) {
       <input type='checkbox' name='' id='' onChange={() => { handleCheckAdmin(); }} />
       <p>아티스트 계정으로 전환하기</p>
       {isAdminCheck && <Condition handleInputValue={handleInputValue} requestAdminChange={requestAdminChange} isAdminCheck={isAdminCheck} />}
-          
-      {/* 프로필 변경 폼  */}
-      <form onSubmit={(e) =>requestChangeProfileImage(e)}>
-          {/* 이미지 수정을 했을 경우  src={user.profile}*/}
-          {/* 기본 이미지로 했을 경우  src={userInfo.profile}*/}
-          <img src={user.profile || userInfo.profile} alt='프로필 이미지' /> 
-          
-        <label htmlFor='imgFile'>+</label>
-        <input  type='file' name='img' id='imgFile' 
-                style={{ display: 'none' }} 
-                onChange={(e) => {ProfileImagePreview(e)}}/>
 
-        <button type="submit" id="submit">이미지 변경</button>
+      {/* 프로필 변경 폼  */}
+      <form onSubmit={(e) => requestChangeProfileImage(e)}>
+        {/* 이미지 수정을 했을 경우  src={user.profile} */}
+        {/* 기본 이미지로 했을 경우  src={userInfo.profile} */}
+        <img src={user.profile || userInfo.profile} alt='프로필 이미지' />
+
+        <label htmlFor='imgFile'>+</label>
+        <input
+          type='file' name='img' id='imgFile'
+          style={{ display: 'none' }}
+          onChange={(e) => { ProfileImagePreview(e); }}
+        />
+
+        <button type='submit' id='submit'>이미지 변경</button>
         <button onClick={requestDeleteProfileImage}>이미지 삭제</button>
       </form>
 
