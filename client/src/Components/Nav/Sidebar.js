@@ -25,7 +25,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   const [crrentMusic, setCrrentMusic] = useState('');
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
-
+  console.log(playList);
   useEffect(() => {
     if (isLogin) {
       axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
@@ -132,7 +132,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
           <div className='square'>
             <img className='inner-square' src={crrentMusic ? crrentMusic.img : default_album_img} alt={crrentMusic ? crrentMusic.title : '기본 이미지'} />
           </div>
-          <div className='info'>
+          <div className='current-info'>
             <p className='inner-title'>{crrentMusic ? crrentMusic.title : ''}</p>
             <p className='inner-nickname'>{crrentMusic ? crrentMusic.user.nickName : ''}</p>
           </div>
