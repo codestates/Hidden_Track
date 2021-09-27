@@ -1,6 +1,4 @@
 import React from 'react';
-// import axios from 'axios';
-// import './InputImage.scss';
 
 function InputImage ({ inputValue, handleInputValue, initialImage, setImageFile }) {
   // 프로필 이미지 파일 미리보기 구현
@@ -8,7 +6,6 @@ function InputImage ({ inputValue, handleInputValue, initialImage, setImageFile 
     e.preventDefault();
 
     const file = e.target.files[0];
-    // handleInputValue('imageFile', file);
     setImageFile(file);
     const reader = new FileReader();
 
@@ -16,20 +13,6 @@ function InputImage ({ inputValue, handleInputValue, initialImage, setImageFile 
       handleInputValue('previewFile', reader.result);
     };
     reader.readAsDataURL(file);
-
-    // const formData = new FormData();
-    // formData.append('profile', file);
-
-    // axios.post(`${process.env.REACT_APP_API_URL}/uploadimg`, formData)
-    //   .then(res => {
-    //     console.log(res.data);
-    //     if (res.status === 200) {
-    //       setImageUrl(res.data.imgurl);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   }
 
   // 이미지 삭제 버튼 클릭시 실행되는 함수

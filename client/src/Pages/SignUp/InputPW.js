@@ -18,19 +18,6 @@ function InputPW ({
 
   // 비밀번호 유효성 검사 함수
   function isValidPW () {
-    // const pattern1 = /[a-zA-Z]/;
-    // const pattern2 = /[~!@#$%^&]/;
-    // console.log(pattern1, pattern2)
-    // for (let i = 0; i < inputValue.password.length; i++) {
-    //   if (!pattern1.includes(inputValue.password[i])) {
-    //     setPWValidMessage('비밀번호는 영문자(대소문자)를 포함해야 합니다.');
-    //   }
-    // }
-
-    // if (inputValue.password.length < 8 || inputValue.password.length > 16) {
-    //   setPWValidMessage('비밀번호는 8자 이상 16자 이하여야 합니다.');
-    // }
-
     const check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(inputValue.password);
     console.log(check);
 

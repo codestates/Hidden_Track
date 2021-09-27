@@ -15,7 +15,6 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   axios.defaults.headers.common.accesstoken = accessToken;
 
   useEffect(() => {
-    // console.log(clickedBtn)
     if (clickedBtn === '삭제') {
       deleteReply();
     }
