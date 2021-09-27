@@ -13,7 +13,7 @@ module.exports = {
           if (image === undefined) {
            return res.status(400).send({message:"no image"})
          }
-          return res.status(201).send({ image_url: image })
+          return res.status(201).send({ profile: image })
     },
 
     patch :  async (req,res) =>{ 
@@ -57,7 +57,7 @@ module.exports = {
           
       //refreshToken은 쿠키로 accesstoken은 body로.
         sendRefreshToken(res, refreshToken);
-      res.status(200).json({data:accessToken });
+      res.status(200).json({data:accessToken, profile: image});
      
     },
  
@@ -103,7 +103,7 @@ module.exports = {
           
       //refreshToken은 쿠키로 accesstoken은 body로.
         sendRefreshToken(res, refreshToken);
-      res.status(200).json({data:accessToken});
+      res.status(200).json({data:accessToken, profile : basicProfile});
        }
     }
  }

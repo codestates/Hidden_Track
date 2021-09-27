@@ -3,7 +3,8 @@ const db = require("../../models");
 const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = {  
-   redirect: async (req,res) => {
+   get: async (req,res) => {
+     console.log(req.headers)
      const { trackId } = req.params;
      const likes = db.sequelize.models.likes;
   
@@ -64,7 +65,6 @@ module.exports = {
      const gradeAev = gradeAll.length !== 0 ? sum/gradeAll.length : 0; 
 
      res.status(200).json({track:findTrack[0], like: count,gradeAev :gradeAev});
-    // res.redirect('https://www.naver.com')
    },
 
     post: async (req,res) =>{ 
