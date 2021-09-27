@@ -12,13 +12,12 @@ import './index.scss';
 
 function SignUp ({ handleNotice }) {
   // 기본 프로필 이미지
-  const initialImage = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg';
+  const initialImage = 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/3161632744306776.jpg';
   const [inputValue, setInputValue] = useState({
     id: '',
     password: '',
     matchPassword: '',
     nickName: '',
-    // imageFile: null,
     previewFile: null,
     imageUrl: initialImage,
     agency: '',
@@ -106,13 +105,6 @@ function SignUp ({ handleNotice }) {
             // useEffect에서 다시 회원가입 요청 진행됨(inputValue 상태 반영된 후 동기적 실행하기 위해)
           }
         })
-        // .then(res => {
-        //   // 이미지 url을 성공적으로 받아왔다면
-        //   if (res.status === 200) {
-        //     // 회원가입 요청 보내기
-        //     postSignUp();
-        //   }
-        // })
         .catch(err => {
           console.log(err.response);
           if (err.response) {
@@ -167,7 +159,7 @@ function SignUp ({ handleNotice }) {
     <div className='sign-up'>
       <h1 onClick={() => history.push('/')}>HIDDEN TRACK</h1>
       <h2>SignUp</h2>
-      <form className='sign-up-container'>
+      <div className='sign-up-container'>
         <div className='sign-up-input'>
           <InputID
             inputValue={inputValue}
@@ -199,7 +191,7 @@ function SignUp ({ handleNotice }) {
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
         <button onClick={(e) => requestSignUp(e)}>가입하기</button>
-      </form>
+      </div>
       {isOpen
         ? <div>
           <SignUpModal isOpen={isOpen} handleModalOpen={handleModalOpen} text={text} />
