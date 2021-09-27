@@ -167,7 +167,7 @@ function SignUp ({ handleNotice }) {
     <div className='sign-up'>
       <h1 onClick={() => history.push('/')}>HIDDEN TRACK</h1>
       <h2>SignUp</h2>
-      <form className='sign-up-container'>
+      <div className='sign-up-container'>
         <div className='sign-up-input'>
           <InputID
             inputValue={inputValue}
@@ -199,7 +199,7 @@ function SignUp ({ handleNotice }) {
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
         <button onClick={(e) => requestSignUp(e)}>가입하기</button>
-      </form>
+      </div>
       {isOpen
         ? <div>
           <SignUpModal isOpen={isOpen} handleModalOpen={handleModalOpen} text={text} />

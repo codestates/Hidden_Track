@@ -181,9 +181,10 @@ function MyPage ({ handleNotice }) {
         if (err.response.status === 401) { // <- 유저 권한이 없는 경우
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
-        } else {
-          console.log('다른 에러다', err);
         }
+      } else {
+        console.log('다른 에러다', err);
+        handleNotice('잘못된 접근입니다', 3000);
       }
     }
     );
@@ -211,7 +212,8 @@ function MyPage ({ handleNotice }) {
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 400) { // <- 이미 기본 이미지일 경우
-          console.log('400 에러다');
+          // console.log('400 에러다');
+          console.log(err.response);
           handleNotice('삭제할 이미지가 없습니다', 3000);
         } else if (err.response.status === 401) { // <- 유저 권한이 없는 경우
           console.log('401 에러다');
@@ -380,9 +382,8 @@ function MyPage ({ handleNotice }) {
         />
 
         <button type='submit' id='submit'>이미지 변경</button>
-        <button onClick={requestDeleteProfileImage}>이미지 삭제</button>
       </form>
-
+      <button onClick={requestDeleteProfileImage}>이미지 삭제</button>
       <button className='sign-out-btn' onClick={(e) => showWithDrawalModal(e)}>회원 탈퇴</button>
       {isWithDrawalModalOpen && <WithDrawalModal visible={isWithDrawalModalOpen} setIsWithDrawalModalOpen={setIsWithDrawalModalOpen} />}
     </>
