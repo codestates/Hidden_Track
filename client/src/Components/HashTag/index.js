@@ -22,20 +22,18 @@ function HashTag ({ tagList }) {
 
   console.log(tagList);
 
-  if (tagList === undefined) {
-
-  }
-
   return (
     <section id='hashtag-section'>
       <ul className='hashtag-ul'>
-        {tagList.map((el, idx) => {
-          return (
-            <li key={idx} className='tag' value={el.tag}>
-              <span className='tag-title' value={el.tag} onClick={(e) => clickHashTag(e)}>#{el.tag}</span>
-            </li>
-          );
-        })}
+        {tagList
+          ? tagList.map((el, idx) => {
+            return (
+              <li key={idx} className='tag' value={el.tag}>
+                <span className='tag-title' value={el.tag} onClick={(e) => clickHashTag(e)}>#{el.tag}</span>
+              </li>
+            );
+          })
+          : <></>}
       </ul>
     </section>
   );
