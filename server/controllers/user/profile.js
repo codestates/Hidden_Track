@@ -17,9 +17,11 @@ module.exports = {
     },
 
     patch :  async (req,res) =>{ 
+      console.log(req.file);
         const image = req.file.location
         const accessTokenData = isAuthorized(req);
         //accesstoken 있는지 확인
+        
         if (!accessTokenData) {
           res.status(401).json({ message : "unauthorized"});
         }
@@ -57,7 +59,7 @@ module.exports = {
           
       //refreshToken은 쿠키로 accesstoken은 body로.
         sendRefreshToken(res, refreshToken);
-      res.status(200).json({data:accessToken });
+      res.status(200).json({data:accessToken , profile:image});
      
     },
  

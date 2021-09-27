@@ -14,21 +14,14 @@ import Portal from './Portal';
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
-function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfileList }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
-  const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
-  const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
-  const state3 = useSelector(state => state.accessTokenReducer); // accessToken 관련
+function Login ({setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
+  const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isLogin } = state1;
-  const { isLoginModalOpen } = state2;
-  const { accessToken } = state3;
-
-  // console.log(accessToken);
-
   const [inputId, setInputId] = useState('');
   const [inputPw, setInputPw] = useState('');
+
 
   // 로그인 모달창 밖의 배경을 누르면 모달창이 꺼지는 onClick 이벤트
   function handleModalBack (e) {
@@ -38,6 +31,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
     dispatch(isLoginModalOpenHandler(false));
   }
 
+
   // id 인풋값 바꿔주는 onChange 이벤트
   function changeIdValue (e) {
     e.preventDefault();
@@ -45,6 +39,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
     // id 인풋값 바꿔주는 setState
     setInputId(e.target.value);
   }
+
 
   // password 인풋값 바꿔주는 onChange 이벤트
   function changePwValue (e) {
@@ -54,6 +49,7 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
     setInputPw(e.target.value);
   }
 
+
   // 모달창의 x 버튼 눌렀을때 모달창이 꺼지는 onClick 이벤트
   function handleModalCloseBtn (e) {
     e.preventDefault();
@@ -62,11 +58,15 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
     dispatch(isLoginModalOpenHandler(false));
   }
 
+
   // 회원가입 페이지로 넘어가주는 onClick 이벤트
   function handleSignUpBtn (e) {
     e.preventDefault();
+    console.log(e);
+    // console.log(e.key);
     history.push('/signup');
   }
+
 
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
   function requestLogin (e) {
@@ -77,9 +77,8 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
       loginId: inputId,
       password: inputPw
     };
-    console.log(body);
-    // 로그인 서버 요청
 
+    // 로그인 요청 서버에 보냄
     axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
@@ -124,15 +123,19 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
                 setIsShowUserProfileList('hide');
               }
             });
-        }
-      })
-      .catch(err => {
-        if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
-          console.log('400 에러다');
-        } else if (err.response.status === 401) {
-          console.log('401 에러다');
-        } else if (err.response.status === 404) {
-          console.log('404 에러다');
+        }}
+      ).catch(err => {
+        if(err.response){
+          if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
+            console.log('400 에러다');
+            handleNotice('존재하지 않는 회원입니다. 회원가입을 해주세요', 3000)
+          } else if (err.response.status === 401) { // <- not authorized
+            console.log('401 에러다');
+            handleNotice('권한이 없습니다', 3000)
+          } else if (err.response.status === 404) { // <- not found
+            console.log('404 에러다');
+            handleNotice('잘못된 요청입니다', 3000)
+          }
         }
       });
   }
@@ -167,12 +170,12 @@ function Login ({ showUserProfileList, isShowUserProfileList, setIsShowUserProfi
                 <input type='checkbox' />
                 <span>로그인 상태 유지</span>
               </div>
-              <button onClick={(e) => handleSignUpBtn(e)}>회원가입</button>
             </div>
             <button
               className='modal__login-btn' type='submit' name='login-btn'
             >로그인
             </button>
+            <button onClick={(e) => handleSignUpBtn(e)}>회원가입</button>
             <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button>
             <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}>X</label>
             <button id='modal-close-btn' style={{ display: 'none' }} />

@@ -26,7 +26,8 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
         }
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err);
+
         if (err.response.status === 400) {
           handleValidMessage('duplicatedNick', '잘못된 요청입니다.');
         }

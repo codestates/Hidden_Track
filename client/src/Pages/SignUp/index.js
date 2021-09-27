@@ -94,15 +94,19 @@ function SignUp ({ handleNotice }) {
       axios.post(`${process.env.REACT_APP_API_URL}/user/profile`, formData)
         .then(res => {
           console.log('S3 이미지 url 요청 응답', res.data);
-          if (res.status === 200) handleInputValue('imageUrl', res.data.profile);
-        })
-        .then(res => {
-          // 이미지 url을 성공적으로 받아왔다면
           if (res.status === 200) {
-            // 회원가입 요청 보내기
+            
+            handleInputValue('imageUrl', res.data.profile);
             postSignUp();
           }
         })
+        // .then(res => {
+        //   // 이미지 url을 성공적으로 받아왔다면
+        //   if (res.status === 200) {
+        //     // 회원가입 요청 보내기
+        //     postSignUp();
+        //   }
+        // })
         .catch(err => {
           console.log(err.response);
           if (err.response.status === 400) handleNotice('프로필 이미지 등록에 실패했습니다.', 5000);
@@ -120,6 +124,7 @@ function SignUp ({ handleNotice }) {
     let admin = 'listener';
     if (selectBtn) admin = 'artist';
     console.log('dsfsdfsdfsd');
+    console.log(inputValue);
     axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {
       loginId: inputValue.id,
       password: inputValue.password,
