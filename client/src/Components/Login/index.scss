@@ -1,0 +1,81 @@
+@import '../Nav/index.scss';
+
+
+@mixin PositionBox($top, $bottom, $left, $right) {
+  top: $top;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+}
+
+.modal-backdrop__login {
+  position: fixed;
+  @include PositionBox(0, 0, 0, 0);
+  background: #000;
+  opacity: .8;
+  filter: alpha(opacity=80);
+  z-index: 10;
+}
+
+.a11yHidden {
+  @extend %a11yHidden
+}
+
+;
+
+h1 {
+  @extend %h1
+}
+
+;
+
+.modal-container__login {
+  position: absolute;
+  @include PositionBox(40%, _, 50%, _);
+  margin: -150px 0 0 -200px;
+  z-index: 20;
+  background-color: #fff;
+
+  fieldset {
+    @include flexBox(flex, space-around, center, _, 20px);
+    flex-direction: column;
+    @include widthHeight(400px, 500px);
+  }
+
+  input[class^="modal__"] {
+    @include widthHeight(300px, 50px);
+    padding-left: 20px;
+    font-size: 18px;
+  }
+
+  .keeping-login-sign-up-btn {
+    @include flexBox(flex, space-between, _, -20px 0 0 0, _);
+    width: 330px;
+    font-size: 15px;
+
+    button {
+      border: 0;
+      font-size: 15px;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+
+  .modal__login-btn {
+    background-color: transparent;
+    border: 0;
+    font-size: 18px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 13px 40px;
+    width: 200px;
+    cursor: pointer;
+  }
+
+  .modal-close-btn {
+    position: absolute;
+    @include PositionBox(3%, _, _, 5%);
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

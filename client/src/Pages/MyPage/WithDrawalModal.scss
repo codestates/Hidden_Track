@@ -1,0 +1,59 @@
+// @import '../Nav/index.scss';
+@import '../../Components/Nav/index.scss';
+// @import '../Login/index.scss';
+@import '../../Components/Login/index.scss';
+
+.modal-backdrop__sign-out {
+  position: fixed;
+  @include PositionBox(0, 0, 0, 0);
+
+  background: #000;
+  opacity: .8;
+  filter: alpha(opacity=80);
+  z-index: 10;
+}
+
+.modal-container__sign-out {
+  position: absolute;
+  @include PositionBox(50%, _, 50%, _);
+  margin: -150px 0 0 -200px;
+  z-index: 20;
+  background-color: #fff;
+  @include flexBox(flex, center, center, _, _);
+  @include widthHeight(400px, 200px);
+
+  fieldset {
+    @include flexBox(flex, space-between, center, _, _);
+    flex-direction: column;
+    @include widthHeight(300px, 100px);
+  }
+
+  .a11yHidden {
+    @extend %a11yHidden
+  }
+
+  .sign-out-modal-title {
+    margin: 0;
+    font-size: 18px
+  }
+
+  .modal__sign-out-btn {
+    @include flexBox(flex, space-around, center, _, _);
+    @include widthHeight(150px, _);
+    // background-color: red;
+
+    button {
+      background-color: transparent;
+      border: 0;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .sign-out-modal-close-btn {
+    position: absolute;
+    @include PositionBox(3%, _, _, 5%);
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
