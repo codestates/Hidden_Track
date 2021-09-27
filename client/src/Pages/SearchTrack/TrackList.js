@@ -44,7 +44,7 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, trackD
               <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
                 <img className='track-list-img' src={el.img} value={el.id} alt='' />
                 <p className='track-list-title' value={el.id}>{el.title}</p>
-                <p className='track-list-artist' value={el.id}>{el.user.nickname}</p>
+                <p className='track-list-artist' value={el.id}>{el.user.nickName}</p>
               </li>
             );
           })
