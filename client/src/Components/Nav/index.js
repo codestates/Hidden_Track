@@ -16,18 +16,16 @@ import Sidebar from './Sidebar';
 import './index.scss';
 import headphone from '../../assets/headphones.png';
 
-function Nav () {
+function Nav ({ handleNotice }) {
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const state1 = useSelector(state => state.isLoginReducer); // isLogin 관련
-  const state2 = useSelector(state => state.isLoginModalOpenReducer); // isModalOpen 관련
+  const isLogin = useSelector(state => state.isLoginReducer).isLogin; // isLogin 관련
+  const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
+  const userInfo = useSelector(state => state.userInfoReducer); // isModalOpen 관련
   const dispatch = useDispatch();
   const history = useHistory();
   const cookies = new Cookies();
-
-  const { isLogin } = state1;
-  const { isLoginModalOpen } = state2;
 
   // 헤드폰 모양을 누르면 사이드바가 나타나도록 해주는 onClick 이벤트
   function showSidebar (e) {
@@ -108,6 +106,7 @@ function Nav () {
             <input
               type='button' className='navigation__profile-image'
               onClick={(e) => showUserProfileList(e)}
+              style={{ backgroundImage: `url(${userInfo.profile})` }}
             />
             <ul className={isShowUserProfileList}>
               <li onClick={() => { history.push('/modicreate'); }}>음원 등록</li>
@@ -141,7 +140,12 @@ function Nav () {
           </div>
           }
 
-        {isLoginModalOpen && <Login showUserProfileList={showUserProfileList} isShowUserProfileList={isShowUserProfileList} setIsShowUserProfileList={setIsShowUserProfileList} />}
+        {isLoginModalOpen && <Login
+          showUserProfileList={showUserProfileList}
+          isShowUserProfileList={isShowUserProfileList}
+          setIsShowUserProfileList={setIsShowUserProfileList}
+          handleNotice={handleNotice}
+                             />}
       </nav>
     </header>
 

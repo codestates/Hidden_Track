@@ -8,17 +8,16 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
     handleValidMessage('duplicatedNick', '');
   }
 
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+
   // 닉네임 중복확인 요청 함수
   function isDuplicatedNick (e) {
     e.preventDefault();
 
     if (!inputValue.nickName) return handleValidMessage('duplicatedNick', '닉네임을 입력하세요.');
 
-    axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      headers: {
-        nickname: inputValue.nickName
-      }
-    })
+    axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${inputValue.nickName}`)
       .then(res => {
         console.log(res.data);
         if (res.status === 200) {
@@ -34,9 +33,7 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
           if (err.response.status === 409) {
             handleValidMessage('duplicatedNick', '이미 등록된 닉네임 입니다.');
           }
-        } else {
-          console.log(err);
-        }
+        } else console.log(err);
       });
   }
 

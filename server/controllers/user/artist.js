@@ -7,7 +7,7 @@ const {
 } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {  
-   
+   console.log(req.body);
     // //req.headers ->accesstoken  req.body. ->agency,debut,email
     const accessTokenData = isAuthorized(req);
     const { agency,debut,email }  = req.body;

@@ -14,11 +14,7 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
 
     if (inputValue.id.length < 4) return handleValidMessage('duplicatedId', '아이디를 입력하세요.');
 
-    axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      headers: {
-        loginid: inputValue.id
-      }
-    })
+    axios.get(`${process.env.REACT_APP_API_URL}/user/loginidduplication/${inputValue.id}`)
       .then(res => {
         console.log(res);
         if (res.status === 200) {

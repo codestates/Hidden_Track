@@ -81,7 +81,7 @@ function App () {
           ? (
             <></>)
           : (
-            <Nav />
+            <Nav handleNotice={handleNotice} />
             )}
       </div>
       <Switch>
@@ -95,7 +95,7 @@ function App () {
           <Visualizer />
         </Route>
         <Route path='/mypage'>
-          <MyPage />
+          <MyPage handleNotice={handleNotice} />
         </Route>
         <Route path='/trackdetails/:id'>
           <TrackDetails handleNotice={handleNotice} />

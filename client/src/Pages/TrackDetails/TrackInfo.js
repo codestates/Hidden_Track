@@ -13,10 +13,9 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const state = useSelector(state => state.playListReducer);
-  const modifyBtn = useSelector(state => state.modifyReducer);
-  const { playList } = state;
-  const { onClickModify } = modifyBtn;
+  const playList = useSelector(state => state.playListReducer).playList;
+  // const modifyBtn = useSelector(state => state.modifyReducer);
+  // const { onClickModify } = modifyBtn;
 
   axios.defaults.headers.common.accesstoken = accessToken;
   console.log(trackDetail);
@@ -199,18 +198,6 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       </div>
       <section className='trackinfo-desc'>
         <h2>{trackDetail.track.title}</h2>
-        {/* <span>
-          평점: {trackDetail.post.gradeAev}
-          <select name='grade' onChange={(e) => handleGrade(e)}>
-            <option value='none'>=별점선택=</option>
-            <option value='5'>★★★★★</option>
-            <option value='4'>★★★★☆</option>
-            <option value='3'>★★★☆☆</option>
-            <option value='2'>★★☆☆☆</option>
-            <option value='1'>★☆☆☆☆</option>
-          </select>
-          <button onClick={(e) => requestGrade(e)}>별점주기</button>
-        </span> */}
         <span>평점: {trackDetail.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
         <div className='trackinfo-box'>
