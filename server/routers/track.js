@@ -7,13 +7,13 @@ const { trackController } = require("../controllers");
 
 router.post('/', trackController.track.post);
 router.patch('/', trackController.track.patch);
-router.delete('/', trackController.track.delete);
-router.get('/:trackId', trackController.track.redirect);
+router.delete('/:id', trackController.track.delete);
+router.get('/:trackId', trackController.track.get);
 
 router.post('/grade',trackController.grade);
 router.post('/good',trackController.good);
-router.get('/hashtag/:tag',trackController.hashtag.redirect);
-router.get('/genre/:genre',trackController.genre.redirect);
+router.get('/hashtag/:tag',trackController.hashtag.get);
+router.get('/genre/:genre',trackController.genre.get);
 
 router.post('/trackimage',trackImage.single("trackimage"),trackController.trackimage.post);
 router.patch('/trackimage',trackImage.single("trackimage"),trackController.trackimage.post);

@@ -39,10 +39,8 @@ app.use('/playlist', playlistRouter);
 app.use('/reply', replyController);
 
 const HTTPS_PORT = 4000;
-let server;
 
-server = app.listen(HTTPS_PORT, () => {
+app.listen(HTTPS_PORT, () => {
   console.log("server 실행");
 });
 
-module.exports = server;

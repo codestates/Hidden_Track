@@ -51,8 +51,8 @@ module.exports =  {
    },
    delete: async (req, res) =>{
     const accessTokenData = isAuthorized(req);
-    const { id } = req.body;
- 
+    const { id } = req.params;
+    
     if(!id) {
      res.status(400).json({message: "input values"})
     }
