@@ -27,7 +27,7 @@ module.exports = {
         }
         
         const url =  accessTokenData.profile.split('com/')
-        if(!url[1]==='profile.jpg'){
+        if(!url[1]==='3161632744306776.jpg'){
             s3.deleteObject({
                 Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
                 Key: `${url[1]}` // 버켓 내 경로
@@ -69,9 +69,9 @@ module.exports = {
         if (!accessTokenData) {
           res.status(401).json({ message : "unauthorized"});
         }
-        
+        console.log(accessTokenData)
         const url =  accessTokenData.profile.split('com/')
-        if(url[1]==='profile.jpg'){
+        if(url[1]==='3161632744306776.jpg'){
             res.status(400).json({message: "this is basic profile"})
         }else{
         s3.deleteObject({
@@ -82,7 +82,7 @@ module.exports = {
             console.log('s3 deleteObject ', data)
           })
         
-        const basicProfile = "https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/profile.jpg"  
+        const basicProfile = "https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/3161632744306776.jpg"  
         await user.update({profile:basicProfile},{
             where : {id : accessTokenData.id}
         })
