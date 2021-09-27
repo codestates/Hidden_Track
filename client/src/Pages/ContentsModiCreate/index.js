@@ -29,8 +29,6 @@ function TestMo ({ handleNotice }) {
     lyric: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
     tag: isModify ? trackDetail.track.hashtag.map(el => el.tag) : []
   });
-  // console.log(userInfo)
-  console.log('인풋', inputValue);
 
   const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });

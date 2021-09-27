@@ -26,7 +26,6 @@ function Visualizer () {
   const [isPlay, setIsPlay] = useState(false);
   const img = new Image();
   img.src = crrentMusic.img;
-  console.log(crrentMusic);
   // const audio = new Audio()
   // audio.src = crrentMusic.soundtrack
   // audio.crossOrigin = 'anonymous'
