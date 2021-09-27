@@ -141,17 +141,15 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                 .then(res => {
                   console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
-                    dispatch(inputPlayList(res.data.playList));
+                    dispatch(inputPlayList(res.data.playlist));
+                    // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
+                    if (!listenBtn) handleNotice('리스트에 곡이 추가되었습니다.', 5000);
+                    // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
+                    else {
+                      setListenBtn(false);
+                      return history.push('/visual');
+                    }
                   } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
-                })
-                .then(res => {
-                  // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
-                  if (!listenBtn) handleNotice('리스트에 곡이 추가되었습니다.', 5000);
-                  // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
-                  else {
-                    setListenBtn(false);
-                    return history.push('/visual');
-                  }
                 })
                 .catch(err => {
                   console.log(err.response);

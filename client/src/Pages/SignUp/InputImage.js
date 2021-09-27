@@ -2,13 +2,14 @@ import React from 'react';
 // import axios from 'axios';
 // import './InputImage.scss';
 
-function InputImage ({ inputValue, handleInputValue, initialImage }) {
+function InputImage ({ inputValue, handleInputValue, initialImage, setImageFile }) {
   // 프로필 이미지 파일 미리보기 구현
   function handleProfile (e) {
     e.preventDefault();
 
     const file = e.target.files[0];
-    handleInputValue('imageFile', file);
+    // handleInputValue('imageFile', file);
+    setImageFile(file);
     const reader = new FileReader();
 
     reader.onload = function () {
@@ -34,7 +35,8 @@ function InputImage ({ inputValue, handleInputValue, initialImage }) {
   // 이미지 삭제 버튼 클릭시 실행되는 함수
   function deleteImage (e) {
     e.preventDefault();
-    handleInputValue('imageFile', null);
+    // handleInputValue('imageFile', null);
+    setImageFile(null);
     handleInputValue('previewFile', null);
   }
 

@@ -47,16 +47,18 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
           }
         }}
       />
-      {tagList?<ul className='hashtag-ul'>
-        {tagList.map((el, idx) => {
-          return (
-            <li key={idx} className='tag'>
-              <span className='tag-title'>#{el}</span>
-              <span className='tag-close-icon' onClick={(e) => removeTags(idx, e)}>&times;</span>
-            </li>
-          );
-        })}
-      </ul>:<></>}
+      {tagList
+        ? <ul className='hashtag-ul'>
+          {tagList.map((el, idx) => {
+            return (
+              <li key={idx} className='tag'>
+                <span className='tag-title'>#{el}</span>
+                <span className='tag-close-icon' onClick={(e) => removeTags(idx, e)}>&times;</span>
+              </li>
+            );
+          })}
+          </ul>
+        : <></>}
     </div>
   );
 }

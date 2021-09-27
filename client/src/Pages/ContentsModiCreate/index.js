@@ -28,7 +28,7 @@ function TestMo ({ handleNotice }) {
     tag: isModify ? trackDetail.track.hashtag.map(el => el.tag) : []
   });
 
-  console.log(inputValue)
+  console.log(inputValue);
 
   const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
