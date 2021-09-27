@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
    //req.headers ->accesstoken body : id(post),grade
    const accessTokenData = isAuthorized(req);
    const { trackId ,userGrade } = req.body;
-
+  console.log('===================================',req.body)
   if(!trackId || !userGrade ) {
     res.status(400).json({message: "input values"})
   }

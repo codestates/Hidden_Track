@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTrackDetails, getUserInfo } from '../../Redux/actions/actions';
+import { getTrackDetails, getUserInfo, isClickModify } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
 import axios from 'axios';
 import './index.scss';
@@ -25,13 +25,24 @@ function TestMo ({ handleNotice }) {
     releaseAt: isModify ? trackDetail.track.releaseAt : '',
     soundtrack: isModify ? trackDetail.track.soundtrack : '',
     lyrics: isModify ? trackDetail.track.lyric : '등록된 가사가 없습니다.',
-    tag: isModify ? trackDetail.track.hashtag : []
+    tag: isModify ? trackDetail.track.hashtag.map(el => el.tag) : []
   });
+
+  console.log(inputValue)
+
   const [src, setSrc] = useState(isModify ? trackDetail.track.img : default_album_img);
   const [files, setFiles] = useState({ image: '', audio: '' });
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
   // const history = useHistory();
+
+  useEffect(() => {
+    // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
+    return () => {
+      dispatch(isClickModify(false));
+    };
+  }, []);
+
   // ?##############################################################################################
   // input값 state 저장 함수
   function handleInputValue (key, e, tag) {
@@ -178,7 +189,7 @@ function TestMo ({ handleNotice }) {
             if (res.status === 200) {
               handleNotice('음원 등록이 성공하였습니다.', 5000);
               const parameters = res.data.id; // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수정 필요
-              axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.id}`)
+              axios.get(`${process.env.REACT_APP_API_URL}/post/track:${res.data.track.id}`)
                 .then(res => {
                   if (res.status === 200) {
                     dispatch(getTrackDetails(res.data));
@@ -224,7 +235,7 @@ function TestMo ({ handleNotice }) {
                 <option value='Jazz'>Jazz</option>
               </select>
               <div>
-                <span style={{ fontSize: '20px' }}>발매일 : </span>
+                <label htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
                 <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
               </div>
               <div>

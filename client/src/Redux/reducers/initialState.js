@@ -6,7 +6,7 @@ export const initialState = {
     isLoginModalOpen: false
   },
   accessToken: {
-    accessToken: '액세스토큰'
+    accessToken: ''
   },
   userInfo: {
     id: '1',
@@ -141,10 +141,10 @@ export const initialState = {
       img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
       genre: '록/메탈',
       soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
-      releaseaAt: '2021-05-14',
+      releaseAt: '2021-05-14',
       lyric: 'lyric',
       user: {
-        nickname: '이무진'
+        nickName: '이무진'
       },
       hashtag: [{
         tag: 'tag1'
@@ -152,7 +152,7 @@ export const initialState = {
       {
         tag: 'tag2'
       }],
-      reply: [{
+      replies: [{
         id: 1,
         content: 'asdfasdf',
         user: {

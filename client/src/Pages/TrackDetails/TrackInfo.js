@@ -18,7 +18,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   const { playList } = state;
   const { onClickModify } = modifyBtn;
 
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+  axios.defaults.headers.common.accesstoken = accessToken;
   console.log(trackDetail);
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
@@ -47,11 +47,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         // let likeCount = res.data.likecount
         // dispatch(getTrackDetails(...trackDetail, [like]: {count: likeCount}))
         // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
-          axios.get(`${process.env.REACT_APP_API_URL}/track`, {
-            params: {
-              trackId: trackDetail.track.id
-            }
-          })
+          axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
               console.log(res.data);
               if (res.status === 200) {
@@ -60,17 +56,21 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
             })
             .catch(err => {
               console.log(err.response);
-              if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+              if (err.response) {
+                if (err.response.status === 404) handleNotice('해당 게시글이 존재하지 않습니다.', 5000);
+              } else console.log(err);
             });
         }
       })
       .catch(err => {
         console.log(err.response);
-        if (err.response.status === 400) {
-          handleNotice('게시글이 존재하지 않습니다.', 5000);
-          history.push('/');
-        }
-        if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        if (err.response) {
+          if (err.response.status === 400) {
+            handleNotice('게시글이 존재하지 않습니다.', 5000);
+            history.push('/');
+          }
+          if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+        } else console.log(err);
       });
   }
 
@@ -103,7 +103,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           title: trackDetail.track.title,
           img: trackDetail.track.img,
           genre: trackDetail.track.genre,
-          releaseaAt: trackDetail.track.releaseAt,
+          releaseAt: trackDetail.track.releaseAt,
           lyric: trackDetail.track.lyric,
           soundtrack: trackDetail.track.soundtrack,
           user: {
@@ -156,14 +156,18 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                 })
                 .catch(err => {
                   console.log(err.response);
-                  if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+                  if (err.response) {
+                    if (err.response.status === 401) handleNotice('권한이 없습니다.', 5000);
+                  } else console.log(err);
                 });
             }
           })
           .catch(err => {
             console.log(err.response);
-            if (err.response.status === 401) handleNotice('권한이 없습니다', 5000);
-            if (err.response.status === 404) handleNotice('해당 음악을 찾을 수 없습니다.', 5000);
+            if (err.response) {
+              if (err.response.status === 401) handleNotice('권한이 없습니다', 5000);
+              if (err.response.status === 404) handleNotice('해당 음악을 찾을 수 없습니다.', 5000);
+            } else console.log(err);
           });
       }
     }
@@ -220,7 +224,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           </div>
         </div>
         <div className='trackinfo-hashtag-box'>
-          <HashTag />
+          <HashTag tagList={trackDetail.track.hashtags} />
         </div>
         <div className='trackinfo-btn-box'>
           <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
@@ -230,12 +234,12 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           </button>
           <span>{trackDetail.like}</span>
         </div>
-        {/* {isLogin && userInfo.nickName === trackDetail.track.user.nickname ? */}
-        <div>
-          <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
-          <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
-        </div>
-        {/* : null} */}
+        {isLogin && userInfo.nickName === trackDetail.track.user.nickname
+          ? <div>
+            <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
+            <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+          </div>
+          : null}
         {isContentDeleteModalOpen &&
           <ContentDeleteModal
             visible={isContentDeleteModalOpen}
