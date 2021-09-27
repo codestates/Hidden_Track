@@ -10,7 +10,7 @@ function PlayList ({ num, music, handleChangeMusic, handleDeleteMusic }) {
         <img className='track-img' src={music.img} alt={music.title} />
         <div className='track-info'>
           <p className='track-title'>{music.title}</p>
-          <p className='track-artist'>{music.user.nickname}</p>
+          <p className='track-artist'>{music.user.nickName}</p>
         </div>
       </div>
     </li>

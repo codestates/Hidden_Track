@@ -169,7 +169,7 @@ function TestMo ({ handleNotice }) {
             return res.data.image_url;
           } else {
             key = 'soundtrack';
-            return res.data.trackUrl;
+            return res.data.track_url;
           }
         }
       })
@@ -201,9 +201,9 @@ function TestMo ({ handleNotice }) {
 
       handleNotice('업로드중.. 잠시 기다려주세요', 5000);
       const audioUpload = await uploadFile('audio', method);
-      console.log('오디오 완', s3Audio);
+      console.log('오디오 완', audioUpload);
       const imageUpload = await uploadFile('image', method);
-      console.log('이미지 완', s3Img);
+      console.log('이미지 완', imageUpload);
       if (audioUpload && imageUpload) {
         // console.log('실행?');
         // console.log('인풋 확인', inputValue)
@@ -257,7 +257,7 @@ function TestMo ({ handleNotice }) {
                 <option value='Jazz'>Jazz</option>
               </select>
               <div>
-                <label htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
+                <label className='music-release-label' htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
                 <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
               </div>
               <div>

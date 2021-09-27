@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
 import AudioPlayer from 'react-h5-audio-player';
@@ -13,31 +13,35 @@ axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 
 function Sidebar ({ isSidebarOpen, showSidebar }) {
+  const audio = useRef();
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
-  const accessToken = useSelector(state => state.accessTokenReducer);
+  const { accessToken } = useSelector(state => state.accessTokenReducer);
   const playList = useSelector(state => state.playListReducer.playList);
   const dispatch = useDispatch();
   // console.log('사이드바 오픈',isSidebarOpen)
   // console.log('사이드바 로그인 상태',isLogin)
-  console.log(playList);
+  // console.log('사이드바',playList);
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
+  const [crrentMusic, setCrrentMusic] = useState('');
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
 
   useEffect(() => {
     if (isLogin) {
-      axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
+      axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
-            dispatch(inputPlayList(res.data.playList));
-            setCrrentMusic(playList[playList.length - 1]);
+            console.log(res.data);
+            dispatch(inputPlayList(res.data.playlist));
+            // setCrrentMusic(playList[res.data.playlist.length - 1]);
+            // audio.current.pause();
           }
         })
         .catch(err => {
           if (err.response) {
             if (err.response.status === 404) {
               dispatch(inputPlayList([]));
+              // audio.current.pause();
               // setCrrentMusic(playList[playList.length-1])
             }
           } else console.log(err);
@@ -46,9 +50,10 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
     }
   }, [isLogin]);
 
-  useEffect(() => {
-    setCrrentMusic(playList[playList.length - 1]);
-  }, [playList]);
+  // useEffect(() => {
+  //   setCrrentMusic(playList[playList.length - 1]);
+  // }, [playList]);
+
   function handleChangeMusic (index) {
     setCrrentMusic(playList[index]);
   }
@@ -140,10 +145,11 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
         <div className='audio'>
           <AudioPlayer
             id='sidebar-audio'
+            ref={audio}
             src={crrentMusic ? crrentMusic.soundTrack : ''}
             controls
             volume={0.1}
-          // autoPlay
+            autoPlay={false}
             showSkipControls
             onEnded={() => {
               if (playList.length <= 1) return;
