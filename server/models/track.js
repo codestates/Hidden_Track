@@ -11,9 +11,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasOne(models.post);
       this.belongsTo(models.user);
       this.hasMany(models.playlist);
+      this.hasMany(models.reply);
+      this.belongsToMany(models.user, {
+        through: "likes",
+        foreignKey: "trackId",
+      });
+      this.belongsToMany(models.user, {
+        through: "grades"
+      });
+      this.belongsToMany(models.hashtag, {
+        through: "tagtracks",
+        foreignKey: "trackId",
+        otherKey: "hashtagId"
+      });
     }
   };
   track.init({
@@ -23,8 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     releaseAt: DataTypes.STRING,
     soundTrack: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-    postId: DataTypes.INTEGER,
-    lyric: DataTypes.TEXT
+    lyric: DataTypes.TEXT,
+    views: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'track',

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Lyrics.scss';
 
 function Lyrics ({ trackDetail }) {
+  const [isClick, setIsClick] = useState(false);
+
+  function clickLyrics () {
+    setIsClick(!isClick);
+  }
+
   return (
     <details className='lyrics-open'>
-      <summary>가사 보기</summary>
+      <summary className='lyrics-menu' id={isClick ? 'lyrics-click' : null} onClick={clickLyrics}>
+        {isClick ? '가사 접기' : '가사 보기'}
+      </summary>
       <pre className='lyrics'>
-        {trackDetail.lyric}
+        {trackDetail.track.lyric || '가사 정보가 없습니다.'}
       </pre>
     </details>
   );

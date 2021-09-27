@@ -7,11 +7,9 @@ import Portal from './Portal';
 import './ContentDeleteModal.scss';
 // import './index.scss';
 
-function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail, accessToken }) {
+function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, trackDetail, accessToken, handleNotice }) {
   const history = useHistory();
   const dispatch = useDispatch();
-
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
   // 삭제 확인 모달창 배경을 클릭하면 모달창이 닫히는 함수
   function handleContentModalBack (e) {
@@ -22,44 +20,52 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
   // 예 버튼 클릭시 삭제 요청 보내는 함수
   function requestDeleteTrack (e) {
     e.preventDefault();
+    if (!isLogin) {
+      setIsContentDeleteModalOpen(false);
+      handleNotice('로그인이 필요합니다.', 5000);
+      return;
+    }
 
-    axios.delete(`${process.env.REACT_APP_API_URL}/track/track`, {
-      id: trackDetail.post.id
+    axios.delete(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`, {
+      headers: {
+        accesstoken: accessToken
+      }
     })
       .then(res => {
         console.log('음원 삭제 요청 응답', res.data);
         if (res.status === 200) {
-        // trackDetail 상태 삭제
+        // trackDetail 상태 초기화
           dispatch(getTrackDetails({
-            id: '',
-            title: '',
-            img: '',
-            genre: '',
-            soundtrack: '',
-            releaseAt: '',
-            lyric: '',
-            like: {
-              count: ''
-            },
-            post: {
+            track: {
               id: '',
-              views: '',
-              gradeAev: ''
+              title: '',
+              img: '',
+              genre: '',
+              soundtrack: '',
+              releaseAt: '',
+              lyric: '',
+              user: {
+                nickName: ''
+              },
+              hashtag: [],
+              replies: []
             },
-            user: {
-              nickname: ''
-            },
-            reply: []
+            like: '',
+            gradeAev: ''
           }));
           setIsContentDeleteModalOpen(false);
+          handleNotice('게시글이 삭제 되었습니다.', 5000);
           history.push('/');
-        } else if (res.status === 401) {
-          setIsContentDeleteModalOpen(false);
-          console.log('삭제할 권한이 없습니다.');
         }
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
+        if (err.response) {
+          if (err.response.status === 401) {
+            setIsContentDeleteModalOpen(false);
+            handleNotice('권한이 없습니다.', 5000);
+          }
+        } else console.log(err);
       });
   }
 
@@ -76,13 +82,12 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, trackDetail
           className='modal-backdrop__content-delete' style={visible ? { display: 'block' } : { display: 'none' }}
           visible={visible.toString()} onClick={(e) => handleContentModalBack(e)}
         />
-        <form className='modal-container__content-delete'>
+        <form className='modal-container__content-delete' onSubmit={requestDeleteTrack}>
           <fieldset>
             <legend className='a11yHidden'>음원 삭제 폼</legend>
             <p className='content-delete-modal-title'>해당 컨텐츠를 삭제하시겠습니까?</p>
             <div className='modal__content-delete-btn'>
-              <button type='submit' onClick={(e) => requestDeleteTrack(e)}>예</button>
-              {/** 서버에 엑세스토큰 요청 삭제 */}
+              <button type='submit'>예</button>
               <button onClick={(e) => handleContentDeleteModalCloseBtn(e)}>아니오</button>
             </div>
             <label htmlFor='content-delete-modal-close-btn' className='content-delete-modal-close-btn' onClick={(e) => handleContentDeleteModalCloseBtn(e)}>X</label>

@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING(20)
       },
       profile: {
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(100)
       },
       nickName: {
         type: Sequelize.STRING(20)

@@ -3,8 +3,12 @@ module.exports = {
     userinfo: require('./UserInfo'),
     token: require('./Token'),
     signout: require('./SignOut'),
-    duplication: require('./duplication'),
+    nicknameduplication: require('./NickNameDuplication'),
+    loginidduplication: require('./LoginIdDuplication'),
     signup : require('./SignUp'),
-    password : require('./password'),
+    password : require('./Password'),
+    nickname : require('./NickName'),
+    artist : require('./artist'),
+    profile: require('./profile')
 };
   

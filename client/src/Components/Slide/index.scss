@@ -1,0 +1,15 @@
+.popular::after {
+  content: '/';
+  margin: 0 10px;
+  // position: absolute;
+  // top: 0;
+}
+
+.slide-btn {
+  width: 90px;
+  padding: 10px 0;
+
+  .popular {
+    // background-color: aqua;
+  }
+}

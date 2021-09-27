@@ -1,0 +1,82 @@
+#modi-create{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // border: 1px solid black;
+    // justify-content: space-around;
+    width: 1500px;
+    margin: auto;
+    .default-input-box{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    
+        .album-img-box{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50%;
+            .album-img {
+                width: 500px;
+                height: 500px;
+                display: flex;
+            }
+        }
+        .default-input-section{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+            .music-input{
+                text-align: center;
+                width: 500px;
+                height: 50px;
+                margin: 10px;
+                font-size: 17px
+            }
+            .music-release{
+                text-align: center;
+                height: 35px;
+                width: 400px;
+                margin: 10px;
+                font-size: 15px
+            }
+            .music-release-label:hover{
+                color: black
+            }
+        }
+    }
+    .music-lyrics-hashtag-box{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        .music-lyrics-input{
+            display: flex;
+            flex-direction: column;
+            .input-lyrics{ 
+                resize: none;
+                text-align: center;
+                border: 1px solid rgb(214, 216, 218);
+                width: 600px;
+                height: 400px 
+            }
+            .input-lyrics::-webkit-scrollbar {
+                display: none; 
+            }
+            
+        }
+
+    }
+    .post-create-btn-box{
+        margin: 30px;
+        .contents__btn{
+            width: 100px;
+            height: 50px;
+        }
+    }
+}
+
+

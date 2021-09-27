@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const user = require('./user');
 module.exports = (sequelize, DataTypes) => {
   class userArtist extends Model {
     /**
@@ -22,5 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'userArtist',
   });
+  userArtist.removeAttribute('id');
   return userArtist;
 };

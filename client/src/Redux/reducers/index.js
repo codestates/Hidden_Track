@@ -1,5 +1,16 @@
 import { combineReducers } from 'redux';
-import { USER_INFO, IS_LOGIN, IS_LOGIN_MODAL_OPEN, INPUT_PLAYLIST, TRACK_DETAIL, INPUT_MUSIC, DELETE_MUSIC, ACCESS_TOKEN } from '../actions/actions';
+import {
+  USER_INFO,
+  IS_LOGIN,
+  IS_LOGIN_MODAL_OPEN,
+  INPUT_PLAYLIST,
+  TRACK_DETAIL,
+  INPUT_MUSIC,
+  DELETE_MUSIC,
+  ACCESS_TOKEN,
+  CLICK_MODIFY
+  // TRACK_LIST
+} from '../actions/actions';
 import { initialState } from './initialState';
 
 const rootReducer = combineReducers({
@@ -8,7 +19,9 @@ const rootReducer = combineReducers({
   userInfoReducer,
   playListReducer,
   trackDetailReducer,
-  accessTokenReducer
+  accessTokenReducer,
+  modifyReducer
+  // trackListReducer
 });
 
 // reducer : 변화를 일으키는 함수
@@ -17,7 +30,7 @@ function isLoginReducer (state = initialState.isLogin, action) {
   // 리듀서는 꼭 불변성을 지켜줘야 함
   switch (action.type) {
     case IS_LOGIN:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         isLogin: action.payload.isLogin
       });
     default: return state;
@@ -27,7 +40,7 @@ function isLoginReducer (state = initialState.isLogin, action) {
 function isLoginModalOpenReducer (state = initialState.isLoginModalOpen, action) {
   switch (action.type) {
     case IS_LOGIN_MODAL_OPEN:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         isLoginModalOpen: action.payload.isLoginModalOpen
       });
     default: return state;
@@ -37,9 +50,7 @@ function isLoginModalOpenReducer (state = initialState.isLoginModalOpen, action)
 function userInfoReducer (state = initialState.userInfo, action) {
   switch (action.type) {
     case USER_INFO:
-      return Object.assign({}, state, {
-        userInfo: action.payload.userInfo
-      });
+      return Object.assign({}, action.payload.userInfo);
     default: return state;
   }
 }
@@ -67,9 +78,7 @@ function playListReducer (state = initialState, action) {
 function trackDetailReducer (state = initialState.trackDetail, action) {
   switch (action.type) {
     case TRACK_DETAIL:
-      return Object.assign({}, state, {
-        trackDetail: action.payload.trackDetail
-      });
+      return Object.assign({}, action.payload.trackDetail);
     default: return state;
   }
 }
@@ -77,11 +86,31 @@ function trackDetailReducer (state = initialState.trackDetail, action) {
 function accessTokenReducer (state = initialState.accessToken, action) {
   switch (action.type) {
     case ACCESS_TOKEN:
-      return Object.assign({}, state, {
+      return Object.assign({}, {
         accessToken: action.payload.accessToken
       });
     default: return state;
   }
 }
+
+function modifyReducer (state = initialState.onClickModify, action) {
+  switch (action.type) {
+    case CLICK_MODIFY:
+      return Object.assign({}, {
+        onClickModify: action.payload.onClickModify
+      });
+    default: return state;
+  }
+}
+
+// function trackListReducer (state = initialState.trackList, action) {
+//   switch (action.type) {
+//     case TRACK_LIST:
+//       return Object.assign({}, {
+//         trackList: action.payload.trackList
+//       });
+//     default: return state;
+//   }
+// }
 
 export default rootReducer;

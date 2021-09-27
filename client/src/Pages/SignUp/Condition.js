@@ -1,31 +1,48 @@
 import React from 'react';
 
-function Condition ({ setAgency, setDate, setEmail }) {
+function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
   function handleAgency (e) {
-    setAgency(e.target.value);
+    handleInputValue('agency', e.target.value, 'userArtist');
   }
 
-  function handleDate (e) {
-    setDate(e.target.value);
+  function handleDebut (e) {
     console.log(e);
+    handleInputValue('debut', e.target.value, 'userArtist');
   }
 
   function handleEmail (e) {
-    setEmail(e.target.value);
+    handleInputValue('email', e.target.value, 'userArtist');
   }
 
   return (
-    <div>
+  // <div className='sign-up-condition'>
+  //   <div>
+  //     소속사: <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
+  //   </div>
+  //   <div>
+  //     데뷔일: <input type='date' onChange={(e) => handleDebut(e)} />
+  //   </div>
+  //   <div>
+  //     {/* <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} /> */}
+  //     이메일: <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
+  //   </div>
+  // </div>
+
+    <form className='sign-up-condition' onSubmit={(e) => requestAdminChange(e)}>
       <div>
-        <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
+      <label>소속사:</label>
+      <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
       </div>
       <div>
-        데뷔일: <input type='date' onChange={(e) => handleDate(e)} />
+      <label>데뷔일:</label>
+      <input type='date' onChange={(e) => handleDebut(e)} />
       </div>
       <div>
-        <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} />
+      <label>이메일:</label>
+      <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
-    </div>
+      {isAdminCheck && <button type='submit'>전환하기</button>}
+    </form>
   );
 }
 

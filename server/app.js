@@ -3,7 +3,11 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const db = require("./models");
+
 const usersRouter = require('./routers/user');
+const trackRouter = require('./routers/track');
+const playlistRouter = require('./routers/playlist');
+const replyController = require('./routers/reply');
 
 const app = express();
 app.use(express.json());
@@ -30,13 +34,14 @@ app.get("/", (req, res) => {
 
 
 app.use('/user', usersRouter);
-
+app.use('/track', trackRouter);
+app.use('/playlist', playlistRouter);
+app.use('/reply', replyController);
 
 const HTTPS_PORT = 80;
 let server;
 
-server = app.listen(HTTPS_PORT, () => {
+app.listen(HTTPS_PORT, () => {
   console.log("server 실행");
 });
 
-module.exports = server;

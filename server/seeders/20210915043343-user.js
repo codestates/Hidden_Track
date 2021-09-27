@@ -16,7 +16,7 @@ module.exports = {
      tempUser.push({
        loginId : `test${i}`,
        password : `test${i}`,
-       profile: `test${i}`,
+       profile: `https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/profile/3621632329874169.png`,
        nickName: `test${i}`,
        admin: 'listener',
        createdAt: new Date(),

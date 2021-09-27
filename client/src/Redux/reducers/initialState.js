@@ -9,92 +9,160 @@ export const initialState = {
     accessToken: ''
   },
   userInfo: {
-    id: '',
-    loginId: '',
-    profile: '',
-    nickName: '',
-    admin: 'listener',
+    id: '1',
+    loginId: 'joo',
+    profile: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg',
+    nickName: '이무진',
+    // nickName: '',
+    // admin: 'listener',
+    admin: 'artist',
     // 만약 admin이 'artist'라면 아래 정보도 받음
     userArtist: {
-      agency: '',
-      email: '',
-      debut: ''
+      agency: 'sm',
+      email: 'sm@sm.com',
+      debut: '2008.12.12'
     }
   },
-
-  trackDetail: {
-    id: 1,
-    title: '신호등',
-    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
-    genre: '록/메탈',
-    soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
-    releaseAt: '2021-05-14',
-    lyric: `이제야 목적지를 정했지만
-    가려한 날 막아서네 난 갈 길이 먼데
-    새빨간 얼굴로 화를 냈던
-    친구가 생각나네
-    이미 난 발걸음을 떼었지만
-    가려한 날 재촉하네 걷기도 힘든데
-    새파랗게 겁에 질려 도망간
-    친구가 뇌에 맴도네
-    건반처럼 생긴 도로 위
-    수많은 동그라미들 모두가
-    멈췄다 굴렀다 말은 잘 들어
-    그건 나도 문제가 아냐
-    붉은색 푸른색 그 사이
-    3초 그 짧은 시간
-    노란색 빛을 내는
-    저기 저 신호등이
-    내 머릿속을 텅 비워버려
-    내가 빠른지도
-    느린지도 모르겠어
-    그저 눈앞이 샛노랄 뿐이야
-    솔직히 말하자면 차라리
-    운전대를 못 잡던 어릴 때가
-    더 좋았었던 것 같아
-    그땐 함께 온 세상을
-    거닐 친구가 있었으니
-    건반처럼 생긴 도로 위
-    수많은 조명들이 날 빠르게
-    번갈아 가며 비추고 있지만
-    난 아직 초짜란 말이야
-    붉은색 푸른색 그 사이
-    3초 그 짧은 시간
-    노란색 빛을 내는 저기 저 신호등이
-    내 머릿속을 텅 비워버려
-    내가 빠른지도
-    느린지도 모르겠어
-    그저 눈앞이 샛노랄 뿐이야
-    꼬질꼬질한 사람이나
-    부자 곁엔 아무도 없는
-    삼색 조명과 이색 칠 위에
-    서 있어 괴롭히지 마
-    붉은색 푸른색 그 사이
-    3초 그 짧은 시간
-    노란색 빛을 내는 저기 저 신호등이
-    내 머릿속을 텅 비워버려
-    내가 빠른지도
-    느린지도 모르겠어
-    그저 눈앞이 샛노랄 뿐이야`,
-    like: {
-      count: 57
-    },
-    post: {
-      id: 2,
-      views: 387,
-      gradeAev: 4.7
-    },
-    user: {
-      nickname: '이무진'
-    },
-    reply: [{
-      id: 3,
-      content: '노래 좋다~~!',
+  onClickModify: {
+    // onClickModify: true
+    onClickModify: false
+  },
+  trackList: [
+    {
+      id: 1,
+      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
+      title: '신호등',
+      userid: 1,
       user: {
-        profile: 'https://randomuser.me/api/portraits/men/10.jpg',
-        nickname: '김코딩'
+        nickname: '이무진'
       }
-    }]
+    },
+    {
+      id: 2,
+      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
+      title: 'Sweet Dreams',
+      userid: 2,
+      user: {
+        nickname: 'Eurythmics'
+      }
+    },
+    {
+      id: 3,
+      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
+      title: '바람이나 좀 쐐',
+      userid: 3,
+      user: {
+        nickname: '개리'
+      }
+    }
+  ],
+
+  // trackDetail: {
+  //   id: 1,
+  //   title: '신호등',
+  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
+  //   genre: '록/메탈',
+  //   soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
+  //   releaseAt: '2021-05-14',
+  //   lyric: `이제야 목적지를 정했지만
+  //   가려한 날 막아서네 난 갈 길이 먼데
+  //   새빨간 얼굴로 화를 냈던
+  //   친구가 생각나네
+  //   이미 난 발걸음을 떼었지만
+  //   가려한 날 재촉하네 걷기도 힘든데
+  //   새파랗게 겁에 질려 도망간
+  //   친구가 뇌에 맴도네
+  //   건반처럼 생긴 도로 위
+  //   수많은 동그라미들 모두가
+  //   멈췄다 굴렀다 말은 잘 들어
+  //   그건 나도 문제가 아냐
+  //   붉은색 푸른색 그 사이
+  //   3초 그 짧은 시간
+  //   노란색 빛을 내는
+  //   저기 저 신호등이
+  //   내 머릿속을 텅 비워버려
+  //   내가 빠른지도
+  //   느린지도 모르겠어
+  //   그저 눈앞이 샛노랄 뿐이야
+  //   솔직히 말하자면 차라리
+  //   운전대를 못 잡던 어릴 때가
+  //   더 좋았었던 것 같아
+  //   그땐 함께 온 세상을
+  //   거닐 친구가 있었으니
+  //   건반처럼 생긴 도로 위
+  //   수많은 조명들이 날 빠르게
+  //   번갈아 가며 비추고 있지만
+  //   난 아직 초짜란 말이야
+  //   붉은색 푸른색 그 사이
+  //   3초 그 짧은 시간
+  //   노란색 빛을 내는 저기 저 신호등이
+  //   내 머릿속을 텅 비워버려
+  //   내가 빠른지도
+  //   느린지도 모르겠어
+  //   그저 눈앞이 샛노랄 뿐이야
+  //   꼬질꼬질한 사람이나
+  //   부자 곁엔 아무도 없는
+  //   삼색 조명과 이색 칠 위에
+  //   서 있어 괴롭히지 마
+  //   붉은색 푸른색 그 사이
+  //   3초 그 짧은 시간
+  //   노란색 빛을 내는 저기 저 신호등이
+  //   내 머릿속을 텅 비워버려
+  //   내가 빠른지도
+  //   느린지도 모르겠어
+  //   그저 눈앞이 샛노랄 뿐이야`,
+  //   like: {
+  //     count: 57
+  //   },
+  //   post: {
+  //     id: 2,
+  //     views: 387,
+  //     gradeAev: 4.7
+  //   },
+  //   user: {
+  //     nickname: '이무진'
+  //   },
+  //   hashtag: {
+  //     tag: ['신나는', '이무진', '라라라']
+  //   },
+  //   reply: [{
+  //     id: 3,
+  //     content: '노래 좋다~~!',
+  //     user: {
+  //       profile: 'https://randomuser.me/api/portraits/men/10.jpg',
+  //       nickname: '김코딩'
+  //     }
+  //   }]
+  // },
+  trackDetail: {
+    track: {
+      id: 1,
+      title: '신호등',
+      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
+      genre: '록/메탈',
+      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
+      releaseAt: '2021-05-14',
+      lyric: 'lyric',
+      user: {
+        nickName: '이무진'
+      },
+      hashtag: [{
+        tag: 'tag1'
+      },
+      {
+        tag: 'tag2'
+      }],
+      replies: [{
+        id: 1,
+        content: 'asdfasdf',
+        user: {
+          profile: 'https://randomuser.me/api/portraits/men/10.jpg',
+          nickname: '박해커'
+        }
+      }]
+    },
+    like: 10,
+    gradeAev: 4.3
   },
 
   playList: [
@@ -152,9 +220,9 @@ export const initialState = {
       내가 빠른지도
       느린지도 모르겠어
       그저 눈앞이 샛노랄 뿐이야`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
+      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/1632746909728.mp3',
       user: {
-        nickname: '이무진'
+        nickName: '이무진'
       }
     },
     {
@@ -223,9 +291,9 @@ export const initialState = {
       I travel the world
       And the seven seas
       Everybody's,`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Eurythmics_Sweet+Dreams.mp3',
+      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/1632746834137.mp3',
       user: {
-        nickname: 'Eurythmics'
+        nickName: 'Eurythmics'
       }
     },
     {
@@ -307,9 +375,9 @@ export const initialState = {
       조금 슬퍼 보이면 어때
       나가서 바람이나 좀 쐐
       조금 슬퍼 보이면 어때`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/05.+%EB%B0%94%EB%9E%8C%EC%9D%B4%EB%82%98+%EC%A2%80+%EC%90%90+(Feat.+MIWOO).mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/05.+%EB%B0%94%EB%9E%8C%EC%9D%B4%EB%82%98+%EC%A2%80+%EC%90%90+(Feat.+MIWOO).mp3',
       user: {
-        nickname: '개리'
+        nickName: '개리'
       }
     },
     {
@@ -397,9 +465,9 @@ export const initialState = {
       들리니 I need you I love you
       이런이런 날 어서 가져가줘
       들리니 I need you I love you`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/003+%5B%EB%B8%8C%EB%9D%BC%EC%9A%B4+%EC%95%84%EC%9D%B4%EB%93%9C+%EA%B1%B8%EC%8A%A4+Single%5D+-+02+L.O.V.E.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/003+%5B%EB%B8%8C%EB%9D%BC%EC%9A%B4+%EC%95%84%EC%9D%B4%EB%93%9C+%EA%B1%B8%EC%8A%A4+Single%5D+-+02+L.O.V.E.mp3',
       user: {
-        nickname: '브라운 아이드 걸스'
+        nickName: '브라운 아이드 걸스'
       }
     },
     {
@@ -531,9 +599,9 @@ export const initialState = {
       then we out
       hold us down
       hold us down`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/DPR+LIVE+-+To+Myself.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/DPR+LIVE+-+To+Myself.mp3',
       user: {
-        nickname: 'DPR LIVE'
+        nickName: 'DPR LIVE'
       }
     },
     {
@@ -647,11 +715,75 @@ export const initialState = {
       Woulda gave you anything
       woulda gave you everything
       Oh-oh`,
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Better+Now.mp3',
+      soundTrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/Better+Now.mp3',
       user: {
-        nickname: 'Post Malone'
+        nickName: 'Post Malone'
+      }
+    },
+    {
+      id: 7,
+      title: 'OHAYO MY NIGHT',
+      img: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/6661632750318621.jpg',
+      genre: '랩/힙합',
+      releaseAt: '2020.06.20',
+      lyric: `
+      너를 사랑하고 있어
+      너를 사랑하고 있어
+      자기야 날 사랑해주면 안 될까
+      말처럼 쉽지는 않은 걸 알지만
+      세게 날 안아주면 안 될까
+      오늘따라 세상이 무섭단 말이야
+      잠깐 인공호흡을 해주라
+      왠지 숨이 잘 안 쉬어져서 난
+      날 놓을 거면 과거에 놔주라
+      네가 있는 시간에서 죽어갈 거야
+      우리 그냥 결혼하면 안 될까
+      돈은 내가 열심히 벌 테니까
+      이 세상과 내가 눈감는 날
+      까지만 날 사랑한다 말해주라
+      내가 너를 사랑해도
+      네가 날 안 사랑해도
+      우린 나름대로 행복할 거야
+      내 방 천장에 그려 본
+      내 우주에게 물어본
+      말은 나를 사랑하면 안 될까
+      오사카나 오키나와의 바다
+      내 뮤비들을 찍었던 곳 말이야
+      같이 가자 약속했었잖아
+      그 약속이 깨질까 봐 겁이 나
+      WHUTUF이 결혼한다 하던 날
+      진짜 처음으로 걔가 부럽더라
+      하얀 웨딩드레스를 입은 아름다운
+      너와 영원을 말할 수 있을까
+      가족이 되어주라
+      내 집이 되어주라
+      나도 날 줄 테니 너도 널 주라
+      평생의 연인이야
+      네 말대로 말이야
+      그래 별과 우주잖아
+      날 사랑하지 않는다면
+      나의 사랑 반을 받아
+      남은 사랑의 반도
+      내가 채워줄 거야 꼭
+      내가 너를 사랑해도
+      네가 날 안 사랑해도
+      우린 나름대로 행복할 거야
+      내 방 천장에 그려 본
+      내 우주에게 물어본
+      말은 나를 사랑하면 안 될까
+      내가 너를 사랑해도
+      네가 날 안 사랑해도
+      우린 나름대로 행복할 거야
+      내 방 천장에 그려 본
+      내 우주에게 물어본
+      말은 나를 사랑하면 안 될까`,
+      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/1632749816864.mp3',
+      user: {
+        nickName: '디핵 (D-Hack), PATEKO (파테코)'
       }
     }
+
   ]
+  // playList: []
 
 };
