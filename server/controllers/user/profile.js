@@ -17,9 +17,11 @@ module.exports = {
     },
 
     patch :  async (req,res) =>{ 
+      console.log(req.file);
         const image = req.file.location
         const accessTokenData = isAuthorized(req);
         //accesstoken 있는지 확인
+        
         if (!accessTokenData) {
           res.status(401).json({ message : "unauthorized"});
         }

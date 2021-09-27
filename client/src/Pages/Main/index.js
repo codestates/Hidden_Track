@@ -20,7 +20,7 @@ function Main () {
       {/* <button className='test' onClick={(e) => { test(e); }}>이동</button> */}
       <div className='slides'>
         <Slide />
-        <Test />
+        {/* <Test /> */}
         {/* <Recommend /> */}
       </div>
     </div>
