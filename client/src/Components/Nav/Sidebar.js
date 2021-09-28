@@ -17,6 +17,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const playList = useSelector(state => state.playListReducer.playList);
+  console.log('사이드바 플레이리스트', playList);
   const dispatch = useDispatch();
   // console.log('사이드바 오픈',isSidebarOpen)
   // console.log('사이드바 로그인 상태',isLogin)
