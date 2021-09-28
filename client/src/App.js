@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { isClickModify, isLoginHandler, getAccessToken, getUserInfo } from './Redux/actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoginHandler, getAccessToken, getUserInfo, isLoadingHandler } from './Redux/actions/actions';
 import Nav from './Components/Nav';
+import SignUp from './Pages/SignUp';
+import Loding from './Components/Login';
 import Main from './Pages/Main';
 import Footer from './Components/Footer';
-import SignUp from './Pages/SignUp';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';
@@ -13,12 +14,15 @@ import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
 import Notification from './Components/Notification';
+import LoadingIndicator from './Components/LoadingIndicator';
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
 import Cookies from 'universal-cookie';
 
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
+
+  const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
 
   const [notice, setNotice] = useState([]);
 
@@ -38,6 +42,7 @@ function App () {
   useEffect(() => {
     const cookies = new Cookies();
     async function tokenRequest () {
+      dispatch(isLoadingHandler(true));
       if (cookies.get('refreshToken')) {
         const token = await refreshTokenRequest();
         console.log(token);
@@ -60,19 +65,16 @@ function App () {
         } else {
           handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
           dispatch(isLoginHandler(false));
+          dispatch(isLoadingHandler(false));
           cookies.remove('refreshToken');
         }
       } else {
         dispatch(isLoginHandler(false));
+        dispatch(isLoadingHandler(false));
       }
     }
     tokenRequest();
   }, []);
-
-  // useEffect(() => { // ------> 음원 수정 페이지에서 useEffect 안에 return문에 dispatch 써주면 됨(componentWillUnmount 개념)
-  //   // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
-  //   if (loca.pathname !== '/modicreate') dispatch(isClickModify(false));
-  // }, [loca.pathname, dispatch]);
 
   return (
     <>
@@ -84,35 +86,37 @@ function App () {
             <Nav handleNotice={handleNotice} />
             )}
       </div>
-      <Switch>
-        <Route exact path='/'>
-          <Main />
-        </Route>
-        <Route path='/signup'>
-          <SignUp handleNotice={handleNotice} />
-        </Route>
-        <Route path='/visual'>
-          <Visualizer />
-        </Route>
-        <Route path='/mypage'>
-          <MyPage handleNotice={handleNotice} />
-        </Route>
-        <Route path='/trackdetails/:id'>
-          <TrackDetails handleNotice={handleNotice} />
-        </Route>
-        <Route path='/modicreate'>
-          <ModiCreate handleNotice={handleNotice} />
-        </Route>
-        <Route path='/sidebar'>
-          <Sidebar />
-        </Route>
-        <Route path='/searchtrack'>
-          <SearchTrack handleNotice={handleNotice} />
-        </Route>
-        <Route path='/searchtrack/:id'>
-          <SearchTrack handleNotice={handleNotice} />
-        </Route>
-      </Switch>
+      {isLoading
+        ? <LoadingIndicator />
+        : <Switch>
+          <Route exact path='/'>
+            <Main />
+          </Route>
+          <Route path='/signup'>
+            <SignUp handleNotice={handleNotice} />
+          </Route>
+          <Route path='/visual/:id'>
+            <Visualizer />
+          </Route>
+          <Route path='/mypage'>
+            <MyPage handleNotice={handleNotice} />
+          </Route>
+          <Route path='/trackdetails/:id'>
+            <TrackDetails handleNotice={handleNotice} />
+          </Route>
+          <Route path='/modicreate'>
+            <ModiCreate handleNotice={handleNotice} />
+          </Route>
+          <Route path='/sidebar'>
+            <Sidebar />
+          </Route>
+          <Route path='/searchtrack'>
+            <SearchTrack handleNotice={handleNotice} />
+          </Route>
+          <Route path='/searchtrack/:id'>
+            <SearchTrack handleNotice={handleNotice} />
+          </Route>
+        </Switch>}
       <Notification notice={notice} />
       <div className='footer-container'>
         {loca.pathname === '/signup' || loca.pathname === '/visual'
