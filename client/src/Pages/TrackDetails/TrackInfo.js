@@ -22,7 +22,6 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
-
   useEffect(() => {
     if (listenBtn) {
       addPlaylist();
@@ -94,7 +93,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       else if (check && listenBtn) {
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
-        return history.push('/visual');
+        return history.push(`/visual/${trackId}`);
       } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
@@ -114,7 +113,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         else {
           // 바로 듣기 버튼을 눌렀다면 비주얼 페이지로 이동
           setListenBtn(false);
-          return history.push('/visual');
+          return history.push(`/visual/${trackId}`);
         }
       }
     } else {
@@ -127,7 +126,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       else if (check && listenBtn) {
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
-        return history.push('/visual');
+        return history.push(`/visual/${trackId}`);
       } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist`, {
@@ -148,7 +147,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                     // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
                     else {
                       setListenBtn(false);
-                      return history.push('/visual');
+                      return history.push(`/visual/${trackId}`);
                     }
                   } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
                 })
