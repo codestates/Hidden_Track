@@ -49,6 +49,7 @@ function TrackDetails ({ handleNotice }) {
           trackDetail={trackDetail}
           userInfo={userInfo}
           handleNotice={handleNotice}
+          trackId={trackId}
         />
       </div>
       <div>
