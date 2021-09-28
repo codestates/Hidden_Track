@@ -77,7 +77,7 @@ function App () {
   return (
     <>
       <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname === '/sidebar' || loca.pathname === '/visual'
+        {loca.pathname === '/signup' || loca.pathname === '/visual'
           ? (
             <></>)
           : (
@@ -91,7 +91,7 @@ function App () {
         <Route path='/signup'>
           <SignUp handleNotice={handleNotice} />
         </Route>
-        <Route path='/visual'>
+        <Route path='/visual/:id'>
           <Visualizer />
         </Route>
         <Route path='/mypage'>
@@ -102,9 +102,6 @@ function App () {
         </Route>
         <Route path='/modicreate'>
           <ModiCreate handleNotice={handleNotice} />
-        </Route>
-        <Route path='/sidebar'>
-          <Sidebar />
         </Route>
         <Route path='/searchtrack'>
           <SearchTrack handleNotice={handleNotice} />
