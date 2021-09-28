@@ -34,6 +34,7 @@ function WithDrawalModal ({ visible, setIsSignOutModalOpen }) {
         if (res.status === 200) {
           dispatch(isLoginHandler(false));
           cookies.remove('refreshToken');
+          // accessToken 빈 문자열 바꿔줘야 한다.
           history.push('/');
         }
       }

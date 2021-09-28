@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 // 리덕스 import
-import { getUserInfo } from '../../Redux/actions/actions';
+import { getUserInfo, getAccessToken } from '../../Redux/actions/actions';
 
 // 컴포넌트 import
 import Condition from '../SignUp/Condition';
@@ -22,7 +22,7 @@ function MyPage ({ handleNotice }) {
   const dispatch = useDispatch();
 
   const { accessToken } = state3;
-
+  // console.log(accessToken);
   const [isWithDrawalModalOpen, setIsWithDrawalModalOpen] = useState(false);
   const [user, setUser] = useState(userInfo);
   const [isAdminCheck, setIsAdminCheck] = useState(false);
@@ -88,6 +88,9 @@ function MyPage ({ handleNotice }) {
       }
     });
   }
+
+  // handleInputValue 를 매번 할 필요 없이, dispatch 해서 리덕스가 업데이트 된 이후
+  // 변경된 값들을 화면에 뿌려주는 방법 <=  리팩토링
 
   // input 창들의 값 setState 해주는 함수
   function handleInputValue (key, value, admin) {
@@ -285,6 +288,15 @@ function MyPage ({ handleNotice }) {
     ).then(res => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
       console.log('계정 전환 요청 응답', res);
       if (res.status === 200) {
+        // setState
+        handleInputValue('agency', user.userArtist.agency, 'useArtist');
+        handleInputValue('debut', user.userArtist.debut, 'useArtist');
+        handleInputValue('email', user.userArtist.email, 'useArtist');
+
+        // 리덕스 updata
+        const result = accessTokenRequest(res.data.data);
+        dispatch(getUserInfo(result));
+        dispatch(getAccessToken(res.data.data));
         handleNotice('계정 전환이 되었습니다', 2000);
       }
     }
@@ -296,6 +308,8 @@ function MyPage ({ handleNotice }) {
         } else if (err.response.status === 401) { // <- 토큰이 제대로 된게 아니거나 만료된것
           console.log('401 에러다');
           handleNotice('권한이 없습니다.', 3000);
+        } else if (err.response.status === 409) { // <- 이미 artist 계정일때
+          handleNotice('이미 artist 계정입니다.', 3000);
         }
       }
     }
@@ -364,6 +378,7 @@ function MyPage ({ handleNotice }) {
         <button type='submit'>닉네임 변경</button>
       </form>
 
+      {/* userInfo.admin === 'artist' input 안 보이게 하고, p 는 아티스트 라고 보여주기 */}
       <input type='checkbox' name='' id='' onChange={() => { handleCheckAdmin(); }} />
       <p>아티스트 계정으로 전환하기</p>
       {isAdminCheck && <Condition handleInputValue={handleInputValue} requestAdminChange={requestAdminChange} isAdminCheck={isAdminCheck} />}

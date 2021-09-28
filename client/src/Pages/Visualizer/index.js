@@ -23,6 +23,7 @@ function Visualizer () {
   const height = window.innerHeight;
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
   const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
+  console.log('비주얼 현재곡', crrentMusic);
   const [isPlay, setIsPlay] = useState(false);
   const img = new Image();
   img.src = crrentMusic.img;
