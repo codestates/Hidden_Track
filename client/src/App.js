@@ -6,6 +6,7 @@ import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Loding from './Components/Login';
 import Main from './Pages/Main';
+import Footer from './Components/Footer';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';
@@ -117,6 +118,15 @@ function App () {
           </Route>
         </Switch>}
       <Notification notice={notice} />
+      <div className='footer-container'>
+        {loca.pathname === '/signup' || loca.pathname === '/visual'
+          ? (
+            <></>)
+          : (
+            <Footer />
+            )}
+      </div>
+
     </>
   );
 }
