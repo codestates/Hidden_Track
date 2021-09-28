@@ -3,9 +3,9 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { isClickModify, isLoginHandler, getAccessToken, getUserInfo } from './Redux/actions/actions';
 import Nav from './Components/Nav';
-import SignUp from './Pages/SignUp';
-import Login from './Components/Login';
 import Main from './Pages/Main';
+import Footer from './Components/Footer';
+import SignUp from './Pages/SignUp';
 import Visualizer from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import Sidebar from './Components/Nav/Sidebar';
@@ -77,7 +77,7 @@ function App () {
   return (
     <>
       <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname === '/sidebar' || loca.pathname === '/visual'
+        {loca.pathname === '/signup' || loca.pathname === '/visual'
           ? (
             <></>)
           : (
@@ -114,6 +114,15 @@ function App () {
         </Route>
       </Switch>
       <Notification notice={notice} />
+      <div className='footer-container'>
+        {loca.pathname === '/signup' || loca.pathname === '/visual'
+          ? (
+            <></>)
+          : (
+            <Footer />
+            )}
+      </div>
+
     </>
   );
 }

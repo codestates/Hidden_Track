@@ -30,16 +30,16 @@ function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
 
     <form className='sign-up-condition' onSubmit={(e) => requestAdminChange(e)}>
       <div>
-      <label>소속사:</label>
-      <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
+        <label>소속사:</label>
+        <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
       </div>
       <div>
-      <label>데뷔일:</label>
-      <input type='date' onChange={(e) => handleDebut(e)} />
+        <label>데뷔일:</label>
+        <input type='date' onChange={(e) => handleDebut(e)} />
       </div>
       <div>
-      <label>이메일:</label>
-      <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
+        <label>이메일:</label>
+        <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
       {isAdminCheck && <button type='submit'>전환하기</button>}
     </form>
