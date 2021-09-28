@@ -27,6 +27,9 @@ export const initialState = {
     // onClickModify: true
     onClickModify: false
   },
+  isLoading: {
+    isLoading: false
+  },
   trackList: [
     {
       id: 1,
