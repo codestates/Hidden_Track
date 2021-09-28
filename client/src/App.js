@@ -54,6 +54,7 @@ function App () {
             // 유저 정보 얻어왔으면 전역 상태에 저장
             dispatch(getUserInfo(userInfo));
             dispatch(isLoginHandler(true));
+            dispatch(isLoadingHandler(false));
           }
           // 유저 정보를 못 얻어왔다면 -> 액세스 토큰이 유효하지 x -> 리프레시 토큰으로 다시 얻어옴
           else {
@@ -72,6 +73,7 @@ function App () {
         dispatch(isLoginHandler(false));
         dispatch(isLoadingHandler(false));
       }
+      dispatch(isLoadingHandler(false));
     }
     tokenRequest();
   }, []);
@@ -105,6 +107,9 @@ function App () {
             <TrackDetails handleNotice={handleNotice} />
           </Route>
           <Route path='/modicreate'>
+            <ModiCreate handleNotice={handleNotice} />
+          </Route>
+          <Route path='/modicreate/:id'>
             <ModiCreate handleNotice={handleNotice} />
           </Route>
           <Route path='/sidebar'>

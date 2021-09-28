@@ -9,7 +9,7 @@ import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 import HashTag from '../../Components/HashTag';
 
-function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice }) {
+function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -182,8 +182,8 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   // 수정 버튼 클릭시 게시글 수정창으로 이동하는 함수
   function clickModifyBtn (e) {
     e.preventDefault();
-    dispatch(isClickModify(true));
-    history.push('/modicreate');
+    // dispatch(isClickModify(true));
+    history.push(`/modicreate${trackId}`);
   }
 
   return (
