@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTrackDetails, getUserInfo } from '../../Redux/actions/actions';
+import { getTrackDetails, getUserInfo, isLoadingHandler } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
 import axios from 'axios';
 import './index.scss';
@@ -11,7 +11,7 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 
-function TestMo ({ handleNotice }) {
+function TestMo ({ handleNotice, isLoading }) {
   const loca = useLocation();
   const trackId = loca.pathname.split('/')[2];
   const history = useHistory();
@@ -221,6 +221,7 @@ function TestMo ({ handleNotice }) {
         method = axios.post;
       }
 
+      dispatch(isLoadingHandler(true));
       handleNotice('업로드중.. 잠시 기다려주세요', 5000);
       const audioUpload = await uploadFile('audio', method);
       console.log('오디오 완', audioUpload);
@@ -235,6 +236,7 @@ function TestMo ({ handleNotice }) {
           .then(res => {
             if (res.status === 201) {
               handleNotice('음원 등록이 성공하였습니다.', 5000);
+              dispatch(isLoadingHandler(false));
               console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
               history.push(`/trackdetails/${res.data.trackId}`);
             }
@@ -252,7 +254,9 @@ function TestMo ({ handleNotice }) {
       } else {
         console.log('못함?');
       }
+      dispatch(isLoadingHandler(false));
     }
+    dispatch(isLoadingHandler(false));
   }
 
   // ?##############################################################################################
