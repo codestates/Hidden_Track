@@ -98,7 +98,7 @@ function App () {
             <SignUp handleNotice={handleNotice} />
           </Route>
           <Route path='/visual/:id'>
-            <Visualizer />
+            <Visualizer handleNotice={handleNotice} />
           </Route>
           <Route path='/mypage'>
             <MyPage handleNotice={handleNotice} />

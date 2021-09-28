@@ -8,7 +8,7 @@ import './index.scss';
 
 axios.defaults.withCredentials = true;
 
-function Visualizer () {
+function Visualizer ({ handleNotice }) {
   // const audioCtx = new AudioContext();
   // console.log(audioCtx);
   // redux에 저장된 state 가져오기
@@ -18,7 +18,6 @@ function Visualizer () {
   const audio = useRef();
   const canvas = useRef();
   // const playList = useSelector(state => state.playListReducer.playList);
-  cons;
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -28,10 +27,10 @@ function Visualizer () {
   const height = window.innerHeight;
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
   // const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
-  console.log('비주얼 현재곡', crrentMusic);
+  // console.log('비주얼 현재곡', crrentMusic);
   const [isPlay, setIsPlay] = useState(false);
   const img = new Image();
-  img.src = crrentMusic.img;
+  img.src = track.img;
   // const audio = new Audio()
   // audio.src = crrentMusic.soundtrack
   // audio.crossOrigin = 'anonymous'
@@ -41,7 +40,7 @@ function Visualizer () {
   // source.connect(analyser);
   // analyser.connect(context.destination);
   // const frequency_array = new Uint8Array(analyser.frequencyBinCount);
-
+  console.log('context', context);
   useEffect(() => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
 
@@ -60,14 +59,6 @@ function Visualizer () {
         } else console.log(err);
       });
 
-    context = context || new AudioContext();
-    source = source || context.createMediaElementSource(audio.current);
-    console.log(source);
-    analyser = context.createAnalyser();
-    source.connect(analyser);
-    analyser.connect(context.destination);
-    frequency_array = new Uint8Array(analyser.frequencyBinCount);
-    console.log(context);
     // audio.current.autoplay=true
     // audio.current.volume='0.1'
     // audio.current.crossOrigin='anonymous'
@@ -78,6 +69,17 @@ function Visualizer () {
       source.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    context = context || new AudioContext();
+    source = source || context.createMediaElementSource(audio.current);
+    console.log(source);
+    analyser = context.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(context.destination);
+    frequency_array = new Uint8Array(analyser.frequencyBinCount);
+    console.log(context);
+  }, [track]);
 
   function animationLooper (canvas) {
     if (canvas === null) return;
