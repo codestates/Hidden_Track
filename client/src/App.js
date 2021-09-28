@@ -17,12 +17,17 @@ import Notification from './Components/Notification';
 import LoadingIndicator from './Components/LoadingIndicator';
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
 
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
+  const authorizationCode = new URL(window.location.href).searchParams.get('code');
+  // const keepLogin = new URL(window.location.href).searchParams.get("state");
+  console.log('소셜 로그인시 받은 authorization code', authorizationCode);
+  // console.log(keepLogin)
 
   const [notice, setNotice] = useState([]);
 
@@ -78,6 +83,29 @@ function App () {
     tokenRequest();
   }, []);
 
+  useEffect(() => {
+    // 소셜 로그인시 메인 페이지로 리다이렉트 됨 -> 받아온 authorization code로 서버에 accesstoken 요청하는 함수
+    if (authorizationCode) {
+      axios.post(`${process.env.REACT_APP_API_URL}/user/kakaologin`, {
+        authorizationCode
+      })
+        .then(res => {
+          console.log(res.data);
+          if (res.status === 200) {
+          // 서버에서 응답으로 리프레시 토큰, 액세스 토큰 옴
+          // 받은 액세스 토큰을 전역상태에 저장
+          // 액세스 토큰으로 유저정보 요청
+          // 로그인 상태 true
+          }
+        })
+        .catch(err => {
+          if (err.reponse) {
+          // 서버에서 에러처리한 코드 에러 핸들링
+          } else console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <>
       <div className='nav-container'>
@@ -104,19 +132,19 @@ function App () {
             <MyPage handleNotice={handleNotice} />
           </Route>
           <Route path='/trackdetails/:id'>
-            <TrackDetails handleNotice={handleNotice} />
+            <TrackDetails handleNotice={handleNotice} isLoading={isLoading} />
           </Route>
           <Route path='/modicreate'>
-            <ModiCreate handleNotice={handleNotice} />
+            <ModiCreate handleNotice={handleNotice} isLoading={isLoading} />
           </Route>
           <Route path='/modicreate/:id'>
-            <ModiCreate handleNotice={handleNotice} />
+            <ModiCreate handleNotice={handleNotice} isLoading={isLoading} />
           </Route>
           <Route path='/sidebar'>
             <Sidebar />
           </Route>
           <Route path='/searchtrack'>
-            <SearchTrack handleNotice={handleNotice} />
+            <SearchTrack handleNotice={handleNotice} isLoading={isLoading} />
           </Route>
           <Route path='/searchtrack/:id'>
             <SearchTrack handleNotice={handleNotice} />

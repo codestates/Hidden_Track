@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, isClickModify } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
@@ -9,7 +9,7 @@ import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 import HashTag from '../../Components/HashTag';
 
-function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
+function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -182,7 +182,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   function clickModifyBtn (e) {
     e.preventDefault();
     // dispatch(isClickModify(true));
-    history.push(`/modicreate${trackId}`);
+    history.push(`/modicreate/${trackId}`);
   }
 
   return (
