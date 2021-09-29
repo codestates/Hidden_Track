@@ -21,7 +21,7 @@
   height: 20px;
   width: 50px;
   background: transparent;
-  top: 90px;
+  top: 120px;
   padding: 0;
   border: none;
   outline: none;
@@ -61,12 +61,12 @@
 }
 
 .slick-prev {
-  left: 270px;
+  left: 20px;
 }
 
 [dir="rtl"] .slick-prev {
   left: auto;
-  right: 270px;
+  right: 240px;
 }
 
 .slick-prev:before {
@@ -78,12 +78,12 @@
 }
 
 .slick-next {
-  right: 270px;
+  right: 240px;
 }
 
 [dir="rtl"] .slick-next {
-  left: 270px;
   right: auto;
+  left: 20px;
 }
 
 .slick-next:before {

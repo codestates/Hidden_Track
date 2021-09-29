@@ -15,33 +15,20 @@ function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
   }
 
   return (
-  // <div className='sign-up-condition'>
-  //   <div>
-  //     소속사: <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
-  //   </div>
-  //   <div>
-  //     데뷔일: <input type='date' onChange={(e) => handleDebut(e)} />
-  //   </div>
-  //   <div>
-  //     {/* <input type='text' placeholder='이메일' onChange={(e) => handleEmail(e)} /> */}
-  //     이메일: <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
-  //   </div>
-  // </div>
-
-    <form className='sign-up-condition' onSubmit={(e) => requestAdminChange(e)}>
-      <div>
+    <form className='sign-up-condition form__my-page__Condition' onSubmit={(e) => requestAdminChange(e)}>
+      <div className="form__div__agency">
         <label>소속사:</label>
         <input type='text' placeholder='소속사' onChange={(e) => handleAgency(e)} />
       </div>
-      <div>
-        <label>데뷔일:</label>
+      <div className="form__div__debut">
+        <label className="debut-date">데뷔일</label>
         <input type='date' onChange={(e) => handleDebut(e)} />
       </div>
-      <div>
+      <div className="form__div__email">
         <label>이메일:</label>
         <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
-      {isAdminCheck && <button type='submit'>전환하기</button>}
+      {isAdminCheck && <button className="change-admin-btn" type='submit'>계정 전환</button>}
     </form>
   );
 }
