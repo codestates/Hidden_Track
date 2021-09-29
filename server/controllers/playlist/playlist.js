@@ -81,7 +81,7 @@ module.exports =  {
             allPlaylist.push(findTrack.dataValues)
         }
         console.log(allPlaylist)
-        res.status(200).json({playlist: allPlaylist });
+        res.status(200).json({playlist: allPlaylist , playlist: findPlaylist });
     }
  }
      
