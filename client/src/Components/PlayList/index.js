@@ -1,10 +1,11 @@
 import React from 'react';
 
-function PlayList ({ num, music, handleChangeMusic, handleDeleteMusic }) {
+function PlayList ({ trackId, num, music, handleChangeMusic, handleDeleteMusic }) {
+  // console.log('키',trackId)
   return (
     <li className='track'>
 
-      <button className='track-delete' onClick={(e) => { handleDeleteMusic(e, num); }}>X</button>
+      <button className='track-delete' onClick={(e) => { handleDeleteMusic(e, num, trackId); }}>X</button>
       <div className='track-box' onClick={() => { handleChangeMusic(num); }}>
 
         <img className='track-img' src={music.img} alt={music.title} />

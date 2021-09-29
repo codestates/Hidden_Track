@@ -50,8 +50,6 @@ body {
   @include flexBox(flex, space-between, center, _, 0 70px);
   @include widthHeight(_, 150px);
 
-  // background-color: rgba(0, 0, 0, 0.95);
-
   a {
     text-decoration: none;
     color: black

@@ -127,7 +127,7 @@ function App () {
   return (
     <>
       <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname === '/visual'
+        {loca.pathname === '/signup' || loca.pathname.match('/visual')
           ? (
             <></>)
           : (
@@ -167,7 +167,7 @@ function App () {
         </Switch>}
       <Notification notice={notice} />
       <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname === '/visual'
+        {loca.pathname === '/signup' || loca.pathname.match('/visual')
           ? (
             <></>)
           : (
