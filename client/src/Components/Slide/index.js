@@ -39,11 +39,11 @@ function Slide () {
   function handleRecent (e) {
     // axios.get('http://localhost:4000/recentList')
     // .then(res => playList = recentList)
-    e.preventDefault()
+    e.preventDefault();
   }
 
-  function handlePopular(e){
-    e.preventDefault()
+  function handlePopular (e) {
+    e.preventDefault();
   }
 
   return (
@@ -52,7 +52,7 @@ function Slide () {
       {/* <ul> */}
       <div className='slide-btn'>
         <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
-        <span className='recent' onClick={(e) =>  handleRecent(e) }>최신</span>
+        <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
       </div>
       <StyledSlider {...settings}>
         {playList.map((slider, i) => {

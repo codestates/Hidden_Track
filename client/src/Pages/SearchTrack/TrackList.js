@@ -17,12 +17,6 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, trackD
         // 요청 성공시 상세 음원 정보 상태에 저장
           dispatch(getTrackDetails(res.data));
           // 상세 음원 정보 저장 성공 후 음원 상세 페이지 이동
-          //   history.push({
-          //     pathname: `/trackdetails/${trackId}`,
-          //     state: {
-          //       trackId: trackId
-          //     }
-          //   });
           history.push(`/trackdetails/${trackId}`);
         }
       })
