@@ -31,6 +31,7 @@ function Main () {
   }, []);
 
   return (
+
     <div id='main'>
       Welcome to HIDDEN TRACK!!
       <div className='main-slides'>
