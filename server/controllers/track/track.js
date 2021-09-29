@@ -109,6 +109,7 @@ module.exports = {
     },
 
    patch :  async (req,res) =>{ 
+    //  console.log(req.body)
     const accessTokenData = isAuthorized(req);
     const { id, tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
     const tagtracks = db.sequelize.models.tagtracks;
@@ -174,11 +175,9 @@ module.exports = {
         trackId: id,
         hashtagId : findHashTag.dataValues.id
        }       
-       }
-      )
+       })
    }
     res.status(200).json( {trackId: id } );
-
    },
    delete :  async (req,res) =>{ 
     

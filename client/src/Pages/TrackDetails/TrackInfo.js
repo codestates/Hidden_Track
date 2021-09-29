@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, isClickModify } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
@@ -9,9 +9,42 @@ import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 import HashTag from '../../Components/HashTag';
 
-function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
+function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const audioRef = useRef();
+  // ?########################################################
+  let tic = 0;
+  let time;
+
+  function play1min () {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      time = setInterval(tictok, 1000);
+    } else {
+      // clearTimeout(timer)
+      console.log('>', time);
+      clearInterval(time);
+      audioRef.current.pause();
+      // audioRef.current.currentTime=0;
+    }
+  }
+
+  function tictok () {
+    console.log(tic);
+    tic += 1;
+    check();
+  }
+
+  function check () {
+    if (tic > 60) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      clearInterval(time);
+      tic = 0;
+    }
+  }
+  // ?########################################################
 
   const playList = useSelector(state => state.playListReducer).playList;
   // const modifyBtn = useSelector(state => state.modifyReducer);
@@ -182,7 +215,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   function clickModifyBtn (e) {
     e.preventDefault();
     // dispatch(isClickModify(true));
-    history.push(`/modicreate${trackId}`);
+    history.push(`/modicreate/${trackId}`);
   }
 
   return (
@@ -214,6 +247,11 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         <div className='trackinfo-btn-box'>
           <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
           <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
+          <button className='contents__btn' onClick={(e) => { play1min(); }}>1분 들어보기</button>
+          <audio
+            src={trackDetail.track.soundtrack}
+            ref={audioRef}
+          />
           <button className='contents__btn' onClick={(e) => requestLike(e)}>
             <img className='like-btn' src={likeImage} alt='' />
           </button>

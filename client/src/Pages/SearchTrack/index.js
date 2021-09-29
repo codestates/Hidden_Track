@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
 import HashTag from '../../Components/HashTag';
@@ -54,6 +54,7 @@ function SearchTrack ({ handleNotice }) {
     console.log('dfgdfgdfgdfgdfdf', location.state);
 
     if (!genre && !hashTag && !search) return setTrackList([]);
+    dispatch(isLoadingHandler(true));
 
     // -------------장르 선택시 장르 목록 요청------------
     if (genre) {
@@ -107,6 +108,7 @@ function SearchTrack ({ handleNotice }) {
           } else console.log(err);
         });
     }
+    dispatch(isLoadingHandler(false));
   }
 
   return (

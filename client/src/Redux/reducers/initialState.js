@@ -149,7 +149,7 @@ export const initialState = {
       user: {
         nickName: '이무진'
       },
-      hashtag: [{
+      hashtags: [{
         tag: 'tag1'
       },
       {
