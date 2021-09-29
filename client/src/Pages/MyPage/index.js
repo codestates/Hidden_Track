@@ -317,26 +317,24 @@ function MyPage ({ handleNotice }) {
   }
 
   return (
-    <div className="my-page-container">
+    <div className='my-page-container'>
 
       <div>
-        <p className="nickName-title">
-          <span className="user-nickName">{userInfo.nickName}</span> 님의 회원정보
+        <p className='nickName-title'>
+          <span className='user-nickName'>{userInfo.nickName}</span> 님의 회원정보
         </p>
       </div>
 
-
-      <div className="div__form__password_profile-image">
-
+      <div className='div__form__password_profile-image'>
 
         {/* 프로필 변경 폼  */}
-        <div className="form__profile-image_delete-btn">
-          <form className="form__profile-image" onSubmit={(e) => requestChangeProfileImage(e)}>
+        <div className='form__profile-image_delete-btn'>
+          <form className='form__profile-image' onSubmit={(e) => requestChangeProfileImage(e)}>
             {/* 이미지 수정을 했을 경우  src={user.profile} */}
             {/* 기본 이미지로 했을 경우  src={userInfo.profile} */}
             {/* <div className="profile-image" style={{backgroundImage : `url(${user.profile || userInfo.profile})`}}/> */}
             <img src={user.profile || userInfo.profile} alt='프로필 이미지' />
-            <label htmlFor='imgFile' className="add-profile-image-btn">+</label>
+            <label htmlFor='imgFile' className='add-profile-image-btn'>+</label>
             <input
               type='file' name='img' id='imgFile'
               style={{ display: 'none' }}
@@ -345,29 +343,27 @@ function MyPage ({ handleNotice }) {
             <button type='submit' id='submit'>이미지 변경</button>
           </form>
           <button onClick={requestDeleteProfileImage}>이미지 삭제</button>
-      </div>
+        </div>
 
+        {/* 비밀번호 변경 폼 */}
+        <form onSubmit={requestPW} className='form__password'>
 
-      {/* 비밀번호 변경 폼 */}
-      <form  onSubmit={requestPW} className="form__password">
-        
-        <div className="form__div__password">
+          <div className='form__div__password'>
 
-          {/* 현재 비밀번호 input */}
-          <input
-            type='password' name='currentPassword' id='currentPassword' value={currentPassword}
-            placeholder='현재 비밀번호를 입력해주세요'
-            required
-            onChange={(e) => setCurrentPassword(e.target.value)}
-            onKeyUp={(e) => PasswordValidation('validCurrentPW', e.target.value)}
-          />
-          {/* 현재 비밀번호 유효성 검사메세지는 message.validCurrentPW 가 truthy 할때만 나타나도록 해야 한다. */}
-          {message.validCurrentPW && <p className='PasswordValidation'>{message.validCurrentPW}</p>}
-          {/* <p className="PasswordValidation">{message.validCurrentPW}</p> */}
-          </div >
+            {/* 현재 비밀번호 input */}
+            <input
+              type='password' name='currentPassword' id='currentPassword' value={currentPassword}
+              placeholder='현재 비밀번호를 입력해주세요'
+              required
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              onKeyUp={(e) => PasswordValidation('validCurrentPW', e.target.value)}
+            />
+            {/* 현재 비밀번호 유효성 검사메세지는 message.validCurrentPW 가 truthy 할때만 나타나도록 해야 한다. */}
+            {message.validCurrentPW && <p className='PasswordValidation'>{message.validCurrentPW}</p>}
+            {/* <p className="PasswordValidation">{message.validCurrentPW}</p> */}
+          </div>
 
-
-          <div className="form__div__password">
+          <div className='form__div__password'>
             {/* 바뀔 비밀번호 input */}
             <input
               type='password' name='ChangePassword' id='ChangePassword' value={ChangePassword}
@@ -378,60 +374,57 @@ function MyPage ({ handleNotice }) {
             />
             {/* 유효성 검사메세지는 message.validPW 가 truthy 할때만 나타나도록 해야 한다. */}
             {message.validPW && <p className='PasswordValidation'>{message.validPW}</p>}
-          </div >
+          </div>
 
-
-            <div className="form__div__password">
+          <div className='form__div__password'>
             {/* 비밀번호 확인 input */}
 
-              <div className="form__div__password-flex-box">
-                <input
-                  type='password' name='password' id='CheckPassword' value={checkedPassword}
-                  required
-                  placeholder="수정할 비밀번호를 한번더 입력해주세요"
-                  onChange={(e) => setCheckedPassword(e.target.value)}
-                  onKeyUp={(e) => {
-                    PasswordMatchCheck('validMatchPW', e);
-                  }}
-                />
-                <button type='submit' className="change-btn-password">변경</button>
-              </div>
-              
-              {/* 확인 비밀번호 유효성 검사메세지는 message.validMatchPW 가 truthy 할때만 나타나도록 해야 한다. */}
-              {message.validMatchPW && <p className='PasswordValidation'>{message.validMatchPW}</p>}
-              {/* 비밀번호 일치 검사메세지는 message.matchPW 가 truthy 할때만 나타나도록 해야 한다. */}
-              {message.matchPW && <p className='PasswordMatchCheck'>{message.matchPW}</p>}
+            <div className='form__div__password-flex-box'>
+              <input
+                type='password' name='password' id='CheckPassword' value={checkedPassword}
+                required
+                placeholder='수정할 비밀번호를 한번더 입력해주세요'
+                onChange={(e) => setCheckedPassword(e.target.value)}
+                onKeyUp={(e) => {
+                  PasswordMatchCheck('validMatchPW', e);
+                }}
+              />
+              <button type='submit' className='change-btn-password'>변경</button>
+            </div>
+
+            {/* 확인 비밀번호 유효성 검사메세지는 message.validMatchPW 가 truthy 할때만 나타나도록 해야 한다. */}
+            {message.validMatchPW && <p className='PasswordValidation'>{message.validMatchPW}</p>}
+            {/* 비밀번호 일치 검사메세지는 message.matchPW 가 truthy 할때만 나타나도록 해야 한다. */}
+            {message.matchPW && <p className='PasswordMatchCheck'>{message.matchPW}</p>}
 
           </div>
         </form>
 
       </div>
 
-
       {/* 닉네임 변경 폼 */}
-      <form onSubmit={requestNickName} className="form__nickname">
+      <form onSubmit={requestNickName} className='form__nickname'>
 
-        <div className="form__div__nickname">
-          <div className="form__div__nickname-btn-flex-box">
+        <div className='form__div__nickname'>
+          <div className='form__div__nickname-btn-flex-box'>
             <input
               type='text' name='nickName' id='nickName' value={user.nickName}
               required
               onChange={(e) =>
                 handleInputValue('nickName', e.target.value)}
             />
-            <button className="check-duplicate-btn-nickname" onClick={(e) => CheckDuplicateNickname('duplicatedNick', e)}>중복확인</button>
+            <button className='check-duplicate-btn-nickname' onClick={(e) => CheckDuplicateNickname('duplicatedNick', e)}>중복확인</button>
             {/* 중복확인 메세지는 message.duplicatedNick 가 truthy 할때만 나타나도록 해야 한다. */}
-            <button type='submit' className="change-btn-nickname">변경</button>
+            <button type='submit' className='change-btn-nickname'>변경</button>
           </div>
-            {message.duplicatedNick && <p className='CheckDuplicateNickname'>{message.duplicatedNick}</p>}
-          
+          {message.duplicatedNick && <p className='CheckDuplicateNickname'>{message.duplicatedNick}</p>}
+
         </div>
       </form>
 
-
       {/* userInfo.admin === 'artist' input 안 보이게 하고, p 는 아티스트 라고 보여주기 */}
-      <div className="admin-change">
-        <div className="admin__change-box">
+      <div className='admin-change'>
+        <div className='admin__change-box'>
           <input type='checkbox' name='' id='' onChange={() => { handleCheckAdmin(); }} />
           <p>아티스트 계정으로 전환하기</p>
         </div>
@@ -441,10 +434,10 @@ function MyPage ({ handleNotice }) {
       {/* 프로필 변경 폼  */}
       {/* <div className="form__profile-image_delete-btn">
         <form className="form__profile-image" onSubmit={(e) => requestChangeProfileImage(e)}> */}
-          {/* 이미지 수정을 했을 경우  src={user.profile} */}
-          {/* 기본 이미지로 했을 경우  src={userInfo.profile} */}
-          {/* <div className="profile-image" style={{backgroundImage : `url(${user.profile || userInfo.profile})`}}/> */}
-          {/* <img src={user.profile || userInfo.profile} alt='프로필 이미지' />
+      {/* 이미지 수정을 했을 경우  src={user.profile} */}
+      {/* 기본 이미지로 했을 경우  src={userInfo.profile} */}
+      {/* <div className="profile-image" style={{backgroundImage : `url(${user.profile || userInfo.profile})`}}/> */}
+      {/* <img src={user.profile || userInfo.profile} alt='프로필 이미지' />
           <label htmlFor='imgFile' className="add-profile-image-btn">+</label>
           <input
             type='file' name='img' id='imgFile'
@@ -455,7 +448,6 @@ function MyPage ({ handleNotice }) {
         </form>
         <button onClick={requestDeleteProfileImage}>이미지 삭제</button>
       </div> */}
-
 
       <button className='with-drawal-btn' onClick={(e) => showWithDrawalModal(e)}>회원 탈퇴</button>
       {isWithDrawalModalOpen && <WithDrawalModal visible={isWithDrawalModalOpen} setIsWithDrawalModalOpen={setIsWithDrawalModalOpen} />}
