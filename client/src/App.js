@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isLoginHandler, getAccessToken, getUserInfo, isLoadingHandler } from './Redux/actions/actions';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
-import Loding from './Components/Login';
 import Main from './Pages/Main';
 import Footer from './Components/Footer';
 import Visualizer from './Pages/Visualizer';
+// import Visualizer2 from './Pages/Visualizer/backup4'
 import TrackDetails from './Pages/TrackDetails';
-import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
@@ -51,7 +50,6 @@ function App () {
       dispatch(isLoadingHandler(true));
       if (cookies.get('refreshToken')) {
         const token = await refreshTokenRequest();
-        console.log(token);
         if (token) {
           // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
           dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
@@ -141,9 +139,6 @@ function App () {
           </Route>
           <Route path='/modicreate/:id'>
             <ModiCreate handleNotice={handleNotice} isLoading={isLoading} />
-          </Route>
-          <Route path='/sidebar'>
-            <Sidebar />
           </Route>
           <Route path='/searchtrack'>
             <SearchTrack handleNotice={handleNotice} isLoading={isLoading} />
