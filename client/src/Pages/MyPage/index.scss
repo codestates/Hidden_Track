@@ -1,12 +1,292 @@
-.sign-out-btn {
-  cursor: pointer;
+@import url('https://fonts.googleapis.com/css2?family=Allison&family=Architects+Daughter&family=Dancing+Script&family=Hina+Mincho&family=Lobster&family=Pacifico&display=swap');
+@import '../../Components/Nav/index.scss';
+
+
+
+.my-page-container {
+
+  background: #000;
+  opacity: .95;
+  padding-top: 30px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding-bottom: 300px;
+
+  .nickName-title {
+    font-size: 25px;
+    color: #fff;
+    margin-bottom: 60px;
+
+
+  }
+
+
+  .user-nickName {
+    color: #fff;
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+
+
+    /* White glow */
+    &:hover {
+      text-shadow:
+        0 0 7px rgb(254, 3, 128), 0 0 10px rgb(254, 3, 128), 0 0 21px rgb(254, 3, 128)
+    }
+  }
+
 }
 
-.profile-image {
-  width: 300px;
-  height: 300px;
+.form__password {
+  width: 900px;
+  // background-color: red;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
 
-  img {
-    object-fit: cover;
+
+
+
+  .form__div__password {
+    height: 100px;
+    // background-color: skyblue;
+    width: 800px;
+    margin: 0 auto;
+
+
+
+    .form__div__password-flex-box {
+      display: flex;
+      // background-color: burlywood;
+      width: 700px;
+      justify-content: space-between;
+    }
+
+    input {
+      height: 50px;
+      width: 550px;
+      outline: none;
+      padding-left: 10px;
+      display: block;
+    }
+
+    p {
+      font-size: 15px;
+      margin: 0;
+      padding: 0;
+      margin-top: 5px;
+      width: 540px;
+      margin-left: -10px;
+    }
+
+    &:nth-of-type(3) {
+      // background-color: green;
+      position: relative;
+
+      p {
+        width: 210px;
+      }
+
+
+      .change-btn-password {
+
+        height: 50px;
+        width: 50px;
+        margin-right: 30px;
+      }
+    }
   }
+
+}
+
+.div__form__password_profile-image {
+  // background-color: rebeccapurple;
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+
+  .form__profile-image_delete-btn {
+    // background-color: greenyellow;
+    width: 200px;
+
+
+    .form__profile-image {
+      position: relative;
+
+      .add-profile-image-btn {
+        font-size: 100px;
+        // color: yellow;
+        cursor: pointer;
+        position: absolute;
+        top: 24%;
+        right: 37%;
+      }
+
+      img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid;
+        border-radius: 50%;
+      }
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+.form__nickname {
+
+  // background-color: rebeccapurple;
+  width: 1200px;
+
+  margin-top: 50px;
+
+  .form__div__nickname {
+    // background-color: red;
+    display: flex;
+    // height: 90px;
+    width: 900px;
+    flex-flow: column;
+    margin-left: 255px;
+
+
+    .form__div__nickname-btn-flex-box {
+      display: flex;
+      justify-content: space-between;
+      width: 700px;
+      // background-color: skyblue;
+      margin-left: 45px;
+    }
+
+    input {
+      height: 50px;
+      width: 400px;
+      outline: none;
+      padding-left: 10px;
+    }
+
+  }
+
+  p {
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    margin-left: 50px;
+
+    width: 160px;
+
+  }
+
+  .check-duplicate-btn-nickname {
+    height: 50px;
+  }
+
+  .change-btn-nickname {
+    height: 50px;
+    width: 50px;
+    margin-right: 30px;
+  }
+
+}
+
+.admin-change {
+  width: 1200px;
+  // background-color: rebeccapurple;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+
+  .admin__change-box {
+    display: flex;
+    width: 500px;
+    // background-color: red;
+    margin: 0 auto;
+    justify-content: space-around;
+    align-items: center;
+
+    input[type="checkbox"] {
+      zoom: 2.5;
+      margin-left: 5px;
+    }
+
+    p {
+      width: 350px;
+      font-size: 20px;
+      color: #fff;
+    }
+  }
+}
+
+.form__my-page__Condition {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: relative;
+  // background-color: rebeccapurple;
+
+  div[class^="form__div__"] {
+    height: 80px;
+    width: 800px;
+    // background-color: red;
+
+    &:nth-of-type(2) {
+      display: flex;
+      flex-flow: column;
+      padding-left: 24%;
+      height: 100px;
+    }
+  }
+
+  input {
+    height: 40px;
+    width: 500px;
+    outline: none;
+    padding-left: 10px;
+  }
+
+  label {
+    color: #fff;
+    display: block;
+    width: 50px;
+    // background-color: greenyellow;
+  }
+
+  label:not(.debut-date) {
+    position: absolute;
+    @include widthHeight(1px, 1px);
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    -webkit-clip-path: polygon(0 0, 0 0, 0 0);
+    clip-path: polygon(0 0, 0 0, 0 0);
+  }
+
+
+
+
+  .change-admin-btn {
+    position: absolute;
+    bottom: -45px;
+    right: 340px;
+    height: 45px;
+  }
+
+
+
+}
+
+.with-drawal-btn {
+  position: absolute;
+  top: 100px;
+  right: 200px;
 }
