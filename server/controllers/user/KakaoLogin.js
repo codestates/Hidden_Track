@@ -41,13 +41,15 @@ module.exports = async (req, res) => {
       await user.update({RT: refreshToken},{
         where: { id: userInfo.id }
       })
-        console.log('asdasdasd') 
+      
      //refreshToken은 쿠키로 accesstoken은 body로.
       sendRefreshToken(res, refreshToken);
-      console.log("asdasdasdasdasdasdasdasdasd")
-      res.status(200).json({ data : accessToken ,message:'asdasdasd'})
+     
+      res.status(200).json({ data : accessToken ,message:'ok'})
      })
-   })
+   }).catch(err)(
+     res.status(401).json({message: 'unauthorized'})
+   )
   }catch(err){
     res.status(500).json({message:"error"});
   }
