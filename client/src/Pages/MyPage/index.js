@@ -285,7 +285,7 @@ function MyPage ({ handleNotice }) {
       },
       { headers: { accesstoken: accessToken } }
 
-    ).then(res => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
+    ).then(async (res) => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
       console.log('계정 전환 요청 응답', res);
       if (res.status === 200) {
         // setState
@@ -294,7 +294,7 @@ function MyPage ({ handleNotice }) {
         handleInputValue('email', user.userArtist.email, 'useArtist');
 
         // 리덕스 updata
-        const result = accessTokenRequest(res.data.data);
+        const result = await accessTokenRequest(res.data.data);
         dispatch(getUserInfo(result));
         dispatch(getAccessToken(res.data.data));
         handleNotice('계정 전환이 되었습니다', 2000);

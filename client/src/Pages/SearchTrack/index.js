@@ -8,7 +8,7 @@ import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
 import './index.scss';
 
-function SearchTrack ({ handleNotice, isLoading }) {
+function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const location = useLocation();
