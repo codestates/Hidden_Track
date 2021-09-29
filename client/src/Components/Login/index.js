@@ -15,6 +15,7 @@ import KakaoLogin from './KakaoLogin';
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
+axios.defaults.withCredentials = true;
 function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
   const dispatch = useDispatch();
