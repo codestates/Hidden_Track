@@ -22,7 +22,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome, hidden_track!!!!? Server!");
+  res.status(200).send("Welcome, hidden_track??!? Server!");
 });
 
 // db.sequelize
