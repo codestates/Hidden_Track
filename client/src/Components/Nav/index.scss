@@ -47,16 +47,12 @@ body {
 }
 
 .navigation {
-
   @include flexBox(flex, space-between, center, _, 0 70px);
   @include widthHeight(_, 150px);
 
-
-
   a {
     text-decoration: none;
-    // color: black
-    color:#fff;
+    color: black
   }
 
   h1 {

@@ -84,26 +84,38 @@ function App () {
 
   useEffect(() => {
     // 소셜 로그인시 메인 페이지로 리다이렉트 됨 -> 받아온 authorization code로 서버에 accesstoken 요청하는 함수
-    if (authorizationCode) {
-      axios.post(`${process.env.REACT_APP_API_URL}/user/kakaologin`, {
-        authorizationCode
-      })
-        .then(res => {
-          console.log(res.data);
-          if (res.status === 200) {
-          // 서버에서 응답으로 리프레시 토큰, 액세스 토큰 옴
-          // 받은 액세스 토큰을 전역상태에 저장
-          // 액세스 토큰으로 유저정보 요청
-          // 로그인 상태 true
-            dispatch(isLoginHandler(true));
-          }
+    function getToken () {
+      if (authorizationCode) {
+        dispatch(isLoadingHandler(true));
+        axios.post(`${process.env.REACT_APP_API_URL}/user/kakaologin`, {
+          authorizationCode
         })
-        .catch(err => {
-          if (err.reponse) {
-          // 서버에서 에러처리한 코드 에러 핸들링
-          } else console.log(err);
-        });
+          .then(async (res) => {
+            console.log(res.data);
+            if (res.status === 200) {
+              // 서버에서 응답으로 리프레시 토큰(쿠키), 액세스 토큰 옴
+              // 받은 액세스 토큰을 전역상태에 저장
+              dispatch(getAccessToken(res.data.data));
+              // 액세스 토큰으로 유저정보 요청
+              const userInfo = await accessTokenRequest(res.data.data);
+              // 유저정보 전역 상태에 저장
+              dispatch(getUserInfo(userInfo));
+              // 로그인 상태 true
+              dispatch(isLoadingHandler(false));
+              dispatch(isLoginHandler(true));
+            }
+          })
+          .catch(err => {
+            if (err.reponse) {
+              // 서버에서 에러처리한 코드 에러 핸들링
+              if (err.reponse.status === 401) handleNotice('로그인에 실패하였습니다.', 5000); // code가 서버에 전달되지 않는 경우
+              if (err.reponse.status === 500) handleNotice('요청이 거부 되었습니다.', 5000);
+            } else console.log(err);
+          });
+        dispatch(isLoadingHandler(false));
+      }
     }
+    getToken();
   }, []);
 
   // window.addEventListener('unload', () => {
