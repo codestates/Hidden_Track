@@ -21,6 +21,7 @@ import axios from 'axios';
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
+  const cookies = new Cookies();
 
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
   const authorizationCode = new URL(window.location.href).searchParams.get('code');
@@ -45,7 +46,6 @@ function App () {
   }, [notice]);
 
   useEffect(() => {
-    const cookies = new Cookies();
     async function tokenRequest () {
       dispatch(isLoadingHandler(true));
       if (cookies.get('refreshToken')) {
@@ -106,6 +106,12 @@ function App () {
     }
   }, []);
 
+  // window.addEventListener('unload', () => {
+  //   // 브라우저 창 닫으면 리프레시 토큰 삭제해서 로그아웃 시킴
+  //   cookies.remove('refreshToken')
+  //   // 만약 로그인 상태유지 체크 누른 상태라면 브라우저 닫아도 쿠키 삭제 x
+  // })
+
   return (
     <>
       <div className='nav-container'>
@@ -141,7 +147,7 @@ function App () {
             <ModiCreate handleNotice={handleNotice} isLoading={isLoading} />
           </Route>
           <Route path='/searchtrack'>
-            <SearchTrack handleNotice={handleNotice} isLoading={isLoading} />
+            <SearchTrack handleNotice={handleNotice} />
           </Route>
           <Route path='/searchtrack/:id'>
             <SearchTrack handleNotice={handleNotice} />
