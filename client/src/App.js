@@ -26,9 +26,10 @@ function App () {
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
   const authorizationCode = new URL(window.location.href).searchParams.get('code');
   // const keepLogin = new URL(window.location.href).searchParams.get("state");
+  //const email = new URL(window.location.href).searchParams.get('account_email');
   console.log('소셜 로그인시 받은 authorization code', authorizationCode);
   // console.log(keepLogin)
-
+   //console.log('email',email)
   const [notice, setNotice] = useState([]);
 
   // 알림 추가, 삭제 핸들러
@@ -96,6 +97,7 @@ function App () {
           // 받은 액세스 토큰을 전역상태에 저장
           // 액세스 토큰으로 유저정보 요청
           // 로그인 상태 true
+          dispatch(isLoginHandler(true));
           }
         })
         .catch(err => {
