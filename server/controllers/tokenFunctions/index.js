@@ -25,6 +25,7 @@ module.exports = {
     sendRefreshToken: (res, refreshToken) => {
       res.cookie("refreshToken", refreshToken, {
         HttpOnly: true,
+        maxAge: 60 * 60 * 24 * 1000,
         Secure: true, //배포 환경에서는 true로.
         SameSite: "None", //배포환경에서는 hiddentrack만..
       });
