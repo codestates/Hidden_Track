@@ -17,13 +17,13 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const playList = useSelector(state => state.playListReducer.playList);
-  // console.log('사이드바 플레이리스트', playList);
+  console.log('사이드바 플레이리스트', playList);
   const dispatch = useDispatch();
   // console.log('사이드바 오픈',isSidebarOpen)
   // console.log('사이드바 로그인 상태',isLogin)
   // console.log('사이드바',playList);
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState('');
+  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
   // console.log(playList);
@@ -33,6 +33,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
         .then(res => {
           if (res.status === 200) {
             // console.log(res.data);
+            console.log('플레이리스트', res.data);
             dispatch(inputPlayList(res.data.playlist));
             // setCrrentMusic(playList[res.data.playlist.length - 1]);
             // audio.current.pause();
@@ -93,13 +94,13 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   }
 
   // 재생목록에서 곡 삭제 함수
-  function handleDeleteMusic (e, index) {
+  function handleDeleteMusic (e, index, trackId) {
     e.preventDefault();
     isLogin
-      ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
+      ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist`, { id: trackId }, { headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
-            axios.get(`${process.env.REACT_APP_API_URL}/playlist/playlist`)
+            axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
               .then(res => {
                 if (res.status === 200) {
                   dispatch(inputPlayList(res.data.playList));
@@ -205,6 +206,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
               return (
                 <PlayList
                   key={el.id}
+                  trackId={el.id}
                   num={idx}
                   music={el}
                   handleChangeMusic={handleChangeMusic}
