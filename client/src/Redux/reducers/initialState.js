@@ -23,9 +23,12 @@ export const initialState = {
       debut: '2008.12.12'
     }
   },
-  onClickModify: {
-    // onClickModify: true
-    onClickModify: false
+  // onClickModify: {
+  // onClickModify: true
+  //   onClickModify: false
+  // },
+  isLoading: {
+    isLoading: false
   },
   trackList: [
     {

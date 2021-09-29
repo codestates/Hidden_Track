@@ -26,9 +26,9 @@
     padding: 10px 0;
     overflow: hidden;
   
-    .genre-image {
+    .genre-bg {
       cursor: pointer;
-      background-color: white;
+      // background-color: white;
       margin: 0.5% 1% 0.5% 1% ;
       // flex: 1 1 auto;
       width: 180px;
@@ -43,42 +43,55 @@
       position: relative;
       z-index: 1;
       
+      outline: white solid 3px;
+
       .genre-name {
         font-size: 2em;
         font-family: serif;
+        color: #fff;
+        // text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
+        // 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
+        text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #e01059,
+        0 0 82px #e01059, 0 0 92px #e01059, 0 0 102px #e01059, 0 0 151px rgb(255, 17, 0);
       }
     }
 
-    .genre-image[value=Jazz]::after {
-      background-image: url('../../assets/jazz.jpg');
-      @extend %genre-bg
-    }
-    .genre-image[value=HipHop]::after {
-      background-image: url('../../assets/hiphop.jpg');
-      @extend %genre-bg
-    }
-    .genre-image[value=Rock]::after {
-      background-image: url('../../assets/rock.jpg');
-      @extend %genre-bg
-    }
-    .genre-image[value=Ballad]::after {
-      background-image: url('../../assets/ballad.jpg');
-      @extend %genre-bg
-    }
-    .genre-image[value='R&B']::after {
-      background-image: url('../../assets/hiphop.jpg');
-      @extend %genre-bg
-    }
+    // .genre-bg[value=Jazz]::after {
+    //   background-image: url('../../assets/jazz.jpg');
+    //   @extend %genre-bg
+    // }
+    // .genre-bg[value=HipHop]::after {
+    //   background-image: url('../../assets/hiphop.jpg');
+    //   @extend %genre-bg
+    // }
+    // .genre-bg[value=Rock]::after {
+    //   background-image: url('../../assets/rock.jpg');
+    //   @extend %genre-bg
+    // }
+    // .genre-bg[value=Ballad]::after {
+    //   background-image: url('../../assets/ballad.jpg');
+    //   @extend %genre-bg
+    // }
+    // .genre-bg[value='R&B']::after {
+    //   background-image: url('../../assets/hiphop.jpg');
+    //   @extend %genre-bg
+    // }
   }
   
-  .genre-image:hover {
+  .genre-bg:hover {
     // background-color: white;
     font-weight: bold;
     transform: scale(1.1);
     transition: .3s;
   }
   
-  .selected-genre {
+  .selected-genre-bg {
+    // background-color: white;
+    // outline: white solid 3px;
+  }
+  
+  .selected-genre-name {
     font-weight: bold;
+
   }
 }

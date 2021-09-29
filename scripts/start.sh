@@ -1,4 +1,5 @@
 #!/bin/bash
+
 cd /home/ubuntu/hidden_track/server
 
 export DATABASE_USER=$(aws ssm get-parameters --region ap-northeast-2 --names DATABASE_USER --query Parameters[0].Value | sed 's/"//g')

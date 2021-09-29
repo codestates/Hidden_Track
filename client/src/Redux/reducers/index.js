@@ -8,7 +8,8 @@ import {
   INPUT_MUSIC,
   DELETE_MUSIC,
   ACCESS_TOKEN,
-  CLICK_MODIFY
+  // CLICK_MODIFY,
+  IS_LOADING
   // TRACK_LIST
 } from '../actions/actions';
 import { initialState } from './initialState';
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   playListReducer,
   trackDetailReducer,
   accessTokenReducer,
-  modifyReducer
+  // modifyReducer,
+  loadingIndicatorReducer
   // trackListReducer
 });
 
@@ -93,11 +95,21 @@ function accessTokenReducer (state = initialState.accessToken, action) {
   }
 }
 
-function modifyReducer (state = initialState.onClickModify, action) {
+// function modifyReducer (state = initialState.onClickModify, action) {
+//   switch (action.type) {
+//     case CLICK_MODIFY:
+//       return Object.assign({}, {
+//         onClickModify: action.payload.onClickModify
+//       });
+//     default: return state;
+//   }
+// }
+
+function loadingIndicatorReducer (state = initialState.isLoading, action) {
   switch (action.type) {
-    case CLICK_MODIFY:
+    case IS_LOADING:
       return Object.assign({}, {
-        onClickModify: action.payload.onClickModify
+        isLoading: action.payload.isLoading
       });
     default: return state;
   }

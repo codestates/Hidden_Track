@@ -15,10 +15,10 @@ router.post('/good',trackController.good);
 router.get('/hashtag/:tag',trackController.hashtag.get);
 router.get('/genre/:genre',trackController.genre.get);
 
-router.post('/trackimage',trackImage.single("trackimage"),trackController.trackimage.post);
-router.patch('/trackimage',trackImage.single("trackimage"),trackController.trackimage.post);
+router.post('/trackimage',trackImage.single("trackimage"),trackController.trackimage);
+router.patch('/trackimage',trackImage.single("trackimage"),trackController.trackimage);
 
-router.post('/trackfile',trackFile.single("trackfile"),trackController.trackfile.post);
-router.patch('/trackfile',trackFile.single("trackfile"),trackController.trackfile.post);
+router.post('/trackfile',trackFile.single("trackfile"),trackController.trackfile);
+router.patch('/trackfile',trackFile.single("trackfile"),trackController.trackfile);
 
 module.exports = router;

@@ -9,6 +9,7 @@ import { getAccessToken, getUserInfo, isLoginHandler, isLoginModalOpenHandler } 
 
 // 컴포넌트 import
 import Portal from './Portal';
+import KakaoLogin from './KakaoLogin';
 
 // 함수 import
 import { accessTokenRequest } from '../../Components/TokenFunction';
@@ -172,6 +173,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
             </button>
             <button onClick={(e) => handleSignUpBtn(e)}>회원가입</button>
             <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button>
+            <KakaoLogin />
             <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}>X</label>
             <button id='modal-close-btn' style={{ display: 'none' }} />
           </fieldset>

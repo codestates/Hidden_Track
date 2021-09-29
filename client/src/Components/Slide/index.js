@@ -1,11 +1,14 @@
 // 라이브러리
 import React, { useEffect, useState } from 'react';
-import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+import '../slick-carousel/slick/slick.css';
+import '../slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 
 // 컴포넌트 import
-import Slider from 'react-slick';
+import Slider from '../react-slick';
 
 import './index.scss';
 import playList from '../../DummyData/playList';

@@ -174,11 +174,9 @@ module.exports = {
         trackId: id,
         hashtagId : findHashTag.dataValues.id
        }       
-       }
-      )
+       })
    }
     res.status(200).json( {trackId: id } );
-
    },
    delete :  async (req,res) =>{ 
     

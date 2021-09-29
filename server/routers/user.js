@@ -18,4 +18,7 @@ router.post('/profile', upload.single("profile"),userController.profile.post);
 router.patch('/profile', upload.single("profile"),userController.profile.patch);
 router.delete('/profile', userController.profile.delete);
 
+router.post('/kakaologin',userController.kakaologin)
+
+router.post 
 module.exports = router;

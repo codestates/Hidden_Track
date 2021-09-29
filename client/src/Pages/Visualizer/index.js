@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import { getTrackDetails, getUserInfo } from '../../Redux/actions/actions';
 import playPause from '../../assets/playPause.png';
 import axios from 'axios';
 import './index.scss';
 
 axios.defaults.withCredentials = true;
 
-function Visualizer () {
+function Visualizer ({ handleNotice }) {
   // const audioCtx = new AudioContext();
   // console.log(audioCtx);
   // redux에 저장된 state 가져오기
+  const loca = useLocation();
+  const trackId = loca.pathname.split('/')[2];
+  const { track } = useSelector(state => state.trackDetailReducer);
   const audio = useRef();
   const canvas = useRef();
-  const playList = useSelector(state => state.playListReducer.playList);
+  // const playList = useSelector(state => state.playListReducer.playList);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,11 +26,11 @@ function Visualizer () {
   const width = window.innerWidth;
   const height = window.innerHeight;
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
-  console.log('비주얼 현재곡', crrentMusic);
+  // const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
+  // console.log('비주얼 현재곡', crrentMusic);
   const [isPlay, setIsPlay] = useState(false);
   const img = new Image();
-  img.src = crrentMusic.img;
+  img.src = track.img;
   // const audio = new Audio()
   // audio.src = crrentMusic.soundtrack
   // audio.crossOrigin = 'anonymous'
@@ -36,16 +40,25 @@ function Visualizer () {
   // source.connect(analyser);
   // analyser.connect(context.destination);
   // const frequency_array = new Uint8Array(analyser.frequencyBinCount);
-
+  console.log('context', context);
   useEffect(() => {
-    context = context || new AudioContext();
-    source = source || context.createMediaElementSource(audio.current);
-    console.log(source);
-    analyser = context.createAnalyser();
-    source.connect(analyser);
-    analyser.connect(context.destination);
-    frequency_array = new Uint8Array(analyser.frequencyBinCount);
-    console.log(context);
+    // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
+
+    axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`)
+      .then(res => {
+        if (res.status === 200) dispatch(getTrackDetails(res.data));
+      })
+      .catch(err => {
+        console.log(err.response);
+        if (err.response) {
+          if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
+          if (err.response.status === 404) {
+            handleNotice('해당 게시글을 찾을 수 없습니다.', 5000);
+            history.push('/');
+          }
+        } else console.log(err);
+      });
+
     // audio.current.autoplay=true
     // audio.current.volume='0.1'
     // audio.current.crossOrigin='anonymous'
@@ -56,6 +69,17 @@ function Visualizer () {
       source.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    context = context || new AudioContext();
+    source = source || context.createMediaElementSource(audio.current);
+    console.log(source);
+    analyser = context.createAnalyser();
+    source.connect(analyser);
+    analyser.connect(context.destination);
+    frequency_array = new Uint8Array(analyser.frequencyBinCount);
+    console.log(context);
+  }, [track]);
 
   function animationLooper (canvas) {
     if (canvas === null) return;
@@ -160,8 +184,8 @@ function Visualizer () {
           <img className='inner-circle-img' src={crrentMusic.img} alt={crrentMusic.title} />
         </div> */}
       <div className='inner-circle-control'>
-        <div className='inner-circle-title'>{crrentMusic.title}</div>
-        <div className='inner-circle-artist'>{crrentMusic.user.nickName}</div>
+        <div className='inner-circle-title'>{track.title}</div>
+        <div className='inner-circle-artist'>{track.user.nickName}</div>
         <button className='inner-circle-button' onClick={() => { togglePlay(); }}>
           <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />
         </button>
@@ -175,7 +199,7 @@ function Visualizer () {
         ref={audio}
         volume={0.2}
         crossOrigin='anonymous'
-        src={crrentMusic.soundTrack}
+        src={track.soundtrack}
       />
     </div>
   );

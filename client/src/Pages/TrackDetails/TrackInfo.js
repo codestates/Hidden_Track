@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, isClickModify } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
 import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
@@ -9,7 +9,7 @@ import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 import HashTag from '../../Components/HashTag';
 
-function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userInfo, handleNotice }) {
+function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,7 +22,6 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
-
   useEffect(() => {
     if (listenBtn) {
       addPlaylist();
@@ -94,7 +93,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       else if (check && listenBtn) {
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
-        return history.push('/visual');
+        return history.push(`/visual/${trackId}`);
       } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
@@ -114,7 +113,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
         else {
           // 바로 듣기 버튼을 눌렀다면 비주얼 페이지로 이동
           setListenBtn(false);
-          return history.push('/visual');
+          return history.push(`/visual/${trackId}`);
         }
       }
     } else {
@@ -127,7 +126,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
       else if (check && listenBtn) {
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
-        return history.push('/visual');
+        return history.push(`/visual/${trackId}`);
       } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist`, {
@@ -148,7 +147,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
                     // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
                     else {
                       setListenBtn(false);
-                      return history.push('/visual');
+                      return history.push(`/visual/${trackId}`);
                     }
                   } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
                 })
@@ -182,8 +181,8 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
   // 수정 버튼 클릭시 게시글 수정창으로 이동하는 함수
   function clickModifyBtn (e) {
     e.preventDefault();
-    dispatch(isClickModify(true));
-    history.push('/modicreate');
+    // dispatch(isClickModify(true));
+    history.push(`/modicreate/${trackId}`);
   }
 
   return (
@@ -220,7 +219,7 @@ function TrackInfo ({ isLogin, isLoginModalOpen, accessToken, trackDetail, userI
           </button>
           <span>{trackDetail.like}</span>
         </div>
-        {isLogin && userInfo.nickName === trackDetail.track.user.nickname
+        {isLogin && userInfo.nickName === trackDetail.track.user.nickName
           ? <div>
             <button className='contents__btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
             <button className='contents__btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
