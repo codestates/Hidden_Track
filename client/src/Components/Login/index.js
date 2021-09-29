@@ -15,7 +15,7 @@ import KakaoLogin from './KakaoLogin';
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
-axios.defaults.withCredentials = true;
+
 function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     };
 
     // 로그인 요청 서버에 보냄
-    axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
+    axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body, { withCredentials: true })
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
           // 1. accessToken 을 리덕스 state 에 저장해야 한다.
