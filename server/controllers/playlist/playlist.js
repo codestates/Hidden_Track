@@ -63,25 +63,21 @@ module.exports =  {
          }
 
         const findPlaylist = await playlist.findAll({
-            where : { userId : accessTokenData.id}
-        })
-
-        let allPlaylist = [];
-
-        for(let i =0; i<findPlaylist.length;i++){
-            const findTrack = await track.findOne({
-                where : { id : findPlaylist[i].dataValues.trackId },
-                include: {
+            where : { userId : accessTokenData.id},
+            attributes : ["id"],
+            include: {
+                model : track,
+                required : true,
+                attributes:["id","title","img","genre","releaseAt"],
+                include : {
                     model : user,
-                    required : true,
+                    require : true,
                     attributes : ["nickName"]
                 }
-            })
-
-            allPlaylist.push(findTrack.dataValues)
-        }
-        console.log(allPlaylist)
-        res.status(200).json({playlist: allPlaylist , playlist: findPlaylist });
+            }
+        })
+        
+        res.status(200).json({playlist: findPlaylist});
     }
  }
      
