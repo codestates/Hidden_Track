@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { password } = require('.');
 const { user } = require("../../models");
 const {
   generateAccessToken,
