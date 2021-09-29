@@ -9,7 +9,9 @@
   width: 90px;
   padding: 10px 0;
 
-  .popular {
+  .popular,
+  .recent {
     // background-color: aqua;
+    cursor: pointer;
   }
 }

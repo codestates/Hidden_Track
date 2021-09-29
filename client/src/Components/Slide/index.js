@@ -36,9 +36,14 @@ function Slide () {
 
   const [isPopularList, setPopularList] = useState(playList);
 
-  function handleRecent () {
+  function handleRecent (e) {
     // axios.get('http://localhost:4000/recentList')
     // .then(res => playList = recentList)
+    e.preventDefault()
+  }
+
+  function handlePopular(e){
+    e.preventDefault()
   }
 
   return (
@@ -46,8 +51,8 @@ function Slide () {
       {/* <SlideTitle>인기 서비스</SlideTitle> */}
       {/* <ul> */}
       <div className='slide-btn'>
-        <span className='popular'>인기</span>
-        <span className='recent' onClick={() => { handleRecent(); }}>최신</span>
+        <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
+        <span className='recent' onClick={(e) =>  handleRecent(e) }>최신</span>
       </div>
       <StyledSlider {...settings}>
         {playList.map((slider, i) => {

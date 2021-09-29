@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isLoginHandler, getAccessToken, getUserInfo, isLoadingHandler } from './Redux/actions/actions';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
-import Loding from './Components/Login';
 import Main from './Pages/Main';
 import Footer from './Components/Footer';
 import Visualizer from './Pages/Visualizer';
+// import Visualizer2 from './Pages/Visualizer/backup4'
 import TrackDetails from './Pages/TrackDetails';
-import Sidebar from './Components/Nav/Sidebar';
 import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
@@ -22,6 +21,7 @@ import axios from 'axios';
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
+  const cookies = new Cookies();
 
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
   const authorizationCode = new URL(window.location.href).searchParams.get('code');
@@ -46,12 +46,10 @@ function App () {
   }, [notice]);
 
   useEffect(() => {
-    const cookies = new Cookies();
     async function tokenRequest () {
       dispatch(isLoadingHandler(true));
       if (cookies.get('refreshToken')) {
         const token = await refreshTokenRequest();
-        console.log(token);
         if (token) {
           // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
           dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
@@ -108,6 +106,12 @@ function App () {
     }
   }, []);
 
+  // window.addEventListener('unload', () => {
+  //   // 브라우저 창 닫으면 리프레시 토큰 삭제해서 로그아웃 시킴
+  //   cookies.remove('refreshToken')
+  //   // 만약 로그인 상태유지 체크 누른 상태라면 브라우저 닫아도 쿠키 삭제 x
+  // })
+
   return (
     <>
       <div className='nav-container'>
@@ -142,11 +146,8 @@ function App () {
           <Route path='/modicreate/:id'>
             <ModiCreate handleNotice={handleNotice} isLoading={isLoading} />
           </Route>
-          <Route path='/sidebar'>
-            <Sidebar />
-          </Route>
           <Route path='/searchtrack'>
-            <SearchTrack handleNotice={handleNotice} isLoading={isLoading} />
+            <SearchTrack handleNotice={handleNotice} />
           </Route>
           <Route path='/searchtrack/:id'>
             <SearchTrack handleNotice={handleNotice} />

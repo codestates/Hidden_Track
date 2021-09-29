@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import axios from 'axios';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+// import { useHistory } from 'react-router';
+// import axios from 'axios';
 import kakao_login_medium_narrow from '../../assets/kakao_login_medium_narrow.png';
 import './KakaoLogin.scss';
 

@@ -2,6 +2,7 @@
 
 body {
   margin: 0;
+
 }
 
 @mixin flexBox($display, $justify, $align, $margin, $padding) {
@@ -33,6 +34,7 @@ body {
   font-size: 18px;
   text-align: center;
   cursor: pointer;
+  color: #fff
 }
 
 %a11yHidden {
@@ -45,15 +47,17 @@ body {
 }
 
 .navigation {
+
   @include flexBox(flex, space-between, center, _, 0 70px);
   @include widthHeight(_, 150px);
 
+  background-color: rgba(0, 0, 0, 0.95);
+
   a {
     text-decoration: none;
-    color: black
+    // color: black
+    color:#fff;
   }
-
-  ;
 
   h1 {
     @extend %h1
@@ -67,8 +71,11 @@ body {
   @include widthHeight(230px, _);
   position: relative;
 
+
   button[class^="navigation__"] {
-    @extend %navigationButton
+    @extend %navigationButton;
+    // color: #fff;
+
   }
 
   ;
@@ -103,12 +110,16 @@ body {
     left: -10%;
     list-style: none;
     padding: 0;
+    // color: #fff;
+    // color: red;
+
 
     li {
       margin-top: 10px;
       text-align: center;
       font-size: 18px;
       cursor: pointer;
+      // z-index: 30;
     }
   }
 
@@ -128,4 +139,32 @@ body {
 
 .hide {
   display: none;
+}
+
+h1 {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px rgb(254,3,128),
+        0 0 82px rgb(254,3,128), 0 0 92px rgb(254,3,128), 0 0 102px rgb(254,3,128), 0 0 151px rgb(254,3,128);
+  animation: flicker 6s infinite alternate;
+}
+
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100%{
+    text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 18px #fff, 0 0 2px rgb(254,3,128),
+      0 0 30px rgb(254,3,128), 0 0 43px rgb(254,3,128), 0 0 58px rgb(254,3,128), 0 0 83px rgb(254,3,128);
+  } 
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
 }

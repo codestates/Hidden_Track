@@ -17,16 +17,20 @@ function Footer () {
         <p>Develop by</p>
         <div className='footer__developer'>
           <a href='https://github.com/Realroot'>
-            <span className='developer'><img className='githubIcon' src={githubIcon} alt='githubIcon' /> 이윤근</span>
+              <img className='githubIcon' src={githubIcon} alt='githubIcon' /> 
+              <span className='developer'>이윤근</span>
           </a>
           <a href='https://github.com/James940522'>
-            <span className='developer'><img className='githubIcon' src={githubIcon} alt='githubIcon' /> 정재민</span>
+              <img className='githubIcon' src={githubIcon} alt='githubIcon' /> 
+              <span className='developer'>정재민</span>
           </a>
           <a href='https://github.com/Achates09'>
-            <span className='developer'><img className='githubIcon' src={githubIcon} alt='githubIcon' /> 위석량</span>
+              <img className='githubIcon' src={githubIcon} alt='githubIcon' /> 
+              <span className='developer'>위석량</span>
           </a>
           <a href='https://github.com/jjub0217'>
-            <span className='developer'><img className='githubIcon' src={githubIcon} alt='githubIcon' /> 강주현</span>
+              <img className='githubIcon' src={githubIcon} alt='githubIcon' /> 
+              <span className='developer'>강주현</span>
           </a>
         </div>
       </div>

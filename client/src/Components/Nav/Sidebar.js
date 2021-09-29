@@ -17,7 +17,7 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const playList = useSelector(state => state.playListReducer.playList);
-  console.log('사이드바 플레이리스트', playList);
+  // console.log('사이드바 플레이리스트', playList);
   const dispatch = useDispatch();
   // console.log('사이드바 오픈',isSidebarOpen)
   // console.log('사이드바 로그인 상태',isLogin)
@@ -26,13 +26,13 @@ function Sidebar ({ isSidebarOpen, showSidebar }) {
   const [crrentMusic, setCrrentMusic] = useState('');
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
-  console.log(playList);
+  // console.log(playList);
   useEffect(() => {
     if (isLogin) {
       axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch(inputPlayList(res.data.playlist));
             // setCrrentMusic(playList[res.data.playlist.length - 1]);
             // audio.current.pause();
