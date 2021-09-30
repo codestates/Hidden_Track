@@ -3,46 +3,76 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { isLoginHandler } from '../../Redux/actions/actions';
+import { isLoginHandler, getUserInfo } from '../../Redux/actions/actions';
+import { accessTokenRequest } from '../../Components/TokenFunction';
 import Portal from './Portal';
 import './WithDrawalModal.scss';
 
-function WithDrawalModal ({ visible, setIsSignOutModalOpen }) {
+function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice}) {
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const history = useHistory();
+  const accessToken = useSelector(state => state.accessTokenReducer).accessToken; // accessToken 관련
+
 
   // 회원탈퇴 모달창 밖의 배경을 누르면 모달창이 꺼지는 함수
   function handleSignOutModalBack (e) {
     e.preventDefault();
-    setIsSignOutModalOpen(false);
+    setIsWithDrawalModalOpen(false);
   }
 
+  
   // 모달창 x 버튼 누르면 모달창이 꺼지는 함수
   function handleSignOutModalCloseBtn (e) {
     e.preventDefault();
-    setIsSignOutModalOpen(false);
+    setIsWithDrawalModalOpen(false);
   }
+
+
 
   // 모달창의 예 버튼을 누르면 ( 회원탈퇴 서버 요청 & 리덕스 스테이트 업데이트 & refreshToken 삭제 & 메인페이지로 이동 ) 발생하는 이벤트
   function requestSignOut (e) {
     e.preventDefault();
 
     // 회원 정보 서버에서 삭제되어야 함
-    axios.get(`${process.env.REACT_APP_API_URL}/user/withdrawal`)
-      .then(res => {
+    axios.delete(`${process.env.REACT_APP_API_URL}/user/withdrawal`, 
+    { headers: { accesstoken: accessToken } }
+    
+    ).then(async(res) => {
+        console.log('회원탈퇴 요청 응답', res);
         if (res.status === 200) {
+          const deletedUserInfo = {
+            id: '1',
+            loginId: '',
+            profile: '',
+            nickName: '',
+
+            admin: 'artist',
+            // 만약 admin이 'artist'라면 아래 정보도 받음
+            userArtist: {
+              agency: '',
+              email: '',
+              debut: ''
+            }
+          }
+          // accessToken 빈 문자열 바꿔줘야 한다.
+          dispatch(getUserInfo(deletedUserInfo));
           dispatch(isLoginHandler(false));
           cookies.remove('refreshToken');
-          // accessToken 빈 문자열 바꿔줘야 한다.
           history.push('/');
+        }}
+    ).catch(err => {
+      if(err.response){
+        if(err.response.status === 401 ){ // <- 권한이 없을때(토큰이 이상하거나 만료되었을 경우)
+          console.log('401 에러다');
+          handleNotice('권한이 없습니다', 2000);
         }
+      }else{
+        console.log('다른 에러다', err);
+        handleNotice('잘못된 접근입니다', 2000);
       }
-      );
+    })
   }
-  /* .then(res => if()) / 회원탈퇴 성공했을때 로그인 풀려야 함 dispatch(isLoginHandler(false)) & history.push('/');
-                          / 회원탈퇴 실패했을 경우 => 프론트단에서는 뭘 해야 할까? => 현재페이지에서 이미 탈퇴한 회원입니다
-                            또는 서버단에서 실패 => 두가지 경우의 모달창? */
 
   return (
     <>

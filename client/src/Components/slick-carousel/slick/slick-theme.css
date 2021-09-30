@@ -18,15 +18,15 @@
 .slick-prev,
 .slick-next {
   position: absolute;
+  top: 50%;
   height: 20px;
   width: 50px;
   background: transparent;
-  top: 120px;
   padding: 0;
   border: none;
   outline: none;
-  z-index: 999;
 }
+
 
 .slick-prev:hover,
 .slick-prev:focus,
@@ -62,11 +62,13 @@
 
 .slick-prev {
   left: 20px;
+  background-color: transparent;
+  z-index: 1;
 }
 
 [dir="rtl"] .slick-prev {
   left: auto;
-  right: 240px;
+  right: 37px;
 }
 
 .slick-prev:before {
@@ -78,7 +80,7 @@
 }
 
 .slick-next {
-  right: 240px;
+  right: 37px;
 }
 
 [dir="rtl"] .slick-next {
@@ -95,7 +97,7 @@
 }
 
 /* Dots */
-.slick-dotted.slick-slider {
+/* .slick-dotted.slick-slider {
   margin-bottom: 30px;
 }
 
@@ -164,4 +166,4 @@
 .slick-dots li.slick-active button:before {
   color: black;
   opacity: 0.75;
-}
+} */

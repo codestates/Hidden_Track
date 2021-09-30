@@ -41,6 +41,7 @@ h1 {
     @include widthHeight(300px, 50px);
     padding-left: 20px;
     font-size: 18px;
+    outline: none
   }
 
   .keeping-login-sign-up-btn {
@@ -73,4 +74,11 @@ h1 {
     font-size: 20px;
     cursor: pointer;
   }
+}
+
+.sign-up-btn {
+  border: 0;
+  font-size: 15px;
+  background-color: transparent;
+  cursor: pointer;
 }

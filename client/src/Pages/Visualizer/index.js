@@ -21,7 +21,7 @@ function Visualizer ({ handleNotice }) {
   // const audio = useRef();
   // const canvas = useRef();
   // const playList = useSelector(state => state.playListReducer.playList);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const history = useHistory();
 
   // let context, source, analyser, ctx, frequency_array, rafId;
