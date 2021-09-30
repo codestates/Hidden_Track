@@ -138,7 +138,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           lyric: trackDetail.track.lyric,
           soundtrack: trackDetail.track.soundtrack,
           user: {
-            nickname: trackDetail.track.user.nickname
+            nickname: trackDetail.track.user.nickName
           }
         }));
         // 바로 듣기 버튼 안 눌렀다면 알림 뜸
