@@ -37,11 +37,11 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   };
 
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList.length === 0?default_crrentMusic:playList[playList.length-1]);
+  const [crrentMusic, setCrrentMusic] = useState(playList.length === 0 ? default_crrentMusic : playList[playList.length - 1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
   const [afterRender, setAfterRender] = useState(false);
-  console.log(playList[playList.length - 1])
+  console.log(playList[playList.length - 1]);
   useEffect(() => {
     clearInterval(time);
     audio.current.audio.current.onplay = () => {
@@ -60,10 +60,10 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             // console.log(res.data);
             dispatch(inputPlayList(res.data.playlist));
             console.log('플레이리스트', res.data);
-            if(res.data.playlist.length > 0){
+            if (res.data.playlist.length > 0) {
               setCrrentMusic(res.data.playlist[res.data.playlist.length - 1]);
             }
-            
+
             // audio.current.pause();
           }
         })
@@ -86,6 +86,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
 
   // 비로그인 상태일때 음원 1분재생 해주는 함수
   function play1min () {
+    console.log(audio.current);
     if (!isLogin) {
       console.log(audio.current);
       console.log(audio.current.audio.current);
@@ -298,7 +299,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         >
           {playList.length === 0
             ? <li>재생목록이 비어있습니다.</li>
-            :playList.map((el, idx) => {
+            : playList.map((el, idx) => {
               return (
                 <PlayList
                   key={el.id}
