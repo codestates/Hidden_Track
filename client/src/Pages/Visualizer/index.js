@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,7 +9,6 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 
 function Visualizer ({ handleNotice }) {
-
   // const audioCtx = new AudioContext();
   // console.log(audioCtx);
   // redux에 저장된 state 가져오기
@@ -21,7 +19,6 @@ function Visualizer ({ handleNotice }) {
   // const audio = useRef();
   // const canvas = useRef();
   // const playList = useSelector(state => state.playListReducer.playList);
-  // const dispatch = useDispatch();
   const history = useHistory();
 
   // let context, source, analyser, ctx, frequency_array, rafId;
@@ -48,7 +45,6 @@ function Visualizer ({ handleNotice }) {
   // source.connect(analyser);
   // analyser.connect(context.destination);
   // const frequency_array = new Uint8Array(analyser.frequencyBinCount);
-
 
   useEffect(async () => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌

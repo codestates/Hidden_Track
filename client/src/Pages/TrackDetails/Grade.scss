@@ -50,5 +50,7 @@ h1 {
 input:checked~.grade-label,
 .grade-label:hover,
 .grade-label:hover~.grade-label {
-  color: #73B100;
+  // color: #73B100;
+  color: #fbff00;
+  text-shadow: 0 0 1px #fbff00, 0 0 2px #fbff00, 0 0 3px #fbff00
 }

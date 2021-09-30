@@ -14,6 +14,8 @@ class Canvas extends Component {
         super(props)
         this.audio = new Audio();
         this.audio.crossOrigin = "anonymous";
+        // this.audio.crossOrigin = "use-credentials";
+        this.audio.preload = "auto"
         this.audio.src = this.props.track.soundtrack
         this.audio.volume = 0.5;
         this.canvas = createRef();

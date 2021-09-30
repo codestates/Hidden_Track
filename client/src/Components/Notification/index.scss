@@ -3,13 +3,17 @@
   position: fixed;
   z-index: 999999;
   top: 80px;
-  right: 12px;
+  // right: 12px;
+  // left: 30%;
+  height: 30px;
+  width: 100%;
+  // margin: 0 auto;
 }
 
 .notification {
   transition: transform .6s ease-in-out;
-  animation: toast-in-right .6s;
-  background: #4000c7;
+  animation: toast-in-right .8s;
+  background: #a70571;
   transition: .3s ease;
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,.6);
@@ -17,11 +21,12 @@
   opacity: .9;
   font-weight: 600;
 
-  height: 50px;
+  // height: 30px;
   width: 360px;
   color: #fff;
   padding: 15px;
-  margin: 10px;
+  // margin: 10px;
+  margin: 0 auto;
 }
 
 .fade-out {
@@ -31,9 +36,11 @@
 
 @keyframes toast-in-right {
   from {
-    transform: translateX(100%);
+    // transform: translateX(100%);
+    transform: translateY(-100%);
   }
   to {
-    transform: translateX(0);
+    // transform: translateX(0);
+    transform: translateY(0);
   }
 }

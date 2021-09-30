@@ -36,9 +36,8 @@ function MyPage ({ handleNotice }) {
     matchPW: '',
     validMatchPW: '',
     duplicatedNick: '',
-    checkNickLength: '',
+    checkNickLength: ''
   });
-
 
   // 프로필 이미지 미리보기 함수
   function ProfileImagePreview (e) {
@@ -159,34 +158,31 @@ function MyPage ({ handleNotice }) {
     );
   }
 
-
-
   // 닉네임 중복확인 하는 onClick 이벤트 함수
   function CheckDuplicateNickname (key, e) {
     e.preventDefault();
 
-
-    if(message.checkNickLength){
+    if (message.checkNickLength) {
       return
-
-    }else{
-  
-    axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
-    ).then(res => {
-      console.log('닉네임 중복확인 요청 응답', res); 
-      console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
-      if (res.status === 200) {
-        showCheckMessage(key, '사용 가능한 닉네임 입니다.');
-      }}
-    ).catch(err => {
-      if (err.response) {
-        if (err.response.status === 400) {
-          showCheckMessage(key, '잘못된 요청입니다.');
-        } else if (err.response.status === 409) {
-          showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
+    } else {
+      
+      axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
+      ).then(res => {
+        console.log('닉네임 중복확인 요청 응답', res);
+        console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
+        if (res.status === 200) {
+          showCheckMessage(key, '사용 가능한 닉네임 입니다.');
         }
-      }}
-    )
+      }
+      ).catch(err => {
+        if (err.response) {
+          if (err.response.status === 400) {
+            showCheckMessage(key, '잘못된 요청입니다.');
+          } else if (err.response.status === 409) {
+            showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
+        }
+      }
+      );
     }
   }
 
@@ -202,29 +198,27 @@ function MyPage ({ handleNotice }) {
     }
   }
 
-
   // 닉네임 변경 눌렀을 때 닉네임 변경 서버 요청 onSubmit 이벤트 함수
   function requestNickName (e) {
     e.preventDefault();
 
-    if(message.checkNickLength){
-      return
-    }else{
-
+    if (message.checkNickLength) {
+          return
+    } else {
     // 닉네임 변경 요청 서버에 보냄
-    axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`,
-      { nickName: user.nickName }, // <- body (바뀔 nickName)
-      { headers: { accesstoken: accessToken } } // <- nickname api 에서 얘를 요청 보내라고 했음
+      axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`,
+        { nickName: user.nickName }, // <- body (바뀔 nickName)
+        { headers: { accesstoken: accessToken } } // <- nickname api 에서 얘를 요청 보내라고 했음
 
-    ).then(res => { // <- res의 data에 accessToken 과, refreshToken 담겨있을 것이다.
-      console.log('닉네임 변경 요청 응답', res.data);
-      if (res.status === 200) {
+      ).then(res => { // <- res의 data에 accessToken 과, refreshToken 담겨있을 것이다.
+        console.log('닉네임 변경 요청 응답', res.data);
+        if (res.status === 200) {
         // setState
-        handleInputValue('nickName', user.nickName);
+          handleInputValue('nickName', user.nickName);
 
-        // 리덕스에 있는 유저 인포 업뎃 (dispatch)
-        const changedUser = { ...userInfo, nickName: user.nickName };
-        dispatch(getUserInfo(changedUser));
+          // 리덕스에 있는 유저 인포 업뎃 (dispatch)
+          const changedUser = { ...userInfo, nickName: user.nickName };
+          dispatch(getUserInfo(changedUser));
 
         handleNotice('닉네임이 수정되었습니다', 2000);
         showCheckMessage('duplicatedNick', '')
@@ -240,12 +234,10 @@ function MyPage ({ handleNotice }) {
           handleNotice('권한이 없습니다.', 2000);
         }
       }
+      }
+      );
     }
-    )
   }
-  }
-
-  
 
   // 중복확인 및 유효성검사 메세지 나타나게 하는 함수
   function showCheckMessage (key, value) {
@@ -259,7 +251,7 @@ function MyPage ({ handleNotice }) {
     if (check || !inputValue) { // <- 위 결과가 true 이면 false
       console.log('유효성 검사 성공');
       showCheckMessage(key, '');
-    } else{
+    } else {
       showCheckMessage(key, '비밀번호는 8자 이상 16자 이하, 알파벳과 숫자 및 특수문자를 하나 이상 포함해야 합니다.');
     }
   }
@@ -281,18 +273,16 @@ function MyPage ({ handleNotice }) {
     }
   }
 
-
   // 수정할 닉네임 글자수가 10자 초과할때 메세지 나타나게 하는 함수
-  function checkNickLength(key, inputValue, e){
-    const check = inputValue.length < 10 ? true : false
+  function checkNickLength (key, inputValue, e) {
+    const check = inputValue.length < 10;
     console.log(check);
-    if(check || !inputValue){
-      showCheckMessage(key, '')
-    }else{
-      showCheckMessage(key, '닉네임은 10자 미만으로 입력해주세요')
+    if (check || !inputValue) {
+      showCheckMessage(key, '');
+    } else {
+      showCheckMessage(key, '닉네임은 10자 미만으로 입력해주세요');
     }
   }
-
 
   // 계정 전환 checkbox state setState 해주는 onChange 이벤트 함수
   function handleCheckAdmin () {
@@ -326,7 +316,7 @@ function MyPage ({ handleNotice }) {
         handleInputValue('debut', user.userArtist.debut, 'useArtist');
         handleInputValue('email', user.userArtist.email, 'useArtist');
 
-        // 리덕스 updata
+        // 리덕스 update
         const result = await accessTokenRequest(res.data.data);
         dispatch(getUserInfo(result));
         dispatch(getAccessToken(res.data.data));
@@ -349,7 +339,6 @@ function MyPage ({ handleNotice }) {
     );
   }
 
-
   return (
     <div className='my-page-container'>
 
@@ -359,7 +348,7 @@ function MyPage ({ handleNotice }) {
         </p>
       </div>
 
-      <div className="div__form__password_profile-image">
+      <div className='div__form__password_profile-image'>
 
         {/* 프로필 변경 폼  */}
         <div className='form__profile-image_delete-btn'>
@@ -374,9 +363,9 @@ function MyPage ({ handleNotice }) {
               style={{ display: 'none' }}
               onChange={(e) => { ProfileImagePreview(e); }}
             />
-            <button className="change-btn" type='submit' id='submit'>이미지 변경</button>
+            <button className='change-btn' type='submit' id='submit'>이미지 변경</button>
           </form>
-          <button className="delete-btn" onClick={requestDeleteProfileImage}>이미지 삭제</button>
+          <button className='delete-btn' onClick={requestDeleteProfileImage}>이미지 삭제</button>
         </div>
 
         {/* 비밀번호 변경 폼 */}
@@ -444,26 +433,27 @@ function MyPage ({ handleNotice }) {
             <input
               type='text' name='nickName' id='nickName' value={user.nickName}
               required
-              onChange={(e) =>{
-                handleInputValue('nickName', e.target.value)
-                checkNickLength('checkNickLength', e.target.value)
-              }
-            }
+              onChange={(e) => {
+                handleInputValue('nickName', e.target.value);
+                checkNickLength('checkNickLength', e.target.value);
+              }}
             />
 
-            <button className="check-duplicate-btn-nickname" 
-            onClick={(e) => {
-              checkNickLength('checkNickLength', user.nickName)
-              CheckDuplicateNickname('duplicatedNick', e)
-            }
-            }>중복확인</button>
+            <button
+              className='check-duplicate-btn-nickname'
+              onClick={(e) => {
+                checkNickLength('checkNickLength', user.nickName);
+                CheckDuplicateNickname('duplicatedNick', e);
+              }}
+            >중복확인
+            </button>
 
             {/* 중복확인 메세지는 message.duplicatedNick 가 truthy 할때만 나타나도록 해야 한다. */}
             <button type='submit' className='change-btn-nickname'>변경</button>
           </div>
 
-            {message.checkNickLength && <p className='check-nickname-length'>{message.checkNickLength}</p>}
-            {message.duplicatedNick && <p className='CheckDuplicateNickname'>{message.duplicatedNick}</p>}
+          {message.checkNickLength && <p className='check-nickname-length'>{message.checkNickLength}</p>}
+          {message.duplicatedNick && <p className='CheckDuplicateNickname'>{message.duplicatedNick}</p>}
 
         </div>
       </form>

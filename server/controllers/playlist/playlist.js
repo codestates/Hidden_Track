@@ -68,7 +68,7 @@ module.exports =  {
             include: {
                 model : track,
                 required : true,
-                attributes:["id","title","img","genre","releaseAt"],
+                attributes:["id","title","img","genre","releaseAt", "soundTrack"],
                 include : {
                     model : user,
                     require : true,

@@ -56,15 +56,13 @@ function Nav ({ handleNotice }) {
     }
   }
 
-
-  // 음원등록 버튼 누르면 음원등록 페이지로 넘어가주는 onClick 이벤트 
-  function moveModiCreatePage(e){
+  // 음원등록 버튼 누르면 음원등록 페이지로 넘어가주는 onClick 이벤트
+  function moveModiCreatePage (e) {
     e.preventDefault();
 
     setIsShowUserProfileList('hide');
-    history.push('/modicreate')
+    history.push('/modicreate');
   }
-
 
   // 마이페이지 버튼 누르면 마이페이지 로 넘어가주는 onClick 이벤트
   function moveMyPage (e) {
@@ -108,7 +106,7 @@ function Nav ({ handleNotice }) {
   return (
     <header>
 
-      <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} />
+      <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} handleNotice={handleNotice} />
 
       <nav className='navigation'>
         <Link to='/'>
