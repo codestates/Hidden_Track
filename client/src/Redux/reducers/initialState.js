@@ -9,18 +9,18 @@ export const initialState = {
     accessToken: ''
   },
   userInfo: {
-    id: '1',
-    loginId: 'joo',
-    profile: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg',
-    nickName: '이무진',
+    id: '',
+    loginId: '',
+    profile: '',
+    nickName: '',
     // nickName: '',
     // admin: 'listener',
-    admin: 'artist',
+    admin: 'listener',
     // 만약 admin이 'artist'라면 아래 정보도 받음
     userArtist: {
-      agency: 'sm',
-      email: 'sm@sm.com',
-      debut: '2008.12.12'
+      agency: '',
+      email: '',
+      debut: ''
     }
   },
   // onClickModify: {
@@ -31,33 +31,33 @@ export const initialState = {
     isLoading: false
   },
   trackList: [
-    {
-      id: 1,
-      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
-      title: '신호등',
-      userid: 1,
-      user: {
-        nickname: '이무진'
-      }
-    },
-    {
-      id: 2,
-      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
-      title: 'Sweet Dreams',
-      userid: 2,
-      user: {
-        nickname: 'Eurythmics'
-      }
-    },
-    {
-      id: 3,
-      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
-      title: '바람이나 좀 쐐',
-      userid: 3,
-      user: {
-        nickname: '개리'
-      }
-    }
+    // {
+    //   id: 1,
+    //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
+    //   title: '신호등',
+    //   userid: 1,
+    //   user: {
+    //     nickname: '이무진'
+    //   }
+    // },
+    // {
+    //   id: 2,
+    //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
+    //   title: 'Sweet Dreams',
+    //   userid: 2,
+    //   user: {
+    //     nickname: 'Eurythmics'
+    //   }
+    // },
+    // {
+    //   id: 3,
+    //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
+    //   title: '바람이나 좀 쐐',
+    //   userid: 3,
+    //   user: {
+    //     nickname: '개리'
+    //   }
+    // }
   ],
 
   // trackDetail: {
@@ -140,33 +140,22 @@ export const initialState = {
   trackDetail: {
     track: {
       id: 1,
-      title: '신호등',
-      img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
-      genre: '록/메탈',
-      soundtrack: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%9D%8C%EC%95%85/%EC%8B%A0%ED%98%B8%EB%93%B1-%EC%9D%B4%EB%AC%B4%EC%A7%84.mp3',
-      releaseAt: '2021-05-14',
-      lyric: 'lyric',
+      title: '',
+      img: '',
+      genre: '',
+      soundtrack: '',
+      releaseAt: '',
+      lyric: '',
       user: {
-        nickName: '이무진'
+        nickName: ''
       },
-      hashtags: [{
-        tag: 'tag1'
-      },
-      {
-        tag: 'tag2'
-      }],
-      replies: [{
-        id: 1,
-        content: 'asdfasdf',
-        user: {
-          profile: 'https://randomuser.me/api/portraits/men/10.jpg',
-          nickname: '박해커'
-        }
-      }]
+      hashtags: [],
+      replies: []
     },
-    like: 10,
-    gradeAev: 4.3
+    like: '',
+    gradeAev: ''
   },
+
 
   // playList: [
   //   {

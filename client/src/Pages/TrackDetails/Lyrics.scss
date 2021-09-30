@@ -40,6 +40,12 @@ details[open] > summary ~ * {
   box-shadow: 1px 1px 2px gray;
 }
 
+.lyrics-menu {
+  color: #fff;
+  text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #0fa,
+    0 0 8px #0fa, 0 0 9px #0fa, 0 0 10px #0fa, 0 0 15px #0fa;
+}
+
 .lyrics-menu:hover {
   font-weight: bold;
 }
