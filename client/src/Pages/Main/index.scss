@@ -13,7 +13,10 @@
     // position: relative;
   }
 
-  .main-genre {}
+  .main-genre {
+    display: flex;
+    justify-content: center;
+  }
 
   .main-hashtag {
     display: flex;
