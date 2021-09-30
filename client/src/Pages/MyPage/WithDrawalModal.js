@@ -8,12 +8,11 @@ import { accessTokenRequest } from '../../Components/TokenFunction';
 import Portal from './Portal';
 import './WithDrawalModal.scss';
 
-function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice}) {
+function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
   const cookies = new Cookies();
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector(state => state.accessTokenReducer).accessToken; // accessToken 관련
-
 
   // 회원탈퇴 모달창 밖의 배경을 누르면 모달창이 꺼지는 함수
   function handleSignOutModalBack (e) {
@@ -21,57 +20,55 @@ function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice}) {
     setIsWithDrawalModalOpen(false);
   }
 
-  
   // 모달창 x 버튼 누르면 모달창이 꺼지는 함수
   function handleSignOutModalCloseBtn (e) {
     e.preventDefault();
     setIsWithDrawalModalOpen(false);
   }
 
-
-
   // 모달창의 예 버튼을 누르면 ( 회원탈퇴 서버 요청 & 리덕스 스테이트 업데이트 & refreshToken 삭제 & 메인페이지로 이동 ) 발생하는 이벤트
   function requestSignOut (e) {
     e.preventDefault();
 
     // 회원 정보 서버에서 삭제되어야 함
-    axios.delete(`${process.env.REACT_APP_API_URL}/user/withdrawal`, 
-    { headers: { accesstoken: accessToken } }
-    
-    ).then(async(res) => {
-        console.log('회원탈퇴 요청 응답', res);
-        if (res.status === 200) {
-          const deletedUserInfo = {
-            id: '1',
-            loginId: '',
-            profile: '',
-            nickName: '',
+    axios.delete(`${process.env.REACT_APP_API_URL}/user/withdrawal`,
+      { headers: { accesstoken: accessToken } }
 
-            admin: 'artist',
-            // 만약 admin이 'artist'라면 아래 정보도 받음
-            userArtist: {
-              agency: '',
-              email: '',
-              debut: ''
-            }
+    ).then(async (res) => {
+      console.log('회원탈퇴 요청 응답', res);
+      if (res.status === 200) {
+        const deletedUserInfo = {
+          id: '1',
+          loginId: '',
+          profile: '',
+          nickName: '',
+
+          admin: 'artist',
+          // 만약 admin이 'artist'라면 아래 정보도 받음
+          userArtist: {
+            agency: '',
+            email: '',
+            debut: ''
           }
-          // accessToken 빈 문자열 바꿔줘야 한다.
-          dispatch(getUserInfo(deletedUserInfo));
-          dispatch(isLoginHandler(false));
-          cookies.remove('refreshToken');
-          history.push('/');
-        }}
+        };
+        // accessToken 빈 문자열 바꿔줘야 한다.
+        dispatch(getUserInfo(deletedUserInfo));
+        dispatch(isLoginHandler(false));
+        cookies.remove('refreshToken');
+        history.push('/');
+      }
+    }
     ).catch(err => {
-      if(err.response){
-        if(err.response.status === 401 ){ // <- 권한이 없을때(토큰이 이상하거나 만료되었을 경우)
+      if (err.response) {
+        if (err.response.status === 401) { // <- 권한이 없을때(토큰이 이상하거나 만료되었을 경우)
           console.log('401 에러다');
           handleNotice('권한이 없습니다', 2000);
         }
-      }else{
+      } else {
         console.log('다른 에러다', err);
         handleNotice('잘못된 접근입니다', 2000);
       }
-    })
+    });
   }
 
   return (

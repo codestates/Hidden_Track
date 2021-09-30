@@ -92,13 +92,12 @@ function Nav ({ handleNotice }) {
       ).catch(err => {
       // 뭔가 알림모달을 띄우게
         console.log(err.response);
-        if(err.response){
-          if (err.response.status === 400) { // <- refreshToken 이 안들어왔을때 
+        if (err.response) {
+          if (err.response.status === 400) { // <- refreshToken 이 안들어왔을때
             handleNotice('권한이 없습니다', 2000);
-          } else if (err.response.status === 404) { // <- 들어오는 refreshToke과 일치하는 것이 없을때 
+          } else if (err.response.status === 404) { // <- 들어오는 refreshToke과 일치하는 것이 없을때
             handleNotice('잘못된 요청입니다', 2000);
           }
-
         }
       });
   }

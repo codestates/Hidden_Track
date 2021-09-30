@@ -162,6 +162,30 @@ function MyPage ({ handleNotice }) {
   function CheckDuplicateNickname (key, e) {
     e.preventDefault();
 
+<<<<<<< HEAD
+    if(message.checkNickLength){
+      return
+    }else{
+  
+    axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
+    ).then(res => {
+      console.log('닉네임 중복확인 요청 응답', res); 
+      console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
+      if (res.status === 200) {
+        showCheckMessage(key, '사용 가능한 닉네임 입니다.');
+      }
+    }
+    ).catch(err => {
+      if (err.response) {
+        if (err.response.status === 400) {
+          showCheckMessage(key, '잘못된 요청입니다.');
+        } else if (err.response.status === 409) {
+          showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
+        }
+      }
+    }
+    )
+=======
     if (message.checkNickLength) {
       return
     } else {
@@ -183,6 +207,7 @@ function MyPage ({ handleNotice }) {
         }
       }
       );
+>>>>>>> 8cfd7ff4e93a9e16d6818b588330ceedb04aea6d
     }
   }
 
@@ -202,9 +227,15 @@ function MyPage ({ handleNotice }) {
   function requestNickName (e) {
     e.preventDefault();
 
+<<<<<<< HEAD
+    if(message.checkNickLength){
+      return
+    }else{
+=======
     if (message.checkNickLength) {
           return
     } else {
+>>>>>>> 8cfd7ff4e93a9e16d6818b588330ceedb04aea6d
     // 닉네임 변경 요청 서버에 보냄
       axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`,
         { nickName: user.nickName }, // <- body (바뀔 nickName)
