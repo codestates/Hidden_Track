@@ -24,17 +24,15 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  // position: sticky;
-
-
 }
 
 .footer__developer-box {
   display: flex;
-  // background-color: blue;
   align-items: center;
   justify-content: space-between;
+  // background-color: blue;
   width: 400px;
+
 
   a {
     display: inline-block;

@@ -1,11 +1,9 @@
-// @import '../Nav/index.scss';
-@import '../../Components/Nav/index.scss';
-// @import '../Login/index.scss';
-@import '../../Components/Login/index.scss';
+@import '../../Common.scss';
+
 
 .modal-backdrop__sign-out {
-  position: fixed;
-  @include PositionBox(0, 0, 0, 0);
+
+  @include positionBox(fixed, 0, 0, 0, 0);
 
   background: #000;
   opacity: .8;
@@ -14,8 +12,7 @@
 }
 
 .modal-container__sign-out {
-  position: absolute;
-  @include PositionBox(50%, _, 50%, _);
+  @include positionBox(absolute, 50%, _, _, 50%);
   margin: -150px 0 0 -200px;
   z-index: 20;
   background-color: #fff;
@@ -51,8 +48,8 @@
   }
 
   .sign-out-modal-close-btn {
-    position: absolute;
-    @include PositionBox(3%, _, _, 5%);
+
+    @include positionBox(absolute, 3%, 5%, _, _);
     font-size: 20px;
     cursor: pointer;
   }

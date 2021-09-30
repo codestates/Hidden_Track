@@ -1,82 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Allison&family=Architects+Daughter&family=Dancing+Script&family=Hina+Mincho&family=Lobster&family=Pacifico&display=swap');
-@import '../../Components/Nav/index.scss';
+@import '../../Common.scss';
 
+
+.form__password,
+.form__div__nickname {
+  width: 900px;
+}
+
+
+.form__div__password-flex-box,
+.form__div__nickname-btn-flex-box {
+  width: 700px;
+}
+
+
+.div__form__password_profile-image,
+.form__nickname,
+.admin-change,
+.form__my-page__Condition {
+  width: 1200px;
+}
 
 
 .my-page-container {
-
-  background: #000;
-  opacity: .95;
-  padding-top: 30px;
-  display: flex;
+  @include flexBox(flex, _, center, _, 30px 0 400px 0);
   flex-flow: column;
-  align-items: center;
-  padding-bottom: 300px;
+
+  // background: #000;
+  // opacity: .95;
+
+  position: relative;
 
   .nickName-title {
     font-size: 25px;
     color: #fff;
-    margin-bottom: 60px;
+    // background-color: red;
 
+    .user-nickName {
+      color: #fff;
+      font-family: 'Pacifico', cursive;
+      font-size: 40px;
 
-  }
-
-
-  .user-nickName {
-    color: #fff;
-    font-family: 'Pacifico', cursive;
-    font-size: 40px;
-
-
-    /* White glow */
-    &:hover {
-      text-shadow:
-        0 0 7px rgb(254, 3, 128), 0 0 10px rgb(254, 3, 128), 0 0 21px rgb(254, 3, 128)
+      /* White glow */
+      &:hover {
+        text-shadow:
+          0 0 7px rgb(254, 3, 128), 0 0 10px rgb(254, 3, 128), 0 0 21px rgb(254, 3, 128)
+      }
     }
   }
-
 }
 
+
 .form__password {
-  width: 900px;
   // background-color: red;
   margin: 0 auto;
   display: flex;
   flex-flow: column;
 
-
-
-
   .form__div__password {
-    height: 100px;
     // background-color: skyblue;
-    width: 800px;
+    @include widthHeight(800px, 100px);
     margin: 0 auto;
 
-
-
     .form__div__password-flex-box {
-      display: flex;
       // background-color: burlywood;
-      width: 700px;
-      justify-content: space-between;
+      @include flexBox(flex, space-between, _, _, _)
     }
 
     input {
-      height: 50px;
-      width: 550px;
+
+      @include widthHeight(550px, 50px);
       outline: none;
       padding-left: 10px;
       display: block;
     }
 
     p {
-      font-size: 15px;
       margin: 0;
       padding: 0;
       margin-top: 5px;
-      width: 540px;
       margin-left: -10px;
+
+      font-size: 15px;
+      width: 540px;
+      color: red;
     }
 
     &:nth-of-type(3) {
@@ -85,13 +92,11 @@
 
       p {
         width: 210px;
+        color: red;
       }
 
-
       .change-btn-password {
-
-        height: 50px;
-        width: 50px;
+        @include widthHeight(50px, 50px);
         margin-right: 30px;
       }
     }
@@ -99,89 +104,87 @@
 
 }
 
+
 .div__form__password_profile-image {
   // background-color: rebeccapurple;
-  width: 1200px;
   margin: 0 auto;
   display: flex;
+  margin-top: 60px;
 
   .form__profile-image_delete-btn {
     // background-color: greenyellow;
-    width: 200px;
+    @include widthHeight(200px, 270px);
+    @include flexBox(flex, space-between, center, _, _);
+    flex-flow: column;
+
+    position: relative;
 
 
     .form__profile-image {
-      position: relative;
+      // background-color: skyblue;
+      height: 220px;
 
-      .add-profile-image-btn {
-        font-size: 100px;
-        // color: yellow;
-        cursor: pointer;
-        position: absolute;
-        top: 24%;
-        right: 37%;
-      }
+      @include flexBox(flex, space-around, center, _, _);
+      flex-flow: column;
 
       img {
-        width: 150px;
-        height: 150px;
+        @include widthHeight(150px, 150px);
         object-fit: cover;
         border: 1px solid;
         border-radius: 50%;
+        margin-top: -10px;
+      }
+
+      .add-profile-image-btn {
+        font-size: 100px;
+        color: #ccc;
+        cursor: pointer;
+        @include positionBox(absolute, 10%, 37%, _, _);
+      }
+
+      .change-btn {
+        @include widthHeight(120px, 40px);
       }
     }
-  }
 
+    .delete-btn {
+      @include widthHeight(120px, 40px);
+    }
+  }
 }
 
 
-
-
-
-
-
-
 .form__nickname {
-
   // background-color: rebeccapurple;
-  width: 1200px;
-
-  margin-top: 50px;
+  margin-top: 100px;
 
   .form__div__nickname {
     // background-color: red;
     display: flex;
-    // height: 90px;
-    width: 900px;
     flex-flow: column;
     margin-left: 255px;
 
-
     .form__div__nickname-btn-flex-box {
-      display: flex;
-      justify-content: space-between;
-      width: 700px;
-      // background-color: skyblue;
+      @include flexBox(flex, space-between, _, _, _);
       margin-left: 45px;
     }
 
     input {
-      height: 50px;
-      width: 400px;
+      @include widthHeight(400px, 50px);
       outline: none;
       padding-left: 10px;
     }
-
   }
 
   p {
-    font-size: 15px;
     margin: 0;
     padding: 0;
+    margin-top: 5px;
     margin-left: 50px;
 
+    font-size: 15px;
+    color: red;
     width: 160px;
-
   }
 
   .check-duplicate-btn-nickname {
@@ -189,32 +192,28 @@
   }
 
   .change-btn-nickname {
-    height: 50px;
-    width: 50px;
+    @include widthHeight(50px, 50px);
     margin-right: 30px;
   }
 
 }
 
+
 .admin-change {
-  width: 1200px;
   // background-color: rebeccapurple;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  margin-top: 50px;
+  margin-top: 100px;
+  @include flexBox(flex, _, center, _, _);
 
   .admin__change-box {
-    display: flex;
-    width: 500px;
     // background-color: red;
+    @include flexBox(flex, _, center, _, _);
+    width: 300px;
     margin: 0 auto;
-    justify-content: space-around;
-    align-items: center;
 
     input[type="checkbox"] {
       zoom: 2.5;
-      margin-left: 5px;
+      outline: none;
     }
 
     p {
@@ -226,67 +225,54 @@
 }
 
 .form__my-page__Condition {
-  width: 1200px;
-  margin: 0 auto;
-  margin-top: 50px;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  position: relative;
   // background-color: rebeccapurple;
+  margin: 0 auto;
+
+  @include flexBox(flex, _, center, _, _);
+  flex-flow: column;
+
+  position: relative;
+  margin-top: 50px;
 
   div[class^="form__div__"] {
-    height: 80px;
-    width: 800px;
-    // background-color: red;
+    @include widthHeight(800px, 80px);
 
     &:nth-of-type(2) {
+      // background-color: skyblue;
       display: flex;
       flex-flow: column;
       padding-left: 24%;
-      height: 100px;
+      height: 110px;
     }
   }
 
   input {
-    height: 40px;
-    width: 500px;
+    @include widthHeight(500px, 40px);
     outline: none;
     padding-left: 10px;
   }
 
   label {
+    // background-color: greenyellow;
     color: #fff;
     display: block;
     width: 50px;
-    // background-color: greenyellow;
   }
 
   label:not(.debut-date) {
-    position: absolute;
-    @include widthHeight(1px, 1px);
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    -webkit-clip-path: polygon(0 0, 0 0, 0 0);
-    clip-path: polygon(0 0, 0 0, 0 0);
+    @extend %a11yHidden;
   }
 
-
-
-
   .change-admin-btn {
-    position: absolute;
-    bottom: -45px;
-    right: 340px;
+    @include positionBox(absolute, _, 340px, -45px, _);
     height: 45px;
   }
 
-
-
 }
 
+
+
 .with-drawal-btn {
-  position: absolute;
-  top: 100px;
-  right: 200px;
+  @include positionBox(absolute, _, _, 150px, _);
+  @include widthHeight(100px, 50px)
 }

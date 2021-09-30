@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
+function Condition ({ handleInputValue, requestAdminChange, isAdminCheck,}) {
   function handleAgency (e) {
     handleInputValue('agency', e.target.value, 'userArtist');
   }

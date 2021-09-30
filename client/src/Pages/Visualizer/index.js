@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,11 +10,13 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 
 function Visualizer ({ handleNotice }) {
+
   // const audioCtx = new AudioContext();
   // console.log(audioCtx);
   // redux에 저장된 state 가져오기
   const loca = useLocation();
   const trackId = loca.pathname.split('/')[2];
+  const dispatch = useDispatch();
   const { track } = useSelector(state => state.trackDetailReducer);
   // const audio = useRef();
   // const canvas = useRef();
@@ -45,6 +48,7 @@ function Visualizer ({ handleNotice }) {
   // source.connect(analyser);
   // analyser.connect(context.destination);
   // const frequency_array = new Uint8Array(analyser.frequencyBinCount);
+
 
   useEffect(async () => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
@@ -180,8 +184,10 @@ function Visualizer ({ handleNotice }) {
           console.log(canvas);
         }}
       >Go Main
+
       </button> */}
         {/* <div className='circle'>
+
           <div className='inner-circle-control'>
             <div className='inner-circle-title'>{crrentMusic.title}</div>
             <div className='inner-circle-artist'>{crrentMusic.user.nickname}</div>
@@ -189,6 +195,7 @@ function Visualizer ({ handleNotice }) {
           </div>
           <img className='inner-circle-img' src={crrentMusic.img} alt={crrentMusic.title} />
         </div> */}
+
         {/* <div className='inner-circle-control'>
         <div className='inner-circle-title'>{track.title}</div>
         <div className='inner-circle-artist'>{track.user.nickName}</div>
@@ -206,11 +213,13 @@ function Visualizer ({ handleNotice }) {
         volume={0.2}
         crossOrigin='anonymous'
         src={track.soundtrack}
+
       /> */}
         <Canvas track={track} goMain={goMain} />
       </div>
       {/* </Portal> */}
     </>
+
   );
 }
 
