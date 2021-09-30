@@ -46,7 +46,11 @@
     border-top: 1px solid rgb(207, 215, 255);
     border-bottom: 1px solid rgb(207, 215, 255);
 }
-
+.min-play{
+    .rhap_progress-section{
+        display: none;
+    }
+}
 
 .sidebar-control{
 

@@ -6,7 +6,7 @@ function PlayList ({ trackId, num, music, handleChangeMusic, handleDeleteMusic }
     <li className='track'>
 
       <button className='track-delete' onClick={(e) => { handleDeleteMusic(e, num, trackId); }}>X</button>
-      <div className='track-box' onClick={() => { handleChangeMusic(num); }}>
+      <div className='track-box' onClick={() => { handleChangeMusic(num, 'playList'); }}>
 
         <img className='track-img' src={music.img} alt={music.title} />
         <div className='track-info'>

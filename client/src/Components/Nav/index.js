@@ -105,7 +105,7 @@ function Nav ({ handleNotice }) {
   return (
     <header>
 
-      <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} />
+      <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} handleNotice={handleNotice} />
 
       <nav className='navigation'>
         <Link to='/'>
