@@ -24,16 +24,15 @@ const settings = {
   centerMode: true,
   centerPadding: '0px',
   afterChange: function (index) {
-    // console.log(
-    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    // );
+    console.log(
+      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    );
   }
 };
 
 function Slide () {
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
-
   const [isPopularList, setPopularList] = useState(playList);
 
   function handleRecent (e) {
