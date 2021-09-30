@@ -37,11 +37,11 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   };
 
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList.length ? playList[playList.length - 1] : default_crrentMusic);
+  const [crrentMusic, setCrrentMusic] = useState(playList.length === 0?default_crrentMusic:playList[playList.length-1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
   const [afterRender, setAfterRender] = useState(false);
-
+  console.log(playList[playList.length - 1])
   useEffect(() => {
     clearInterval(time);
     audio.current.audio.current.onplay = () => {
@@ -58,11 +58,12 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         .then(res => {
           if (res.status === 200) {
             // console.log(res.data);
-
-            console.log('플레이리스트', res.data);
             dispatch(inputPlayList(res.data.playlist));
-            setCrrentMusic(res.data.playlist[res.data.playlist.length - 1]);
-
+            console.log('플레이리스트', res.data);
+            if(res.data.playlist.length > 0){
+              setCrrentMusic(res.data.playlist[res.data.playlist.length - 1]);
+            }
+            
             // audio.current.pause();
           }
         })
@@ -295,8 +296,9 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             tic = 0;
           }}
         >
-          {playList.length
-            ? playList.map((el, idx) => {
+          {playList.length === 0
+            ? <li>재생목록이 비어있습니다.</li>
+            :playList.map((el, idx) => {
               return (
                 <PlayList
                   key={el.id}
@@ -308,8 +310,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                   handleDeleteMusic={handleDeleteMusic}
                 />
               );
-            })
-            : <li>재생목록이 비어있습니다.</li>}
+            })}
         </ul>
       </div>
     </div>
