@@ -23,9 +23,9 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   // 수정 or 삭제 버튼 누를시 수정/삭제할 댓글 id로 상태 변경하는 함수
   function getReplyId (e) {
     e.preventDefault();
-    console.log(e.target.parentElement.parentElement.getAttribute('id'));
+    console.log(e.target.parentElement.parentElement.parentElement.getAttribute('id'));
     setClickedBtn(e.target.alt);
-    setSelectedReplyId(e.target.parentElement.parentElement.getAttribute('id'));
+    setSelectedReplyId(e.target.parentElement.parentElement.parentElement.getAttribute('id'));
   }
 
   // 댓글 삭제요청 보내는 함수

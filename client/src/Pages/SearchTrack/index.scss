@@ -1,36 +1,50 @@
-.track-list-container {
-  background-color: green;
+.searchtrack-container {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+
+  .hashtag-box {
+    width: 80%;
+    // justify-content: center;
+  }
   
-  .track-list-ul {
-    display: flex;
-    // background-color: hotpink;
-    // justify-content: space-evenly;
-    width: 1200px;
+  .track-list-container {
+    background-color: green;
+    margin-bottom: 100px;
+    
+    .track-list-ul {
+      display: flex;
+      flex-wrap: wrap;
+      // background-color: hotpink;
+      // justify-content: space-evenly;
+      width: 1250px;
+    
+      .track-list-li {
+        display: block;
+        background-color: skyblue;
+        float: left; // 자식 태그들 왼쪽부터 채워지게
+        cursor: pointer;
+        margin: 1em;
+        
+        .track-list-img {
+          width: 17em;
+          height: 17em;
+        }
   
-    .track-list-li {
-      display: block;
-      background-color: skyblue;
-      float: left; // 자식 태그들 왼쪽부터 채워지게
-      cursor: pointer;
-      margin: 0 1em 0 1em;
-      
-      .track-list-img {
-        width: 17em;
-        height: 17em;
+        .track-list-title, .track-list-artist {
+          margin: 0;
+        }
       }
-
-      .track-list-title, .track-list-artist {
-        margin: 0;
+  
+      .track-list-li:hover {
+        transform: scale(1.1);
+        transition: .3s;
       }
+  
+      // .track-list-msg & {
+      //   justify-content: center;
+      // }
     }
-
-    .track-list-li:hover {
-      transform: scale(1.1);
-      transition: .3s;
-    }
-
-    // .track-list-msg & {
-    //   justify-content: center;
-    // }
   }
 }
