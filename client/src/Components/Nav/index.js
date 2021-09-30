@@ -14,7 +14,9 @@ import Login from '../Login';
 import Sidebar from './Sidebar';
 
 import './index.scss';
-import headphone from '../../assets/headphones.png';
+import headphone from '../../assets/headphones (2).png';
+// import headphone from '../../assets/headphones (1).png';
+// import headphone from '../../assets/headphones.png';
 
 function Nav ({ handleNotice }) {
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
@@ -53,6 +55,16 @@ function Nav ({ handleNotice }) {
       setIsShowUserProfileList('hide');
     }
   }
+
+
+  // 음원등록 버튼 누르면 음원등록 페이지로 넘어가주는 onClick 이벤트 
+  function moveModiCreatePage(e){
+    e.preventDefault();
+
+    setIsShowUserProfileList('hide');
+    history.push('/modicreate')
+  }
+
 
   // 마이페이지 버튼 누르면 마이페이지 로 넘어가주는 onClick 이벤트
   function moveMyPage (e) {
@@ -109,7 +121,7 @@ function Nav ({ handleNotice }) {
               style={{ backgroundImage: `url(${userInfo.profile})` }}
             />
             <ul className={isShowUserProfileList}>
-              <li onClick={() => { history.push('/modicreate'); }}>음원 등록</li>
+              <li onClick={(e) => moveModiCreatePage(e)}>음원 등록</li>
               <li onClick={(e) => moveMyPage(e)}>마이 페이지</li>
               <li onClick={(e) => requestSignOut(e)}>로그아웃</li>
             </ul>
