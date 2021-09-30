@@ -24,26 +24,25 @@ const settings = {
   centerMode: true,
   centerPadding: '0px',
   afterChange: function (index) {
-    // console.log(
-    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    // );
+    console.log(
+      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    );
   }
 };
 
 function Slide () {
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
-
   const [isPopularList, setPopularList] = useState(playList);
 
   function handleRecent (e) {
     // axios.get('http://localhost:4000/recentList')
     // .then(res => playList = recentList)
-    e.preventDefault()
+    e.preventDefault();
   }
 
-  function handlePopular(e){
-    e.preventDefault()
+  function handlePopular (e) {
+    e.preventDefault();
   }
 
   return (
@@ -52,7 +51,7 @@ function Slide () {
       {/* <ul> */}
       <div className='slide-btn'>
         <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
-        <span className='recent' onClick={(e) =>  handleRecent(e) }>최신</span>
+        <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
       </div>
       <StyledSlider {...settings}>
         {playList.map((slider, i) => {

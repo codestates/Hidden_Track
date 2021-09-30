@@ -12,33 +12,34 @@ function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
   const trackDetail = useSelector(state => state.trackDetailReducer);
   const location = useLocation();
-  const [trackList, setTrackList] = useState([{
-    id: 1,
-    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
-    title: '신호등',
-    userid: 1,
-    user: {
-      nickname: '이무진'
-    }
-  },
-  {
-    id: 2,
-    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
-    title: 'Sweet Dreams',
-    userid: 2,
-    user: {
-      nickname: 'Eurythmics'
-    }
-  },
-  {
-    id: 3,
-    img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
-    title: '바람이나 좀 쐐',
-    userid: 3,
-    user: {
-      nickname: '개리'
-    }
-  }]);
+  const [trackList, setTrackList] = useState([]);
+  // {
+  //   id: 1,
+  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
+  //   title: '신호등',
+  //   userid: 1,
+  //   user: {
+  //     nickname: '이무진'
+  //   }
+  // },
+  // {
+  //   id: 2,
+  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
+  //   title: 'Sweet Dreams',
+  //   userid: 2,
+  //   user: {
+  //     nickname: 'Eurythmics'
+  //   }
+  // },
+  // {
+  //   id: 3,
+  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
+  //   title: '바람이나 좀 쐐',
+  //   userid: 3,
+  //   user: {
+  //     nickname: '개리'
+  //   }
+  // }
 
   useEffect(() => {
     // 새로고침시 pathname의 검색값 불러와서 다시 요청
@@ -112,10 +113,12 @@ function SearchTrack ({ handleNotice }) {
   }
 
   return (
-    <div>
+    <div className='searchtrack-container'>
       <Genre />
-      <HashTag tagList={[]} />
-      <p>{genre || hashTag || search}(으)로 검색한 결과</p>
+      <div className='hashtag-box'>
+        <HashTag tagList={[]} />
+      </div>
+      <p style={{ color: 'white' }}>{genre || hashTag || search}(으)로 검색한 결과</p>
       <TrackList
         trackList={trackList}
         dispatch={dispatch}

@@ -1,17 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+@import '../../Common.scss';
+
 
 body {
   margin: 0;
-
+  background-color: rgba(0, 0, 0, 0.925)
 }
 
-@mixin flexBox($display, $justify, $align, $margin, $padding) {
-  display: $display;
-  justify-content: $justify;
-  align-items: $align;
-  margin: $margin;
-  padding: $padding;
-}
+
 
 ;
 
@@ -37,26 +33,16 @@ body {
   color: #fff
 }
 
-%a11yHidden {
-  position: absolute;
-  @include widthHeight(1px, 1px);
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  -webkit-clip-path: polygon(0 0, 0 0, 0 0);
-  clip-path: polygon(0 0, 0 0, 0 0);
-}
-
 .navigation {
-
   @include flexBox(flex, space-between, center, _, 0 70px);
   @include widthHeight(_, 150px);
-
-  background-color: rgba(0, 0, 0, 0.95);
+  // background-color: rgba(0, 0, 0, 0.95);
 
   a {
     text-decoration: none;
     // color: black
-    color:#fff;
+    color: #fff;
+
   }
 
   h1 {
@@ -96,22 +82,19 @@ body {
 
   .navigation__profile-image {
     @include widthHeight(50px, 50px);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    @include background(cover, center, no-repeat);
+
     border: 0;
     border-radius: 50%;
     cursor: pointer;
   }
 
   .show-user-profile-list {
-    position: absolute;
-    top: 80%;
-    left: -10%;
+    @include positionBox(absolute, 80%, _, -10%, _);
+
     list-style: none;
     padding: 0;
-    // color: #fff;
-    // color: red;
+    color: #fff;
 
 
     li {
@@ -119,7 +102,6 @@ body {
       text-align: center;
       font-size: 18px;
       cursor: pointer;
-      // z-index: 30;
     }
   }
 
@@ -146,22 +128,24 @@ h1 {
   text-align: center;
   cursor: pointer;
   color: #fff;
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px rgb(254,3,128),
-        0 0 82px rgb(254,3,128), 0 0 92px rgb(254,3,128), 0 0 102px rgb(254,3,128), 0 0 151px rgb(254,3,128);
+  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px rgb(254, 3, 128),
+    0 0 82px rgb(254, 3, 128), 0 0 92px rgb(254, 3, 128), 0 0 102px rgb(254, 3, 128), 0 0 151px rgb(254, 3, 128);
   animation: flicker 6s infinite alternate;
 }
 
 @keyframes flicker {
+
   0%,
   18%,
   22%,
   25%,
   53%,
   57%,
-  100%{
-    text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 18px #fff, 0 0 2px rgb(254,3,128),
-      0 0 30px rgb(254,3,128), 0 0 43px rgb(254,3,128), 0 0 58px rgb(254,3,128), 0 0 83px rgb(254,3,128);
-  } 
+  100% {
+    text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 18px #fff, 0 0 2px rgb(254, 3, 128),
+      0 0 30px rgb(254, 3, 128), 0 0 43px rgb(254, 3, 128), 0 0 58px rgb(254, 3, 128), 0 0 83px rgb(254, 3, 128);
+  }
+
   20%,
   24%,
   55% {

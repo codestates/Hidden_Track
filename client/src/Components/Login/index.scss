@@ -1,16 +1,11 @@
-@import '../Nav/index.scss';
+@import '../../Common.scss';
 
 
-@mixin PositionBox($top, $bottom, $left, $right) {
-  top: $top;
-  bottom: $bottom;
-  left: $left;
-  right: $right;
-}
 
 .modal-backdrop__login {
-  position: fixed;
-  @include PositionBox(0, 0, 0, 0);
+  @include positionBox(fixed, _, _, _, _);
+
+
   background: #000;
   opacity: .8;
   filter: alpha(opacity=80);
@@ -30,8 +25,8 @@ h1 {
 ;
 
 .modal-container__login {
-  position: absolute;
-  @include PositionBox(40%, _, 50%, _);
+
+  @include positionBox(absolute, 40%, _, _, 50%);
   margin: -150px 0 0 -200px;
   z-index: 20;
   background-color: #fff;
@@ -73,8 +68,8 @@ h1 {
   }
 
   .modal-close-btn {
-    position: absolute;
-    @include PositionBox(3%, _, _, 5%);
+
+    @include positionBox(absolute, 3%, 5%, _, _);
     font-size: 20px;
     cursor: pointer;
   }

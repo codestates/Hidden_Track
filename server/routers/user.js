@@ -20,5 +20,5 @@ router.delete('/profile', userController.profile.delete);
 
 router.post('/kakaologin',userController.kakaologin)
 
-router.post 
+router.delete('/withdrawal',userController.withdrawal)
 module.exports = router;

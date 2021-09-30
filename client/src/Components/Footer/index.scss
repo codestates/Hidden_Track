@@ -1,6 +1,7 @@
 .footer {
   text-align: left;
-  padding: 1.5em;
+  // padding: 1.5em;
+  padding: 5px 0 20px 1.5em;
   background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
     linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0,
     linear-gradient(27deg, #222 5px, transparent 5px) 0 10px,
@@ -23,17 +24,15 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  // position: sticky;
-
-
 }
 
 .footer__developer-box {
   display: flex;
-  // background-color: blue;
   align-items: center;
   justify-content: space-between;
+  // background-color: blue;
   width: 400px;
+
 
   a {
     display: inline-block;
