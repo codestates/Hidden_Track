@@ -13,7 +13,11 @@ class Canvas extends Component {
     constructor(props) {
         super(props)
         this.audio = new Audio();
-        this.audio.crossOrigin = "anonymous";
+        // this.audio.crossOrigin = "anonymous"; //익명으로 요청보내는건데 자격증명 x default header로 확인하는거같음
+        this.audio.crossOrigin = "use-credentials"; // 자격증명을 하는거 쿠키 헤더
+        this.audio.preload = "auto"
+        // const objectURL = window.URL.createObjectURL(this.props.track.soundtrack)
+        // console.log(this.objectURL)
         this.audio.src = this.props.track.soundtrack
         this.audio.volume = 0.5;
         this.canvas = createRef();

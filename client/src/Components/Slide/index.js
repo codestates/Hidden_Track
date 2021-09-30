@@ -24,16 +24,15 @@ const settings = {
   centerMode: true,
   centerPadding: '0px',
   afterChange: function (index) {
-    // console.log(
-    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    // );
+    console.log(
+      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    );
   }
 };
 
 function Slide () {
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
-
   const [isPopularList, setPopularList] = useState(playList);
 
   function handleRecent (e) {
@@ -74,7 +73,6 @@ function Slide () {
 
 export default Slide;
 
-
 export const StyledSlider = styled(Slider)`
   .slick-list { // container 와 같음
       /* position: relative; */
@@ -93,11 +91,10 @@ export const ImgSlide = styled.div`
   /* margin-left: ${props => props.className ? '20px' : 0}; */
 `;
 
-
 // main-slides <div>
-//  > slide-container <section> 
-//      > slide-container <slide-btn> : 인기 / 추천 
-//      > slide-slider <div> 
-//          > slick-prev <button> 
-//          > slick-list <div> 
-//          > slick-next <button> 
+//  > slide-container <section>
+//      > slide-container <slide-btn> : 인기 / 추천
+//      > slide-slider <div>
+//          > slick-prev <button>
+//          > slick-list <div>
+//          > slick-next <button>

@@ -2,7 +2,7 @@ import React from 'react';
 // import loading from '../assets/loading.gif';
 // import loading from '../assets/loadin.gif';
 
-import './LoadingIndicator.scss'
+import './LoadingIndicator.scss';
 
 function LoadingIndicator () {
   return (
@@ -12,16 +12,16 @@ function LoadingIndicator () {
   //   src={loading}
   // />
 
-  <div class="container">
-    <div class="loader">
-      <div class="loader__bar"></div>
-      <div class="loader__bar"></div>
-      <div class="loader__bar"></div>
-      <div class="loader__bar"></div>
-      <div class="loader__bar"></div>
-      <div class="loader__ball"></div>
+    <div class='container'>
+      <div class='loader'>
+        <div class='loader__bar' />
+        <div class='loader__bar' />
+        <div class='loader__bar' />
+        <div class='loader__bar' />
+        <div class='loader__bar' />
+        <div class='loader__ball' />
+      </div>
     </div>
-  </div>
 
   );
 }

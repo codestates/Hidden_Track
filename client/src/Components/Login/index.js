@@ -55,7 +55,6 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     dispatch(isLoginModalOpenHandler(false));
   }
 
-
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
   function requestLogin (e) {
     e.preventDefault();
@@ -129,7 +128,6 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
       });
   }
 
-
   // 회원가입 페이지로 넘어가주는 onClick 이벤트
   function handleSignUpBtn (e) {
     e.preventDefault();
@@ -167,7 +165,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
                 <input type='checkbox' />
                 <span>로그인 상태 유지</span>
               </div>
-              < input type="button" className="sign-up-btn" onClick={(e) => handleSignUpBtn(e)} value="회원가입"/>
+              <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} value='회원가입' />
             </div>
             <button
               className='modal__login-btn' type='submit' name='login-btn'
