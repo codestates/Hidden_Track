@@ -39,7 +39,6 @@ function MyPage ({ handleNotice }) {
     checkNickLength: '',
   });
 
-
   // 프로필 이미지 미리보기 함수
   function ProfileImagePreview (e) {
     e.preventDefault();
@@ -159,16 +158,12 @@ function MyPage ({ handleNotice }) {
     );
   }
 
-
-
   // 닉네임 중복확인 하는 onClick 이벤트 함수
   function CheckDuplicateNickname (key, e) {
     e.preventDefault();
 
-
     if(message.checkNickLength){
       return
-
     }else{
   
     axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
@@ -177,7 +172,8 @@ function MyPage ({ handleNotice }) {
       console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
       if (res.status === 200) {
         showCheckMessage(key, '사용 가능한 닉네임 입니다.');
-      }}
+      }
+    }
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 400) {
@@ -185,7 +181,8 @@ function MyPage ({ handleNotice }) {
         } else if (err.response.status === 409) {
           showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
         }
-      }}
+      }
+    }
     )
     }
   }
@@ -202,7 +199,6 @@ function MyPage ({ handleNotice }) {
     }
   }
 
-
   // 닉네임 변경 눌렀을 때 닉네임 변경 서버 요청 onSubmit 이벤트 함수
   function requestNickName (e) {
     e.preventDefault();
@@ -210,7 +206,6 @@ function MyPage ({ handleNotice }) {
     if(message.checkNickLength){
       return
     }else{
-
     // 닉네임 변경 요청 서버에 보냄
     axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`,
       { nickName: user.nickName }, // <- body (바뀔 nickName)
@@ -244,8 +239,6 @@ function MyPage ({ handleNotice }) {
     )
   }
   }
-
-  
 
   // 중복확인 및 유효성검사 메세지 나타나게 하는 함수
   function showCheckMessage (key, value) {
@@ -281,7 +274,6 @@ function MyPage ({ handleNotice }) {
     }
   }
 
-
   // 수정할 닉네임 글자수가 10자 초과할때 메세지 나타나게 하는 함수
   function checkNickLength(key, inputValue, e){
     const check = inputValue.length < 10 ? true : false
@@ -292,7 +284,6 @@ function MyPage ({ handleNotice }) {
       showCheckMessage(key, '닉네임은 10자 미만으로 입력해주세요')
     }
   }
-
 
   // 계정 전환 checkbox state setState 해주는 onChange 이벤트 함수
   function handleCheckAdmin () {
@@ -326,7 +317,7 @@ function MyPage ({ handleNotice }) {
         handleInputValue('debut', user.userArtist.debut, 'useArtist');
         handleInputValue('email', user.userArtist.email, 'useArtist');
 
-        // 리덕스 updata
+        // 리덕스 update
         const result = await accessTokenRequest(res.data.data);
         dispatch(getUserInfo(result));
         dispatch(getAccessToken(res.data.data));
@@ -348,7 +339,6 @@ function MyPage ({ handleNotice }) {
     }
     );
   }
-
 
   return (
     <div className='my-page-container'>
