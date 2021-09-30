@@ -43,9 +43,9 @@ function WriteReply ({
   // 글자수 제한 유효성 검사 함수
   function isValidLength () {
     // console.log('유효성 검사 함수',inputText.length)
-    if (inputText.length >= 8) {
-      handleNotice('댓글은 7자를 초과할 수 없습니다.', 5000);
-      setInputText(inputText.slice(0, 7));
+    if (inputText.length > 100) {
+      handleNotice('댓글은 100자를 초과할 수 없습니다.', 5000);
+      setInputText(inputText.slice(0, 100));
     }
   }
 
@@ -174,16 +174,16 @@ function WriteReply ({
   }
 
   return (
-    <div>
+    <div className='write-reply-container'>
       {clickedBtn === '수정'
         ? <textarea className='write-reply-area' value={inputText} onChange={(e) => handleInputText(e)} />
         : <textarea className='write-reply-area' value={inputText} onChange={(e) => handleInputText(e)} />}
       {clickedBtn === '수정'
         ? <>
-          <button className='contents__btn' onClick={(e) => requestModifyReply(e)}>댓글 수정</button>
-          <button className='contents__btn' onClick={(e) => cancelModify(e)}>취소</button>
+          <button className='contents__btn modify-reply-btn' onClick={(e) => requestModifyReply(e)}>댓글 수정</button>
+          <button className='contents__btn cancel-reply-btn' onClick={(e) => cancelModify(e)}>취소</button>
         </>
-        : <button className='contents__btn' onClick={(e) => requestReply(e)}>댓글 등록</button>}
+        : <button className='contents__btn create-reply-btn' onClick={(e) => requestReply(e)}>댓글 등록</button>}
     </div>
   );
 }

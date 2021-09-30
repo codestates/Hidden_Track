@@ -295,9 +295,9 @@ function TestMo ({ handleNotice, isLoading }) {
               <select name='genre' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
                 <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
                 <option value='Ballad'>Ballad</option>
-                <option value='Rap/Hiphop'>Rap/Hiphop</option>
-                <option value='R&B/Soul'>R&B/Soul</option>
-                <option value='Rock/Metal'>Rock/Metal</option>
+                <option value='HipHop'>HipHop</option>
+                <option value='R&B'>R&B</option>
+                <option value='Rock'>Rock</option>
                 <option value='Jazz'>Jazz</option>
               </select>
               <div>

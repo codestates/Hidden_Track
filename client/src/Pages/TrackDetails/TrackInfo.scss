@@ -1,57 +1,76 @@
 .trackinfo-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   background-color: wheat;
-}
+  margin-top: 100px;
+  // width: 80%;
 
-.trackinfo-desc {
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  // flex-wrap: wrap;
-}
-
-.trackinfo-box {
-  // display: block;
-  // justify-content: left;
-  background-color: yellowgreen;
-}
-
-.trackinfo-info {
-  // width: 300px;
-  height: 70px;
-  display: flex;
-  // justify-content: left;
-}
-
-.trackinfo-key {
-  background-color: red;
-  width: 50px;
-  flex-basis: 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.trackinfo-value {
-  flex-basis: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.trackinfo-hashtag-box {
-  width: 500px;
-  .tag {
-    height: 30px;
+  .trackinfo-image-box {
+    width: 500px;
+    height: 500px;
+    width: 40%;
+    // position: relative;
+    
+    .trackinfo-image {
+      // height: 500px;
+      // size: 100%;
+      // object-fit: cover;
+      // padding-bottom: 100%;
+      // position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0; max-width: 100%; height: auto;
+    }
   }
-}
-
-.trackinfo-btn-box {
-  // flex: 1 1 auto;
-}
-
-.like-btn {
-  width: 15px;
-  height: 15px;
+  
+  .trackinfo-desc {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    // flex-wrap: wrap;
+  
+    .trackinfo-box {
+      // display: block;
+      // justify-content: left;
+      background-color: yellowgreen;
+      
+      .trackinfo-info {
+        // width: 300px;
+        height: 70px;
+        display: flex;
+        // justify-content: left;
+        
+        .trackinfo-key {
+          background-color: red;
+          width: 50px;
+          flex-basis: 30%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .trackinfo-value {
+          flex-basis: 70%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  
+    .trackinfo-hashtag-box {
+      width: 95%;
+      // .tag {
+      //   height: 30px;
+      // }
+    }
+    
+    .trackinfo-btn-box {
+      // flex: 1 1 auto;
+      width: 300px;
+      
+      .like-btn {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
 }

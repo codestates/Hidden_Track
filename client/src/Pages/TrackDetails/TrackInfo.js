@@ -220,8 +220,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   return (
     <div className='trackinfo-container'>
-      <div>
-        <img src={trackDetail.track.img} alt='' />
+      <div className='trackinfo-image-box'>
+        <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} />
       </div>
       <section className='trackinfo-desc'>
         <h2>{trackDetail.track.title}</h2>
