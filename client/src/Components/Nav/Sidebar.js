@@ -20,30 +20,49 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   console.log('사이드바 플레이리스트', playList);
   const dispatch = useDispatch();
 
+  const default_crrentMusic = {
+    id: 1,
+    track: {
+      id: 1,
+      title: 'joy-ride',
+      img: ' https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/4831632834753004.jpg',
+      genre: 'Jazz',
+      releaseAt: '2021-09-28',
+      lyric: '등록된 가사가 없습니다.',
+      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/joy-ride+by+aves+Artlist.mp3',
+      user: {
+        nickName: 'Aves'
+      }
+    }
+  };
+
   // state 선언 crrentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
-  const [crrentMusic, setCrrentMusic] = useState(playList[playList.length - 1]);
+  const [crrentMusic, setCrrentMusic] = useState(playList.length ? playList[playList.length - 1] : default_crrentMusic);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
   const [afterRender, setAfterRender] = useState(false);
 
   useEffect(() => {
+    clearInterval(time);
     audio.current.audio.current.onplay = () => {
+      setAfterRender(true);
       play1min();
     };
 
     audio.current.audio.current.onpause = () => {
       play1min();
     };
-
+    setAfterRender(false);
     if (isLogin) {
       axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
             // console.log(res.data);
+
             console.log('플레이리스트', res.data);
             dispatch(inputPlayList(res.data.playlist));
             setCrrentMusic(res.data.playlist[res.data.playlist.length - 1]);
-            setAfterRender(true);
+
             // audio.current.pause();
           }
         })
@@ -58,6 +77,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         }
         );
     }
+    // setAfterRender(true);
   }, [isLogin]);
 
   let tic = 0;
@@ -85,17 +105,24 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   }
 
   function check () {
-    if (tic > 59) {
+    console.log(isLogin, time);
+    if (isLogin) {
+      console.log('로그인');
+      clearInterval(time);
+      tic = 0;
+    } else if (tic > 59) {
+      console.log('비로그인');
       audio.current.audio.current.pause();
       audio.current.audio.current.currentTime = 0;
       clearInterval(time);
       tic = 0;
       // dispatch(isLoginModalOpenHandler(true))
-      handleNotice('현재 1분 미리듣기 상태입니다. 로그인하시겠어요?', 5000);
+      handleNotice('현재 1분 미리듣기 상태입니다.\n로그인하시겠어요?', 5000);
     }
   }
 
   function handleChangeMusic (index, key) {
+    setAfterRender(true);
     if (!isLogin) {
       // 비로그인 상태에서는 노래 재생중엔 노래 변경 불가능
       if (audio.current.audio.current.currentTime === 0) {
@@ -147,10 +174,10 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   }
 
   // 재생목록에서 곡 삭제 함수
-  function handleDeleteMusic (e, index, trackId) {
+  function handleDeleteMusic (e, index, playListId) {
     e.preventDefault();
     isLogin
-      ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist`, { id: trackId }, { headers: { accesstoken: accessToken } })
+      ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist`, { id: playListId }, { headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
             axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
@@ -185,11 +212,11 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
       <div className='sidebar-control'>
         <div className='sidebar-info'>
           <div className='square'>
-            <img className='inner-square' src={crrentMusic ? crrentMusic.img : default_album_img} alt={crrentMusic ? crrentMusic.title : '기본 이미지'} />
+            <img className='inner-square' src={crrentMusic.track.img} alt={crrentMusic.track.title} />
           </div>
           <div className='current-info'>
-            <p className='inner-title'>{crrentMusic ? crrentMusic.title : ''}</p>
-            <p className='inner-nickname'>{crrentMusic ? crrentMusic.user.nickName : ''}</p>
+            <p className='inner-title'>{crrentMusic.track.title}</p>
+            <p className='inner-nickname'>{crrentMusic.track.user.nickName}</p>
           </div>
           <div className='shuffle'>
             <button id='random-button' onClick={() => { setIsRandom(!isRandom); }}>
@@ -201,7 +228,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
           <AudioPlayer
             // className={}
             ref={audio}
-            src={crrentMusic ? crrentMusic.soundTrack : ''}
+            src={crrentMusic.track.soundTrack}
             // handleKeyDown={()=>{console.log('어허')}}
             // isLogin?controls:''
             volume={0.1}
@@ -273,7 +300,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
               return (
                 <PlayList
                   key={el.id}
-                  trackId={el.id}
+                  playListId={el.id}
                   num={idx}
                   music={el}
                   handleChangeMusic={handleChangeMusic}
