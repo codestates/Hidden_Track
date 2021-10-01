@@ -10,41 +10,49 @@ let ctx
 // constants
 const width = window.innerWidth;
 const height = window.innerHeight;
-console.log('dd')
 
 class Canvas extends Component {
     constructor(props) {
         super(props)
-        console.log(props)
-        this.track = {title: localStorage.getItem('title'),
-            nickName: localStorage.getItem('nickName'),
-            soundtrack: localStorage.getItem('soundTrack'), 
-            img: localStorage.getItem('img')
-        }
+        this.trackId = this.props.loca.pathname.split('/')[2];
+        console.log('트랙아이디', this.trackId)
         this.audio = new Audio();
-        // this.audio.src = this.track.soundtrack
         this.audio.volume = 0.5;
         this.audio.crossOrigin = "use-credentials"
         this.img = new Image();
-        this.img.src = this.track.img
         this.canvas = createRef();
-        // this.track = localStorage.getItem('trackDetail')
         // this.audio.crossOrigin = "use-credentials"; // 자격증명을 하는거 쿠키 헤더
         // this.audio.crossOrigin = "anonymous"; //익명으로 요청보내는건데 자격증명 x default header로 확인하는거같음
-
     }
 
-    getUrl = () => {
-        axios.get(`${this.track.soundtrack}`).then(res => {
-            console.log(res)
-            console.log(res.status)
-            this.audio.src=res.config.url
-        })
+    state = {
+        title: '',
+        nickName: '',
+        soundtrack: '',
+        img: ''
     }
+
+    getData = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/track/${this.trackId}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ title: res.data.track.title, 
+                    nickName: res.data.track.user.nickName,
+                    soundtrack: res.data.track.soundtrack,
+                    img: res.data.track.img
+                })
+            }).then(res => {
+                this.img.src = this.state.img
+                axios.get(`${this.state.soundtrack}`).then(res => {
+                    console.log(res)
+                    console.log(res.status)
+                    this.audio.src=res.config.url
+                })
+            })
+    } 
 
     componentDidMount () {
-        this.getUrl()
-        console.log('오디오', this.audio)
+        this.getData()
         this.context = new (window.AudioContext || window.webkitAudioContext)();
         this.source = this.context.createMediaElementSource(this.audio);
         this.analyser = this.context.createAnalyser();
@@ -57,10 +65,6 @@ class Canvas extends Component {
         cancelAnimationFrame(this.rafId);
         this.analyser.disconnect();
         this.source.disconnect();
-        localStorage.removeItem('title');
-        localStorage.removeItem('nickName');
-        localStorage.removeItem('soundTrack');
-        localStorage.removeItem('img');
     }
 
     animationLooper(canvas) {
@@ -113,12 +117,8 @@ class Canvas extends Component {
         this.imgLoad(canvas, this.img)
     }
 
-
-
     togglePlay = () => {
-        console.log('플레이때 오디오', this.audio)
         if(this.audio.paused) {
-            console.log('현재 정지상태 재생 실행', this.context)
             this.audio.play();
             this.rafId = requestAnimationFrame(this.tick);
         } else {
@@ -135,28 +135,35 @@ class Canvas extends Component {
 
     render() {
 
-        console.log(this.track.title)
         return (
-    <div id='visualizer'>
-        <button
-        className='go-main-button' onClick={() => {
-            this.props.history.push('/')
-        }}
-        >Go Main
-        </button>
-        <div className='inner-circle-control'>
-        <div className='inner-circle-title'>{this.track.title}</div>
-        <div className='inner-circle-artist'>{this.track.nickName}</div>
-        <button className='inner-circle-button' onClick={() => { this.togglePlay(); }}>
-            <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />
-        </button>
-        </div>
-        <canvas
-        id='canvas'
-        ref={this.canvas}
-        />
-    </div>
-    )
+            <div id='visualizer'>
+                {this.state.title.length?
+                <>
+                    <button
+                    className='go-main-button' onClick={() => {
+                        this.props.history.push('/')
+                        localStorage.removeItem('title');
+                        localStorage.removeItem('nickName');
+                        localStorage.removeItem('soundTrack');
+                        localStorage.removeItem('img');
+                    }}
+                    >Go Main
+                    </button>
+                    <div className='inner-circle-control'>
+                    <div className='inner-circle-title'>{this.state.title}</div>
+                    <div className='inner-circle-artist'>{this.state.nickName}</div>
+                    <button className='inner-circle-button' onClick={() => { this.togglePlay(); }}>
+                        <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />
+                    </button>
+                    </div>
+                    <canvas
+                    id='canvas'
+                    ref={this.canvas}
+                    />
+                </>
+                :<h1 className="Bad" >잘못된 접근입니다.</h1>} 
+            </div>
+            )
     }
 }
 

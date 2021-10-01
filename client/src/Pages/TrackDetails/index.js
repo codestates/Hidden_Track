@@ -40,7 +40,7 @@ function TrackDetails ({ handleNotice, isLoading }) {
       });
     // 음원 상세 정보가 제대로 들어왔다면 로딩 인디케이터 종료
     if (trackDetail.track.id) dispatch(isLoadingHandler(false));
-  }, []);
+  }, [trackId]);
 
   return (
     <div className='track-details'>
