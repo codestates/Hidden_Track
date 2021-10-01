@@ -248,13 +248,9 @@ function TestMo ({ handleNotice, isLoading }) {
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
             console.log(res.status);
-            if (res.status === 201) {
-              handleNotice('음원 등록이 성공하였습니다.', 5000);
+            if (res.status === 200 || res.status === 201) {
+              handleNotice(trackId ? '음원 수정을 완료하였습니다' : '음원 등록을 완료하였습니다.', 5000);
               dispatch(isLoadingHandler(false));
-              console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
-              history.push(`/trackdetails/${res.data.trackId}`);
-            } else if (res.status === 200) {
-              handleNotice('음원 등록이 성공하였습니다.', 5000);
               console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
               history.push(`/trackdetails/${res.data.trackId}`);
             }
@@ -286,7 +282,7 @@ function TestMo ({ handleNotice, isLoading }) {
           <div className='default-input-box'>
             <div className='album-img-box'>
               <img className='album-img' src={src} />
-              <label htmlFor='album-input-btn' className='contents__btn'>앨범 이미지 첨부</label>
+              <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
               <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
               <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
             </div>
@@ -305,7 +301,7 @@ function TestMo ({ handleNotice, isLoading }) {
                 <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
               </div>
               <div>
-                <label htmlFor='music-input-btn' className='contents__btn'>음원파일첨부</label>
+                <label htmlFor='music-input-btn' className='music-input-btn'>음원파일첨부</label>
                 <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
                 <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} required={!trackId} />
               </div>
@@ -319,7 +315,7 @@ function TestMo ({ handleNotice, isLoading }) {
             </div>
             <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
           </section>
-          <div className='post-create-btn-box'>
+          <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
         </>

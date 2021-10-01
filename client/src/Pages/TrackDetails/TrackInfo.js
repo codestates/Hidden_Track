@@ -12,40 +12,6 @@ import HashTag from '../../Components/HashTag';
 function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const audioRef = useRef();
-  // ?########################################################
-  let tic = 0;
-  let time;
-
-  function play1min () {
-    if (audioRef.current.paused) {
-      audioRef.current.play();
-      time = setInterval(tictok, 1000);
-    } else {
-      // clearTimeout(timer)
-      console.log('>', time);
-      clearInterval(time);
-      audioRef.current.pause();
-      // audioRef.current.currentTime=0;
-    }
-  }
-
-  function tictok () {
-    console.log(tic);
-    tic += 1;
-    check();
-  }
-
-  function check () {
-    if (tic > 60) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      clearInterval(time);
-      tic = 0;
-    }
-  }
-  // ?########################################################
-
   const playList = useSelector(state => state.playListReducer).playList;
   // const modifyBtn = useSelector(state => state.modifyReducer);
   // const { onClickModify } = modifyBtn;
@@ -60,6 +26,14 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       addPlaylist();
     }
   }, [listenBtn]);
+
+  // 로컬 스토리지에 trackDetail값 저장하는 함수
+  function setLocal () {
+    localStorage.setItem('soundTrack', `${trackDetail.track.soundtrack}`);
+    localStorage.setItem('img', `${trackDetail.track.img}`);
+    localStorage.setItem('title', `${trackDetail.track.title}`);
+    localStorage.setItem('nickName', `${trackDetail.track.user.nickName}`);
+  }
 
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike (e) {
@@ -108,7 +82,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
   // 플레이리스트에 해당 곡이 이미 있는지 확인하는 함수
   function isDuplicateTrack (list, trackId) {
     for (const el of list) {
-      if (el.id === trackId) return true;
+      if (el.track.id === trackId) return true;
     }
     return false;
   }
@@ -126,19 +100,23 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       else if (check && listenBtn) {
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
-        return history.push(`/visual/${trackId}`);
+        setLocal();
+        return history.push(`/visual/${trackDetail.track.title}`);
       } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
-          id: trackDetail.track.id,
-          title: trackDetail.track.title,
-          img: trackDetail.track.img,
-          genre: trackDetail.track.genre,
-          releaseAt: trackDetail.track.releaseAt,
-          lyric: trackDetail.track.lyric,
-          soundtrack: trackDetail.track.soundtrack,
-          user: {
-            nickname: trackDetail.track.user.nickName
+          id: trackDetail.track.title,
+          track: {
+            id: trackDetail.track.id,
+            title: trackDetail.track.title,
+            img: trackDetail.track.img,
+            genre: trackDetail.track.genre,
+            releaseAt: trackDetail.track.releaseAt,
+            lyric: trackDetail.track.lyric,
+            soundTrack: trackDetail.track.soundtrack,
+            user: {
+              nickName: trackDetail.track.user.nickName
+            }
           }
         }));
         // 바로 듣기 버튼 안 눌렀다면 알림 뜸
@@ -146,7 +124,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
         else {
           // 바로 듣기 버튼을 눌렀다면 비주얼 페이지로 이동
           setListenBtn(false);
-          return history.push(`/visual/${trackId}`);
+          setLocal();
+          return history.push(`/visual/${trackDetail.track.title}`);
         }
       }
     } else {
@@ -159,7 +138,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       else if (check && listenBtn) {
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
-        return history.push(`/visual/${trackId}`);
+        setLocal();
+        return history.push(`/visual/${trackDetail.track.title}`);
       } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist`, {
@@ -180,7 +160,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
                     // 바로 듣기 버튼을 눌렀다면 알림 메시지 안띄우고 비주얼 페이지로 이동
                     else {
                       setListenBtn(false);
-                      return history.push(`/visual/${trackId}`);
+                      setLocal();
+                      return history.push(`/visual/${trackDetail.track.title}`);
                     }
                   } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
                 })
@@ -247,11 +228,6 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
         <div className='trackinfo-btn-box'>
           <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
           <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
-          <button className='contents__btn' onClick={(e) => { play1min(); }}>1분 들어보기</button>
-          <audio
-            src={trackDetail.track.soundtrack}
-            ref={audioRef}
-          />
           <button className='contents__btn' onClick={(e) => requestLike(e)}>
             <img className='like-btn' src={likeImage} alt='' />
           </button>

@@ -25,8 +25,10 @@ module.exports =  {
     },
     
     delete: async (req, res) =>{
+        console.log(req.headers)
+
         const accessTokenData = isAuthorized(req);
-        const { id } = req.body;
+        const { id } = req.params;
   
         if(!id ) {
             res.status(400).json({message: "no playlistId"})
@@ -41,11 +43,12 @@ module.exports =  {
                 id : id              
             }
         })
-        
+            console.log('파인드',findPlaylist.dataValues.userId, '엑세스',accessTokenData.id)        
         if(!findPlaylist){
             res.status(404).json({ message : "not found" });
         }else{
            if(findPlaylist.dataValues.userId !== accessTokenData.id){
+
             res.status(401).json({ message : "unauthorized"});
            }else{
             await playlist.destroy({
