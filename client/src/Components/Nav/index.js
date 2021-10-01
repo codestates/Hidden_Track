@@ -79,7 +79,7 @@ function Nav ({ handleNotice }) {
 
     // 로그아웃 서버 요청
     axios.get(`${process.env.REACT_APP_API_URL}/user/signout`,
-      { withCredentials: true })
+      { withCredentials: true }) // <- refreshToken 이 필요하기 때문에 넣음
       .then(res => {
         if (res.status === 200) {
         // isLoginHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
@@ -92,10 +92,12 @@ function Nav ({ handleNotice }) {
       ).catch(err => {
       // 뭔가 알림모달을 띄우게
         console.log(err.response);
-        if (err.response.status === 400) {
-
-        } else if (err.response.status === 404) {
-
+        if (err.response) {
+          if (err.response.status === 400) { // <- refreshToken 이 안들어왔을때
+            handleNotice('권한이 없습니다', 2000);
+          } else if (err.response.status === 404) { // <- 들어오는 refreshToke과 일치하는 것이 없을때
+            handleNotice('잘못된 요청입니다', 2000);
+          }
         }
       });
   }

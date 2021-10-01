@@ -23,9 +23,10 @@
   user-select: none;
   -ms-touch-action: pan-y;
   touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
+  /* -webkit-tap-highlight-color: transparent; */
   width: 890px;
-  /* background-color: blueviolet; */
+  /* position: relative; */
+  /* height: 260px; */
 }
 
 .slick-list {
@@ -34,6 +35,7 @@
   overflow: hidden;
   margin: 0;
   padding: 0;
+  margin: 10px 0;
 
   /* background-color: blue; */
   /* background-color: aqua; */

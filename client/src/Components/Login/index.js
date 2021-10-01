@@ -55,14 +55,6 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     dispatch(isLoginModalOpenHandler(false));
   }
 
-  // 회원가입 페이지로 넘어가주는 onClick 이벤트
-  function handleSignUpBtn (e) {
-    e.preventDefault();
-    console.log(e);
-    // console.log(e.key);
-    history.push('/signup');
-  }
-
   // 로그인 버튼 눌렀을 때 로그인 서버 요청 onClick 이벤트 함수
   function requestLogin (e) {
     e.preventDefault();
@@ -124,18 +116,25 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
         if (err.response) {
           if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
             console.log('400 에러다');
-            handleNotice('존재하지 않는 회원입니다. 회원가입을 해주세요', 3000);
+            handleNotice('존재하지 않는 회원입니다. 회원가입을 해주세요', 2000);
           } else if (err.response.status === 401) { // <- not authorized
             console.log('401 에러다');
-            handleNotice('권한이 없습니다', 3000);
+            handleNotice('권한이 없습니다', 2000);
           } else if (err.response.status === 404) { // <- not found
             console.log('404 에러다');
-            handleNotice('잘못된 요청입니다', 3000);
+            handleNotice('잘못된 요청입니다', 2000);
           }
         }
       });
   }
 
+  // 회원가입 페이지로 넘어가주는 onClick 이벤트
+  function handleSignUpBtn (e) {
+    e.preventDefault();
+    console.log(e);
+    // console.log(e.key);
+    history.push('/signup');
+  }
   return (
     <>
       <Portal elementId='modal-root'>
@@ -166,18 +165,19 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
                 <input type='checkbox' />
                 <span>로그인 상태 유지</span>
               </div>
+              <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} value='회원가입' />
             </div>
             <button
               className='modal__login-btn' type='submit' name='login-btn'
             >로그인
             </button>
-            <button onClick={(e) => handleSignUpBtn(e)}>회원가입</button>
-            <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button>
+            {/* <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button> */}
             <KakaoLogin />
             <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}>X</label>
             <button id='modal-close-btn' style={{ display: 'none' }} />
           </fieldset>
         </form>
+        {/* <button className="sign-up-btn" onClick={(e) => handleSignUpBtn(e)}>회원가입</button> */}
       </Portal>
     </>
   );
