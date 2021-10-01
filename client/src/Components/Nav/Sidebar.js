@@ -224,6 +224,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
           <div className='square'>
             <img
               className='inner-square'
+              onClick={() => {history.push(`/trackdetails/${crrentMusic.track.id}`)}}
               src={crrentMusic ? crrentMusic.track.img : default_crrentMusic.track.img}
               alt={crrentMusic ? crrentMusic.track.title : default_crrentMusic.track.title}
             />
