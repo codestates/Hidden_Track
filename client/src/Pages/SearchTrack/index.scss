@@ -1,8 +1,9 @@
+@import '../../Common.scss';
+
 .searchtrack-container {
-  display: flex;
+  @include flexBox(flex, _, center, _, _);
   flex-direction: column;
   // justify-content: center;
-  align-items: center;
 
   .hashtag-box {
     width: 80%;
@@ -10,41 +11,59 @@
   }
   
   .track-list-container {
-    background-color: green;
+    // background-color: green;
+    border: white solid 3px;
+    border-radius: 25px;
     margin-bottom: 100px;
+    // width: 80%;
+    width: 1216px;
     
     .track-list-ul {
       display: flex;
-      flex-wrap: wrap;
+      // flex-wrap: wrap;
       // background-color: hotpink;
       // justify-content: space-evenly;
-      width: 1250px;
+      width: 100%;
+      padding: 0;
+      justify-content: center;
     
-      .track-list-li {
-        display: block;
-        background-color: skyblue;
-        float: left; // 자식 태그들 왼쪽부터 채워지게
-        cursor: pointer;
-        margin: 1em;
+      .track-list-box {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        // justify-content: center;
+        // float: left;
+        // background-color: green;
+        // padding: 0 5% 0 5%;
+        // width: 90%;
         
-        .track-list-img {
-          width: 17em;
-          height: 17em;
+        .track-list-li {
+          // display: inline-block;
+          // flex: 1;
+          background-color: skyblue;
+          // float: left; // 자식 태그들 왼쪽부터 채워지게
+          cursor: pointer;
+          margin: 1em;
+          outline: solid 1px white;
+          
+          .track-list-img {
+            @include widthHeight(17em, 17em)
+          }
+    
+          .track-list-title, .track-list-artist {
+            margin: 0;
+          }
         }
-  
-        .track-list-title, .track-list-artist {
-          margin: 0;
+    
+        .track-list-li:hover {
+          transform: scale(1.1);
+          transition: .3s;
         }
       }
   
-      .track-list-li:hover {
-        transform: scale(1.1);
-        transition: .3s;
+      .track-list-msg {
+        color: white;
       }
-  
-      // .track-list-msg & {
-      //   justify-content: center;
-      // }
     }
   }
 }
