@@ -10,9 +10,13 @@
     display: flex;
     width: 1100px;
     margin: 0 auto;
+    // position: relative;
   }
 
-  .main-genre {}
+  .main-genre {
+    display: flex;
+    justify-content: center;
+  }
 
   .main-hashtag {
     display: flex;

@@ -1,3 +1,16 @@
+.slide-btn {
+  width: 90px;
+  padding: 10px 0;
+
+
+  .popular,
+  .recent {
+    // background-color: aqua;
+    cursor: pointer;
+    color: #fff;
+  }
+}
+
 .popular::after {
   content: '/';
   margin: 0 10px;
@@ -5,13 +18,6 @@
   // top: 0;
 }
 
-.slide-btn {
-  width: 90px;
-  padding: 10px 0;
-
-  .popular,
-  .recent {
-    // background-color: aqua;
-    cursor: pointer;
-  }
+.slide-container {
+  position: relative;
 }

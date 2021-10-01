@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +19,6 @@ function Visualizer ({ handleNotice }) {
   // const audio = useRef();
   // const canvas = useRef();
   // const playList = useSelector(state => state.playListReducer.playList);
-  // const dispatch = useDispatch();
   const history = useHistory();
 
   // let context, source, analyser, ctx, frequency_array, rafId;

@@ -24,16 +24,15 @@ const settings = {
   centerMode: true,
   centerPadding: '0px',
   afterChange: function (index) {
-    // console.log(
-    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    // );
+    console.log(
+      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    );
   }
 };
 
 function Slide () {
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
-
   const [isPopularList, setPopularList] = useState(playList);
 
   function handleRecent (e) {
@@ -76,14 +75,7 @@ export default Slide;
 
 export const StyledSlider = styled(Slider)`
   .slick-list { // container 와 같음
-      /* width: 890px; */
-      /* 890 내로 li가 안들어가는 건 overflow hidden 으로 안보이게 해놓음*/
-      /* margin: 0 auto; */
-      height: 200px;
-      /* overflow: hidden; */
-      /* background-color: blue; */
-      /* position: absolute;
-      top: 100px; */
+      /* position: relative; */
     }
 `;
 
@@ -98,3 +90,11 @@ export const ImgSlide = styled.div`
   padding: ${props => props.className ? '5px' : 0} ;
   /* margin-left: ${props => props.className ? '20px' : 0}; */
 `;
+
+// main-slides <div>
+//  > slide-container <section>
+//      > slide-container <slide-btn> : 인기 / 추천
+//      > slide-slider <div>
+//          > slick-prev <button>
+//          > slick-list <div>
+//          > slick-next <button>
