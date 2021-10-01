@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoginHandler, getAccessToken, getUserInfo, isLoadingHandler } from './Redux/actions/actions';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Main from './Pages/Main';
 import Footer from './Components/Footer';
-import Visualizer from './Pages/Visualizer';
-// import Visualizer2 from './Pages/Visualizer/backup4'
+import Canvas from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
@@ -21,6 +20,7 @@ import axios from 'axios';
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
   const cookies = new Cookies();
 
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
@@ -144,7 +144,7 @@ function App () {
             <SignUp handleNotice={handleNotice} />
           </Route>
           <Route path='/visual/:id'>
-            <Visualizer handleNotice={handleNotice} />
+            <Canvas handleNotice={handleNotice} history={history} />
           </Route>
           <Route path='/mypage'>
             <MyPage handleNotice={handleNotice} />

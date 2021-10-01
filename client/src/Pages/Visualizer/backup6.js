@@ -11,25 +11,14 @@
 // class Canvas extends Component {
 //     constructor(props) {
 //         super(props)
-//         this.track = {title: localStorage.getItem('title'),
-//             nickName: localStorage.getItem('nickName'),
-//             soundtrack: localStorage.getItem('soundTrack'),
-//             img: localStorage.getItem('img')
-//         }
-//         this.audio = new Audio();
-//         this.audio.preload = "auto"
-//         // this.audio.crossOrigin = "anonymous"
-//         this.audio.volume = 0.5;
-//         this.audio.src = localStorage.getItem('soundTrack')
 //         this.img = new Image();
-//         this.img.src = this.track.img
-
-//         // this.track = localStorage.getItem('trackDetail')
+//         this.audio = new Audio();
 //         // this.audio.crossOrigin = "use-credentials"; // 자격증명을 하는거 쿠키 헤더
 //         // this.audio.crossOrigin = "anonymous"; //익명으로 요청보내는건데 자격증명 x default header로 확인하는거같음
-
+//         this.audio.preload = "auto"
 //         // const objectURL = window.URL.createObjectURL(this.props.track.soundtrack)
 //         // console.log(this.objectURL)
+//         console.log('컨스트럭터',this.props.track)
 //         this.canvas = createRef();
 //     }
 
@@ -81,13 +70,17 @@
 //     }
 
 //     componentDidMount() {
+//         this.audio.src = this.props.track.soundtrack
 //         console.log('오디오', this.audio)
+//         this.audio.volume = 0.5;
+//         this.img.src = this.props.track.img;
 //         this.context = new (window.AudioContext || window.webkitAudioContext)();
 //         this.source = this.context.createMediaElementSource(this.audio);
 //         this.analyser = this.context.createAnalyser();
 //         this.source.connect(this.analyser);
 //         this.analyser.connect(this.context.destination);
 //         this.frequency_array = new Uint8Array(this.analyser.frequencyBinCount);
+
 //     }
 
 //     togglePlay = () => {
@@ -111,17 +104,12 @@
 //         cancelAnimationFrame(this.rafId);
 //         this.analyser.disconnect();
 //         this.source.disconnect();
-//         localStorage.removeItem('title');
-//         localStorage.removeItem('nickName');
-//         localStorage.removeItem('soundTrack');
-//         localStorage.removeItem('img');
 //     }
 
 //     render() {
 
-//         console.log(this.track.title)
 //         return (
-//     <div id='visualizer'>
+//     <>
 //         <button
 //         className='go-main-button' onClick={() => {
 //             this.props.goMain();
@@ -129,8 +117,8 @@
 //         >Go Main
 //         </button>
 //         <div className='inner-circle-control'>
-//         <div className='inner-circle-title'>{this.track.title}</div>
-//         <div className='inner-circle-artist'>{this.track.nickName}</div>
+//         <div className='inner-circle-title'>{this.props.track.title}</div>
+//         <div className='inner-circle-artist'>{this.props.track.user.nickName}</div>
 //         <button className='inner-circle-button' onClick={() => { this.togglePlay(); }}>
 //             <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />
 //         </button>
@@ -139,7 +127,7 @@
 //         id='canvas'
 //         ref={this.canvas}
 //         />
-//     </div>
+//     </>
 //     )
 //     }
 // }

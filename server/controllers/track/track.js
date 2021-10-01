@@ -1,6 +1,8 @@
 const { track,hashtag,user,reply,grade,playlist } = require("../../models")
 const db = require("../../models");
 const { isAuthorized } = require('../tokenFunctions');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 
 module.exports = {  
    get: async (req,res) => {
@@ -94,7 +96,7 @@ module.exports = {
     });
 
     for(let i =0;i<tag.length;i++){
-       const [findHashTag,created] =  await hashtag.findOrCreate({
+       const [findHashTag,created] =  await hashtag.findCreateFind({
            where : { tag : tag[i] },
            default : { tag : tag[i] }
         })
@@ -109,6 +111,8 @@ module.exports = {
     },
 
    patch :  async (req,res) =>{ 
+
+     console.log('패치', req.body)
     //  console.log(req.body)
     const accessTokenData = isAuthorized(req);
     const { id, tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
@@ -126,8 +130,10 @@ module.exports = {
       where : {id : id}
     })
 
-    if(findTrack.soundtrack !== soundtrack){
-      const url =  findTrack.soundtrack.split('com/')
+    console.log(findTrack)
+
+    if(findTrack.soundTrack !== soundtrack){
+      const url =  findTrack.soundTrack.split('com/')
       s3.deleteObject({
         Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
         Key: `${url[1]}` // 버켓 내 경로
@@ -161,7 +167,7 @@ module.exports = {
     })
     
     for(let i =0;i<tag.length;i++){
-      const [findHashTag,created] =  await hashtag.findOrCreate({
+      const [findHashTag,created] =  await hashtag.findCreateFind({
           where : { tag : tag[i] },
           default : { tag : tag[i] }
        })
