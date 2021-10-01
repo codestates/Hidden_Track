@@ -3,7 +3,6 @@ import playPause from '../../assets/playPause.png';
 import axios from 'axios'
 import './index.scss'
 
-
 axios.defaults.withCredentials = true;
 // Changing Variables
 let ctx
@@ -11,68 +10,49 @@ let ctx
 // constants
 const width = window.innerWidth;
 const height = window.innerHeight;
-console.log('dd')
 
 class Canvas extends Component {
     constructor(props) {
         super(props)
-        // this.trackId=localStorage.getItem('trackId')
-        // console.log(this.trackId)
-        // this.track = {}
-        // axios.get(`${process.env.REACT_APP_API_URL}/track/${this.trackId}`)
-        //                     .then(res =>  {
-        //                         this.track = res.data
-        //                         console.log(res.data)
-        //                     })
-        //                     .catch(err => console.log(err))
-        // await this.getTrackDetail()
-        this.track = {
-            id: localStorage.getItem('trackId'),
-            title: localStorage.getItem('title'),
-            nickName: localStorage.getItem('nickName'),
-            soundtrack: localStorage.getItem('soundTrack'), 
-            img: localStorage.getItem('img')
-        }
-        console.log(this.track)
+        this.trackId = this.props.loca.pathname.split('/')[2];
+        console.log('트랙아이디', this.trackId)
         this.audio = new Audio();
-        // this.audio.src = this.track.soundtrack
         this.audio.volume = 0.5;
         this.audio.crossOrigin = "use-credentials"
         this.img = new Image();
         this.canvas = createRef();
-        // this.track = localStorage.getItem('trackDetail')
         // this.audio.crossOrigin = "use-credentials"; // 자격증명을 하는거 쿠키 헤더
         // this.audio.crossOrigin = "anonymous"; //익명으로 요청보내는건데 자격증명 x default header로 확인하는거같음
     }
 
     state = {
-        title: '제목',
-        nickName: '닉',
-        soundtrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/6251633000517290.mp3',
-
+        title: '',
+        nickName: '',
+        soundtrack: '',
+        img: ''
     }
-    // getTrackDetail = () => {
-    //     return 
-    // } 
 
-    // getData = () => {
-        
-    // } 
-
-    getUrl = () => {
-        axios.get(`${this.track.soundtrack}`).then(res => {
-            console.log(res)
-            console.log(res.status)
-            this.audio.src=res.config.url
-            // this.audio.src=this.track.soundtrack
-        })
-    }
+    getData = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/track/${this.trackId}`)
+            .then(res => {
+                console.log(res.data)
+                this.setState({ title: res.data.track.title, 
+                    nickName: res.data.track.user.nickName,
+                    soundtrack: res.data.track.soundtrack,
+                    img: res.data.track.img
+                })
+            }).then(res => {
+                this.img.src = this.state.img
+                axios.get(`${this.state.soundtrack}`).then(res => {
+                    console.log(res)
+                    console.log(res.status)
+                    this.audio.src=res.config.url
+                })
+            })
+    } 
 
     componentDidMount () {
-        console.log(this.track)
-        // this.getUrl()
-        this.img.src = this.track.img
-        console.log('오디오', this.audio)
+        this.getData()
         this.context = new (window.AudioContext || window.webkitAudioContext)();
         this.source = this.context.createMediaElementSource(this.audio);
         this.analyser = this.context.createAnalyser();
@@ -137,16 +117,8 @@ class Canvas extends Component {
         this.imgLoad(canvas, this.img)
     }
 
-
-
     togglePlay = () => {
-        console.log('플레이때 오디오', this.audio)
         if(this.audio.paused) {
-            if(!this.audio.src) {
-                console.log('아직 등록되지 않음')
-                this.getUrl()
-            }
-            console.log('현재 정지상태 재생 실행', this.context)
             this.audio.play();
             this.rafId = requestAnimationFrame(this.tick);
         } else {
@@ -165,7 +137,7 @@ class Canvas extends Component {
 
         return (
             <div id='visualizer'>
-                {this.track.title?
+                {this.state.title.length?
                 <>
                     <button
                     className='go-main-button' onClick={() => {
@@ -189,10 +161,9 @@ class Canvas extends Component {
                     ref={this.canvas}
                     />
                 </>
-                :<h1 className="Bad" >잘못된 접근입니다.</h1>}
+                :<h1 className="Bad" >잘못된 접근입니다.</h1>} 
             </div>
             )
-        
     }
 }
 
