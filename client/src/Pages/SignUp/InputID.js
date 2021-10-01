@@ -43,11 +43,11 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
 
   return (
     <div className='sign-up-id-box'>
-      <div>
+      <div className='sign-up-id-area'>
         <span>
-          아이디: <input type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} onKeyUp={(e) => isValidId(e)} />
+          <input className='sign-up-input-id' type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} onKeyUp={(e) => isValidId(e)} />
         </span>
-        <button onClick={(e) => isDuplicatedId(e)}>중복확인</button>
+        <button className='sign-up-id-btn' onClick={(e) => isDuplicatedId(e)}>중복확인</button>
       </div>
       {validMessage.validId
         ? <p className='sign-up-id-msg' id={validMessage.validId === '사용 가능한 아이디 입니다.' ? 'id-ok-msg' : null}>{validMessage.validId}</p>

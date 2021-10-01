@@ -44,9 +44,9 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
 
   return (
     <div className='sign-up-nick-box'>
-      <div>
-        닉네임: <input type='text' placeholder='닉네임을 입력하세요' onChange={(e) => handleNick(e)} onKeyDown={(e) => isValidNick(e)} />
-        <button onClick={(e) => isDuplicatedNick(e)}>중복확인</button>
+      <div className='sign-up-nick-flex'>
+        <input className='sign-up-input-nick' type='text' placeholder='닉네임을 입력하세요' onChange={(e) => handleNick(e)} onKeyDown={(e) => isValidNick(e)} />
+        <button className='sign-up-nick-btn' onClick={(e) => isDuplicatedNick(e)}>중복확인</button>
       </div>
       {validMessage.validNick ? <p className='sign-up-nick-msg' id={validMessage.validNick === '사용 가능한 닉네임 입니다.' ? 'nick-ok-msg' : null}>{validMessage.validNick}</p> : <p className='sign-up-nick-msg' />}
     </div>

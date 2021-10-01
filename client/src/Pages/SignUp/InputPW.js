@@ -43,12 +43,12 @@ function InputPW ({
 
   return (
     <div className='sign-up-pw-box'>
-      <div>
-        비밀번호: <input type='password' placeholder='비밀번호를 입력하세요' onChange={(e) => handlePW(e)} onKeyUp={isValidPW} />
+      <div className='sign-up-pw-flex'>
+        <input className='sign-up-input-pw' type='password' placeholder='비밀번호를 입력하세요' onChange={(e) => handlePW(e)} onKeyUp={isValidPW} />
         {validMessage.validPW ? <p className='sign-up-pw-msg'>{validMessage.validPW}</p> : <p className='sign-up-pw-msg' />}
       </div>
-      <div>
-        비밀번호 확인: <input type='password' placeholder='비밀번호 확인' onChange={(e) => handleMatchPW(e)} onKeyUp={isMatchPW} />
+      <div className='sign-up-pw-flex'>
+        <input className='sign-up-input-pw' type='password' placeholder='비밀번호 확인' onChange={(e) => handleMatchPW(e)} onKeyUp={isMatchPW} />
         {validMessage.matchPW ? <p className='sign-up-pw-msg'>{validMessage.matchPW}</p> : <p className='sign-up-pw-msg' />}
       </div>
     </div>
