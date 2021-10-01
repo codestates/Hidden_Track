@@ -159,7 +159,7 @@ module.exports = {
       img : img,
       genre : genre,
       releaseAt : releaseAt,
-      soundtrack : soundtrack,
+      soundTrack : soundtrack,
       userId : accessTokenData.id,
       lyric: lyric,
     },{

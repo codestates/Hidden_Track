@@ -29,6 +29,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   // 로컬 스토리지에 trackDetail값 저장하는 함수
   function setLocal () {
+    localStorage.setItem('trackId', `${trackId}`);
     localStorage.setItem('soundTrack', `${trackDetail.track.soundtrack}`);
     localStorage.setItem('img', `${trackDetail.track.img}`);
     localStorage.setItem('title', `${trackDetail.track.title}`);
@@ -101,7 +102,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
         setLocal();
-        return history.push(`/visual/${trackDetail.track.title}`);
+        return history.push(`/visual/${trackId}`);
       } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
@@ -125,7 +126,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           // 바로 듣기 버튼을 눌렀다면 비주얼 페이지로 이동
           setListenBtn(false);
           setLocal();
-          return history.push(`/visual/${trackDetail.track.title}`);
+          return history.push(`/visual/${trackId}`);
         }
       }
     } else {
@@ -139,7 +140,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
         // 알림 메시지 안띄우고 비주얼 페이지로 이동
         setListenBtn(false);
         setLocal();
-        return history.push(`/visual/${trackDetail.track.title}`);
+        return history.push(`/visual/${trackId}`);
       } else {
         // 리스트에 없는 곡이면 서버에 플레이 리스트 추가 axios 요청
         axios.post(`${process.env.REACT_APP_API_URL}/playlist`, {
@@ -161,7 +162,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
                     else {
                       setListenBtn(false);
                       setLocal();
-                      return history.push(`/visual/${trackDetail.track.title}`);
+                      return history.push(`/visual/${trackId}`);
                     }
                   } else if (res.status === 204) return handleNotice('컨텐츠가 없습니다.', 5000);
                 })

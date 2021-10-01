@@ -162,28 +162,27 @@ function MyPage ({ handleNotice }) {
   function CheckDuplicateNickname (key, e) {
     e.preventDefault();
 
-    if(message.checkNickLength){
-      return
-    }else{
-  
-    axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
-    ).then(res => {
-      console.log('닉네임 중복확인 요청 응답', res); 
-      console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
-      if (res.status === 200) {
-        showCheckMessage(key, '사용 가능한 닉네임 입니다.');
-      }
-    }
-    ).catch(err => {
-      if (err.response) {
-        if (err.response.status === 400) {
-          showCheckMessage(key, '잘못된 요청입니다.');
-        } else if (err.response.status === 409) {
-          showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
+    if (message.checkNickLength) {
+
+    } else {
+      axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
+      ).then(res => {
+        console.log('닉네임 중복확인 요청 응답', res);
+        console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
+        if (res.status === 200) {
+          showCheckMessage(key, '사용 가능한 닉네임 입니다.');
         }
       }
-    }
-    )
+      ).catch(err => {
+        if (err.response) {
+          if (err.response.status === 400) {
+            showCheckMessage(key, '잘못된 요청입니다.');
+          } else if (err.response.status === 409) {
+            showCheckMessage(key, '이미 존재하는 닉네임 입니다.');
+          }
+        }
+      }
+      );
     }
   }
 
@@ -203,9 +202,9 @@ function MyPage ({ handleNotice }) {
   function requestNickName (e) {
     e.preventDefault();
 
-    if(message.checkNickLength){
-      return
-    }else{
+    if (message.checkNickLength) {
+
+    } else {
     // 닉네임 변경 요청 서버에 보냄
       axios.patch(`${process.env.REACT_APP_API_URL}/user/nickname`,
         { nickName: user.nickName }, // <- body (바뀔 nickName)
@@ -221,20 +220,20 @@ function MyPage ({ handleNotice }) {
           const changedUser = { ...userInfo, nickName: user.nickName };
           dispatch(getUserInfo(changedUser));
 
-        handleNotice('닉네임이 수정되었습니다', 2000);
-        showCheckMessage('duplicatedNick', '')
-      }
-    }
-    ).catch(err => {
-      if (err.response) {
-        if (err.response.status === 400) { // 닉네임이 안들어 왔을 때
-          console.log('400 에러다');
-          handleNotice('입력값이 부족합니다!', 2000);
-        } else if (err.response.status === 401) { // accessToken이 이상하거나 만료되거나 안들어왓을 때
-          console.log('401 에러다');
-          handleNotice('권한이 없습니다.', 2000);
+          handleNotice('닉네임이 수정되었습니다', 2000);
+          showCheckMessage('duplicatedNick', '');
         }
       }
+      ).catch(err => {
+        if (err.response) {
+          if (err.response.status === 400) { // 닉네임이 안들어 왔을 때
+            console.log('400 에러다');
+            handleNotice('입력값이 부족합니다!', 2000);
+          } else if (err.response.status === 401) { // accessToken이 이상하거나 만료되거나 안들어왓을 때
+            console.log('401 에러다');
+            handleNotice('권한이 없습니다.', 2000);
+          }
+        }
       }
       );
     }
@@ -468,7 +467,7 @@ function MyPage ({ handleNotice }) {
       </div>
       {isAdminCheck && <Condition handleInputValue={handleInputValue} requestAdminChange={requestAdminChange} isAdminCheck={isAdminCheck} />}
       <button className='with-drawal-btn' onClick={(e) => showWithDrawalModal(e)}>회원 탈퇴</button>
-      {isWithDrawalModalOpen && <WithDrawalModal visible={isWithDrawalModalOpen} setIsWithDrawalModalOpen={setIsWithDrawalModalOpen} handleNotice={handleNotice}/>}
+      {isWithDrawalModalOpen && <WithDrawalModal visible={isWithDrawalModalOpen} setIsWithDrawalModalOpen={setIsWithDrawalModalOpen} handleNotice={handleNotice} />}
     </div>
   );
 }
