@@ -108,7 +108,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
   // 플레이리스트에 해당 곡이 이미 있는지 확인하는 함수
   function isDuplicateTrack (list, trackId) {
     for (const el of list) {
-      if (el.id === trackId) return true;
+      if (el.track.id === trackId) return true;
     }
     return false;
   }

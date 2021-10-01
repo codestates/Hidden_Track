@@ -18,7 +18,7 @@ function Main () {
   const [tagList, setTagList] = useState([]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/track/charts`, { headers: { accesstoken: accessToken } })
+    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, { headers: { accesstoken: accessToken } })
       .then(res => {
         setLastestChart(res.data.latestChart);
         setPopularityChart(res.data.popularitychart);

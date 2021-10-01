@@ -12,14 +12,14 @@ function LoadingIndicator () {
   //   src={loading}
   // />
 
-    <div class='container'>
-      <div class='loader'>
-        <div class='loader__bar' />
-        <div class='loader__bar' />
-        <div class='loader__bar' />
-        <div class='loader__bar' />
-        <div class='loader__bar' />
-        <div class='loader__ball' />
+    <div className='container'>
+      <div className='loader'>
+        <div className='loader__bar' />
+        <div className='loader__bar' />
+        <div className='loader__bar' />
+        <div className='loader__bar' />
+        <div className='loader__bar' />
+        <div className='loader__ball' />
       </div>
     </div>
 

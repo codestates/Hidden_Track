@@ -7,14 +7,14 @@ const {
 } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
+ 
   
-  try{
   axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${req.body.authorizationCode}`,
     { headers: { "Content-type": "application/x-www-form-urlencoded;charset=utf-8" }}
-    ).then((response1)=>{
+    ).then( response1 =>{
      axios.get(`https://kapi.kakao.com/v2/user/me?access_token=${response1.data.access_token}`,
-     {headers:{ "Content-type": "application/x-www-form-urlencoded;charset=utf-8",}}
-     ).then(async (response2)=>{
+     {headers:{ "Content-type": "application/x-www-form-urlencoded;charset=utf-8",} }
+     ).then(async response2 =>{
       //  console.log(res2.data.kakao_account.email)
       //  console.log(res2.data.properties.nickname)
       //  console.log(res2.data.properties.profile_image)
@@ -41,16 +41,14 @@ module.exports = async (req, res) => {
       await user.update({RT: refreshToken},{
         where: { id: userInfo.id }
       })
-      
+      console.log(userInfo);
      //refreshToken은 쿠키로 accesstoken은 body로.
-      sendRefreshToken(res, refreshToken);
-     
-      res.status(200).json({ data : accessToken ,message:'ok'})
-     })
+     sendRefreshToken(res, refreshToken);
+     res.status(200).json({ data : accessToken ,message:'ok'})
+     }).catch(err)(
+      res.status(401).json({message: 'unauthorized'})
+    )
    }).catch(err)(
-     res.status(401).json({message: 'unauthorized'})
-   )
-  }catch(err){
-    res.status(500).json({message:"error"});
-  }
+    res.status(400).json({message:'bad requset'})
+  )
 }
