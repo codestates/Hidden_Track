@@ -1,10 +1,8 @@
-// *{
-//     border: 1px solid black;
-// }
 #modi-create{
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
     // border: 1px solid black;
     // justify-content: space-around;
     width: 1500px;
@@ -19,6 +17,11 @@
             flex-direction: column;
             align-items: center;
             width: 50%;
+            
+            .album-input-btn {
+                cursor: pointer;
+            }
+
             .album-img {
                 width: 500px;
                 height: 500px;
@@ -38,12 +41,18 @@
                 margin: 10px;
                 font-size: 17px
             }
+            .music-input-btn {
+                cursor: pointer;
+            }
             .music-release{
                 text-align: center;
                 height: 35px;
                 width: 400px;
                 margin: 10px;
                 font-size: 15px
+            }
+            .music-release-label:hover{
+                color: black
             }
         }
     }
@@ -61,7 +70,7 @@
                 text-align: center;
                 border: 1px solid rgb(214, 216, 218);
                 width: 600px;
-                height: 400px 
+                height: 200px 
             }
             .input-lyrics::-webkit-scrollbar {
                 display: none; 
@@ -70,8 +79,9 @@
         }
 
     }
-    .post-create-btn-box{
-        margin: 30px;
+    .modi-create-btn-box{
+        margin-top: 30px;
+        margin-bottom: 120px;
         .contents__btn{
             width: 100px;
             height: 50px;

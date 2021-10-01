@@ -5,46 +5,53 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
   // 아이디 입력값 상태에 반영
   function InputIdHandler (e) {
     handleInputValue('id', e.target.value);
-    handleValidMessage('duplicatedId', '');
+    if (e.target.value.length >= 4 && e.target.value.length <= 15) handleValidMessage('validId', '');
+    if (e.target.value.length === 0) handleValidMessage('validId', '');
+  }
+
+  // 아이디 글자수 유효성 검사 함수
+  function isValidId (e) {
+    if (e.target.value.length !== 0) {
+      if (e.target.value.length < 4 || e.target.value.length > 15) {
+        handleValidMessage('validId', '아이디는 4자 이상 15자 이하여야 합니다.');
+      }
+    } else handleValidMessage('validId', '');
   }
 
   // 아이디 중복확인 요청 함수
   function isDuplicatedId (e) {
     e.preventDefault();
 
-    if (inputValue.id.length < 4) return handleValidMessage('duplicatedId', '아이디를 입력하세요.');
+    if (inputValue.id.length === 0) return handleValidMessage('validId', '아이디를 입력하세요.');
+    if (inputValue.id.length < 4 || inputValue.id.length > 15) return handleValidMessage('validId', '아이디는 4자 이상 15자 이하여야 합니다.');
 
-    axios.get(`${process.env.REACT_APP_API_URL}/user/duplication`, {
-      headers: {
-        loginid: inputValue.id
-      }
-    })
+    axios.get(`${process.env.REACT_APP_API_URL}/user/loginidduplication/${inputValue.id}`)
       .then(res => {
         console.log(res);
         if (res.status === 200) {
-          handleValidMessage('duplicatedId', '사용 가능한 아이디 입니다.');
+          handleValidMessage('validId', '사용 가능한 아이디 입니다.');
         }
       })
       .catch(err => {
         console.log(err.response);
         if (err.response) {
-          if (err.response.status === 400) handleValidMessage('duplicatedId', '잘못된 요청입니다.');
-          if (err.response.status === 409) handleValidMessage('duplicatedId', '이미 등록된 아이디 입니다.');
+          if (err.response.status === 400) handleValidMessage('validId', '잘못된 요청입니다.');
+          if (err.response.status === 409) handleValidMessage('validId', '이미 등록된 아이디 입니다.');
         } else console.log(err);
       });
   }
 
   return (
     <div className='sign-up-id-box'>
-      <div>
+      <div className='sign-up-id-area'>
         <span>
-          아이디: <input type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} required />
+          <input className='sign-up-input-id' type='text' placeholder='아이디를 입력하세요' onChange={(e) => InputIdHandler(e)} onKeyUp={(e) => isValidId(e)} />
         </span>
-        <button onClick={(e) => isDuplicatedId(e)}>중복확인</button>
+        <button className='sign-up-id-btn' onClick={(e) => isDuplicatedId(e)}>중복확인</button>
       </div>
-      {validMessage.duplicatedId
-        ? <p className='sign-up-id-msg' id={validMessage.duplicatedId === '사용 가능한 아이디 입니다.' ? 'id-ok-msg' : null}>{validMessage.duplicatedId}</p>
-        : <>{inputValue.id.length >= 4 || inputValue.id.length === 0 ? <p className='sign-up-id-msg' /> : <p className='sign-up-id-msg'>아이디는 4글자 이상이어야 합니다.</p>}</>}
+      {validMessage.validId
+        ? <p className='sign-up-id-msg' id={validMessage.validId === '사용 가능한 아이디 입니다.' ? 'id-ok-msg' : null}>{validMessage.validId}</p>
+        : <p className='sign-up-id-msg' />}
     </div>
   );
 }

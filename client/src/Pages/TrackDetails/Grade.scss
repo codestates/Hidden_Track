@@ -23,14 +23,14 @@ h1 {
   display: none;
 }
 
-.rate>label {
+.rate>.grade-label {
   float: right;
   color: #ccc;
   // bor
   /* background-color: blue; */
 }
 
-.rate>label:before {
+.rate>.grade-label:before {
   display: inline-block;
   font-size: 2rem;
   padding: .3rem .2rem;
@@ -47,8 +47,10 @@ h1 {
   padding-right: 0;
 }
 
-input:checked~label,
-label:hover,
-label:hover~label {
-  color: #73B100;
+input:checked~.grade-label,
+.grade-label:hover,
+.grade-label:hover~.grade-label {
+  // color: #73B100;
+  color: #fbff00;
+  text-shadow: 0 0 1px #fbff00, 0 0 2px #fbff00, 0 0 3px #fbff00
 }

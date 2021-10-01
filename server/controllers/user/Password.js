@@ -3,7 +3,7 @@ const { isAuthorized } = require('../tokenFunctions');
 
 module.exports =  async (req, res) => {
   //req.headers accesstoken //req.body : currentPassword,password
-   
+   console.log(req.body);
   const accessTokenData = isAuthorized(req);
   const { currentPassword, password } =req.body;
 
@@ -15,7 +15,7 @@ module.exports =  async (req, res) => {
     res.status(401).json({ message : "unauthorized"});
   }
  const findUserInfo = await user.findOne({
-  where: { loginId: userInfo.loginId, password:currentPassword },
+  where: { loginId: accessTokenData.loginId, password:currentPassword },
  })
 
 if(!findUserInfo){

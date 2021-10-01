@@ -1,11 +1,14 @@
 // 라이브러리
 import React, { useEffect, useState } from 'react';
-import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+import '../slick-carousel/slick/slick.css';
+import '../slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 
 // 컴포넌트 import
-import Slider from 'react-slick';
+import Slider from '../react-slick';
 
 import './index.scss';
 import playList from '../../DummyData/playList';
@@ -30,12 +33,16 @@ const settings = {
 function Slide () {
   const [isPopular, setPopular] = useState(false);
   const [isRecent, setRecent] = useState(false);
-
   const [isPopularList, setPopularList] = useState(playList);
 
-  function handleRecent () {
+  function handleRecent (e) {
     // axios.get('http://localhost:4000/recentList')
     // .then(res => playList = recentList)
+    e.preventDefault();
+  }
+
+  function handlePopular (e) {
+    e.preventDefault();
   }
 
   return (
@@ -43,8 +50,8 @@ function Slide () {
       {/* <SlideTitle>인기 서비스</SlideTitle> */}
       {/* <ul> */}
       <div className='slide-btn'>
-        <span className='popular'>인기</span>
-        <span className='recent' onClick={() => { handleRecent(); }}>최신</span>
+        <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
+        <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
       </div>
       <StyledSlider {...settings}>
         {playList.map((slider, i) => {
@@ -68,14 +75,7 @@ export default Slide;
 
 export const StyledSlider = styled(Slider)`
   .slick-list { // container 와 같음
-      /* width: 890px; */
-      /* 890 내로 li가 안들어가는 건 overflow hidden 으로 안보이게 해놓음*/
-      /* margin: 0 auto; */
-      height: 200px;
-      /* overflow: hidden; */
-      /* background-color: blue; */
-      /* position: absolute;
-      top: 100px; */
+      /* position: relative; */
     }
 `;
 
@@ -90,3 +90,11 @@ export const ImgSlide = styled.div`
   padding: ${props => props.className ? '5px' : 0} ;
   /* margin-left: ${props => props.className ? '20px' : 0}; */
 `;
+
+// main-slides <div>
+//  > slide-container <section>
+//      > slide-container <slide-btn> : 인기 / 추천
+//      > slide-slider <div>
+//          > slick-prev <button>
+//          > slick-list <div>
+//          > slick-next <button>

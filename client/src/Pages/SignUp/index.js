@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import Condition from './Condition';
@@ -12,13 +12,12 @@ import './index.scss';
 
 function SignUp ({ handleNotice }) {
   // 기본 프로필 이미지
-  const initialImage = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/profile.jpg';
+  const initialImage = 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/3161632744306776.jpg';
   const [inputValue, setInputValue] = useState({
     id: '',
     password: '',
     matchPassword: '',
     nickName: '',
-    imageFile: null,
     previewFile: null,
     imageUrl: initialImage,
     agency: '',
@@ -26,16 +25,22 @@ function SignUp ({ handleNotice }) {
     email: ''
   });
   const [validMessage, setValidMessage] = useState({
-    duplicatedId: '',
+    validId: '',
     validPW: '',
     matchPW: '',
-    duplicatedNick: ''
+    validNick: ''
   });
   const [selectBtn, setSelectBtn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState('가입이 완료되었습니다.');
+  const [imageFile, setImageFile] = useState(null);
 
   const history = useHistory();
+
+  useEffect(() => {
+    // s3에서 이미지 url을 받았고, 상태에 받은 url이 업데이트 되었다면 다시 회원가입 요청
+    if (inputValue.imageUrl !== initialImage) postSignUp();
+  }, [inputValue.imageUrl]);
 
   // 입력값 수정하는 함수
   function handleInputValue (key, value) {
@@ -72,11 +77,11 @@ function SignUp ({ handleNotice }) {
     e.preventDefault();
 
     // 기본 유효성 검사
-    if (!inputValue.id || inputValue.id.length < 4 || validMessage.duplicatedId !== '사용 가능한 아이디 입니다.') {
+    if (!inputValue.id || inputValue.id.length < 4 || inputValue.id.length > 15 || validMessage.validId !== '사용 가능한 아이디 입니다.') {
       return handleNotice('아이디가 유효하지 않습니다.', 5000);
     } else if (!inputValue.password || validMessage.validPW || validMessage.matchPW) {
       return handleNotice('비밀번호가 유효하지 않습니다.', 5000);
-    } else if (!inputValue.nickName || validMessage.duplicatedNick !== '사용 가능한 닉네임 입니다.') {
+    } else if (!inputValue.nickName || inputValue.nickName.length > 10 || validMessage.validNick !== '사용 가능한 닉네임 입니다.') {
       return handleNotice('닉네임이 유효하지 않습니다.', 5000);
     }
     // 아티스트로 가입하는 경우의 유효성 검사
@@ -87,26 +92,25 @@ function SignUp ({ handleNotice }) {
     }
 
     // 만약 이미지를 첨부했다면
-    if (inputValue.imageFile) {
+    if (imageFile) {
       const formData = new FormData();
-      formData.append('profile', inputValue.imageFile);
+      formData.append('profile', imageFile);
       // S3에 이미지 파일 폼데이터 전송 후 url 값 받아오기
       axios.post(`${process.env.REACT_APP_API_URL}/user/profile`, formData)
         .then(res => {
           console.log('S3 이미지 url 요청 응답', res.data);
-          if (res.status === 200) handleInputValue('imageUrl', res.data.profile);
-        })
-        .then(res => {
-          // 이미지 url을 성공적으로 받아왔다면
-          if (res.status === 200) {
-            // 회원가입 요청 보내기
-            postSignUp();
+          if (res.status === 201) {
+            // 이미지 url을 성공적으로 받아왔다면
+            handleInputValue('imageUrl', res.data.profile); // 상태 저장
+            // useEffect에서 다시 회원가입 요청 진행됨(inputValue 상태 반영된 후 동기적 실행하기 위해)
           }
         })
         .catch(err => {
           console.log(err.response);
-          if (err.response.status === 400) handleNotice('프로필 이미지 등록에 실패했습니다.', 5000);
-          // if (err.response.status === 409) return handleNotice('이미 등록된 이미지입니다.', 5000);
+          if (err.response) {
+            if (err.response.status === 400) handleNotice('프로필 이미지 등록에 실패했습니다.', 5000);
+            // if (err.response.status === 409) return handleNotice('이미 등록된 이미지입니다.', 5000);
+          } else console.log(err);
         });
     }
     // 이미지 첨부 안했으면 기본 이미지로 회원가입 요청
@@ -120,6 +124,7 @@ function SignUp ({ handleNotice }) {
     let admin = 'listener';
     if (selectBtn) admin = 'artist';
     console.log('dsfsdfsdfsd');
+    console.log(inputValue);
     axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {
       loginId: inputValue.id,
       password: inputValue.password,
@@ -154,7 +159,7 @@ function SignUp ({ handleNotice }) {
     <div className='sign-up'>
       <h1 onClick={() => history.push('/')}>HIDDEN TRACK</h1>
       <h2>SignUp</h2>
-      <form className='sign-up-container'>
+      <div className='sign-up-container'>
         <div className='sign-up-input'>
           <InputID
             inputValue={inputValue}
@@ -175,7 +180,7 @@ function SignUp ({ handleNotice }) {
             handleValidMessage={handleValidMessage}
           />
         </div>
-        <InputImage inputValue={inputValue} handleInputValue={handleInputValue} initialImage={initialImage} />
+        <InputImage setImageFile={setImageFile} inputValue={inputValue} handleInputValue={handleInputValue} initialImage={initialImage} />
         <div className='sign-up-radio-box'>
           <div>
             <input type='radio' name='authority' value='listener' defaultChecked onClick={(e) => handleRadioBtn(e)} />리스너 권한으로 가입
@@ -186,7 +191,7 @@ function SignUp ({ handleNotice }) {
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
         <button onClick={(e) => requestSignUp(e)}>가입하기</button>
-      </form>
+      </div>
       {isOpen
         ? <div>
           <SignUpModal isOpen={isOpen} handleModalOpen={handleModalOpen} text={text} />

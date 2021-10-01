@@ -1,27 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Slide from '../../Components/Slide';
-import Test from '../../Test';
 import Recommend from '../../Components/Recommend';
+import Genre from '../../Components/Genre';
+import HashTag from '../../Components/HashTag';
 
 import './index.scss';
+import axios from 'axios';
+import { useSelector, useStore } from 'react-redux';
 
 function Main () {
   const history = useHistory();
+  const { accessToken } = useSelector(state => state.accessTokenReducer);
+  const [latestChart, setLastestChart] = useState([]);
+  const [popularityChart, setPopularityChart] = useState([]);
+  const [recommendChart, setRecommendChart] = useState([]);
+  const [tagList, setTagList] = useState([]);
 
-  function test (e) {
-    e.preventDefault();
-    history.push('/trackdetails');
-  }
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, { headers: { accesstoken: accessToken } })
+      .then(res => {
+        setLastestChart(res.data.latestchart);
+        setPopularityChart(res.data.popularchart);
+        setRecommendChart(res.data.recommendchart);
+        setTagList(res.data.hashtags);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   return (
-    <div>
-      테스트 메인페이지입니다
-      {/* <button className='test' onClick={(e) => { test(e); }}>이동</button> */}
-      <div className='slides'>
-        <Slide />
-        <Test />
-        {/* <Recommend /> */}
+
+    <div id='main'>
+      Welcome to HIDDEN TRACK!!
+      <div className='main-slides'>
+        <Slide latestChart={latestChart} popularityChart={popularityChart} />
+        {/* <Recommend recommendChart={recommendChart}/> */}
+      </div>
+      <div className='main-genre'>
+        <Genre />
+      </div>
+      <div className='main-hashtag'>
+        <span>HashTag</span>
+        <HashTag tagList={tagList} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getTrackDetails } from '../../Redux/actions/actions';
+import { getTrackDetails, inputPlayList } from '../../Redux/actions/actions';
 import Portal from './Portal';
 import './ContentDeleteModal.scss';
 // import './index.scss';
@@ -53,6 +53,27 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
             like: '',
             gradeAev: ''
           }));
+          // 플레이리스트 최신화 (삭제한곡이 재생목록에 있을 경우를 대비)
+          axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
+            .then(res => {
+              if (res.status === 200) {
+                console.log(res.data);
+                dispatch(inputPlayList(res.data.playlist));
+                // setCrrentMusic(playList[res.data.playlist.length - 1]);
+                // audio.current.pause();
+              }
+            })
+            .catch(err => {
+              if (err.response) {
+                if (err.response.status === 404) {
+                  dispatch(inputPlayList([]));
+                  // audio.current.pause();
+                  // setCrrentMusic(playList[playList.length-1])
+                }
+              } else console.log(err);
+            }
+            );
+
           setIsContentDeleteModalOpen(false);
           handleNotice('게시글이 삭제 되었습니다.', 5000);
           history.push('/');

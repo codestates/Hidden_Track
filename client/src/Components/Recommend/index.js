@@ -9,6 +9,7 @@ function Recommend () {
   const [isArtist, setIsArtist] = useState(playList[isIndex].user.nickname);
   const [isTitle, setIsTitle] = useState(playList[isIndex].title);
 
+  // console.log(isRecommendImage);
   useEffect(() => {
     if (isIndex === playList.length - 1) {
       setTimeout(() => {
@@ -16,11 +17,11 @@ function Recommend () {
       }, 990);
     }
 
-    const timeout = setTimeout(() => setIsIndex(isIndex + 1), 2000);
+    const timeout = setInterval(() => setIsIndex(isIndex + 1), 2000);
     setIsRecommendImage(playList[isIndex].img);
     setIsArtist(playList[isIndex].user.nickname);
     setIsTitle(playList[isIndex].title);
-    return () => clearTimeout(timeout);
+    return () => clearInterval(timeout);
   }, [isIndex]);
 
   return (

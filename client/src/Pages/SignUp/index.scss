@@ -1,3 +1,5 @@
+@import '../../Common.scss';
+
 h1 {
   display: block;
   text-align: center;
@@ -16,13 +18,15 @@ h2 {
   flex-direction: column;
 
   .sign-up-container {
-
+    
     .sign-up-input {
       display: flex;
       flex-direction: column;
-      height: 50vh;
+      height: 500px;
+      align-items: center;
       justify-content: space-around;
       background-color: greenyellow;
+      // margin: 10px 0 10px 0;
 
       .sign-up-id-box {
         flex: 1 0 auto;
@@ -31,11 +35,36 @@ h2 {
         justify-content: center;
         align-items: center;
         height: 30px;
+        // margin-top: 15px;
+        // margin-bottom: 10px;
+        // background-color: red;
+        // border: solid 1px;
+        margin-left: 123px;
+
+        .sign-up-id-area {
+          display: flex;
+          // flex: 1 0 auto;
+          // background-color: blue;
+          // position: relative;
+          justify-content: space-around;
+          width: 700px;
+
+          .sign-up-id-btn {
+            // float: right;
+            // margin-left: auto;
+            // position: absolute;
+            // right: 0;
+          }
+        }
+
         .sign-up-id-msg {
           margin: 0;
           height: 24px;
           color: red;
+          // background-color: cornflowerblue;
+          padding-right: 120px;
         }
+
         #id-ok-msg {
           color: green;
         }
@@ -46,11 +75,20 @@ h2 {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        // background-color: red;
+        // border: solid 1px;
+
+        .sign-up-pw-flex {
+          // background-color: blue;
+          width: 700px;
+        }
+
         // height: 60px;
         .sign-up-pw-msg {
           margin: 0;
           height: 24px;
           color: red;
+          // background-color: cadetblue;
         }
       }
 
@@ -61,11 +99,26 @@ h2 {
         justify-content: center;
         align-items: center;
         height: 30px;
+        // margin-top: 10px;
+        // margin-bottom: 15px;
+        // background-color: red;
+        margin-left: 123px;
+
+        .sign-up-nick-flex {
+          // background-color: blue;
+          width: 700px;
+          display: flex;
+          justify-content: space-around;
+        }
+
         .sign-up-nick-msg {
           margin: 0;
           height: 24px;
           color: red;
+          // background-color: cadetblue;
+          padding-right: 120px;
         }
+
         #nick-ok-msg {
           color: green;
         }
@@ -79,12 +132,13 @@ h2 {
       align-items: center;
       justify-content: center;
       background-color: hotpink;
-    
+
       .profile-wrap {
         display: flex;
         flex-direction: column;
         align-items: center;
-    
+        margin-top: 15px;
+
         .profile-box {
           // background-image: url();
           // background-repeat: no-repeat;
@@ -98,23 +152,23 @@ h2 {
           // display: flex;
           // align-items: center;
           // justify-content: center;
-      
+
           .profile-image {
-            width:100%;
-            height:100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
           }
         }
       }
-    
+
       .profile-btn-box {
         display: flex;
         flex-direction: column;
-    
+
         .profile-input-btn {
           cursor: pointer;
         }
-    
+
         .profile-delete-btn {
           cursor: pointer;
         }
@@ -129,11 +183,22 @@ h2 {
 
     .sign-up-condition {
       background-color: skyblue;
-      height: 30vh;
+      height: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      margin: 10px 0 10px 0;
+      width: auto;
+
+      // .sign-up-agency-box, .sign-up-debut-box, .sign-up-email-box {
+        
+      // }
     }
   }
 }
 
+[class^='sign-up-input-'] {
+  @include widthHeight(500px, 40px);
+  outline: none;
+  padding-left: 10px;
+}

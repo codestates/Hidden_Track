@@ -17,12 +17,7 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, trackD
         // 요청 성공시 상세 음원 정보 상태에 저장
           dispatch(getTrackDetails(res.data));
           // 상세 음원 정보 저장 성공 후 음원 상세 페이지 이동
-          history.push({
-            pathname: `/trackdetails/${trackId}`,
-            state: {
-              trackId: trackId
-            }
-          });
+          history.push(`/trackdetails/${trackId}`);
         }
       })
       .catch(err => {
@@ -44,7 +39,7 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, trackD
               <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
                 <img className='track-list-img' src={el.img} value={el.id} alt='' />
                 <p className='track-list-title' value={el.id}>{el.title}</p>
-                <p className='track-list-artist' value={el.id}>{el.user.nickname}</p>
+                <p className='track-list-artist' value={el.id}>{el.user.nickName}</p>
               </li>
             );
           })

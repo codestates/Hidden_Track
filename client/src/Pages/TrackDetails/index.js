@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router';
-import { getTrackDetails } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
 
-function TrackDetails ({ handleNotice }) {
+function TrackDetails ({ handleNotice, isLoading }) {
   const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -21,7 +21,8 @@ function TrackDetails ({ handleNotice }) {
   const trackId = location.pathname.split('/')[2];
 
   useEffect(() => {
-    console.log(trackId);
+    console.log('dddd', trackId);
+    dispatch(isLoadingHandler(true));
     // 새로고침시 location pathname으로 음원 상세정보 다시 받아옴
     axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`)
       .then(res => {
@@ -37,6 +38,8 @@ function TrackDetails ({ handleNotice }) {
           }
         } else console.log(err);
       });
+    // 음원 상세 정보가 제대로 들어왔다면 로딩 인디케이터 종료
+    if (trackDetail.track.id) dispatch(isLoadingHandler(false));
   }, []);
 
   return (
@@ -44,11 +47,11 @@ function TrackDetails ({ handleNotice }) {
       <div>
         <TrackInfo
           isLogin={isLogin}
-          isLoginModalOpen={isLoginModalOpen}
           accessToken={accessToken}
           trackDetail={trackDetail}
           userInfo={userInfo}
           handleNotice={handleNotice}
+          trackId={trackId}
         />
       </div>
       <div>

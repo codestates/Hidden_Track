@@ -15,7 +15,6 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   axios.defaults.headers.common.accesstoken = accessToken;
 
   useEffect(() => {
-    // console.log(clickedBtn)
     if (clickedBtn === '삭제') {
       deleteReply();
     }
@@ -24,9 +23,9 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   // 수정 or 삭제 버튼 누를시 수정/삭제할 댓글 id로 상태 변경하는 함수
   function getReplyId (e) {
     e.preventDefault();
-    console.log(e.target.parentElement.parentElement.getAttribute('id'));
+    console.log(e.target.parentElement.parentElement.parentElement.getAttribute('id'));
     setClickedBtn(e.target.alt);
-    setSelectedReplyId(e.target.parentElement.parentElement.getAttribute('id'));
+    setSelectedReplyId(e.target.parentElement.parentElement.parentElement.getAttribute('id'));
   }
 
   // 댓글 삭제요청 보내는 함수
@@ -70,8 +69,8 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   }
 
   return (
-    <div>
-      <ul>
+    <div className='replys-container'>
+      <ul className='replys-box'>
         {trackDetail.track.replies && trackDetail.track.replies.length !== 0
           ? trackDetail.track.replies.map((el, idx) => {
             return (
@@ -79,14 +78,14 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                 <div className='replys-info'>
                   <img className='replys-profile' src={el.user.profile} alt='' />
                   <p className='replys-nickname'>{el.user.nickname}</p>
-                  {isLogin && userInfo.nickName === trackDetail.track.replies[idx].user.nickname && clickedBtn !== '수정'
-                  // <button className='contents__btn' value='수정' onClick={(e) => getReplyId(e)}>댓글수정</button>
-                    ? <img className='replys-modify' src={editBtn} alt='수정' onClick={(e) => getReplyId(e)} />
-                    : null}
-                  {isLogin && userInfo.nickName === trackDetail.track.replies[idx].user.nickname && clickedBtn !== '수정'
-                  // <button className='contents__btn' value='삭제' onClick={(e) => getReplyId(e)}>댓글삭제</button>
-                    ? <img className='replys-delete' src={deleteBtn} alt='삭제' onClick={(e) => getReplyId(e)} />
-                    : null}
+                  <span className='replys-btn-box'>
+                    {isLogin && userInfo.nickName === trackDetail.track.replies[idx].user.nickname && clickedBtn !== '수정'
+                      ? <img className='replys-modify' src={editBtn} alt='수정' onClick={(e) => getReplyId(e)} />
+                      : null}
+                    {isLogin && userInfo.nickName === trackDetail.track.replies[idx].user.nickname && clickedBtn !== '수정'
+                      ? <img className='replys-delete' src={deleteBtn} alt='삭제' onClick={(e) => getReplyId(e)} />
+                      : null}
+                  </span>
                 </div>
                 <div className='replys-comment-box'>
                   <p className='replys-comment'>{el.content}</p>
@@ -96,19 +95,17 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
           })
           : null}
       </ul>
-      <div>
-        <WriteReply
-          trackDetail={trackDetail}
-          isLogin={isLogin}
-          isLoginModalOpen={isLoginModalOpen}
-          accessToken={accessToken}
-          clickedBtn={clickedBtn}
-          setClickedBtn={setClickedBtn}
-          selectedReplyId={selectedReplyId}
-          setSelectedReplyId={setSelectedReplyId}
-          handleNotice={handleNotice}
-        />
-      </div>
+      <WriteReply
+        trackDetail={trackDetail}
+        isLogin={isLogin}
+        isLoginModalOpen={isLoginModalOpen}
+        accessToken={accessToken}
+        clickedBtn={clickedBtn}
+        setClickedBtn={setClickedBtn}
+        selectedReplyId={selectedReplyId}
+        setSelectedReplyId={setSelectedReplyId}
+        handleNotice={handleNotice}
+      />
     </div>
   );
 }

@@ -8,17 +8,19 @@ const { trackController } = require("../controllers");
 router.post('/', trackController.track.post);
 router.patch('/', trackController.track.patch);
 router.delete('/:id', trackController.track.delete);
-router.get('/:trackId', trackController.track.redirect);
+router.get('/:trackId', trackController.track.get);
 
 router.post('/grade',trackController.grade);
 router.post('/good',trackController.good);
-router.get('/hashtag/:tag',trackController.hashtag.redirect);
-router.get('/genre/:genre',trackController.genre.redirect);
+router.get('/hashtag/:tag',trackController.hashtag.get);
+router.get('/genre/:genre',trackController.genre.get);
 
-router.post('/trackimage',trackImage.single("trackimage"),trackController.trackimage.post);
-router.patch('/trackimage',trackImage.single("trackimage"),trackController.trackimage.post);
+router.post('/trackimage',trackImage.single("trackimage"),trackController.trackimage);
+router.patch('/trackimage',trackImage.single("trackimage"),trackController.trackimage);
 
-router.post('/trackfile',trackFile.single("trackfile"),trackController.trackfile.post);
-router.patch('/trackfile',trackFile.single("trackfile"),trackController.trackfile.post);
+router.post('/trackfile',trackFile.single("trackfile"),trackController.trackfile);
+router.patch('/trackfile',trackFile.single("trackfile"),trackController.trackfile);
+
+router.get('/charts/all',trackController.charts)
 
 module.exports = router;

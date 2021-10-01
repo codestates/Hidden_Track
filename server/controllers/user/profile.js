@@ -13,19 +13,21 @@ module.exports = {
           if (image === undefined) {
            return res.status(400).send({message:"no image"})
          }
-          return res.status(201).send({ image_url: image })
+          return res.status(201).send({ profile: image })
     },
 
     patch :  async (req,res) =>{ 
+      console.log(req.file);
         const image = req.file.location
         const accessTokenData = isAuthorized(req);
         //accesstoken 있는지 확인
+        
         if (!accessTokenData) {
           res.status(401).json({ message : "unauthorized"});
         }
         
         const url =  accessTokenData.profile.split('com/')
-        if(!url[1]==='profile.jpg'){
+        if(!url[1]==='3161632744306776.jpg'){
             s3.deleteObject({
                 Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
                 Key: `${url[1]}` // 버켓 내 경로
@@ -57,7 +59,7 @@ module.exports = {
           
       //refreshToken은 쿠키로 accesstoken은 body로.
         sendRefreshToken(res, refreshToken);
-      res.status(200).json({data:accessToken });
+      res.status(200).json({data:accessToken, profile: image});
      
     },
  
@@ -67,9 +69,9 @@ module.exports = {
         if (!accessTokenData) {
           res.status(401).json({ message : "unauthorized"});
         }
-        
+        console.log(accessTokenData)
         const url =  accessTokenData.profile.split('com/')
-        if(url[1]==='profile.jpg'){
+        if(url[1]==='3161632744306776.jpg'){
             res.status(400).json({message: "this is basic profile"})
         }else{
         s3.deleteObject({
@@ -80,7 +82,7 @@ module.exports = {
             console.log('s3 deleteObject ', data)
           })
         
-        const basicProfile = "https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/profile.jpg"  
+        const basicProfile = "https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/3161632744306776.jpg"  
         await user.update({profile:basicProfile},{
             where : {id : accessTokenData.id}
         })
@@ -103,7 +105,7 @@ module.exports = {
           
       //refreshToken은 쿠키로 accesstoken은 body로.
         sendRefreshToken(res, refreshToken);
-      res.status(200).json({data:accessToken});
+      res.status(200).json({data:accessToken, profile : basicProfile});
        }
     }
  }

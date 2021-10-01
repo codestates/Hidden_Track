@@ -25,8 +25,10 @@ module.exports =  {
     },
     
     delete: async (req, res) =>{
+        console.log(req.headers)
+
         const accessTokenData = isAuthorized(req);
-        const { id } = req.body;
+        const { id } = req.params;
   
         if(!id ) {
             res.status(400).json({message: "no playlistId"})
@@ -41,11 +43,12 @@ module.exports =  {
                 id : id              
             }
         })
-        
+            console.log('파인드',findPlaylist.dataValues.userId, '엑세스',accessTokenData.id)        
         if(!findPlaylist){
             res.status(404).json({ message : "not found" });
         }else{
            if(findPlaylist.dataValues.userId !== accessTokenData.id){
+
             res.status(401).json({ message : "unauthorized"});
            }else{
             await playlist.destroy({
@@ -63,25 +66,21 @@ module.exports =  {
          }
 
         const findPlaylist = await playlist.findAll({
-            where : { userId : accessTokenData.id}
-        })
-
-        let allPlaylist = [];
-
-        for(let i =0; i<findPlaylist.length;i++){
-            const findTrack = await track.findOne({
-                where : { id : findPlaylist[i].dataValues.trackId },
-                include: {
+            where : { userId : accessTokenData.id},
+            attributes : ["id"],
+            include: {
+                model : track,
+                required : true,
+                attributes:["id","title","img","genre","releaseAt", "soundTrack"],
+                include : {
                     model : user,
-                    required : true,
+                    require : true,
                     attributes : ["nickName"]
                 }
-            })
-
-            allPlaylist.push(findTrack.dataValues)
-        }
-        console.log(allPlaylist)
-        res.status(200).json({playlist: allPlaylist });
+            }
+        })
+        
+        res.status(200).json({playlist: findPlaylist});
     }
  }
      
