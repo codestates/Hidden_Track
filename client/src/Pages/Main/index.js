@@ -12,17 +12,17 @@ import { useSelector, useStore } from 'react-redux';
 function Main () {
   const history = useHistory();
   const { accessToken } = useSelector(state => state.accessTokenReducer);
-  const [latestChart, setLastestChart] = useState([]);
+  const [latestChart, setLatestChart] = useState([]);
   const [popularityChart, setPopularityChart] = useState([]);
   const [recommendChart, setRecommendChart] = useState([]);
   const [tagList, setTagList] = useState([]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/track/charts`, { headers: { accesstoken: accessToken } })
+    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, { headers: { accesstoken: accessToken } })
       .then(res => {
-        setLastestChart(res.data.latestChart);
-        setPopularityChart(res.data.popularitychart);
-        setRecommendChart(res.data.recommendChart);
+        setLatestChart(res.data.latestchart);
+        setPopularityChart(res.data.popularchart);
+        setRecommendChart(res.data.recommendchart);
         setTagList(res.data.hashtags);
       })
       .catch(err => {
@@ -36,7 +36,7 @@ function Main () {
       Welcome to HIDDEN TRACK!!
       <div className='main-slides'>
         <Slide latestChart={latestChart} popularityChart={popularityChart} />
-        {/* <Recommend recommendChart={recommendChart}/> */}
+        <Recommend recommendChart={recommendChart}/>
       </div>
       <div className='main-genre'>
         <Genre />
