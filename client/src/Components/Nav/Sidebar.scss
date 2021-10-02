@@ -2,7 +2,7 @@
 
 #sidebar {
     width: 700px;
-    height: 100vh;
+    height: 100%;
     // border: 1px solid #ccc;
     background-color: rgba(105, 105, 105, 0.39);
     z-index: 2;
@@ -74,7 +74,7 @@
             height: 100%;
             object-fit: cover;
             cursor: pointer;
-            
+
         }
     }
     
@@ -120,7 +120,7 @@
 
 
 .sidebar-play-list-box{
-    height: 100%;
+
     overflow-y: scroll;
     background: linear-gradient(to left, #c5b4e0, #83c2fd);
     .sidebar-play-ul {
