@@ -34,15 +34,17 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, trackD
     <section className='track-list-container'>
       <ul className='track-list-ul'>
         {trackList && trackList.length !== 0
-          ? trackList.map(el => {
-            return (
-              <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
-                <img className='track-list-img' src={el.img} value={el.id} alt='' />
-                <p className='track-list-title' value={el.id}>{el.title}</p>
-                <p className='track-list-artist' value={el.id}>{el.user.nickName}</p>
-              </li>
-            );
-          })
+          ? <div className='track-list-box'>
+            {trackList.map(el => {
+              return (
+                <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
+                  <img className='track-list-img' src={el.img} value={el.id} alt='' />
+                  <p className='track-list-title' value={el.id}>{el.title}</p>
+                  <p className='track-list-artist' value={el.id}>{el.user.nickName}</p>
+                </li>
+              );
+            })}
+          </div>
           : <p className='track-list-msg'>검색 결과를 찾을 수 없습니다.</p>}
       </ul>
     </section>

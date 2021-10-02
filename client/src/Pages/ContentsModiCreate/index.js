@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTrackDetails, getUserInfo, isLoadingHandler } from '../../Redux/actions/actions';
+import { getTrackDetails, getUserInfo, isLoadingHandler, inputPlayList } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
 import axios from 'axios';
 import './index.scss';
@@ -11,12 +11,13 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 
-function TestMo ({ handleNotice, isLoading }) {
+function ContentsModiCreate ({ handleNotice, isLoading }) {
   const loca = useLocation();
   const trackId = loca.pathname.split('/')[2];
   console.log(trackId);
   const history = useHistory();
   const userInfo = useSelector(state => state.userInfoReducer);
+  const playList = useSelector(state => state.playListReducer.playList);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   // const isModify = useSelector(state => state.modifyReducer.onClickModify);
@@ -247,9 +248,31 @@ function TestMo ({ handleNotice, isLoading }) {
         console.log(method);
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            console.log(res.status);
+            console.log(res.data);
             if (res.status === 200 || res.status === 201) {
+              const check = playList.map(el => {
+                return el.track.id === res.data.trackId;
+              });
+              if (check.includes(true)) {
+                axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
+                  .then(res => {
+                    if (res.status === 200) {
+                      dispatch(inputPlayList(res.data.playlist));
+                      console.log('응답 플레이리스트', res.data);
+                    }
+                  })
+                  .catch(err => {
+                    if (err.response) {
+                      if (err.response.status === 404) {
+                        dispatch(inputPlayList([]));
+                        // audio.current.pause();
+                        // setCrrentMusic(playList[playList.length-1])
+                      }
+                    } else console.log(err);
+                  });
+              }
               handleNotice(trackId ? '음원 수정을 완료하였습니다' : '음원 등록을 완료하였습니다.', 5000);
+              axios.get();
               dispatch(isLoadingHandler(false));
               console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
               history.push(`/trackdetails/${res.data.trackId}`);
@@ -319,9 +342,9 @@ function TestMo ({ handleNotice, isLoading }) {
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
         </>
-        : <h1>잘못된 접근 입니다.</h1>}
+        : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
     </div>
   );
 }
 
-export default TestMo;
+export default ContentsModiCreate;

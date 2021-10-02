@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { inputPlayList, deleteMusic, isLoginModalOpenHandler } from '../../Redux/actions/actions';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -8,13 +9,13 @@ import axios from 'axios';
 import './Sidebar.scss';
 import shuffle from '../../assets/active_shuffle.png';
 import active_shuffle from '../../assets/shuffle.png';
-
 axios.defaults.withCredentials = true;
 
 let tic = 0;
 let timeSet;
 
 function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
+  const history = useHistory();
   const audio = useRef();
   const isLogin = useSelector(state => state.isLoginReducer.isLogin);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
@@ -46,7 +47,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   const [time, setTime] = useState();
   console.log('사이드바 플레이리스트', playList);
   console.log('현재곡', crrentMusic);
-  console.log(playList[playList.length - 1]);
+  console.log('커런트 뮤직', playList[playList.length - 1]);
 
   useEffect(() => {
     clearInterval(timeSet);
@@ -217,14 +218,13 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
 
   return (
     <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'}>
-
       <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}>X</button>
-
       <div className='sidebar-control'>
         <div className='sidebar-info'>
           <div className='square'>
             <img
               className='inner-square'
+              onClick={() => {history.push(`/trackdetails/${crrentMusic.track.id}`)}}
               src={crrentMusic ? crrentMusic.track.img : default_crrentMusic.track.img}
               alt={crrentMusic ? crrentMusic.track.title : default_crrentMusic.track.title}
             />
@@ -244,6 +244,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             // className={}
             ref={audio}
             src={crrentMusic ? crrentMusic.track.soundTrack : default_crrentMusic.track.soundTrack}
+            // src={crrentMusic.track.soundTrack}
             // handleKeyDown={()=>{console.log('어허')}}
             // isLogin?controls:''
             volume={0.5}
