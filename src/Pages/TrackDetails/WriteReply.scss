@@ -1,0 +1,18 @@
+.write-reply-container {
+  background-color: yellowgreen;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin-bottom: 100px;
+
+  .write-reply-area {
+    width: 80%;
+    height: 20vh;
+    resize: none;
+  }
+
+  .modify-reply-btn, .cancel-reply-btn, .create-reply-btn {
+    cursor: pointer;
+    flex: auto;
+  }
+}

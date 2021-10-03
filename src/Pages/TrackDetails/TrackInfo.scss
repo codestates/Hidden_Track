@@ -1,0 +1,79 @@
+@import '../../Common.scss';
+
+.trackinfo-container {
+  @include flexBox(flex, space-evenly, _, _, _);
+  background-color: wheat;
+  margin-top: 100px;
+  // width: 80%;
+
+  .trackinfo-image-box {
+    width: 40%;
+    // height: 100%;
+    // margin: 0 auto;
+    padding-bottom: 50%;
+    border: blue solid 1px;
+    position: relative;
+    
+    .trackinfo-image {
+      // height: 500px;
+      // size: 100%;
+      // object-fit: cover;
+      // padding-bottom: 100%;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      @include widthHeight(100%, 100%);
+    }
+  }
+  
+  .trackinfo-desc {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    // flex-wrap: wrap;
+  
+    .trackinfo-box {
+      // display: block;
+      // justify-content: left;
+      background-color: yellowgreen;
+      margin-bottom: 1px;
+      outline: blue solid 1px;
+      
+      .trackinfo-info {
+        // width: 300px;
+        height: 70px;
+        display: flex;
+        // justify-content: left;
+        outline: white solid 1px;
+        
+        .trackinfo-key {
+          @include flexBox(flex, center, center, _, _);
+          background-color: red;
+          width: 50px;
+          flex-basis: 30%;
+          border-right: solid 1px white
+        }
+        
+        .trackinfo-value {
+          @include flexBox(flex, center, center, _, _);
+          flex-basis: 70%;
+        }
+      }
+    }
+  
+    .trackinfo-hashtag-box {
+      width: 95%;
+      // .tag {
+      //   height: 30px;
+      // }
+    }
+    
+    .trackinfo-btn-box {
+      // flex: 1 1 auto;
+      width: 100%;
+      
+      .like-btn {
+        @include widthHeight(15px, 15px);
+      }
+    }
+  }
+}

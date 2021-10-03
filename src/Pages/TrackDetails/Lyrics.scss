@@ -1,0 +1,66 @@
+details > summary {
+  margin: 10px 0 10px;
+  background: #444;
+  color: #fff;
+  padding: 10px;
+  outline: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.5s;
+  box-shadow: 1px 1px 2px gray;
+}
+
+details > summary::-webkit-details-marker {
+  background: #444;
+  color: #fff;
+  background-size: contain;
+  transform: rotate3d(0, 0, 1, 90deg);
+  transition: transform 0.25s;
+}
+
+details[open] > summary::-webkit-details-marker {
+  transform: rotate3d(0, 0, 1, 180deg);
+}
+
+details[open] > summary {
+  background: #444;
+}
+
+details[open] > summary ~ * {
+  animation: reveal 0.5s;
+}
+
+.lyrics {
+  background: #444;
+  color: #fff;
+  margin: 5px 0 10px;
+  padding: 5px 10px;
+  line-height: 25px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px gray;
+}
+
+.lyrics-menu {
+  color: #fff;
+  text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #0fa,
+    0 0 8px #0fa, 0 0 9px #0fa, 0 0 10px #0fa, 0 0 15px #0fa;
+}
+
+.lyrics-menu:hover {
+  font-weight: bold;
+}
+
+#lyrics-click {
+  font-weight: bold;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
