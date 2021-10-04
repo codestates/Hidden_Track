@@ -88,7 +88,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                   </span>
                 </div>
                 <div className='replys-comment-box'>
-                  <p className='replys-comment'>{el.content}</p>
+                  <pre className='replys-comment'>{el.content}</pre>
                 </div>
               </li>
             );

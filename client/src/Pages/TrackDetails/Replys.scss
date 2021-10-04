@@ -1,42 +1,48 @@
+@import '../../Common.scss';
+
 .replys-container {
-  background-color: violet;
-  display: flex;
+  @include flexBox(flex, _, center, _, _);
   flex-direction: column;
-  align-items: center;
+  // background-color: violet;
 
   .replys-box {
-    width: 80%;
+    @include widthHeight(80%, 400px);
     padding: 0;
+    outline: solid white 2px;
+    overflow: auto;
 
     .replys-li {
-      display: flex;
+      @include flexBox(flex, center, _, _, _);
       flex-direction: column;
-      justify-content: center;
       flex-wrap: wrap;
-      border: blue solid 1px;
+      // border: blue solid 1px;
+      border-radius: 10px;
+      margin-top: 5px;
+      margin-left: 5px;
+      margin-right: 5px;
+      background-color: ivory;
+      opacity: .8;
       
       .replys-info {
         display: flex;
         // align-items: baseline;
-        margin-top: 5px;
-        border-bottom: lightgreen double 1px ;
+        margin: 5px;
+        border-bottom: black double 1px ;
         
         .replys-profile {
-          width: 50px;
-          height: 50px;
+          @include widthHeight(50px, 50px);
           border-radius: 50%;
         }
 
-        // .replys-nickname {
-
-        // }
+        .replys-nickname {
+          margin-left: 10px;
+        }
         
         .replys-btn-box {
           margin-left: auto;
           
           .replys-modify, .replys-delete {
-            width: 20px;
-            height: 20px;
+            @include widthHeight(20px, 20px);
             cursor: pointer;
           }
         }
@@ -46,7 +52,9 @@
         display: flex;
 
         .replys-comment {
-          margin: 0;
+          margin: 5px;
+          white-space: pre-wrap;
+          text-align: left;
         }
       }
     }

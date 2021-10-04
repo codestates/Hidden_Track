@@ -7,22 +7,25 @@
   // width: 80%;
 
   .trackinfo-image-box {
-    width: 40%;
-    // height: 100%;
+    @include widthHeight(30em, 30em);
     // margin: 0 auto;
-    padding-bottom: 50%;
+    // padding-bottom: 50%;
     border: blue solid 1px;
-    position: relative;
+    // position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     
-    .trackinfo-image {
-      // height: 500px;
-      // size: 100%;
-      // object-fit: cover;
-      // padding-bottom: 100%;
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      @include widthHeight(100%, 100%);
-    }
+    // .trackinfo-image {
+    //   // height: 500px;
+    //   // size: 100%;
+    //   // object-fit: cover;
+    //   // padding-bottom: 100%;
+    //   position: absolute;
+    //   top: 0; left: 0; right: 0; bottom: 0;
+    //   @include widthHeight(100%, 100%);
+    // }
   }
   
   .trackinfo-desc {
