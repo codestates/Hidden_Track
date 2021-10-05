@@ -3,7 +3,7 @@ import './index.scss';
 import playList from '../../DummyData/playList';
 import styled from 'styled-components';
 
-function Recommend ({recommendChart}) {
+function Recommend ({ recommendChart }) {
   // const [isIndex, setIsIndex] = useState(0);
   // const [isRecommendImage, setIsRecommendImage] = useState(playList[isIndex].img);
   // const [isArtist, setIsArtist] = useState(playList[isIndex].user.nickname);
@@ -24,13 +24,11 @@ function Recommend ({recommendChart}) {
   //   return () => clearInterval(timeout);
   // }, [isIndex]);
 
-
   console.log(recommendChart);
 
-  const url = recommendChart.img
-  const artistName = recommendChart.img
-  const trackTitle = recommendChart.img
-
+  const url = recommendChart.img;
+  const artistName = recommendChart.img;
+  const trackTitle = recommendChart.img;
 
   return (
     <section className='recommend-container'>

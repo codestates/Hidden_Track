@@ -6,8 +6,6 @@ import './slick.css';
 import './slick-theme.css';
 import styled from 'styled-components';
 
-
-
 import './index.scss';
 // import playList from '../../DummyData/playList';
 
@@ -28,21 +26,21 @@ const settings = {
   }
 };
 
-function Slide ({latestChart, popularityChart}) {
-  const [chart, setChart] = useState(popularityChart)
+function Slide ({ latestChart, popularityChart }) {
+  const [chart, setChart] = useState(popularityChart);
 
-  console.log('인기차트', popularityChart);  // 인기 Array(10)
+  console.log('인기차트', popularityChart); // 인기 Array(10)
   console.log('최신차트', latestChart); // 최신 Array(10)
   console.log(chart);
 
   function handleRecent (e) {
-    e.preventDefault(); 
-    setChart(latestChart)
+    e.preventDefault();
+    setChart(latestChart);
   }
 
   function handlePopular (e) {
     e.preventDefault();
-    setChart(popularityChart)
+    setChart(popularityChart);
   }
 
   return (
@@ -60,13 +58,12 @@ function Slide ({latestChart, popularityChart}) {
             </div>
           );
         })}
-       </Slider>
+      </Slider>
     </div>
   );
 }
 
 export default Slide;
-
 
 export const ImgSlide = styled.div`
   /* width: 200px; */
