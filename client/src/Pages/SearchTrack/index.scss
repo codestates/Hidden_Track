@@ -21,8 +21,10 @@
     margin-bottom: 100px;
     // width: 80%;
     width: 1216px;
-    border: 0.5rem outset rgb(222, 222, 222);
-    border-radius: 12px;
+    border: 1px solid rgb(214, 216, 218);
+    border-radius: 6px;
+    // border: 0.5rem outset rgb(222, 222, 222);
+    // border-radius: 12px;
     // margin: 2rem;
     padding: 1rem;
     
@@ -88,5 +90,11 @@
         font-weight: bold;
       }
     }
+  }
+
+  .track-list-container:hover {
+    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+    0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+    transition: .5s;
   }
 }

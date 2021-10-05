@@ -87,7 +87,7 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <div className='searchtrack-container'>
-      <Genre />
+      <Genre genre={genre} />
       <div className='hashtag-box'>
         <HashTag tagList={[]} />
       </div>
