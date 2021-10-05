@@ -57,7 +57,7 @@ function Recommend () {
 function moveTrackDetail(){
   history.push(`/trackdetails/${currentChart.id}`)
 }
-
+   
   return (
     <section className='recommend-container'>
       <p className='recommend'>추천</p>
