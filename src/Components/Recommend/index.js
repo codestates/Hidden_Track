@@ -63,9 +63,6 @@ function moveTrackDetail(){
       <p className='recommend'>추천</p>
       <div  className='recommend-content'>
         <div className="recommend-flex-box">
-          {/* < TrackDetails props/> */}
-          {/* <div url={currentChart.img} onClick={(e) =>moveDetail(e)}/> 
-          <img src={currentChart.img} onClick={(e) =>moveDetail(e)}/>  */}
           <RecommendImage url={currentChart.img} onClick={(e) =>moveTrackDetail(e)}/> 
           <p className='recommend-artist'>{currentChart.title}</p>
           <p className='recommend-title'>{currentChart.title}</p>
