@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector} from 'react-redux';
 import {useHistory } from 'react-router';
 
-
 import styled from 'styled-components';
 import axios from 'axios';
 
