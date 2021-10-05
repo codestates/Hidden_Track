@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector} from 'react-redux';
-import {useHistory } from 'react-router';
+import { useSelector, useDispatch} from 'react-redux';
+import { useLocation, useHistory } from 'react-router';
+import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
+
 
 import styled from 'styled-components';
 import axios from 'axios';
@@ -9,9 +11,11 @@ import './index.scss';
 
 
 
+
 function Recommend () {
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const {accessToken}  = useSelector(state => state.accessTokenReducer)
   const [recommendChart, setRecommendChart] = useState([]);
@@ -33,6 +37,7 @@ function Recommend () {
 
 
 
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => prev + 1);
@@ -48,13 +53,13 @@ function Recommend () {
     
     return () => {
       clearInterval(interval);
-    } 
+    }
   }, [index]);
 
 function moveTrackDetail(){
   history.push(`/trackdetails/${currentChart.id}`)
 }
-
+   
   return (
     <section className='recommend-container'>
       <p className='recommend'>추천</p>

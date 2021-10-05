@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {useHistory } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ import Slider from 'react-slick';
 
 import './slick.css';
 import './slick-theme.css';
+
 import './index.scss';
 
 
@@ -22,11 +23,12 @@ const settings = {
   centerMode: true,
   centerPadding: '0px',
   afterChange: function (index) {
-    console.log(
-      `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    );
+    // console.log(
+    //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+    // );
   }
 };
+
 
 function Slide () {
 
@@ -45,6 +47,7 @@ function Slide () {
     { headers: { accesstoken: accessToken } })
     .then((res) => {
       console.log('인기,최신 요청 응답', res);
+      // setRecommendChart(res.data.recommendchart);
       setChart(res.data.popularchart);
       setLatestChart(res.data.latestchart)
       setPopularChart(res.data.popularchart)
@@ -77,16 +80,7 @@ function Slide () {
         <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
         <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
       </div>
-      {/* <Slider {...settings}>
-        {playList.map((slide, i) => {
-          const { img} = slide;
-          return (
-            <div className='slide' key={i}>
-              <ImgSlide img={img} />
-            </div>
-          );
-        })}
-       </Slider> */}
+
       <Slider {...settings}>
         {chart.map((slide, i) => {
           const { img, id } = slide;

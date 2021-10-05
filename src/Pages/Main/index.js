@@ -10,17 +10,15 @@ import { useSelector } from 'react-redux';
 
 function Main () {
   const history = useHistory();
-  const { accessToken } = useSelector(state => state.accessTokenReducer);
   const [tagList, setTagList] = useState([]);
-
-
+  
   return (
 
     <div id='main'>
       <h1 className='main-h1'>Welcome to HIDDEN TRACK!!</h1>
       <div className='main-slides'>
         <Slide/>
-        <Recommend/>
+        <Recommend />
       </div>
       <div className='main-genre'>
         <Genre />
