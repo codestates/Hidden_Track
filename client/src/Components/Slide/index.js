@@ -11,7 +11,6 @@ import './slick-theme.css';
 
 import './index.scss';
 
-
 const settings = {
   className: 'center',
   infinite: true,
@@ -29,35 +28,30 @@ const settings = {
   }
 };
 
-
 function Slide () {
-
-
   const history = useHistory();
 
-  const {accessToken}  = useSelector(state => state.accessTokenReducer)
-  
-  const [chart, setChart] = useState([])
-  const [latestChart, setLatestChart ] = useState('')
-  const [popularChart, setPopularChart ] = useState('')
+  const { accessToken } = useSelector(state => state.accessTokenReducer);
 
+  const [chart, setChart] = useState([]);
+  const [latestChart, setLatestChart] = useState('');
+  const [popularChart, setPopularChart] = useState('');
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, 
-    { headers: { accesstoken: accessToken } })
-    .then((res) => {
-      console.log('인기,최신 요청 응답', res);
-      // setRecommendChart(res.data.recommendchart);
-      setChart(res.data.popularchart);
-      setLatestChart(res.data.latestchart)
-      setPopularChart(res.data.popularchart)
-    })  
-    .catch(err => {
+    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
+      { headers: { accesstoken: accessToken } })
+      .then((res) => {
+        console.log('인기,최신 요청 응답', res);
+        // setRecommendChart(res.data.recommendchart);
+        setChart(res.data.popularchart);
+        setLatestChart(res.data.latestchart);
+        setPopularChart(res.data.popularchart);
+      })
+      .catch(err => {
         console.log(err);
-    }
-    );
-  }, [])
-
+      }
+      );
+  }, []);
 
   function handleRecent (e) {
     e.preventDefault();
@@ -66,12 +60,12 @@ function Slide () {
 
   function handlePopular (e) {
     e.preventDefault();
-    setChart(popularChart)
+    setChart(popularChart);
   }
 
-  function moveTrackDetail(e, id){
+  function moveTrackDetail (e, id) {
     // console.log(id);
-    history.push(`/trackdetails/${id}`)
+    history.push(`/trackdetails/${id}`);
   }
 
   return (
@@ -86,7 +80,7 @@ function Slide () {
           const { img, id } = slide;
           return (
             <div className='slide' key={id}>
-              <ImgSlide img={img} onClick={(e) => moveTrackDetail(e, id)}/>
+              <ImgSlide img={img} onClick={(e) => moveTrackDetail(e, id)} />
             </div>
           );
         })}

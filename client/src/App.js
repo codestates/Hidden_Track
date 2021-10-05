@@ -168,9 +168,9 @@ function App () {
           </Route>
         </Switch>}
       <Notification notice={notice} />
-        <Route path='/landing'>
-          <Landing/>
-        </Route>
+      <Route path='/landing'>
+        <Landing />
+      </Route>
       <div className='footer-container'>
         {loca.pathname === '/signup' || loca.pathname.match('/visual')
           ? (

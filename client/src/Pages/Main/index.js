@@ -33,9 +33,8 @@ function Main () {
 
   // }, []);
 
-
-  function moveLanding(){
-    history.push('/landing')
+  function moveLanding () {
+    history.push('/landing');
   }
   return (
 
