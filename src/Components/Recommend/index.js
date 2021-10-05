@@ -49,7 +49,7 @@ function Recommend () {
     
     return () => {
       clearInterval(interval);
-    }
+    } 
   }, [index]);
 
 function moveTrackDetail(){
