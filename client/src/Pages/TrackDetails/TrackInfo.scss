@@ -1,8 +1,8 @@
 @import '../../Common.scss';
 
 .trackinfo-container {
-  @include flexBox(flex, space-evenly, _, _, _);
-  background-color: wheat;
+  @include flexBox(flex, space-evenly, center, _, _);
+  // background-color: wheat;
   margin-top: 100px;
   // width: 80%;
 
@@ -10,12 +10,17 @@
     @include widthHeight(30em, 30em);
     // margin: 0 auto;
     // padding-bottom: 50%;
-    border: blue solid 1px;
     // position: relative;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
+    border: 0.5rem outset rgb(222, 222, 222);
+    border-radius: 12px;
+    margin: 2rem;
+    padding: 1rem;
+    // box-shadow: 0 0 0 2rem skyblue;
+    // outline: 0.5rem solid khaki;
+    // outline-offset: 0.5rem;
     
     // .trackinfo-image {
     //   // height: 500px;
@@ -33,13 +38,28 @@
     flex-direction: column;
     width: 40%;
     // flex-wrap: wrap;
-  
+    outline: chartreuse solid 1px;
+    align-items: center;
+    
+    .trackinfo-title {
+      color: white;
+    }
+
+    .trackinfo-grade-avg {
+      color: white;
+    }
+
     .trackinfo-box {
       // display: block;
       // justify-content: left;
-      background-color: yellowgreen;
-      margin-bottom: 1px;
-      outline: blue solid 1px;
+      // background-color: yellowgreen;
+      // margin-bottom: 1px;
+      // outline: blue solid 1px;
+      border: 0.5rem outset rgb(222, 222, 222);
+      border-radius: 12px;
+      margin: 1rem;
+      padding: 1rem;
+      width: 90%;
       
       .trackinfo-info {
         // width: 300px;
@@ -50,15 +70,17 @@
         
         .trackinfo-key {
           @include flexBox(flex, center, center, _, _);
-          background-color: red;
+          // background-color: red;
           width: 50px;
           flex-basis: 30%;
-          border-right: solid 1px white
+          border-right: solid 1px white;
+          color: white
         }
         
         .trackinfo-value {
           @include flexBox(flex, center, center, _, _);
           flex-basis: 70%;
+          color: white;
         }
       }
     }
@@ -68,6 +90,7 @@
       // .tag {
       //   height: 30px;
       // }
+      display: flex;
     }
     
     .trackinfo-btn-box {
@@ -76,6 +99,10 @@
       
       .like-btn {
         @include widthHeight(15px, 15px);
+      }
+
+      .trackinfo-total-like {
+        color: white;
       }
     }
   }

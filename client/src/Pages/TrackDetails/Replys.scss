@@ -7,9 +7,13 @@
 
   .replys-box {
     @include widthHeight(80%, 400px);
-    padding: 0;
-    outline: solid white 2px;
+    // padding: 0;
+    // outline: solid white 2px;
     overflow: auto;
+    border: 0.5rem outset rgb(222, 222, 222);
+    border-radius: 12px;
+    margin: 2rem;
+    padding: 1rem;
 
     .replys-li {
       @include flexBox(flex, center, _, _, _);
