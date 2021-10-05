@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import WriteReply from './WriteReply';
-import './Replys.scss';
 import editBtn from '../../assets/edit.png';
 import deleteBtn from '../../assets/delete.png';
 
