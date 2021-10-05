@@ -37,7 +37,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const trackImgName = trackDetail.track.img.split('trackimage/')[1];
   const trackFileName = trackDetail.track.soundtrack.split('trackfile/')[1];
   const [files, setFiles] = useState({ image: { name: trackId ? trackImgName : '' }, audio: { name: trackId ? trackFileName : '' } });
-
+  console.log('파일', files.audio);
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
   // const history = useHistory();
@@ -310,8 +310,17 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
               <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
             </div>
             <section className='default-input-section'>
-              <input type='text' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => { handleInputValue('title', e); }} required />
-              <select name='genre' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
+              <input
+                type='text' id='title-input' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => {
+                  if (e.target.value.length <= 50) {
+                    handleInputValue('title', e);
+                  } else {
+                    handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
+                    e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+                  }
+                }} required
+              />
+              <select name='genre' id='genre-input' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
                 <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
                 <option value='Ballad'>Ballad</option>
                 <option value='HipHop'>HipHop</option>
@@ -324,7 +333,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                 <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
               </div>
               <div>
-                <label htmlFor='music-input-btn' className='music-input-btn'>음원파일첨부</label>
+                <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
                 <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
                 <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} required={!trackId} />
               </div>

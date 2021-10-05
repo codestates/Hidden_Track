@@ -198,12 +198,12 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   return (
     <div className='trackinfo-container'>
-      <div className='trackinfo-image-box'>
-        <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} />
+      <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
+        {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
       </div>
       <section className='trackinfo-desc'>
-        <h2>{trackDetail.track.title}</h2>
-        <span>평점: {trackDetail.gradeAev}</span>
+        <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>
+        <span className='trackinfo-grade-avg'>평점: {trackDetail.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
         <div className='trackinfo-box'>
           <div className='trackinfo-info'>
@@ -228,7 +228,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           <button className='contents__btn' onClick={(e) => requestLike(e)}>
             <img className='like-btn' src={likeImage} alt='' />
           </button>
-          <span>{trackDetail.like}</span>
+          <span className='trackinfo-total-like'>{trackDetail.like}</span>
         </div>
         {isLogin && userInfo.nickName === trackDetail.track.user.nickName
           ? <div>

@@ -144,7 +144,7 @@ function App () {
             <SignUp handleNotice={handleNotice} />
           </Route>
           <Route path='/visual/:id'>
-            <Canvas handleNotice={handleNotice} history={history} loca={loca}/>
+            <Canvas handleNotice={handleNotice} history={history} loca={loca} />
           </Route>
           <Route path='/mypage'>
             <MyPage handleNotice={handleNotice} />

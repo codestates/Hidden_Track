@@ -7,16 +7,24 @@
 
   .hashtag-box {
     width: 80%;
-    // justify-content: center;
+    display: flex;
   }
   
+  .searchtrack-msg {
+    color: white;
+  }
+
   .track-list-container {
     // background-color: green;
-    border: white solid 3px;
-    border-radius: 25px;
+    // border: white solid 3px;
+    // border-radius: 25px;
     margin-bottom: 100px;
     // width: 80%;
     width: 1216px;
+    border: 0.5rem outset rgb(222, 222, 222);
+    border-radius: 12px;
+    // margin: 2rem;
+    padding: 1rem;
     
     .track-list-ul {
       display: flex;
@@ -63,6 +71,21 @@
   
       .track-list-msg {
         color: white;
+      }
+
+      .search-result-containcer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .search-result-box {
+          outline: solid green 1px;
+        }
+      }
+      
+      label {
+        color: white;
+        font-weight: bold;
       }
     }
   }
