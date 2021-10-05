@@ -198,8 +198,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   return (
     <div className='trackinfo-container'>
-      <div className='trackinfo-image-box'>
-        <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} />
+      <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
+        {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
       </div>
       <section className='trackinfo-desc'>
         <h2>{trackDetail.track.title}</h2>

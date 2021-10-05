@@ -10,6 +10,10 @@
     // justify-content: center;
   }
   
+  .searchtrack-msg {
+    color: white;
+  }
+
   .track-list-container {
     // background-color: green;
     border: white solid 3px;
@@ -62,6 +66,19 @@
       }
   
       .track-list-msg {
+        color: white;
+      }
+
+      .search-result-containcer {
+        display: flex;
+        flex-direction: column;
+
+        .search-result-box {
+
+        }
+      }
+      
+      label {
         color: white;
       }
     }
