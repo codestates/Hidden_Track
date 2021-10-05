@@ -6,6 +6,6 @@ module.exports = {
      genre: require('./genre'),
      trackimage: require('./trackimage'),
      trackfile: require('./trackfile'),
-     charts: require('./charts'),
+     charts: require('./charts')
 };
     

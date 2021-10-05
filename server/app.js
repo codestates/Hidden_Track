@@ -8,6 +8,7 @@ const usersRouter = require('./routers/user');
 const trackRouter = require('./routers/track');
 const playlistRouter = require('./routers/playlist');
 const replyRouter = require('./routers/reply');
+const searchRouter = require('./routers/search');
 
 const app = express();
 app.use(express.json());
@@ -37,6 +38,7 @@ app.use('/user', usersRouter);
 app.use('/track', trackRouter);
 app.use('/playlist', playlistRouter);
 app.use('/reply', replyRouter);
+app.use('/search', searchRouter);
 
 
 const HTTPS_PORT = 4000;
