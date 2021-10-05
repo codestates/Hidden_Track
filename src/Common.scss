@@ -1,0 +1,43 @@
+@mixin flexBox($display, $justify, $align, $margin, $padding) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+  margin: $margin;
+  padding: $padding;
+}
+
+@mixin positionBox($position, $top, $right, $bottom, $left) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+
+@mixin widthHeight($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+
+@mixin background($size, $position, $repeat) {
+  background-size: $size;
+  background-position: $position;
+  background-repeat: $repeat;
+}
+
+%h1 {
+  font-family: 'Staatliches', cursive;
+  @include flexBox(_, _, _, 0, 0);
+  font-size: 3em;
+}
+
+%a11yHidden {
+  position: absolute;
+  @include widthHeight(1px, 1px);
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  -webkit-clip-path: polygon(0 0, 0 0, 0 0);
+  clip-path: polygon(0 0, 0 0, 0 0);
+}
