@@ -54,6 +54,6 @@ module.exports = async (req,res) => {
       }
    })
     
-   res.status(200).json({nickName: searchNickName,title:searchTitle,HashTag:searchHashTag})
+   res.status(200).json({nickName: searchNickName,title:searchTitle,hashTag:searchHashTag})
 }
      
