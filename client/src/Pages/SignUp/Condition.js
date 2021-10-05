@@ -7,6 +7,7 @@ function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
 
   function handleDebut (e) {
     console.log(e);
+    console.log('데뷔', e.target.value);
     handleInputValue('debut', e.target.value, 'userArtist');
   }
 

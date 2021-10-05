@@ -58,6 +58,7 @@ function SearchTrack ({ handleNotice }) {
           console.log(err.response);
           if (err.response) {
             if (err.response.status === 404) setTrackList([]);
+            if (err.response.status === 400) setTrackList([]);
           } else console.log(err);
         });
     }
@@ -86,9 +87,9 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <div className='searchtrack-container'>
-      <Genre />
+      <Genre genre={genre} />
       <div className='hashtag-box'>
-        <HashTag tagList={[]} />
+        <HashTag tagList={[]} searchTag={hashTag} />
       </div>
       <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
       <TrackList

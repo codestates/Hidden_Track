@@ -143,10 +143,6 @@ class Canvas extends Component {
                     <button
                     className='go-main-button' onClick={() => {
                         this.props.history.push('/')
-                        localStorage.removeItem('title');
-                        localStorage.removeItem('nickName');
-                        localStorage.removeItem('soundTrack');
-                        localStorage.removeItem('img');
                     }}
                     >Go Main
                     </button>

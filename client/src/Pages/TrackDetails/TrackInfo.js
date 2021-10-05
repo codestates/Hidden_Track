@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
-import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
@@ -26,15 +25,6 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       addPlaylist();
     }
   }, [listenBtn]);
-
-  // 로컬 스토리지에 trackDetail값 저장하는 함수
-  // function setLocal () {
-  //   localStorage.setItem('trackId', `${trackId}`);
-  //   localStorage.setItem('soundTrack', `${trackDetail.track.soundtrack}`);
-  //   localStorage.setItem('img', `${trackDetail.track.img}`);
-  //   localStorage.setItem('title', `${trackDetail.track.title}`);
-  //   localStorage.setItem('nickName', `${trackDetail.track.user.nickName}`);
-  // }
 
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike (e) {
