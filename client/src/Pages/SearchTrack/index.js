@@ -58,6 +58,7 @@ function SearchTrack ({ handleNotice }) {
           console.log(err.response);
           if (err.response) {
             if (err.response.status === 404) setTrackList([]);
+            if (err.response.status === 400) setTrackList([]);
           } else console.log(err);
         });
     }
@@ -86,7 +87,7 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <div className='searchtrack-container'>
-      <Genre />
+      <Genre genre={genre} />
       <div className='hashtag-box'>
         <HashTag tagList={[]} searchTag={hashTag} />
       </div>

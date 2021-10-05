@@ -6,6 +6,7 @@ import axios from 'axios';
 import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
+import './index.scss';
 
 function TrackDetails ({ handleNotice, isLoading }) {
   const location = useLocation();
@@ -44,29 +45,23 @@ function TrackDetails ({ handleNotice, isLoading }) {
 
   return (
     <div className='track-details'>
-      <div>
-        <TrackInfo
-          isLogin={isLogin}
-          accessToken={accessToken}
-          trackDetail={trackDetail}
-          userInfo={userInfo}
-          handleNotice={handleNotice}
-          trackId={trackId}
-        />
-      </div>
-      <div>
-        <Lyrics trackDetail={trackDetail} />
-      </div>
-      <div>
-        <Replys
-          userInfo={userInfo}
-          trackDetail={trackDetail}
-          isLogin={isLogin}
-          isLoginModalOpen={isLoginModalOpen}
-          accessToken={accessToken}
-          handleNotice={handleNotice}
-        />
-      </div>
+      <TrackInfo
+        isLogin={isLogin}
+        accessToken={accessToken}
+        trackDetail={trackDetail}
+        userInfo={userInfo}
+        handleNotice={handleNotice}
+        trackId={trackId}
+      />
+      <Lyrics trackDetail={trackDetail} />
+      <Replys
+        userInfo={userInfo}
+        trackDetail={trackDetail}
+        isLogin={isLogin}
+        isLoginModalOpen={isLoginModalOpen}
+        accessToken={accessToken}
+        handleNotice={handleNotice}
+      />
     </div>
   );
 }
