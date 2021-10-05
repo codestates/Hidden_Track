@@ -88,7 +88,7 @@ function SearchTrack ({ handleNotice }) {
     <div className='searchtrack-container'>
       <Genre />
       <div className='hashtag-box'>
-        <HashTag tagList={[]} />
+        <HashTag tagList={[]} searchTag={hashTag} />
       </div>
       <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
       <TrackList

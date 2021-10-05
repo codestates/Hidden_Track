@@ -3,7 +3,6 @@
   display: flex;
   align-content: center;
   justify-content: center;
-  flex-wrap: wrap;
   height : auto;
   width: 100%;
   padding: 0 8px;
@@ -15,40 +14,42 @@
     padding: 0;
     align-content: center;
     justify-content: center;
-    flex-wrap: wrap;
     height : auto;
     width: 100%;
     padding: 0 8px;
-    // border: 1px solid rgb(214, 216, 218);
-    // background-color: rgba(39, 39, 39, 0.5);
-    background-color: #170B24;
-    border-radius: 6px;
         .tag {
             // color:black;
-            width: auto;
+            background: linear-gradient(to right, #38A9E5, #8F5EF1, #FC00FF);
+            min-width: 76px;
+            // text-align: center;
+            // width: auto;
             height: 50px;
             display: flex;
+            justify-content: center;
             align-items: center;
             color: #fff;
-            padding: 0 8px;
-            font-size: 20px;
+            // margin: 0 auto;
+            padding: 0 15px;
+            // font-size: 18px;
             list-style: none;
             border-radius: 20px;
             margin: 8px 8px;
-            // background: #a182da;
-            // background: linear-gradient(to right, #38A9E5, #8F5EF1, #FC00FF);
-            background: linear-gradient(to right, #245F9C, #FC00FF);
-            
-            // background: linear-gradient(to right, #23286A, #75387D );
             cursor: pointer;
-            
+            .tag-title{
+              // margin: 0 auto;
+              font-weight: bold;
+              font-size: 18px;
+              // color: linear-gradient(to right, #38A9E5, #8F5EF1, #FC00FF);
+            }
     }
     .tag:hover{
         text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 18px #fff, 0 0 2px rgb(254, 3, 128),
       0 0 30px rgb(254, 3, 128), 0 0 43px rgb(254, 3, 128), 0 0 58px rgb(254, 3, 128), 0 0 83px rgb(254, 3, 128);
-        transform: scale(1.2);
+
+        transform: scale(1.1);
         transition: .2s;
     } 
+
   }
 
 }
@@ -56,13 +57,16 @@
 #hashtag-section:hover{
     box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
     0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
-    transition: .5s;
+    // transition: .5s;
 }
 
 .clicked-tag {
-      border: solid white;
-      box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
+      box-shadow: 0 0 2.5px #fff, 0 0 7.5px #fff, 0 0 10px #fff, 0 0 3px #bc13fe,
+      0 0 6.4px #bc13fe, 0 0 10px #bc13fe, 0 0 16.2px #bc13fe, 0 0 20px #bc13fe;
+      // box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
     }
+
+
 
 
 // > input {    

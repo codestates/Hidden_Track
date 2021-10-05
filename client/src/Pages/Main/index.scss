@@ -18,6 +18,8 @@
   .main-genre {
     display: flex;
     justify-content: center;
+    align-content: center;
+    
   }
 
   .main-hashtag {
@@ -25,10 +27,13 @@
     flex-direction: column;
     margin: 0 auto;
     width: 1000px;
-    .main-hashtag-title{
-      text-align: start;
-      margin: 20px 30px;
-      font-size: 25px;
-    }
+
   }
+
+  .main-hashtag-title {
+    text-align: start;
+    margin: 20px 30px;
+    font-size: 25px;
+  }
+
 }

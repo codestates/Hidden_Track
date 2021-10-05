@@ -6,12 +6,10 @@ import Genre from '../../Components/Genre';
 import HashTag from '../../Components/HashTag';
 
 import './index.scss';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 function Main () {
   const history = useHistory();
-  const { accessToken } = useSelector(state => state.accessTokenReducer);
   const [latestChart, setLatestChart] = useState([]);
   const [popularityChart, setPopularityChart] = useState([]);
   const [recommendChart, setRecommendChart] = useState([]);
@@ -36,10 +34,9 @@ function Main () {
   return (
 
     <div id='main'>
-      <h1 className='main-h1'>Welcome to HIDDEN TRACK!!</h1>
       <div className='main-slides'>
-        <Slide latestChart={latestChart} popularityChart={popularityChart} />
-        <Recommend recommendChart={recommendChart} />
+        <Slide  />
+        <Recommend />
       </div>
       <div className='main-genre'>
         <Genre />

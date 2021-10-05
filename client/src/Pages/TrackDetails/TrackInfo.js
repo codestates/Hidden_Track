@@ -27,15 +27,6 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
     }
   }, [listenBtn]);
 
-  // 로컬 스토리지에 trackDetail값 저장하는 함수
-  // function setLocal () {
-  //   localStorage.setItem('trackId', `${trackId}`);
-  //   localStorage.setItem('soundTrack', `${trackDetail.track.soundtrack}`);
-  //   localStorage.setItem('img', `${trackDetail.track.img}`);
-  //   localStorage.setItem('title', `${trackDetail.track.title}`);
-  //   localStorage.setItem('nickName', `${trackDetail.track.user.nickName}`);
-  // }
-
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike (e) {
     e.preventDefault();
