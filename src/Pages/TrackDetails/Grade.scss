@@ -1,0 +1,56 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+body {
+  // margin: 5%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: .5rem;
+}
+
+/* 필드셋 */
+.rate {
+  display: inline-block;
+  border: 0;
+  /* background-color: red; */
+}
+
+/* 필드셋 > input  */
+.rate>input {
+  // color: #ccc;
+  display: none;
+}
+
+.rate>.grade-label {
+  float: right;
+  color: #ccc;
+  // bor
+  /* background-color: blue; */
+}
+
+.rate>.grade-label:before {
+  display: inline-block;
+  font-size: 2rem;
+  padding: .3rem .2rem;
+  margin: 0;
+  cursor: pointer;
+  font-family: FontAwesome;
+  content: "\f005 ";
+  /* background-color: green; */
+}
+
+.rate .half:before {
+  content: "\f089 ";
+  position: absolute;
+  padding-right: 0;
+}
+
+input:checked~.grade-label,
+.grade-label:hover,
+.grade-label:hover~.grade-label {
+  // color: #73B100;
+  color: #fbff00;
+  text-shadow: 0 0 1px #fbff00, 0 0 2px #fbff00, 0 0 3px #fbff00
+}

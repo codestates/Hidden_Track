@@ -1,0 +1,32 @@
+/
+
+├── /hidden_track 
+│   ├── client 
+│        ├── pubilc
+│            ├── index.html
+│            ├── manifest.json
+│            ├── robots.txt
+│        ├── src  
+│            ├── Components ## 컴포넌트 모으는 폴더
+│                ├── Main ## 컴포넌트 키워드
+│                ├── SignUp
+│                    ├── DefaultSignUp.js
+│                    ├── Condition.js
+│            ├── Pages ## page 성격의 컴포넌트 모으는 폴더
+│                ├── Main.js
+│                ├── SignUp.js
+│            ├── App.js
+│            ├── index.js
+│        ├── package.json
+│        ├── README.md
+│        ├── node_modules
+│        ├── .env
+│        ├── gitignore  
+│   ├── server
+│   ├── README.md   
+
+
+
+
+
+
