@@ -13,22 +13,7 @@ function Main () {
   const history = useHistory();
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const [tagList, setTagList] = useState([]);
-  /// ?????
-  // useEffect(() => {
-  //   // let abortController = new AbortController()
-  //   axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, { headers: { accesstoken: accessToken } })
-  //     .then(res => {
-  //       console.log('메인 all',res.data)
-  //       setLatestChart(res.data.latestchart);
-  //       setPopularityChart(res.data.popularchart);
-  //       setRecommendChart(res.data.recommendchart);
-  //       setTagList(res.data.hashtags);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
 
-  // }, []);
 
   return (
 

@@ -8,11 +8,6 @@ import Slider from 'react-slick';
 
 import './slick.css';
 import './slick-theme.css';
-<<<<<<< HEAD
-=======
-import styled from 'styled-components';
-
->>>>>>> e9ace962f4ebdbe26324fa18e4774623c2313d85
 import './index.scss';
 
 
@@ -33,7 +28,6 @@ const settings = {
   }
 };
 
-<<<<<<< HEAD
 function Slide () {
 
 
@@ -51,7 +45,6 @@ function Slide () {
     { headers: { accesstoken: accessToken } })
     .then((res) => {
       console.log('인기,최신 요청 응답', res);
-      // setRecommendChart(res.data.recommendchart);
       setChart(res.data.popularchart);
       setLatestChart(res.data.latestchart)
       setPopularChart(res.data.popularchart)
@@ -62,14 +55,6 @@ function Slide () {
     );
   }, [])
 
-=======
-function Slide ({ latestChart, popularityChart }) {
-  const [chart, setChart] = useState(popularityChart);
-
-  console.log('인기차트', popularityChart); // 인기 Array(10)
-  console.log('최신차트', latestChart); // 최신 Array(10)
-  console.log(chart);
->>>>>>> e9ace962f4ebdbe26324fa18e4774623c2313d85
 
   function handleRecent (e) {
     e.preventDefault();
@@ -78,16 +63,12 @@ function Slide ({ latestChart, popularityChart }) {
 
   function handlePopular (e) {
     e.preventDefault();
-<<<<<<< HEAD
     setChart(popularChart)
   }
 
   function moveTrackDetail(e, id){
     // console.log(id);
     history.push(`/trackdetails/${id}`)
-=======
-    setChart(popularityChart);
->>>>>>> e9ace962f4ebdbe26324fa18e4774623c2313d85
   }
 
   return (
@@ -116,11 +97,7 @@ function Slide ({ latestChart, popularityChart }) {
           );
         })}
       </Slider>
-<<<<<<< HEAD
     </section>
-=======
-    </div>
->>>>>>> e9ace962f4ebdbe26324fa18e4774623c2313d85
   );
 }
 
