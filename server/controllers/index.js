@@ -3,4 +3,5 @@ module.exports = {
   trackController: require('./track'),
   playlistController : require('./playlist'),
   replyController : require('./reply'),
+  searchController : require('./search')
 };
