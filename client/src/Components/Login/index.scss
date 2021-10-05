@@ -6,9 +6,9 @@
   @include positionBox(fixed, _, _, _, _);
 
 
-  background: #000;
+  background: red;
   opacity: .8;
-  filter: alpha(opacity=80);
+  // filter: alpha(opacity=80);
   z-index: 10;
 }
 

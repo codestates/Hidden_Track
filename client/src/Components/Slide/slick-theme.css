@@ -18,13 +18,14 @@
 .slick-prev,
 .slick-next {
   position: absolute;
-  top: 50%;
+  top: 53%;
   height: 20px;
   width: 50px;
   background: transparent;
   padding: 0;
   border: none;
   outline: none;
+  color: transparent;
 }
 
 
@@ -52,7 +53,7 @@
 .slick-prev:before,
 .slick-next:before {
   font-family: "slick";
-  font-size: 30px;
+  font-size: 16px;
   line-height: 1;
   color: white;
   opacity: 0.75;
@@ -72,7 +73,14 @@
 }
 
 .slick-prev:before {
-  content: "←";
+  /* content: "←"; */
+  content: '';
+  background-image: url('../../assets/prev-arrow.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
 }
 
 [dir="rtl"] .slick-prev:before {
@@ -89,7 +97,15 @@
 }
 
 .slick-next:before {
-  content: "→";
+  /* content: "→"; */
+  content: '';
+  background-image: url('../../assets/next-arrow.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+
 }
 
 [dir="rtl"] .slick-next:before {

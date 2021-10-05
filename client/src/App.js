@@ -13,6 +13,8 @@ import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
 import Notification from './Components/Notification';
 import LoadingIndicator from './Components/LoadingIndicator';
+import Landing from './Pages/Landing';
+
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -166,6 +168,9 @@ function App () {
           </Route>
         </Switch>}
       <Notification notice={notice} />
+      <Route path='/landing'>
+        <Landing />
+      </Route>
       <div className='footer-container'>
         {loca.pathname === '/signup' || loca.pathname.match('/visual')
           ? (
