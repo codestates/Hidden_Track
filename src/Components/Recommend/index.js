@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch} from 'react-redux';
-import { useLocation, useHistory } from 'react-router';
-import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
+import { useSelector} from 'react-redux';
+import {useHistory } from 'react-router';
 
 
 import styled from 'styled-components';
@@ -14,7 +13,6 @@ import './index.scss';
 function Recommend () {
 
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const {accessToken}  = useSelector(state => state.accessTokenReducer)
   const [recommendChart, setRecommendChart] = useState([]);

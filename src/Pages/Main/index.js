@@ -6,7 +6,6 @@ import Genre from '../../Components/Genre';
 import HashTag from '../../Components/HashTag';
 
 import './index.scss';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 
 function Main () {
