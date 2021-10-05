@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    min-height: 48px;
+    min-height: 80px;
     width: 500px;
     padding: 0 8px;
     border: 1px solid rgb(214, 216, 218);
@@ -29,7 +29,7 @@
             list-style: none;
             border-radius: 6px;
             margin: 0 8px 8px 0;
-            background: #393857;
+            background: linear-gradient(to right, #245F9C, #FC00FF);
             .tag-close-icon {
                 width: 15px;
                 background-color: transparent;
@@ -42,7 +42,16 @@
             }
         }
     }
+
+    .tag:hover{
+       
+        transform: scale(1.2);
+        transition: .2s;
+    } 
+
     &:focus-within {
-    border: 1px solid #403ae9;;
+        box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+        0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+        transition: .5s;
     }
 }
