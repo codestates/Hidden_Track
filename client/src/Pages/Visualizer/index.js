@@ -68,6 +68,7 @@ class Canvas extends Component {
     }
 
     animationLooper(canvas) {
+        console.log('실행')
         canvas.width = width;
         canvas.height = height;
         ctx = canvas.getContext("2d");
@@ -75,7 +76,7 @@ class Canvas extends Component {
         const bufferLength = this.analyser.frequencyBinCount;
         const dataArray = this.frequency_array;
         // const barWidth = 5;
-        const barWidth = 3.5;
+        const barWidth = 8;
         let barHeight;
         let x = 0;
         this.drawBar(bufferLength, x, barWidth, barHeight, dataArray, canvas);
@@ -123,7 +124,7 @@ class Canvas extends Component {
             this.rafId = requestAnimationFrame(this.tick);
         } else {
             this.audio.pause();
-        cancelAnimationFrame(this.rafId);
+            cancelAnimationFrame(this.rafId);
         }
     }
 
