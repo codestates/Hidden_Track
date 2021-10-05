@@ -141,7 +141,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
       <Portal elementId='modal-root'>
         <div
           className='modal-backdrop__login' style={isLoginModalOpen ? { display: 'block' } : { display: 'none' }}
-          visible={isLoginModalOpen.toString()} onClick={handleModalBack}
+          visible={isLoginModalOpen} onClick={(e) =>handleModalBack(e)}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>

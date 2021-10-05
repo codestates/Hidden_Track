@@ -1,13 +1,16 @@
-// 라이브러리
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation, useHistory } from 'react-router';
+import axios from 'axios';
+import styled from 'styled-components';
+
 import Slider from 'react-slick';
 
 import './slick.css';
 import './slick-theme.css';
-import styled from 'styled-components';
 
 import './index.scss';
-// import playList from '../../DummyData/playList';
+
 
 const settings = {
   className: 'center',
@@ -26,12 +29,35 @@ const settings = {
   }
 };
 
-function Slide ({ latestChart, popularityChart }) {
-  const [chart, setChart] = useState(popularityChart);
 
-  console.log('인기차트', popularityChart); // 인기 Array(10)
-  console.log('최신차트', latestChart); // 최신 Array(10)
-  console.log(chart);
+function Slide () {
+
+
+  const history = useHistory();
+
+  const {accessToken}  = useSelector(state => state.accessTokenReducer)
+  
+  const [chart, setChart] = useState([])
+  const [latestChart, setLatestChart ] = useState('')
+  const [popularChart, setPopularChart ] = useState('')
+
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, 
+    { headers: { accesstoken: accessToken } })
+    .then((res) => {
+      console.log('인기,최신 요청 응답', res);
+      // setRecommendChart(res.data.recommendchart);
+      setChart(res.data.popularchart);
+      setLatestChart(res.data.latestchart)
+      setPopularChart(res.data.popularchart)
+    })  
+    .catch(err => {
+        console.log(err);
+    }
+    );
+  }, [])
+
 
   function handleRecent (e) {
     e.preventDefault();
@@ -40,34 +66,40 @@ function Slide ({ latestChart, popularityChart }) {
 
   function handlePopular (e) {
     e.preventDefault();
-    setChart(popularityChart);
+    setChart(popularChart)
+  }
+
+  function moveTrackDetail(e, id){
+    // console.log(id);
+    history.push(`/trackdetails/${id}`)
   }
 
   return (
-    <div className='slide-container'>
+    <section className='slide-container'>
       <div className='slide-btn'>
         <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
         <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
       </div>
+
       <Slider {...settings}>
         {chart.map((slide, i) => {
           const { img, id } = slide;
           return (
             <div className='slide' key={id}>
-              <ImgSlide img={img} />
+              <ImgSlide img={img} onClick={(e) => moveTrackDetail(e, id)}/>
             </div>
           );
         })}
       </Slider>
-    </div>
+    </section>
   );
 }
 
 export default Slide;
 
 export const ImgSlide = styled.div`
-  /* width: 200px; */
-  /* height: 200px; */
+  width: 200px;
+  height: 200px;
   background-image: url(${props => props.img});
   background-size: cover;
   background-position: center;

@@ -33,9 +33,14 @@ function Main () {
 
   // }, []);
 
+
+  function moveLanding(){
+    history.push('/landing')
+  }
   return (
 
     <div id='main'>
+      <button onClick={moveLanding}>랜딩</button>
       <h1 className='main-h1'>Welcome to HIDDEN TRACK!!</h1>
       <div className='main-slides'>
         <Slide latestChart={latestChart} popularityChart={popularityChart} />

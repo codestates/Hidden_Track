@@ -1,0 +1,107 @@
+.container__landing {
+  // background-color: red;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+
+
+#section1,
+#section2,
+#section3,
+#section4,
+#section5,
+#section6 {
+
+  background-color: aqua;
+  width: 78%;
+  height: 500px;
+  margin: 0 auto;
+  margin-bottom: 500px;
+
+
+  .landing__section1-figure {
+    background-color: chartreuse;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+  }
+
+  .landing__section1-img {
+    // background-color: blueviolet;
+    width: 480px;
+    height: 480px;
+    // background-image: url('../../assets/landing1.png');
+    // margin-top: -40px;
+    background-image: url('../../assets/landing2.png');
+    // background-image: url('../../assets/landing3.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: all 1s;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+
+
+  #landing__section1-figcaption {
+
+    // background-color: dodgerblue;
+    width: 55%;
+    margin-top: 30px;
+    height: 300px;
+    margin-left: 50px;
+    // font-size: 200px;
+
+    .landing__section1-pre1 {
+      // background-color: darkcyan;
+      // font-size: 50px;
+      // font-size: 2.5em;
+      // font-size: 90%;
+      text-align: left;
+      margin: 0;
+      margin-top: 20px;
+      color: #fff;
+      // font-size: 50px;
+    }
+
+
+
+    @media (min-width: 1400px) {
+      .landing__section1-pre1 {
+        font-size: 50px;
+      }
+    }
+
+    @media (min-width: 1300px) {
+      .landing__section1-pre1 {
+        font-size: 40px;
+      }
+    }
+
+    // @media (min-width: 1480px) {
+    //   .landing__section1-pre1 {
+    //     // background-color: darkcyan;
+    //     // font-size: 50px;
+    //     // font-size: 2.5em;
+    //     // font-size: 90%;
+    //     text-align: left;
+    //     margin: 0;
+    //     margin-top: 20px;
+    //     color: #fff;
+    //     font-size: 40px;
+    //   }
+
+    // }
+
+
+
+
+
+
+
+  }
+
+}
