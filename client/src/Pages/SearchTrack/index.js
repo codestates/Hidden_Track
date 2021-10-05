@@ -58,6 +58,7 @@ function SearchTrack ({ handleNotice }) {
           console.log(err.response);
           if (err.response) {
             if (err.response.status === 404) setTrackList([]);
+            if (err.response.status === 400) setTrackList([]);
           } else console.log(err);
         });
     }
