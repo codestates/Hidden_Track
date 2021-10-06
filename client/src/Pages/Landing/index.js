@@ -6,6 +6,8 @@ import './index.scss';
 import '../../assets/landing1.png';
 
 function Landing () {
+  console.log(window.innerWidth);
+
   return (
     <div className='container__landing'>
       <section id='section1'>
