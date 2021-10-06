@@ -30,8 +30,8 @@ module.exports = async (req, res) => {
   }
 
   let recommendchart = [];
-  for(let i =0;i<3;i++){
-      recommendchart.push(chart[0])
+  for(let i =chart.length-1; i>chart.length-4; i--){
+      recommendchart.push(chart[i])
   }
 
   res.status(200).json({latestchart: latestchart,popularchart:popularchart,recommendchart:recommendchart})
