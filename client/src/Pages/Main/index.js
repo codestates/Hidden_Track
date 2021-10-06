@@ -36,13 +36,14 @@ function Main () {
   }
   return (
 
-    <div id='main' >
+    <div id='main' style={{height: window.innerHeight}}>
       {/* <button onClick={moveLanding}>랜딩</button> */}
       <div className='main-slides'>
         <Slide  />
         <Recommend />
       </div>
       <div className='main-genre'>
+      <span className='main-genre-title'>Genre</span>
         <Genre />
       </div>
       <div className='main-hashtag'>
