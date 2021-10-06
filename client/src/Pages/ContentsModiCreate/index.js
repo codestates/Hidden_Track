@@ -300,8 +300,8 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
 
   return (
     <div id='modi-create'>
-      {isValidUser()
-        ? <>
+      {/* {isValidUser() */}
+        {/* ? <> */}
           <div className='default-input-box'>
             <div className='album-img-box'>
               <img className='album-img' src={src} />
@@ -350,8 +350,8 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
-        </>
-        : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
+        {/* </> */}
+        {/* // : <h1 className='Bad'>잘못된 접근 입니다.</h1> */}
     </div>
   );
 }

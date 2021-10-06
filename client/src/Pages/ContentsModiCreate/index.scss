@@ -27,11 +27,13 @@
             .album-img {
                 // box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px rgb(254, 3, 128),
                 // 0 0 2px rgb(254, 3, 128), 0 0 13px rgb(254, 3, 128), 0 0 38px rgb(254, 3, 128), 0 0 50px rgb(254, 3, 128);
-                border: 1px; 
+                // border: 1px; 
                 width: 450px;
                 height: 450px;
                 display: flex;
                 border-radius: 20px;
+                box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+        0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
             }
         }
         .default-input-section{
@@ -88,6 +90,10 @@
                 border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
                 border-image-slice: 1;
             }
+            .music-release::-webkit-calendar-picker-indicator {
+                cursor: pointer;
+                filter: invert(1);
+            }
         
         }
     }
@@ -105,12 +111,12 @@
                 margin-top: 20px;
                 resize: none;
                 text-align: center;
-                // border: 1px solid rgb(214, 216, 218);
+                border: 1px solid rgb(214, 216, 218);
                 border-radius: 20px;
                 color: #fff;
                 outline: none;
-                background: #484848;
-                width: 600px;
+                background-color: transparent;
+                width: 610px;
                 height: 200px;
             }
             .input-lyrics::-webkit-scrollbar {
@@ -124,8 +130,31 @@
         margin-top: 30px;
         margin-bottom: 120px;
         .contents__btn{
-            width: 100px;
-            height: 50px;
+            display: inline-block;
+            background: transparent;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-style: normal;
+            font-size: 15px;
+            letter-spacing: 0.3em;
+            color: rgba(223,190,106,0.7);
+            border-radius: 20px;
+            padding: 18px 80px 20px;
+            transition: all 0.7s ease-out;
+            background:linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+            background-position: 1% 50%;
+            background-size: 300% 300%;
+            text-decoration: none;
+            margin: 0.625rem;
+            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .contents__btn:hover{
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            background-position: 99% 50%;
         }
     }
 
