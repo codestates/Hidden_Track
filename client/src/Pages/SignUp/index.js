@@ -192,7 +192,7 @@ function SignUp ({ handleNotice }) {
           </div>
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
-        <button onClick={(e) => requestSignUp(e)}>가입하기</button>
+        <button className='sign-up-submit-btn' onClick={(e) => requestSignUp(e)}>가입하기</button>
       </div>
       {isOpen
         ? <div>

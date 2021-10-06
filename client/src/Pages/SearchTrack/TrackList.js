@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import HashTag from '../../Components/HashTag';
 
-function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search }) {
+function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search, hashTag, accessToken }) {
   const history = useHistory();
 
   // 특정 음원을 클릭 했을 때 실행되는 함수
@@ -10,7 +11,11 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
     const trackId = e.target.getAttribute('value');
     console.log(trackId);
     // 클릭한 음원의 상세 정보 요청
-    axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`)
+    axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`, {
+      headers: {
+        accesstoken: accessToken
+      }
+    })
       .then(res => {
         console.log('음원 클릭시 요청 응답', res.data);
         if (res.status === 200) {
@@ -54,9 +59,9 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
             {/* ----------------------아티스트로 검색한 결과-------------------- */}
             <div className='search-result-box'>
               <label>아티스트 검색 결과</label>
-              {trackList.artist && trackList.artist.length !== 0
+              {trackList.nickName && trackList.nickName.length !== 0
                 ? <div className='track-list-box'>
-                  {trackList.artist.map(el => {
+                  {trackList.nickName.map(el => {
                     return (
                       <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
                         <img className='track-list-img' src={el.img} value={el.id} alt='' />
@@ -90,17 +95,9 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
             {/* ---------------------해시태그 검색 결과----------------------------- */}
             <div className='search-result-box'>
               <label>해시태그 검색 결과</label>
-              {trackList.hashtag && trackList.hashtag.length !== 0
-                ? <div className='track-list-box'>
-                  {trackList.hashtag.map(el => {
-                    return (
-                      <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
-                        <img className='track-list-img' src={el.img} value={el.id} alt='' />
-                        <p className='track-list-title' value={el.id}>{el.title}</p>
-                        <p className='track-list-artist' value={el.id}>{el.user.nickName}</p>
-                      </li>
-                    );
-                  })}
+              {trackList.hashTag && trackList.hashTag.length !== 0
+                ? <div className='hashtag-box'>
+                  <HashTag tagList={[]} searchTag={hashTag} />
                 </div>
                 : <p className='track-list-msg'>검색 결과를 찾을 수 없습니다.</p>}
             </div>

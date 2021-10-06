@@ -25,7 +25,7 @@ function Genre ({ genre }) {
       <div className='genre-box'>
         {genreList.map((el, idx) => {
           return (
-            <span className={genre === el ? 'genre-bg selected-genre-bg' : 'genre-bg'} value={el} key={idx} onClick={(e) => clickGenre(e)}>
+            <span className={genre === el ? `genre-bg selected-genre-${idx}` : 'genre-bg'} id={`genre-bg-${idx}`} value={el} key={idx} onClick={(e) => clickGenre(e)}>
               <p className={genre === el ? 'genre-name selected-genre-name' : 'genre-name'} value={el} onClick={(e) => clickGenre(e)}>
                 {el}
               </p>

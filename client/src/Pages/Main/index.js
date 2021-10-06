@@ -39,7 +39,7 @@ function Main () {
     <div id='main' >
       {/* <button onClick={moveLanding}>랜딩</button> */}
       <div className='main-slides'>
-        <Slide  />
+        <Slide />
         <Recommend />
       </div>
       <div className='main-genre'>
