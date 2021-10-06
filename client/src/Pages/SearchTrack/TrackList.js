@@ -54,9 +54,9 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
             {/* ----------------------아티스트로 검색한 결과-------------------- */}
             <div className='search-result-box'>
               <label>아티스트 검색 결과</label>
-              {trackList.artist && trackList.artist.length !== 0
+              {trackList.nickName && trackList.nickName.length !== 0
                 ? <div className='track-list-box'>
-                  {trackList.artist.map(el => {
+                  {trackList.nickName.map(el => {
                     return (
                       <li className='track-list-li' key={el.id} value={el.id} onClick={(e) => moveToTrackDetails(e)}>
                         <img className='track-list-img' src={el.img} value={el.id} alt='' />

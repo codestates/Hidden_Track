@@ -67,12 +67,12 @@ function SearchTrack ({ handleNotice }) {
       axios.get(`${process.env.REACT_APP_API_URL}/track/search/${search}`)
         .then(res => {
           console.log('검색어 요청 응답', res.data);
-          if (res.status === 200) setTrackList(res.data.track);
+          if (res.status === 200) setTrackList(res.data);
         })
         .catch(err => {
           console.log(err.response);
           if (err.response) {
-            if (err.response.status === 404) {
+            if (err.response.status === 400) {
               setTrackList([]);
             }
             if (err.response.status === 414) {
