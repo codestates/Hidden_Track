@@ -1,50 +1,115 @@
-const { playlist, track  } = require("../../models");
-const user = require("../user");
+const { playlist, track,user } = require("../../models");
 const { isAuthorized } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {  
 
-//     const chart = await track.findAll({
-//         attributes : ["id","img","title","views"],  
-//         include:{
-//             model : user,
-//             required : true,
-//             attributes: ["nickName"]
-//          }
-//       })
-//       chart.sort(function(a,b){
-//           return a.id-b.id;
-//       })
-//     let recommendchart = [];
-//   for(let i =0;i<3;i++){
-//       recommendchart.push(chart[0])
-//   }
   const accessTokenData = isAuthorized(req);
   let recommendchart = [];
 
   if(accessTokenData){
-    let findPlaylist = await playlist.findAll({
+    const findPlaylist = await playlist.findAll({
         attributes : ["trackId","userId"],
         where : { userId :accessTokenData.id }
     })
     let users = {};
+    let recommendUser =[];
     for(let i =0;i<findPlaylist.length;i++){
         let temp = await playlist.findAll({
             where : { trackId : findPlaylist[i].trackId }
         });
+        
+        let charts =[];
         for(let j =0;j<temp.length;j++){
-            if(accessTokenData.id !== temp[j].userId){
-                if(users[temp[j].userId]){
-                    users[temp[j].userId] = users[temp[j].userId] + 1;
-                }else{
-                    users[temp[j].userId] = 1;
-                }
-            }
+            if(temp[j].userId !== accessTokenData.id)
+            charts.push(temp[j].userId)
+        }
+        recommendUser.push(charts)
+    }
+    for(let i =0;i<recommendUser.length;i++){
+    recommendUser[i] = Array.from(new Set(recommendUser[i]));
+    for(let j =0; j<recommendUser[i].length;j++){
+          if(users[recommendUser[i][j]]){
+            users[recommendUser[i][j]] ++;
+          }else{
+            users[recommendUser[i][j]] = 1;
+          }
+      }
+    }  
+   let index =0;
+  while(index <findPlaylist.length){  
+  let max ={id : 0 ,count: 0};
+  for(let key in users){
+    if(max.count < users[key]){
+        max.id = key
+        max.count = users[key]
+    }
+  }
+
+  let similarity = await playlist.findAll({
+      attributes : ["userId","trackId"],
+      where : {userId : max.id}
+  })
+  if(similarity.length - max.count !== 0){
+    for(let i =0; i<similarity.length;i++){
+        for(let j =0; j<findPlaylist.length;j++){
+           
+         if(similarity[i].trackId === findPlaylist[j].trackId){
+             break;
+         }
+         if(j===findPlaylist.length-1){
+             const findTrack = await track.findOne({
+                 where: {id : similarity[i].trackId},
+                 attributes : ["id","img","title","views"],  
+                 include:{
+                     model : user,
+                     required : true,
+                     attributes: ["nickName"]
+                  }
+             })
+             recommendchart.push(findTrack)
+         }
         }
     }
-    
+      break;
   }else{
+      users[max.id] = 0;
+      index++;
+   }
+  }
 
+  if(recommendchart.length===0){
+    const chart = await track.findAll({
+        attributes : ["id","img","title","views"],  
+        include:{
+            model : user,
+            required : true,
+            attributes: ["nickName"]
+         }
+      })
+      chart.sort(function(a,b){
+        return a.views-b.views;
+    })
+    
+     for(let i =chart.length-1;i>=chart.length-4;i--){
+       recommendchart.push(chart[i])
+     }
+  } 
+  }else{
+    const chart = await track.findAll({
+        attributes : ["id","img","title","views"],  
+        include:{
+            model : user,
+            required : true,
+            attributes: ["nickName"]
+         }
+      })
+      chart.sort(function(a,b){
+        return a.views-b.views;
+    })
+    
+     for(let i =chart.length-1;i>=chart.length-4;i--){
+       recommendchart.push(chart[i])
+     } 
   }
 
   res.status(200).json({recommend:recommendchart})
