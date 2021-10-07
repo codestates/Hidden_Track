@@ -21,7 +21,6 @@ const rootReducer = combineReducers({
   playListReducer,
   trackDetailReducer,
   accessTokenReducer,
-  // modifyReducer,
   loadingIndicatorReducer
   // trackListReducer
 });
@@ -94,16 +93,6 @@ function accessTokenReducer (state = initialState.accessToken, action) {
     default: return state;
   }
 }
-
-// function modifyReducer (state = initialState.onClickModify, action) {
-//   switch (action.type) {
-//     case CLICK_MODIFY:
-//       return Object.assign({}, {
-//         onClickModify: action.payload.onClickModify
-//       });
-//     default: return state;
-//   }
-// }
 
 function loadingIndicatorReducer (state = initialState.isLoading, action) {
   switch (action.type) {

@@ -48,13 +48,14 @@
         // width: 90%;
         
         .track-list-li {
-          // display: inline-block;
+          @include flexBox(flex, _, center, 1em, _);
+          flex-direction: column;
           // flex: 1;
           background-color: skyblue;
           // float: left; // 자식 태그들 왼쪽부터 채워지게
           cursor: pointer;
-          margin: 1em;
           outline: solid 1px white;
+          width: 17em;
           
           .track-list-img {
             @include widthHeight(17em, 17em)
@@ -62,6 +63,10 @@
     
           .track-list-title, .track-list-artist {
             margin: 0;
+            width: 80%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
     
