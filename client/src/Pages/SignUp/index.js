@@ -157,8 +157,8 @@ function SignUp ({ handleNotice }) {
 
   return (
     <div className='sign-up'>
-      <h1 onClick={() => history.push('/')}>HIDDEN TRACK</h1>
-      <h2>SignUp</h2>
+      <h1 className='sign-up-logo' onClick={() => history.push('/')}>HIDDEN TRACK</h1>
+      <h2 className='sign-up-title'>SignUp</h2>
       <div className='sign-up-container'>
         <div className='sign-up-input'>
           <InputID
@@ -183,14 +183,16 @@ function SignUp ({ handleNotice }) {
         <InputImage setImageFile={setImageFile} inputValue={inputValue} handleInputValue={handleInputValue} initialImage={initialImage} />
         <div className='sign-up-radio-box'>
           <div>
-            <input type='radio' name='authority' value='listener' defaultChecked onClick={(e) => handleRadioBtn(e)} />리스너 권한으로 가입
+            <input type='radio' name='authority' value='listener' defaultChecked onClick={(e) => handleRadioBtn(e)} />
+            <label>리스너 권한으로 가입</label>
           </div>
           <div>
-            <input type='radio' name='authority' value='artist' onClick={(e) => handleRadioBtn(e)} />아티스트 권한으로 가입
+            <input type='radio' name='authority' value='artist' onClick={(e) => handleRadioBtn(e)} />
+            <label>아티스트 권한으로 가입</label>
           </div>
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
-        <button onClick={(e) => requestSignUp(e)}>가입하기</button>
+        <button className='sign-up-submit-btn' onClick={(e) => requestSignUp(e)}>가입하기</button>
       </div>
       {isOpen
         ? <div>

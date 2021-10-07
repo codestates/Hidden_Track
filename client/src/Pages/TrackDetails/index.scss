@@ -1,0 +1,265 @@
+@import '../../Common.scss';
+
+.track-details {
+
+  .trackinfo-container {
+    @include flexBox(flex, space-evenly, center, _, _);
+    // background-color: wheat;
+    margin-top: 100px;
+    // width: 80%;
+  
+    .trackinfo-image-box {
+      @include widthHeight(30em, 30em);
+      // margin: 0 auto;
+      // padding-bottom: 50%;
+      // position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 0.5rem outset rgb(222, 222, 222);
+      border-radius: 12px;
+      margin: 2rem;
+      padding: 1rem;
+      // box-shadow: 0 0 0 2rem skyblue;
+      // outline: 0.5rem solid khaki;
+      // outline-offset: 0.5rem;
+      
+      // .trackinfo-image {
+      //   // height: 500px;
+      //   // size: 100%;
+      //   // object-fit: cover;
+      //   // padding-bottom: 100%;
+      //   position: absolute;
+      //   top: 0; left: 0; right: 0; bottom: 0;
+      //   @include widthHeight(100%, 100%);
+      // }
+    }
+    
+    .trackinfo-desc {
+      @include flexBox(flex, _, center, _, _);
+      flex-direction: column;
+      width: 40%;
+      // flex-wrap: wrap;
+      // outline: chartreuse solid 1px;
+      border: 0.5rem outset rgb(222, 222, 222);
+      border-radius: 12px;
+      
+      .trackinfo-title {
+        color: white;
+      }
+  
+      .trackinfo-grade-avg {
+        color: white;
+      }
+  
+      .trackinfo-box {
+        // display: block;
+        // justify-content: left;
+        // background-color: yellowgreen;
+        // margin-bottom: 1px;
+        // outline: blue solid 1px;
+        // border: 0.5rem outset rgb(222, 222, 222);
+        // border-radius: 12px;
+        margin: 1rem;
+        padding: 1rem;
+        width: 90%;
+        
+        .trackinfo-info {
+          // width: 300px;
+          height: 70px;
+          display: flex;
+          // justify-content: left;
+          outline: white solid 1px;
+          
+          .trackinfo-key {
+            @include flexBox(flex, center, center, _, _);
+            // background-color: red;
+            width: 50px;
+            flex-basis: 30%;
+            border-right: solid 1px white;
+            color: white
+          }
+          
+          .trackinfo-value {
+            @include flexBox(flex, center, center, _, _);
+            flex-basis: 70%;
+            color: white;
+          }
+        }
+      }
+    
+      .trackinfo-hashtag-box {
+        display: flex;
+        width: 95%;
+        // .tag {
+        //   height: 30px;
+        // }
+      }
+      
+      .trackinfo-btn-box {
+        // flex: 1 1 auto;
+        width: 100%;
+        
+        .like-btn-box {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          // margin:20px;
+          height: 100px;
+          position: relative;
+          
+          .like-btn {
+            // @include widthHeight(15px, 15px);
+            cursor:pointer;
+            padding:10px 12px 8px;
+            background:#fff;
+            border-radius:50%;
+            display:inline-block;
+            // margin:0 0 15px;
+            color:#aaa;
+            transition:.2s;
+
+            &:hover {
+              color:#666;
+            }
+
+            &::before {
+              font-family:fontawesome;
+              content:'\f004';
+              font-style:normal;
+            }
+          }
+
+          #like-btn-clicked {
+            animation: size .4s;
+            color:#e23b3b;
+          }
+
+          .like-btn-msg {
+            position: absolute;
+            bottom:70px;
+            left:0;
+            right:0;
+            visibility: hidden;
+            transition:.6s;
+            z-index:-2;
+            font-size:2px;
+            color:transparent;
+            font-weight:400;
+          }
+
+          #like-btn-msg-clicked {
+            bottom:80px;
+            font-size:14px;
+            visibility:visible;
+            animation: fade 1s;
+          }
+
+          @keyframes fade {
+            0% {color:transparent;}
+            50% {color:#e23b3b;}
+            100% {color:transparent;}
+          }
+
+          @keyframes size {
+            0% {padding:10px 12px 8px;}
+            50% {padding:14px 16px 12px;  
+              margin-top:-4px;}
+            100% {padding:10px 12px 8px;}
+          }
+        }
+  
+        .trackinfo-total-like {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .replys-container {
+    @include flexBox(flex, _, center, _, _);
+    flex-direction: column;
+    // background-color: violet;
+  
+    .replys-box {
+      @include widthHeight(80%, 400px);
+      // padding: 0;
+      // outline: solid white 2px;
+      overflow: auto;
+      border: 0.5rem outset rgb(222, 222, 222);
+      border-radius: 12px;
+      margin: 2rem;
+      padding: 1rem;
+  
+      .replys-li {
+        @include flexBox(flex, center, _, _, _);
+        flex-direction: column;
+        flex-wrap: wrap;
+        // border: blue solid 1px;
+        border-radius: 10px;
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: ivory;
+        opacity: .8;
+        
+        .replys-info {
+          display: flex;
+          // align-items: baseline;
+          margin: 5px;
+          border-bottom: black double 1px ;
+          
+          .replys-profile {
+            @include widthHeight(50px, 50px);
+            border-radius: 50%;
+          }
+  
+          .replys-nickname {
+            margin-left: 10px;
+          }
+          
+          .replys-btn-box {
+            margin-left: auto;
+            
+            .replys-modify, .replys-delete {
+              @include widthHeight(20px, 20px);
+              cursor: pointer;
+            }
+          }
+        }
+        
+        .replys-comment-box {
+          display: flex;
+  
+          .replys-comment {
+            margin: 5px;
+            white-space: pre-wrap;
+            text-align: left;
+          }
+        }
+      }
+    }
+  
+    .write-reply-container {
+      @include flexBox(flex, center, center, _, _);
+      width: 80%;
+      margin-bottom: 100px;
+    
+      .write-reply-area {
+        @include widthHeight(80%, 20vh);
+        resize: none;
+      }
+    
+      // .write-reply-area:focus-within {
+      //   box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #fbff00,
+      //   0 0 2px #fbff00, 0 0 13px #fbff00, 0 0 38px #fbff00, 0 0 45px #fbff00;
+      //   transition: .5s;
+      // }
+    
+      .modify-reply-btn, .cancel-reply-btn, .create-reply-btn {
+        cursor: pointer;
+        flex: auto;
+      }
+    }
+  }
+}
