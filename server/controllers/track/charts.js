@@ -29,11 +29,6 @@ module.exports = async (req, res) => {
     popularchart.push(chart[i])
   }
 
-  let recommendchart = [];
-  for(let i =0;i<3;i++){
-      recommendchart.push(chart[0])
-  }
-
-  res.status(200).json({latestchart: latestchart,popularchart:popularchart,recommendchart:recommendchart})
+  res.status(200).json({latestchart: latestchart,popularchart:popularchart})
 }
      

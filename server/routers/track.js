@@ -22,5 +22,6 @@ router.post('/trackfile',trackFile.single("trackfile"),trackController.trackfile
 router.patch('/trackfile',trackFile.single("trackfile"),trackController.trackfile);
 
 router.get('/charts/all',trackController.charts);
+router.get('/recommend/all',trackController.recommend);
 
 module.exports = router;

@@ -23,6 +23,9 @@ module.exports =  {
          }]
      })
      
+     if(!findHashtag){
+         res.status(204).json({message:"No contents"});
+     }
      res.status(200).json({track: findHashtag[0].tracks})
     }
 }
