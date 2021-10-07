@@ -43,7 +43,8 @@ function Recommend () {
       console.log(result);
       return result;
     } catch (err) {
-      console.err(err);
+      // console.err(err);
+      console.log(err)
     }
   };
 
