@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://www.hiddentrack.link",
+    origin: true, //"https://www.hiddentrack.link",
     credentials: true,
     methods: ["GET","OPTIONS", "DELETE", "POST", "PATCH"],
   })
@@ -41,7 +41,7 @@ app.use('/reply', replyRouter);
 app.use('/search', searchRouter);
 
 
-const HTTPS_PORT = 80;
+const HTTPS_PORT = 4000;
 
 app.listen(HTTPS_PORT, () => {
   console.log("server 실행");
