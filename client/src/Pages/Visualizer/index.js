@@ -153,7 +153,7 @@ class Canvas extends Component {
                     >Go Main
                     </button> */}
                     <div className="hamburger" id="hamburger-3" onClick={() => {
-                        this.props.history.push('/')
+                        this.props.history.push('/main')
                     }}>
                         <span className="line"></span>
                         <span className="line"></span>

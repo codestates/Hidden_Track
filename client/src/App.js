@@ -174,14 +174,6 @@ function App () {
 
         </Switch>}
       <Notification notice={notice} />
-      {/* <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
-          ? (
-            <></>)
-          : (
-            <Footer />
-            )}
-      </div> */}
 
     </>
   );

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
+import Footer from '../../Components/Footer';
 // import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
 import './index.scss';
@@ -87,6 +88,7 @@ function SearchTrack ({ handleNotice }) {
   }
 
   return (
+    <>
     <div className='searchtrack-container'>
       <Genre genre={genre} />
       {/* <div className='hashtag-box'>
@@ -103,6 +105,11 @@ function SearchTrack ({ handleNotice }) {
         accessToken={accessToken}
       />
     </div>
+    <div>
+      <Footer />
+    </div>
+    </>
+    
   );
 }
 

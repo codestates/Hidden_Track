@@ -6,6 +6,7 @@ import axios from 'axios';
 import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
+import Footer from '../../Components/Footer';
 import './index.scss';
 
 function TrackDetails ({ handleNotice, isLoading }) {
@@ -65,6 +66,9 @@ function TrackDetails ({ handleNotice, isLoading }) {
         accessToken={accessToken}
         handleNotice={handleNotice}
       />
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
