@@ -4,9 +4,12 @@ import 'aos/dist/aos.css';
 import './index.scss';
 import '../../assets/landing1.png';
 import cyber from '../../assets/cyber5.gif';
+import { Link, useHistory } from 'react-router-dom';
+
 
 function Landing () {
   console.log(window.innerWidth);
+  const history = useHistory()
   // const scrollPosition = window.scrollY
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -40,6 +43,11 @@ function Landing () {
     setScrollPosition(window.pageYOffset);
   };
 
+
+  function moveMain(e){
+    e.preventDefault()
+    history.push('/main')
+  }
   return (
     <>
       <div className='svg'>
@@ -68,7 +76,7 @@ function Landing () {
               <pre className='landing__section1-pre2'>{`hidden track에서 
 색다른 음악, 색다른 아티스트들의 다양한 음악을 즐겨보세요!`}
               </pre>
-              <button>enjoy right now</button>
+              <button onClick={(e) =>moveMain(e)}>enjoy right now</button>
             </figcaption>
           </figure>
         </section>
