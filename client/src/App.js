@@ -128,7 +128,9 @@ function App () {
 
   return (
     <>
-      {loca.pathname === '/signup' || loca.pathname.match('/visual')
+
+      {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
+
         ? (
           <></>)
         : (
@@ -140,6 +142,9 @@ function App () {
         ? <LoadingIndicator />
         : <Switch>
           <Route exact path='/'>
+            <Landing />
+          </Route>
+          <Route path='/main'>
             <Main />
           </Route>
           <Route path='/signup'>
@@ -166,11 +171,9 @@ function App () {
           <Route path='/searchtrack/:id'>
             <SearchTrack handleNotice={handleNotice} />
           </Route>
+
         </Switch>}
       <Notification notice={notice} />
-      <Route path='/landing'>
-        <Landing />
-      </Route>
       <div className='footer-container'>
         {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
           ? (
