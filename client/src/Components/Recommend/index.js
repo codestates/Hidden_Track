@@ -17,7 +17,6 @@ function Recommend () {
   const [index, setIndex] = useState(0);
   const number_ref = useRef(0);
 
-
   useEffect(() => {
     requestRecommend(); // Promise
 
@@ -37,17 +36,15 @@ function Recommend () {
 
   const requestRecommend = async function () {
     try {
-      const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
+      const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
         { headers: { accesstoken: accessToken } });
       setRecommendChart(result.data.recommendchart);
       console.log(result);
       return result;
     } catch (err) {
-      console.err(err);
+      console.log(err);
     }
   };
-
-
 
   function moveTrackDetail () {
     history.push(`/trackdetails/${recommendChart[index].id}`);
