@@ -175,7 +175,6 @@ function App () {
         </Switch>}
       <Notification notice={notice} />
 
-
     </>
   );
 }

@@ -69,7 +69,7 @@ module.exports = {
      let myLike = false;
      if(accessTokenData){
        const findLike = await likes.findOne({
-         where: { trackId: id , userId: accessTokenData.id }
+         where: { trackId: trackId , userId: accessTokenData.id }
        })
        if(findLike) { myLike =true }
      }
