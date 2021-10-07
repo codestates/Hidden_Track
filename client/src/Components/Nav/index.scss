@@ -7,13 +7,14 @@ body {
   background-color: rgba(0, 0, 0, 0.925)
 }
 
-
-
-;
-
 @mixin widthHeight($width, $height) {
   width: $width;
   height: $height;
+}
+
+.logo {
+@include flexBox(_, _, _, 0, 0);
+font-size: 4em;
 }
 
 %h1 {

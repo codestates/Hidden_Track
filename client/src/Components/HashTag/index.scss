@@ -5,8 +5,10 @@
   justify-content: center;
   height : auto;
   width: 100%;
+
+  // margin: 0 auto;
   // padding: 0 8px;
-  border: 1px solid rgb(214, 216, 218);
+  // border: 1px solid rgb(214, 216, 218);
   border-radius: 6px;
   .hashtag-ul {
     display: flex;
@@ -20,10 +22,10 @@
         .tag {
             // color:black;
             background: linear-gradient(to right, #38A9E5, #8F5EF1, #FC00FF);
-            min-width: 76px;
+            min-width: 65px;
             // text-align: center;
             // width: auto;
-            height: 50px;
+            height: 48px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,7 +40,7 @@
             .tag-title{
               // margin: 0 auto;
               font-weight: bold;
-              font-size: 18px;
+              font-size: 17.5px;
               // color: linear-gradient(to right, #38A9E5, #8F5EF1, #FC00FF);
             }
     }
@@ -55,9 +57,9 @@
 }
 
 #hashtag-section:hover{
-    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
-    0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
-    transition: .5s;
+  box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+  0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+  transition: .5s;
 }
 
 .clicked-tag {
