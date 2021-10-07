@@ -172,7 +172,7 @@ function App () {
         <Landing />
       </Route>
       <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual')
+        {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
           ? (
             <></>)
           : (

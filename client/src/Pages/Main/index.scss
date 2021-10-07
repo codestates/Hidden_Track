@@ -20,17 +20,20 @@
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
     width: 1600px;
 
     .main-genre-title {
       text-align: start;
-      margin: 0 0 0px 0px;
+      margin: 0 0 0px 200px;
       font-size: 25px;
     }
-    .genre-bg:hover {
 
+    .genre-container {
+      // justify-content: center;
+      // align-items: center
+      margin: 0 auto;
     }
   }
 
