@@ -5,10 +5,10 @@
   flex-direction: column;
   // justify-content: center;
 
-  .hashtag-box {
-    width: 80%;
-    display: flex;
-  }
+  // .hashtag-box {
+  //   width: 80%;
+  //   display: flex;
+  // }
   
   .searchtrack-msg {
     color: white;
@@ -81,13 +81,30 @@
         width: 100%;
 
         .search-result-box {
-          outline: solid green 1px;
+          // outline: solid green 1px;
+
+          label {
+            
+          }
+
+          .hashtag-box {
+            width: 100%;
+            @include flexBox(flex, center, _, _, _);
+
+            #hashtag-section:hover {
+              pointer-events: none;
+              box-shadow: none;
+            }
+          }
         }
       }
       
       label {
+        display: block;
         color: white;
         font-weight: bold;
+        // background-color: aqua;
+        margin-bottom: 1em;
       }
     }
   }

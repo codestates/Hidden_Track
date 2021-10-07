@@ -4,7 +4,8 @@ import Slide from '../../Components/Slide';
 import Recommend from '../../Components/Recommend';
 import Genre from '../../Components/Genre';
 import HashTag from '../../Components/HashTag';
-
+import Footer from '../../Components/Footer';
+import mainImg from '../../assets/cyber3.jpg';
 import './index.scss';
 import { useSelector } from 'react-redux';
 
@@ -34,21 +35,45 @@ function Main () {
 
   return (
 
-    <div id='main'>
-
-      <h1 className='main-h1'>Welcome to HIDDEN TRACK!!</h1>
-
+    <div id='main' style={{ height: window.innerHeight }}>
+      {/* <button onClick={moveLanding}>랜딩</button> */}
       <div className='main-slides'>
         <Slide />
         <Recommend />
       </div>
       <div className='main-genre'>
+        <span className='main-genre-title sign-one'>Genre</span>
         <Genre />
       </div>
       <div className='main-hashtag'>
-        <span className='main-hashtag-title'>HashTags</span>
+        <span className='main-hashtag-title sign-three'>HashTags</span>
         <HashTag />
       </div>
+      <div className='main-img'>
+        {/* <img src={mainImg} />      */}
+
+        {/* <div class="sign-two">
+        <i class="fa fa-heart-o currency" aria-hidden="true"></i>
+        <div class="off">G</div>IRLS
+        <i class="fa fa-heart-o currency" aria-hidden="true"></i>
+        GI<div class="off">RL</div>S
+        <i class="fa fa-heart-o currency heart-off" aria-hidden="true"></i>
+        GIRLS
+      </div> */}
+
+        {/*  <div class="sign-one">
+        <i class="fa fa-heart-o heartoff" aria-hidden="true"></i>
+        <div class="on">M</div>
+        <div class="heartoff">U</div>
+        <div class="on">S</div>
+        <div class="heartoff">I</div>
+        <div class="on">C</div>
+        <i class="fa fa-heart-o " aria-hidden="true"></i>
+        <i class="fa fa-heart-o heartoff" aria-hidden="true"></i>
+      </div>
+*/}
+      </div>
+      <Footer />
     </div>
   );
 }

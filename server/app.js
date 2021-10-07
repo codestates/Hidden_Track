@@ -18,12 +18,12 @@ app.use(
   cors({
     origin: true,
     credentials: true,
-    methods: ["GET", "DELETE", "POST", "PATCH"],
+    methods: ["GET","OPTIONS", "DELETE", "POST", "PATCH"],
   })
 );
 
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome, hidden_track! Server!");
+  res.status(200).send("Welcome, hidden_track??!? Server!");
 });
 
 // db.sequelize

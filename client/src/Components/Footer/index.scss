@@ -1,6 +1,8 @@
 .footer {
   text-align: left;
   // padding: 1.5em;
+  margin-top: 30px;
+  // padding: 5px 0 0;
   padding: 5px 0 20px 1.5em;
   background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
     linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0,
@@ -21,9 +23,9 @@
   display: flex;
   flex-flow: column;
 
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  // position: fixed;
+  // bottom: 0;
+  width: 98.766%;
 }
 
 .footer__developer-box {

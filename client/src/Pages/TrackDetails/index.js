@@ -19,6 +19,7 @@ function TrackDetails ({ handleNotice, isLoading }) {
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen;
   const accessToken = useSelector(state => state.accessTokenReducer).accessToken;
 
+  axios.defaults.headers.common.accesstoken = accessToken;
   const trackId = location.pathname.split('/')[2];
 
   useEffect(() => {
@@ -53,7 +54,9 @@ function TrackDetails ({ handleNotice, isLoading }) {
         handleNotice={handleNotice}
         trackId={trackId}
       />
-      <Lyrics trackDetail={trackDetail} />
+      <div className='lyrics-container'>
+        <Lyrics trackDetail={trackDetail} />
+      </div>
       <Replys
         userInfo={userInfo}
         trackDetail={trackDetail}
