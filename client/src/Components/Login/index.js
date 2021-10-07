@@ -66,7 +66,8 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     };
 
     // 로그인 요청 서버에 보냄
-    axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
+    // axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
+    axios.post('http://localhost:4000/user/signin', body)
       .then(res => { // <- res 에 accessToken 이  있을 것이다.
         if (res.status === 200) { // 너가 보낸 유저 정보를 디비에서 찾음 완료
           // 1. accessToken 을 리덕스 state 에 저장해야 한다.
@@ -140,7 +141,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
       <Portal elementId='modal-root'>
         <div
           className='modal-backdrop__login' style={isLoginModalOpen ? { display: 'block' } : { display: 'none' }}
-          visible={isLoginModalOpen.toString()} onClick={handleModalBack}
+          visible={isLoginModalOpen} onClick={(e) => handleModalBack(e)}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>

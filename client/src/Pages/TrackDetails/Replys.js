@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getTrackDetails } from '../../Redux/actions/actions';
 import WriteReply from './WriteReply';
-import './Replys.scss';
 import editBtn from '../../assets/edit.png';
 import deleteBtn from '../../assets/delete.png';
 
@@ -88,7 +87,7 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                   </span>
                 </div>
                 <div className='replys-comment-box'>
-                  <p className='replys-comment'>{el.content}</p>
+                  <pre className='replys-comment'>{el.content}</pre>
                 </div>
               </li>
             );

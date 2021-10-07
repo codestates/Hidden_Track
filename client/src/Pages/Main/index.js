@@ -4,47 +4,54 @@ import Slide from '../../Components/Slide';
 import Recommend from '../../Components/Recommend';
 import Genre from '../../Components/Genre';
 import HashTag from '../../Components/HashTag';
+import Footer from '../../Components/Footer';
 
 import './index.scss';
-import axios from 'axios';
-import { useSelector, useStore } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Main () {
   const history = useHistory();
-  const { accessToken } = useSelector(state => state.accessTokenReducer);
-  const [latestChart, setLastestChart] = useState([]);
+  const [latestChart, setLatestChart] = useState([]);
   const [popularityChart, setPopularityChart] = useState([]);
   const [recommendChart, setRecommendChart] = useState([]);
   const [tagList, setTagList] = useState([]);
+  /// ?????
+  // useEffect(() => {
+  //   // let abortController = new AbortController()
+  //   axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, { headers: { accesstoken: accessToken } })
+  //     .then(res => {
+  //       console.log('메인 all',res.data)
+  //       setLatestChart(res.data.latestchart);
+  //       setPopularityChart(res.data.popularchart);
+  //       setRecommendChart(res.data.recommendchart);
+  //       setTagList(res.data.hashtags);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
 
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/track/charts`, { headers: { accesstoken: accessToken } })
-      .then(res => {
-        setLastestChart(res.data.latestChart);
-        setPopularityChart(res.data.popularitychart);
-        setRecommendChart(res.data.recommendChart);
-        setTagList(res.data.hashtags);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  // }, []);
 
+  function moveLanding () {
+    history.push('/landing');
+  }
   return (
 
-    <div id='main'>
-      Welcome to HIDDEN TRACK!!
+    <div id='main' style={{ height: window.innerHeight }}>
+      {/* <button onClick={moveLanding}>랜딩</button> */}
       <div className='main-slides'>
-        <Slide latestChart={latestChart} popularityChart={popularityChart} />
-        {/* <Recommend recommendChart={recommendChart}/> */}
+        <Slide />
+        <Recommend />
       </div>
       <div className='main-genre'>
+        <span className='main-genre-title'>Genre</span>
         <Genre />
       </div>
       <div className='main-hashtag'>
-        <span>HashTag</span>
-        <HashTag tagList={tagList} />
+        <span className='main-hashtag-title'>HashTags</span>
+        <HashTag />
       </div>
+      <Footer />
     </div>
   );
 }

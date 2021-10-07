@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTrackDetails, getUserInfo, isLoadingHandler } from '../../Redux/actions/actions';
+import { getTrackDetails, getUserInfo, isLoadingHandler, inputPlayList } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
 import axios from 'axios';
 import './index.scss';
@@ -11,12 +11,13 @@ import './index.scss';
 axios.defaults.withCredentials = true;
 const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
 
-function TestMo ({ handleNotice, isLoading }) {
+function ContentsModiCreate ({ handleNotice, isLoading }) {
   const loca = useLocation();
   const trackId = loca.pathname.split('/')[2];
   console.log(trackId);
   const history = useHistory();
   const userInfo = useSelector(state => state.userInfoReducer);
+  const playList = useSelector(state => state.playListReducer.playList);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
   // const isModify = useSelector(state => state.modifyReducer.onClickModify);
@@ -36,7 +37,7 @@ function TestMo ({ handleNotice, isLoading }) {
   const trackImgName = trackDetail.track.img.split('trackimage/')[1];
   const trackFileName = trackDetail.track.soundtrack.split('trackfile/')[1];
   const [files, setFiles] = useState({ image: { name: trackId ? trackImgName : '' }, audio: { name: trackId ? trackFileName : '' } });
-
+  console.log('파일', files.audio);
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
   // const history = useHistory();
@@ -247,14 +248,32 @@ function TestMo ({ handleNotice, isLoading }) {
         console.log(method);
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            console.log(res.status);
-            if (res.status === 201) {
-              handleNotice('음원 등록이 성공하였습니다.', 5000);
+            console.log(res.data);
+            if (res.status === 200 || res.status === 201) {
+              const check = playList.map(el => {
+                return el.track.id === res.data.trackId;
+              });
+              if (check.includes(true)) {
+                axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
+                  .then(res => {
+                    if (res.status === 200) {
+                      dispatch(inputPlayList(res.data.playlist));
+                      console.log('응답 플레이리스트', res.data);
+                    }
+                  })
+                  .catch(err => {
+                    if (err.response) {
+                      if (err.response.status === 404) {
+                        dispatch(inputPlayList([]));
+                        // audio.current.pause();
+                        // setCrrentMusic(playList[playList.length-1])
+                      }
+                    } else console.log(err);
+                  });
+              }
+              handleNotice(trackId ? '음원 수정을 완료하였습니다' : '음원 등록을 완료하였습니다.', 5000);
+              axios.get();
               dispatch(isLoadingHandler(false));
-              console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
-              history.push(`/trackdetails/${res.data.trackId}`);
-            } else if (res.status === 200) {
-              handleNotice('음원 등록이 성공하였습니다.', 5000);
               console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
               history.push(`/trackdetails/${res.data.trackId}`);
             }
@@ -286,28 +305,37 @@ function TestMo ({ handleNotice, isLoading }) {
           <div className='default-input-box'>
             <div className='album-img-box'>
               <img className='album-img' src={src} />
-              <label htmlFor='album-input-btn' className='contents__btn'>앨범 이미지 첨부</label>
+              <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
               <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
               <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
             </div>
             <section className='default-input-section'>
-              <input type='text' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => { handleInputValue('title', e); }} required />
-              <select name='genre' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
+              <input
+                type='text' id='title-input' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => {
+                  if (e.target.value.length <= 50) {
+                    handleInputValue('title', e);
+                  } else {
+                    handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
+                    e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+                  }
+                }}
+              />
+              <select name='genre' id='genre-input' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }}>
                 <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
-                <option value='Ballad'>Ballad</option>
-                <option value='HipHop'>HipHop</option>
-                <option value='R&B'>R&B</option>
-                <option value='Rock'>Rock</option>
-                <option value='Jazz'>Jazz</option>
+                <option style={{ background: '#1F104D' }} value='Ballad'>Ballad</option>
+                <option style={{ background: '#1F104D' }} value='HipHop'>HipHop</option>
+                <option style={{ background: '#1F104D' }} value='R&B'>R&B</option>
+                <option style={{ background: '#1F104D' }} value='Rock'>Rock</option>
+                <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
               </select>
               <div>
                 <label className='music-release-label' htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
-                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
+                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
               </div>
               <div>
-                <label htmlFor='music-input-btn' className='contents__btn'>음원파일첨부</label>
+                <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
                 <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
-                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} required={!trackId} />
+                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
               </div>
 
             </section>
@@ -319,13 +347,13 @@ function TestMo ({ handleNotice, isLoading }) {
             </div>
             <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
           </section>
-          <div className='post-create-btn-box'>
+          <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
         </>
-        : <h1>잘못된 접근 입니다.</h1>}
+        : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
     </div>
   );
 }
 
-export default TestMo;
+export default ContentsModiCreate;

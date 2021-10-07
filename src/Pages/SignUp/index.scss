@@ -1,0 +1,216 @@
+@import '../../Common.scss';
+
+.sign-up-logo {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  font-size: 50px;
+}
+
+.sign-up-title {
+  display: block;
+  color: white;
+}
+
+.sign-up {
+  // position: relative;
+  display: flex;
+  text-align: center;
+  // align-items: center;
+  flex-direction: column;
+
+  .sign-up-container {
+    
+    .sign-up-input {
+      @include flexBox(flex, space-around, center, _, _);
+      flex-direction: column;
+      height: 500px;
+      // background-color: greenyellow;
+      // margin: 10px 0 10px 0;
+
+      .sign-up-id-box {
+        @include flexBox(flex, center, center, _, _);
+        flex: 1 0 auto;
+        flex-direction: column;
+        height: 30px;
+        // margin-top: 15px;
+        // margin-bottom: 10px;
+        // background-color: red;
+        // border: solid 1px;
+        margin-left: 123px;
+
+        .sign-up-id-area {
+          @include flexBox(flex, space-around, _, _, _);
+          // flex: 1 0 auto;
+          // background-color: blue;
+          // position: relative;
+          width: 700px;
+
+          .sign-up-id-btn {
+            // float: right;
+            // margin-left: auto;
+            // position: absolute;
+            // right: 0;
+            cursor: pointer;
+          }
+        }
+
+        .sign-up-id-msg {
+          margin: 0;
+          height: 24px;
+          color: red;
+          // background-color: cornflowerblue;
+          padding-right: 120px;
+        }
+
+        #id-ok-msg {
+          color: lightgreen;
+        }
+      }
+
+      .sign-up-pw-box {
+        @include flexBox(flex, space-around, _, _, _);
+        flex: 2 0 auto;
+        flex-direction: column;
+        // background-color: red;
+        // border: solid 1px;
+
+        .sign-up-pw-flex {
+          // background-color: blue;
+          width: 700px;
+        }
+
+        // height: 60px;
+        .sign-up-pw-msg {
+          margin: 0;
+          height: 24px;
+          color: red;
+          // background-color: cadetblue;
+        }
+      }
+
+      .sign-up-nick-box {
+        @include flexBox(flex, center, center, _, _);
+        flex: 1 0 auto;
+        flex-direction: column;
+        height: 30px;
+        // margin-top: 10px;
+        // margin-bottom: 15px;
+        // background-color: red;
+        margin-left: 123px;
+
+        .sign-up-nick-flex {
+          @include flexBox(flex, space-around, _, _, _);
+          // background-color: blue;
+          width: 700px;
+
+          .sign-up-nick-btn {
+            cursor: pointer;
+          }
+        }
+
+        .sign-up-nick-msg {
+          margin: 0;
+          height: 24px;
+          color: red;
+          // background-color: cadetblue;
+          padding-right: 120px;
+        }
+
+        #nick-ok-msg {
+          color: lightgreen;
+        }
+      }
+    }
+
+    .profile-container {
+      @include flexBox(flex, center, center, _, _);
+      // flex-direction: column;
+      // text-align: center;
+      // background-color: hotpink;
+
+      .profile-wrap {
+        @include flexBox(flex, _, center, _, _);
+        flex-direction: column;
+        margin-top: 15px;
+
+        .profile-box {
+          @include widthHeight(70px, 70px);
+          // background-image: url();
+          // background-repeat: no-repeat;
+          // background-size: cover;
+          border-radius: 40px;
+          border: 1px solid white;
+          // background-color: ivory;
+          overflow: hidden;
+          // display: flex;
+          // align-items: center;
+          // justify-content: center;
+
+          .profile-image {
+            @include widthHeight(100%, 100%);
+            object-fit: cover;
+          }
+        }
+
+        p {
+          color: white;
+        }
+      }
+
+      .profile-btn-box {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          color: white;
+        }
+
+        .profile-input-btn {
+          cursor: pointer;
+        }
+
+        .profile-delete-btn {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .sign-up-radio-box {
+      display: flex;
+      flex-direction: column;
+      // background-color: slateblue;
+
+      div {
+        @include flexBox(flex, center, center, _, _);
+        
+        input[type='radio'] {
+          zoom: 2;
+          outline: none;
+        }
+        
+        label {
+          color: white;
+        }
+      }
+    }
+
+    .sign-up-condition {
+      // background-color: skyblue;
+      height: 250px;
+      flex-direction: column;
+      @include flexBox(flex, space-around, _, 10px 0 10px 0, _);
+      @include widthHeight(auto, _);
+
+      // .sign-up-agency-box, .sign-up-debut-box, .sign-up-email-box {
+        
+      // }
+    }
+  }
+}
+
+[class^='sign-up-input-'] {
+  @include widthHeight(500px, 40px);
+  outline: none;
+  padding-left: 10px;
+}
