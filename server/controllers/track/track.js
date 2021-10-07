@@ -6,7 +6,7 @@ const s3 = new AWS.S3();
 
 module.exports = {  
    get: async (req,res) => {
-     console.log(req.headers)
+    const accessTokenData = isAuthorized(req)
      const { trackId } = req.params;
      const likes = db.sequelize.models.likes;
   
@@ -65,9 +65,17 @@ module.exports = {
      sum = sum + gradeAll[i].dataValues.userGrade
      }
      const gradeAev = gradeAll.length !== 0 ? sum/gradeAll.length : 0; 
+     
+     let myLike = false;
+     if(accessTokenData){
+       const findLike = await likes.findOne({
+         where: { trackId: id , userId: accessTokenData.id }
+       })
+       if(findLike) { myLike =true }
+     }
 
-     res.status(200).json({track:findTrack[0], like: count,gradeAev :gradeAev});
-   },
+     res.status(200).json({track:findTrack[0], like: count,gradeAev :gradeAev, myLike:myLike});
+    },
 
     post: async (req,res) =>{ 
       console.log(req.body)
