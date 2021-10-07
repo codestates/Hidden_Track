@@ -16,7 +16,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
+<<<<<<< HEAD
     origin: true,
+=======
+    origin: true, //"https://www.hiddentrack.link",
+>>>>>>> master
     credentials: true,
     methods: ["GET","OPTIONS", "DELETE", "POST", "PATCH"],
   })
