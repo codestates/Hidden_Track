@@ -13,6 +13,7 @@ function Recommend () {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector(state => state.accessTokenReducer);
+  
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
   const number_ref = useRef(0);

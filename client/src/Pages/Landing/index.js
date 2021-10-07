@@ -1,41 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import './index.scss';
-import '../../assets/landing1.png';
-import cyber from '../../assets/cyber5.gif';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import AOS from 'aos';
+import Slider from 'react-slick';
+import styled from 'styled-components';
 
+import 'aos/dist/aos.css';
+// import './slick.css';
+// import './slick-theme.css';
+import './index.scss';
+
+// const settings = {
+//   className: 'center',
+//   infinite: true,
+//   speed: 500,
+//   autoplay: true,
+//   autoplaySpeed: 2000,
+//   slidesToShow: 4,
+//   slidesToScroll: 1,
+//   centerMode: true,
+//   centerPadding: '0px',
+//   afterChange: function (index) {
+//     // console.log(
+//     //   `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
+//     // );
+//   }
+// };
 
 function Landing () {
-  console.log(window.innerWidth);
   const history = useHistory()
-  // const scrollPosition = window.scrollY
+  const section3Img = useRef();
+  const { accessToken } = useSelector(state => state.accessTokenReducer);
+
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [chart, setChart] = useState([]);
 
   useEffect(() => {
-    console.log('스크롤위치', scrollPosition);
-
-    // 요소를 흔들어주는 함수
-    if (scrollPosition === 150) {
-      // console.log(`스크롤 위치는 현재 ${scrollPosition}이다`);
+    // console.log('스크롤위치', scrollPosition);
+    if (scrollPosition >= 700) {
       shake();
     }
   }, [scrollPosition]);
 
   useEffect(() => {
     AOS.init();
+    requestRecommend(); // Promise
 
     // 현재 위치를 set 해주는 함수를 실행시키는 onscroll 이벤트
     const watch = () => {
       window.onscroll = handleFollow;
     };
-
     watch();
+
+
   });
 
+
+  const requestRecommend = async function () {
+    try {
+      // const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
+      //   { headers: { accesstoken: accessToken } });
+      const result = axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
+      { headers: { accesstoken: accessToken } })
+ 
+      // setRecommendChart(result.data.recommendchart);
+      setChart(result.data.popularchart);
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
+
+
+  // 요소를 흔들어주는 함수
   const shake = () => {
     console.log(`스크롤 위치는 현재 ${scrollPosition}이다`);
+    section3Img.current.style.animation = `shake 0.5s infinite`
+
   };
 
   // 현재 스크롤 위치를 set 해주는 함수
@@ -44,6 +89,7 @@ function Landing () {
   };
 
 
+  // 메인페이지로 넘어가게 해주는 onClick 이벤트
   function moveMain(e){
     e.preventDefault()
     history.push('/main')
@@ -92,7 +138,6 @@ function Landing () {
         >
           <figure className='landing__section1-figure' role='img' aria-labelledby='cow-caption'>
             {/* <img className="landing__section1-img" src='../../assets/landing1.png' alt="" /> */}
-            <div className='landing__section2-img' />
             <figcaption id='landing__section1-figcaption'>
               <pre className='landing__section1-pre1'>{`판에 박힌 음악차트. 
 어제도, 오늘도 똑같은 음악들...`}
@@ -101,13 +146,14 @@ function Landing () {
 색다른 음악, 색다른 아티스트들의 다양한 음악을 즐겨보세요!`}
               </pre>
             </figcaption>
+            <div className='landing__section2-img' />
           </figure>
         </section>
 
         <section id='section3'>
           <figure className='landing__section1-figure' role='img' aria-labelledby='cow-caption'>
             {/* <img className="landing__section1-img" src='../../assets/landing1.png' alt="" /> */}
-            <div className='landing__section3-img' />
+            <div className='landing__section3-img' ref={section3Img}/>
             {/* <img className="landing__section3-img" src={cyber} alt="landing" a/> */}
             <figcaption id='landing__section1-figcaption'>
               <pre className='landing__section1-pre1'>{`판에 박힌 음악차트. 
@@ -121,18 +167,29 @@ function Landing () {
         </section>
 
         <section id='section4'>
-          <figure className='landing__section1-figure' role='img' aria-labelledby='cow-caption'>
-            {/* <img className="landing__section1-img" src='../../assets/landing1.png' alt="" /> */}
-            <div className='landing__section1-img' />
+          {/* <figure className='landing__section1-figure' role='img' aria-labelledby='cow-caption'>
             <figcaption id='landing__section1-figcaption'>
-              <pre className='landing__section1-pre1'>{`판에 박힌 음악차트. 
-어제도, 오늘도 똑같은 음악들...`}
+              <pre className='landing__section1-pre1'>{`나에게 어울리는 음악을
+선곡해서 추천해주는 추천차트까지`}
               </pre>
               <pre className='landing__section1-pre2'>{`hidden track에서 
 색다른 음악, 색다른 아티스트들의 다양한 음악을 즐겨보세요!`}
               </pre>
             </figcaption>
-          </figure>
+            <div className='landing__section1-img' />
+          </figure> */}
+          {/* <LandingSlider {...settings}> */}
+          <LandingSlider>
+            {/* {chart.map((slide, i) => {
+              const { img, id } = slide;
+                return ( */}
+                  <div className='section4-slide'>
+                    <ImgSlide  />
+                  </div>
+                {/* );
+            })} */}
+            </LandingSlider>
+
         </section>
 
         <section id='section5'>
@@ -153,7 +210,6 @@ function Landing () {
         <section id='section6'>
           <figure className='landing__section1-figure' role='img' aria-labelledby='cow-caption'>
             {/* <img className="landing__section1-img" src='../../assets/landing1.png' alt="" /> */}
-            <div className='landing__section1-img' />
             <figcaption id='landing__section1-figcaption'>
               <pre className='landing__section1-pre1'>{`판에 박힌 음악차트. 
 어제도, 오늘도 똑같은 음악들...`}
@@ -162,6 +218,8 @@ function Landing () {
 색다른 음악, 색다른 아티스트들의 다양한 음악을 즐겨보세요!`}
               </pre>
             </figcaption>
+            <div className='landing__section1-img' />
+
           </figure>
         </section>
 
@@ -171,3 +229,30 @@ function Landing () {
 }
 
 export default Landing;
+
+export const LandingSlider = styled(Slider)`
+
+/* .slick-slider{
+  background-color: red;
+  width: 100%;
+  height: 400px;
+} */
+/* .slick-list {
+  width: 100%;
+  width: 100%;
+  background-color: orange;
+  margin: 0 auto;
+} */
+
+ `;
+
+export const ImgSlide = styled.div`
+  background-color: skyblue;
+  width: 200px;
+  height: 200px;
+/* width: 200px;
+  height: 200px;
+  background-image: url(${props => props.img});
+  background-size: cover;
+  background-position: center; */
+`;
