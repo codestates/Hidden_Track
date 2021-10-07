@@ -11,9 +11,9 @@ function HashTag ({ TagList, searchTag }) {
 
   // useEffect(() => {
   //   if(!tagList){
-  //     axios.get(`${process.env.REACT_APP_API_URL}/track/hashtags/all`)
+  //     axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`)
   //       .then(res => {
-  //         res.data
+  //         console.log(res.data)
   //       })
   //   }
   // },[])

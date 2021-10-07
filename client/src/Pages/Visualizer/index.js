@@ -55,7 +55,6 @@ class Canvas extends Component {
     } 
 
     componentDidMount () {
-        
         this.context = new (window.AudioContext || window.webkitAudioContext)();
         this.source = this.context.createMediaElementSource(this.audio);
         this.analyser = this.context.createAnalyser();
@@ -75,6 +74,9 @@ class Canvas extends Component {
         canvas.width = width;
         canvas.height = height;
         ctx = canvas.getContext("2d");
+        ctx.shadowBlur = 90;
+        ctx.shadowColor = 'pink';
+        ctx.globalCompositOperation = 'difference'
         this.analyser.fftSize = 512;
         const bufferLength = this.analyser.frequencyBinCount;
         const dataArray = this.frequency_array;
@@ -99,12 +101,13 @@ class Canvas extends Component {
     drawBar(bufferLength, x, barWidth, barHeight, dataArray, canvas) {
         for (let i = 0; i < bufferLength; i++) {
             // barHeight = dataArray[i] * 1.8 + 225;
-            barHeight = dataArray[i] * 1.3 + 253;
+            barHeight = dataArray[i] * 1.015 + 253;
             ctx.save();
             ctx.translate(canvas.width / 2, canvas.height / 2);
             // ctx.rotate(i * Math.PI * 2.315 / bufferLength);
             // ctx.rotate(i * Math.PI * 4 / bufferLength);
-            ctx.rotate(i * Math.PI * 8.318 / bufferLength);
+            // ctx.rotate(i * Math.PI * 8.318 / bufferLength);
+            ctx.rotate(i * bufferLength * 3.5);
             // ctx.fillStyle = 'white'
             // ctx.fillRect(0,1, barWidth, barHeight + 2)
             // const red = i * barHeight / 10;
@@ -157,7 +160,7 @@ class Canvas extends Component {
                         <span className="line"></span>
                     </div>
                     <div className='inner-circle-control'>
-                    <div className='inner-circle-title'>{this.state.title}</div>
+                    <div className='inner-circle-title'>{this.state.title.length > 15?this.state.title.slice(0, 15) + '...':this.state.title }</div>
                     <div className='inner-circle-artist'>{this.state.nickName}</div>
                     <button className='inner-circle-button' onClick={() => { this.togglePlay(); }}>
                         <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />
