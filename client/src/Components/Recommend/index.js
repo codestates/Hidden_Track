@@ -17,6 +17,7 @@ function Recommend () {
   const [index, setIndex] = useState(0);
   const number_ref = useRef(0);
 
+
   useEffect(() => {
     requestRecommend(); // Promise
 
@@ -45,6 +46,8 @@ function Recommend () {
       console.err(err);
     }
   };
+
+
 
   function moveTrackDetail () {
     history.push(`/trackdetails/${recommendChart[index].id}`);

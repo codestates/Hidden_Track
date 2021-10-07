@@ -51,7 +51,8 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
               replies: []
             },
             like: '',
-            gradeAev: ''
+            gradeAev: '',
+            myLike: false
           }));
           // 플레이리스트 최신화 (삭제한곡이 재생목록에 있을 경우를 대비)
           axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })

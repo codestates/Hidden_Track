@@ -15,8 +15,8 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
   function isValidTag (e) {
     e.preventDefault();
     // console.log('유효성 검사 함수',inputText.length)
-    if (e.target.value.length > 20) {
-      handleNotice('해시태그는 20자를 초과할 수 없습니다.', 5000);
+    if (e.target.value.length > 7) {
+      handleNotice('해시태그는 7자를 초과할 수 없습니다.', 5000);
       e.target.value = e.target.value.slice(0, e.target.value.length - 1);
     }
     if (e.target.value.match(' ')) {

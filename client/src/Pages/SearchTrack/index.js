@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
-import HashTag from '../../Components/HashTag';
+// import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
 import './index.scss';
 
 function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
   const location = useLocation();
+  const accessToken = useSelector(state => state.accessTokenReducer);
   const [trackList, setTrackList] = useState([]);
 
   useEffect(() => {
@@ -64,15 +65,15 @@ function SearchTrack ({ handleNotice }) {
     }
     // --------------검색어 입력시 요청----------------
     else {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/search/${search}`)
+      axios.get(`${process.env.REACT_APP_API_URL}/search?query=${search}`)
         .then(res => {
           console.log('검색어 요청 응답', res.data);
-          if (res.status === 200) setTrackList(res.data.track);
+          if (res.status === 200) setTrackList(res.data);
         })
         .catch(err => {
           console.log(err.response);
           if (err.response) {
-            if (err.response.status === 404) {
+            if (err.response.status === 400) {
               setTrackList([]);
             }
             if (err.response.status === 414) {
@@ -88,9 +89,9 @@ function SearchTrack ({ handleNotice }) {
   return (
     <div className='searchtrack-container'>
       <Genre genre={genre} />
-      <div className='hashtag-box'>
+      {/* <div className='hashtag-box'>
         <HashTag tagList={[]} searchTag={hashTag} />
-      </div>
+      </div> */}
       <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
       <TrackList
         trackList={trackList}
@@ -98,6 +99,8 @@ function SearchTrack ({ handleNotice }) {
         getTrackDetails={getTrackDetails}
         handleNotice={handleNotice}
         search={search}
+        hashTag={hashTag}
+        accessToken={accessToken}
       />
     </div>
   );

@@ -249,8 +249,8 @@
 }
 
 .sidebar-closed {
-    transform: translate(-100%);
-    transition: transform 0.5s;
+    transform: translate(-1000%);
+    transition: transform 0.8s;
     .sidebar-backdrop{
     }
 }
