@@ -66,7 +66,6 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
       password: inputPw
     };
 
-    console.log('젭잘');
     // 로그인 요청 서버에 보냄
     // axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
     axios.post(`${process.env.REACT_APP_API_URL}/user/signin`, body)
