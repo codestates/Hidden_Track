@@ -10,7 +10,7 @@ module.exports = {
     nickname : require('./NickName'),
     artist : require('./artist'),
     profile: require('./profile'),
-    withdrawal: require('./ Withdrawal'),
+    withdrawal: require('./Withdrawal'),
     kakaologin: require('./KakaoLogin'),
 
 };

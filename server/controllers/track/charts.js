@@ -23,7 +23,6 @@ module.exports = async (req, res) => {
       return a.views-b.views;
   })
 
-  console.log(chart)
   let popularchart =[];
   for(let i =chart.length-1;i>=chart.length-10;i--){
     popularchart.push(chart[i])
