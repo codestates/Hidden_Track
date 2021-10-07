@@ -15,13 +15,12 @@ module.exports = {
         }
     },
     generateAccessToken: (data) => {
-      return sign(data, process.env.ACCESS_SECRET, { expiresIn: "10s" });
+      return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
     },
 
     generateRefreshToken: (data) => {
       return sign(data, process.env.REFRESH_SECRET, { expiresIn: "14d" });
     },
-    
     sendRefreshToken: (res, refreshToken) => {
       res.cookie("refreshToken", refreshToken, {
         HttpOnly: true,
@@ -29,5 +28,4 @@ module.exports = {
         SameSite: "None", //배포환경에서는 hiddentrack만..
       });
     },
-
 };
