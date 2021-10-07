@@ -38,7 +38,7 @@ function Recommend () {
     try {
       const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
         { headers: { accesstoken: accessToken } });
-      setRecommendChart(result.data.recommendchart);
+      // setRecommendChart(result.data.recommendchart);
       console.log(result);
       return result;
     } catch (err) {
@@ -55,7 +55,7 @@ function Recommend () {
       <p className='recommend'>추천</p>
       <div className='recommend-content'>
         <div className='recommend-flex-box'>
-          {recommendChart[index] === undefined
+          {recommendChart.length === 0
             ? <></>
             : <>
               <RecommendImage url={recommendChart[index].img} onClick={(e) => moveTrackDetail(e)} />
