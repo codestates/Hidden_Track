@@ -1,13 +1,14 @@
 .slide-btn {
-  width: 90px;
+  width: 160px;
   padding: 10px 0;
 
 
   .popular,
   .recent {
     // background-color: aqua;
+    font-size: 30px;
     cursor: pointer;
-    color: #fff;
+    // color: #fff;
   }
 }
 

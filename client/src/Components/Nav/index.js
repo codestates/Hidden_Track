@@ -86,7 +86,7 @@ function Nav ({ handleNotice }) {
           dispatch(isLoginHandler(false));
           // refreshToken 가 담긴 cookie 삭제
           cookies.remove('refreshToken');
-          history.push('/');
+          history.push('/main');
         }
       }
       ).catch(err => {
@@ -108,10 +108,10 @@ function Nav ({ handleNotice }) {
       <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} handleNotice={handleNotice} />
 
       <nav className='navigation'>
-        <Link to='/'>
+        <Link to='/main'>
           {/* <h1 className='logo'>Hidden Track</h1> */}
           <div className='logo sign-one'>
-            <span className='one-onOff-2'>H</span>ID<span className='one-onOff'>D</span>EN T<span className='sign-one-off'>R</span>A<span className='one-onOff-2'>c</span>K
+          <span className='one-onOff-2'>HIDDEN</span><span className='one-onOff'>TRACK</span>
           </div>
 
         </Link>

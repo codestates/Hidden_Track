@@ -71,8 +71,8 @@ function Slide () {
   return (
     <section className='slide-container'>
       <div className='slide-btn'>
-        <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
-        <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
+        <span className='popular sign-four' onClick={(e) => handlePopular(e)}>H O T</span>
+        <span className='recent sign-four' onClick={(e) => handleRecent(e)}>N E W</span>
       </div>
 
       <Slider {...settings}>
