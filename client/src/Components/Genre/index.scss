@@ -56,10 +56,6 @@
         text-shadow: 0 0 3px #fff, 0 0 10px #fff, 0 0 21px #fff,
         // 0 0 42px #e01059, 0 0 82px #e01059, 0 0 92px #e01059, 0 0 102px #e01059, 0 0 151px #e01059;
       }
-
-      // .genre-name:hover {
-      //   text-shadow: 0 0 3px #7c08c0, 0 0 10px #7c08c0, 0 0 21px #7c08c0,
-      // }
     }
 
     .genre-bg[value=Jazz]::after {
@@ -110,51 +106,92 @@
   #genre-bg-0:hover {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #b46101, 0 0 0.8rem #b46101, 0 0 2.8rem #b46101, inset 0 0 1.3rem #b46101;
+
+    #genre-name-0 {
+      text-shadow: 0 0 3px #b46101, 0 0 10px #b46101, 0 0 21px #b46101,
+    }
   }
 
   #genre-bg-1:hover {
+    // border-radius: 50%;
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #a80303, 0 0 0.8rem #a80303, 0 0 2.8rem #a80303, inset 0 0 1.3rem #a80303;
+
+    #genre-name-1 {
+      text-shadow: 0 0 3px #a80303, 0 0 10px #a80303, 0 0 21px #a80303,
+    }
   }
 
   #genre-bg-2:hover {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #1713fe, 0 0 0.8rem #1713fe, 0 0 2.8rem #1713fe, inset 0 0 1.3rem #1713fe;
+
+    #genre-name-2 {
+      text-shadow: 0 0 3px #1713fe, 0 0 10px #1713fe, 0 0 21px #1713fe,
+    }
   }
 
   #genre-bg-3:hover {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #858f02, 0 0 0.8rem #858f02, 0 0 2.8rem #858f02, inset 0 0 1.3rem #858f02;
+
+    #genre-name-3 {
+      text-shadow: 0 0 3px #858f02, 0 0 10px #858f02, 0 0 21px #858f02,
+    }
   }
 
   #genre-bg-4:hover {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #00B9BF, 0 0 0.8rem #00B9BF, 0 0 2.8rem #00B9BF, inset 0 0 1.3rem #00B9BF;
+
+    #genre-name-4 {
+      text-shadow: 0 0 3px #00B9BF, 0 0 10px #00B9BF, 0 0 21px #00B9BF,
+    }
   }
 
   .selected-genre-0 {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #b46101, 0 0 0.8rem #b46101, 0 0 2.8rem #b46101, inset 0 0 1.3rem #b46101;
+
+    #genre-name-0 {
+      text-shadow: 0 0 3px #b46101, 0 0 10px #b46101, 0 0 21px #b46101,
+    }
   }
 
   .selected-genre-1 {
     outline: white solid 0.2em;
-    box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #a80303, 0 0 0.8rem #a80303, 0 0 2.8rem #a80303, inset 0 0 1.3rem #a80303;
+    box-shadow: 0 0 .2rem rgb(59, 59, 59), 0 0 .2rem #fff, 0 0 2rem #a80303, 0 0 0.8rem #a80303, 0 0 2.8rem #a80303, inset 0 0 1.3rem #a80303;
+    
+    #genre-name-1 {
+      text-shadow: 0 0 3px #a80303, 0 0 10px #a80303, 0 0 21px #a80303,
+    }
   }
 
   .selected-genre-2 {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #1713fe, 0 0 0.8rem #1713fe, 0 0 2.8rem #1713fe, inset 0 0 1.3rem #1713fe;
+
+    #genre-name-2 {
+      text-shadow: 0 0 3px #1713fe, 0 0 10px #1713fe, 0 0 21px #1713fe,
+    }
   }
 
   .selected-genre-3 {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #858f02, 0 0 0.8rem #858f02, 0 0 2.8rem #858f02, inset 0 0 1.3rem #858f02;
+
+    #genre-name-3 {
+      text-shadow: 0 0 3px #858f02, 0 0 10px #858f02, 0 0 21px #858f02,
+    }
   }
 
   .selected-genre-4 {
     outline: white solid 0.2em;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #00B9BF, 0 0 0.8rem #00B9BF, 0 0 2.8rem #00B9BF, inset 0 0 1.3rem #00B9BF;
+
+    #genre-name-4 {
+      text-shadow: 0 0 3px #00B9BF, 0 0 10px #00B9BF, 0 0 21px #00B9BF,
+    }
   }
 
   .selected-genre-name {

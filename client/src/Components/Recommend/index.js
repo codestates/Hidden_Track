@@ -55,7 +55,7 @@ function Recommend () {
 
   return (
     <section className='recommend-container'>
-      <p className='recommend'>추천</p>
+      <p className='recommend sign-four'>Inspired</p>
       <div className='recommend-content'>
         <div className='recommend-flex-box'>
           {recommendChart.length === 0

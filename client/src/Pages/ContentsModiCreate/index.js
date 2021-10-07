@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTrackDetails, getUserInfo, isLoadingHandler, inputPlayList } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
+import Footer from '../../Components/Footer';
 import axios from 'axios';
 import './index.scss';
 // import { noExtendLeft } from 'sequelize/types/lib/operators';
@@ -299,7 +300,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   // ?##############################################################################################
 
   return (
-    <div id='modi-create'>
+    <div id='modi-create' style={{width: window.innerWidth-14.8}}>
       {isValidUser()
         ? <>
           <div className='default-input-box'>
@@ -350,7 +351,8 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
-        </>
+          <Footer/>
+          </>
         : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
     </div>
   );

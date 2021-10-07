@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
+import Footer from '../../Components/Footer';
 import 'aos/dist/aos.css';
 import './index.scss';
 import '../../assets/landing1.png';
@@ -158,6 +159,7 @@ function Landing () {
         </section>
 
       </div>
+      <Footer />
     </>
   );
 }

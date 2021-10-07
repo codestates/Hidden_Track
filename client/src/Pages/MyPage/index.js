@@ -9,6 +9,7 @@ import { getUserInfo, getAccessToken } from '../../Redux/actions/actions';
 // 컴포넌트 import
 import Condition from '../SignUp/Condition';
 import WithDrawalModal from './WithDrawalModal';
+import Footer from '../../Components/Footer';
 
 // 함수 import
 import { accessTokenRequest } from '../../Components/TokenFunction';
@@ -340,6 +341,7 @@ function MyPage ({ handleNotice }) {
   }
 
   return (
+    <>
     <div className='my-page-container'>
 
       <div>
@@ -469,6 +471,8 @@ function MyPage ({ handleNotice }) {
       <button className='with-drawal-btn' onClick={(e) => showWithDrawalModal(e)}>회원 탈퇴</button>
       {isWithDrawalModalOpen && <WithDrawalModal visible={isWithDrawalModalOpen} setIsWithDrawalModalOpen={setIsWithDrawalModalOpen} handleNotice={handleNotice} />}
     </div>
+    <Footer />
+    </>
   );
 }
 

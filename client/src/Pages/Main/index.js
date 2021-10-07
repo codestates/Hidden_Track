@@ -44,11 +44,11 @@ function Main () {
         <Recommend />
       </div>
       <div className='main-genre'>
-        <span className='main-genre-title sign-one'>Genre</span>
+        <span className='main-genre-title sign-two'>G e n r e</span>
         <Genre />
       </div>
       <div className='main-hashtag'>
-        <span className='main-hashtag-title sign-three'>HashTags</span>
+        <span className='main-hashtag-title sign-three'>H a s h T a g s</span>
         <HashTag />
       </div>
       <div className='main-img'>
@@ -75,7 +75,10 @@ function Main () {
       </div>
 */}
       </div>
+
       <Footer />
+
+
     </div>
   );
 }
