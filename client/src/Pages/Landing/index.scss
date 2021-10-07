@@ -1,12 +1,75 @@
 @import '../../Common.scss';
 
+
 .container__landing {
   // background-color: red;
   width: 100%;
   margin: 0 auto;
-  margin-top: 200px;
+  margin-top: 250px;
+
 }
 
+.svg {
+  // background-color: yellowgreen;
+  margin-top: -50px;
+  margin-left: -55px;
+  width: 100%;
+  position: absolute;
+  z-index: -3;
+
+  svg {
+    height: 4500px;
+    stroke: rgb(254, 3, 128);
+    // stroke-dasharray: ;
+  }
+
+  #move-landing {
+    opacity: 0.7;
+  }
+}
+
+#section1 {
+
+  button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 250px;
+    height: 60px;
+    font-size: 18px;
+    border: 1px solid #aaa;
+    border-radius: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all .5s;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 100%;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+      transition: all .5s;
+      z-index: -1;
+
+    }
+
+    &:hover {
+      color: #fff;
+      animation: shake 0.5s infinite;
+    }
+
+    &:hover::before {
+      transform: translateX(-100%);
+
+    }
+  }
+}
 
 
 #section1,
@@ -18,7 +81,7 @@
 
   // background-color: aqua;
   width: 78%;
-  height: 500px;
+  height: 400px;
   margin: 0 auto;
   margin-bottom: 300px;
 
@@ -30,14 +93,28 @@
     margin: 0 auto;
   }
 
-  .landing__section1-img {
+
+  .landing__section3-img {
+    background-image: url('../../assets/cyber5.gif');
+    background-color: purple;
+    background-repeat: no-repeat;
+    width: 480px;
+    height: 480px;
+    border-radius: 50px;
+    margin: 0;
+    background-size: cover;
+  }
+
+  .landing__section1-img,
+  .landing__section2-img {
     // background-color: blueviolet;
     width: 480px;
     height: 480px;
-    background-image: url('../../assets/landing1.png');
     margin-top: -40px;
+    background-image: url('../../assets/landing1.png');
+
     // background-image: url('../../assets/landing2.png');
-    // background-image: url('../../assets/landing3.png');
+    // background-image: url('../../as/sets/landing3.png');
     background-repeat: no-repeat;
     background-size: contain;
     transition: all 1s;
@@ -55,6 +132,7 @@
     margin-top: 30px;
     height: 300px;
     margin-left: 30px;
+    position: relative;
 
     .landing__section1-pre1 {
       // background-color: darkcyan;
@@ -69,8 +147,9 @@
     .landing__section1-pre2 {
       text-align: left;
       margin: 0;
-      margin-top: 30px;
+      margin-top: 20px;
       color: #fff;
+      line-height: 1.6;
     }
   }
 
@@ -128,11 +207,51 @@
     }
   }
 
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -1px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(3px, 1px) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 1px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(2px, -1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(-1px, 1px) rotate(1deg);
+  }
 
 
+  80% {
+    transform: translate(3px, -1px) rotate(-1deg);
+  }
 
+  90% {
+    transform: translate(1px, 3px) rotate(0deg);
+  }
 
-
-
-
+  100% {
+    transform: translate(1px, -2px) rotate(1deg);
+  }
 }
