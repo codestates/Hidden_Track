@@ -13,6 +13,8 @@ import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
 import Notification from './Components/Notification';
 import LoadingIndicator from './Components/LoadingIndicator';
+import Landing from './Pages/Landing';
+
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -126,18 +128,23 @@ function App () {
 
   return (
     <>
-      <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual')
-          ? (
-            <></>)
-          : (
+
+      {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
+
+        ? (
+          <></>)
+        : (
+          <div className='nav-container'>
             <Nav handleNotice={handleNotice} />
-            )}
-      </div>
+          </div>
+          )}
       {isLoading
         ? <LoadingIndicator />
         : <Switch>
           <Route exact path='/'>
+            <Landing />
+          </Route>
+          <Route path='/main'>
             <Main />
           </Route>
           <Route path='/signup'>
@@ -164,10 +171,11 @@ function App () {
           <Route path='/searchtrack/:id'>
             <SearchTrack handleNotice={handleNotice} />
           </Route>
+
         </Switch>}
       <Notification notice={notice} />
       <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual')
+        {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
           ? (
             <></>)
           : (

@@ -25,6 +25,7 @@
   touch-action: pan-y;
   /* -webkit-tap-highlight-color: transparent; */
   width: 890px;
+  /* background-color: purple; */
   /* position: relative; */
   /* height: 260px; */
 }

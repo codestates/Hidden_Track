@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
-import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
@@ -21,20 +20,13 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
+  const [click, setClick] = useState(false);
+
   useEffect(() => {
     if (listenBtn) {
       addPlaylist();
     }
   }, [listenBtn]);
-
-  // 로컬 스토리지에 trackDetail값 저장하는 함수
-  // function setLocal () {
-  //   localStorage.setItem('trackId', `${trackId}`);
-  //   localStorage.setItem('soundTrack', `${trackDetail.track.soundtrack}`);
-  //   localStorage.setItem('img', `${trackDetail.track.img}`);
-  //   localStorage.setItem('title', `${trackDetail.track.title}`);
-  //   localStorage.setItem('nickName', `${trackDetail.track.user.nickName}`);
-  // }
 
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike (e) {
@@ -58,6 +50,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
               console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
+                setClick(!click);
               }
             })
             .catch(err => {
@@ -223,12 +216,16 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           <HashTag tagList={trackDetail.track.hashtags} />
         </div>
         <div className='trackinfo-btn-box'>
+          {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
+            <img className='like-btn' src={likeImage} alt='' />
+          </button> */}
+          <div className='like-btn-box'>
+            <i className='like-btn' id={click ? 'like-btn-clicked' : null} onClick={(e) => requestLike(e)} />
+            <span className='like-btn-msg' id={click ? 'like-btn-msg-clicked' : null}>liked!</span>
+            <span className='trackinfo-total-like'>{trackDetail.like}</span>
+          </div>
           <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
           <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
-          <button className='contents__btn' onClick={(e) => requestLike(e)}>
-            <img className='like-btn' src={likeImage} alt='' />
-          </button>
-          <span className='trackinfo-total-like'>{trackDetail.like}</span>
         </div>
         {isLogin && userInfo.nickName === trackDetail.track.user.nickName
           ? <div>

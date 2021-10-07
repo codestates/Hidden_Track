@@ -1,27 +1,39 @@
+@import '../../Common.scss';
+
 .recommend-container {
   // background-color: blue;
-  width: 180px;
-  height: 240px;
-  margin-top: 10px;
+  @include widthHeight(180px, 260px);
+
+  .recommend-content {
+    // background-color: aqua;
+    @include widthHeight(150px, 220px);
+    margin: 0 auto;
+    overflow: hidden;
+
+    .recommend-flex-box {
+      display: flex;
+      flex-flow: column;
+    }
+  }
 
 }
 
-.recommend-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // background-color: aqua;
-}
+
 
 .recommend {
+  margin: 0;
   margin: 10px 0;
   width: 50px;
+  color: #fff;
+  padding: 0;
 }
 
 .recommend-artist,
 .recommend-title {
   margin: 0;
   color: #fff;
+  // background-color: burlywood;
+
 }
 
 .recommend-artist {

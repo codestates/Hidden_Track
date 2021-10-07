@@ -318,24 +318,24 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                     handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
                     e.target.value = e.target.value.slice(0, e.target.value.length - 1);
                   }
-                }} required
+                }}
               />
-              <select name='genre' id='genre-input' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }} required>
+              <select name='genre' id='genre-input' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }}>
                 <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
-                <option value='Ballad'>Ballad</option>
-                <option value='HipHop'>HipHop</option>
-                <option value='R&B'>R&B</option>
-                <option value='Rock'>Rock</option>
-                <option value='Jazz'>Jazz</option>
+                <option style={{ background: '#1F104D' }} value='Ballad'>Ballad</option>
+                <option style={{ background: '#1F104D' }} value='HipHop'>HipHop</option>
+                <option style={{ background: '#1F104D' }} value='R&B'>R&B</option>
+                <option style={{ background: '#1F104D' }} value='Rock'>Rock</option>
+                <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
               </select>
               <div>
                 <label className='music-release-label' htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
-                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} required />
+                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
               </div>
               <div>
                 <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
                 <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
-                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} required={!trackId} />
+                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
               </div>
 
             </section>

@@ -219,120 +219,122 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   }
 
   return (
-    <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'} style={{ height: window.innerHeight }}>
-      <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}><img src={exit} width='24px' /></button>
-      <div className='sidebar-control'>
-        <div className='sidebar-info' style={{ backgroundImage: currentMusic ? currentMusic.track.img : default_music.track.img }}>
-          <div className='square'>
-            <img
-              className='inner-square'
-              onClick={() => { history.push(`/trackdetails/${currentMusic.track.id}`); }}
-              src={currentMusic ? currentMusic.track.img : default_music.track.img}
-              alt={currentMusic ? currentMusic.track.title : default_music.track.title}
-            />
+    <>
+      <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'} style={{ height: window.innerHeight }}>
+        <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}><img src={exit} width='24px' /></button>
+        <div className='sidebar-control'>
+          <div className='sidebar-info' style={{ backgroundImage: currentMusic ? currentMusic.track.img : default_music.track.img }}>
+            <div className='square'>
+              <img
+                className='inner-square'
+                onClick={() => { history.push(`/trackdetails/${currentMusic.track.id}`); }}
+                src={currentMusic ? currentMusic.track.img : default_music.track.img}
+                alt={currentMusic ? currentMusic.track.title : default_music.track.title}
+              />
+            </div>
+            <div className='current-info'>
+              <p className='inner-title'>{currentMusic ? currentMusic.track.title.length > 12 ? currentMusic.track.title.slice(0, 12) + '...' : currentMusic.track.title : default_music.track.title}</p>
+              <p className='inner-nickname'>{currentMusic ? currentMusic.track.user.nickName : default_music.track.user.nickName}</p>
+            </div>
+            <div className='shuffle'>
+              <button id='random-button' onClick={() => { setIsRandom(!isRandom); }}>
+                <img id='random-button-img' src={isRandom ? active_shuffle : shuffle} />
+              </button>
+            </div>
           </div>
-          <div className='current-info'>
-            <p className='inner-title'>{currentMusic ? currentMusic.track.title.length > 12 ? currentMusic.track.title.slice(0, 12) + '...' : currentMusic.track.title : default_music.track.title}</p>
-            <p className='inner-nickname'>{currentMusic ? currentMusic.track.user.nickName : default_music.track.user.nickName}</p>
-          </div>
-          <div className='shuffle'>
-            <button id='random-button' onClick={() => { setIsRandom(!isRandom); }}>
-              <img id='random-button-img' src={isRandom ? active_shuffle : shuffle} />
-            </button>
-          </div>
-        </div>
-        <div className={isLogin ? 'all-play' : 'min-play'}>
-          <AudioPlayer
+          <div className={isLogin ? 'all-play' : 'min-play'}>
+            <AudioPlayer
             // className={}
-            ref={audio}
-            src={currentMusic ? currentMusic.track.soundTrack : default_music.track.soundTrack}
+              ref={audio}
+              src={currentMusic ? currentMusic.track.soundTrack : default_music.track.soundTrack}
             // src={currentMusic.track.soundTrack}
             // handleKeyDown={()=>{console.log('어허')}}
             // isLogin?controls:''
-            volume={0.5}
-            autoPlay={false}
-            showJumpControls={!!isLogin}
-            showSkipControls={!!isLogin}
-            hasDefaultKeyBindings={!!isLogin}
-            autoPlayAfterSrcChange={afterRender}
-            onEnded={() => {
-              if (playList.length <= 1) return;
-              handlePreviousMusic('push', currentMusic);
-              if (!isRandom) {
-                console.log('1');
-                if (isValid('playList', playList.indexOf(currentMusic) + 1)) {
-                  handleChangeMusic(playList.indexOf(currentMusic) + 1);
-                } else {
-                  handleChangeMusic(0);
-                }
-              } else {
-                handleChangeMusic(getRandomNumber(0, playList.length - 1));
-              }
-            }}
-
-            onClickNext={() => {
-              if (playList.length <= 1) return;
-              handlePreviousMusic('push', currentMusic);
-              if (!isRandom) {
-                if (isValid('playList', playList.indexOf(currentMusic) + 1)) {
-                  handleChangeMusic(playList.indexOf(currentMusic) + 1);
-                } else {
-                  handleChangeMusic(0);
-                }
-              } else {
-                handleChangeMusic(getRandomNumber(0, playList.length - 1));
-              }
-            }}
-
-            onClickPrevious={() => {
-              if (playList.length <= 1) return;
-              if (!previousMusic.length) {
+              volume={0.5}
+              autoPlay={false}
+              showJumpControls={!!isLogin}
+              showSkipControls={!!isLogin}
+              hasDefaultKeyBindings={!!isLogin}
+              autoPlayAfterSrcChange={afterRender}
+              onEnded={() => {
+                if (playList.length <= 1) return;
+                handlePreviousMusic('push', currentMusic);
                 if (!isRandom) {
-                  if (isValid('playList', playList.indexOf(currentMusic) - 1)) {
-                    handleChangeMusic(playList.indexOf(currentMusic) - 1);
+                  console.log('1');
+                  if (isValid('playList', playList.indexOf(currentMusic) + 1)) {
+                    handleChangeMusic(playList.indexOf(currentMusic) + 1);
                   } else {
-                    handleChangeMusic(playList.length - 1);
+                    handleChangeMusic(0);
                   }
                 } else {
-                  console.log('랜덤-이전곡 없음');
                   handleChangeMusic(getRandomNumber(0, playList.length - 1));
                 }
-              } else {
-                console.log('이전곡 있음');
-                handleChangeMusic(playList.indexOf(previousMusic[previousMusic.length - 1]));
-                handlePreviousMusic('pop');
-              }
-            }}
+              }}
 
-          />
+              onClickNext={() => {
+                if (playList.length <= 1) return;
+                handlePreviousMusic('push', currentMusic);
+                if (!isRandom) {
+                  if (isValid('playList', playList.indexOf(currentMusic) + 1)) {
+                    handleChangeMusic(playList.indexOf(currentMusic) + 1);
+                  } else {
+                    handleChangeMusic(0);
+                  }
+                } else {
+                  handleChangeMusic(getRandomNumber(0, playList.length - 1));
+                }
+              }}
+
+              onClickPrevious={() => {
+                if (playList.length <= 1) return;
+                if (!previousMusic.length) {
+                  if (!isRandom) {
+                    if (isValid('playList', playList.indexOf(currentMusic) - 1)) {
+                      handleChangeMusic(playList.indexOf(currentMusic) - 1);
+                    } else {
+                      handleChangeMusic(playList.length - 1);
+                    }
+                  } else {
+                    console.log('랜덤-이전곡 없음');
+                    handleChangeMusic(getRandomNumber(0, playList.length - 1));
+                  }
+                } else {
+                  console.log('이전곡 있음');
+                  handleChangeMusic(playList.indexOf(previousMusic[previousMusic.length - 1]));
+                  handlePreviousMusic('pop');
+                }
+              }}
+            />
+          </div>
+        </div>
+        <div className='sidebar-play-list-box'>
+          {playList.length === 0
+            ? '재생목록이 비어있습니다.'
+            : <ul
+                className='sidebar-play-ul' onClick={() => {
+                  clearInterval(timeSet);
+                  tic = 0;
+                }}
+              >
+              {playList.map((el, idx) => {
+                console.log(el);
+                return (
+                  <PlayList
+                    key={el.id}
+                    playListId={el.id}
+                    num={idx}
+                    music={el}
+                    handleChangeMusic={handleChangeMusic}
+                    handlePreviousMusic={handlePreviousMusic}
+                    handleDeleteMusic={handleDeleteMusic}
+                  />
+                );
+              })}
+            </ul>}
         </div>
       </div>
-      <div className='sidebar-play-list-box'>
-        {playList.length === 0
-          ? '재생목록이 비어있습니다.'
-          : <ul
-              className='sidebar-play-ul' onClick={() => {
-                clearInterval(timeSet);
-                tic = 0;
-              }}
-            >
-            {playList.map((el, idx) => {
-              console.log(el);
-              return (
-                <PlayList
-                  key={el.id}
-                  playListId={el.id}
-                  num={idx}
-                  music={el}
-                  handleChangeMusic={handleChangeMusic}
-                  handlePreviousMusic={handlePreviousMusic}
-                  handleDeleteMusic={handleDeleteMusic}
-                />
-              );
-            })}
-          </ul>}
-      </div>
-    </div>
+      <div className={isSidebarOpen ? 'sidebar-backdrop sidebar-opened' : 'sidebar-backdrop sidebar-closed'} onClick={(e) => showSidebar(e)} style={{ width: window.innerWidth, height: window.innerHeight }} />
+    </>
   );
 }
 

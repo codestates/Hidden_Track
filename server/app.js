@@ -8,6 +8,7 @@ const usersRouter = require('./routers/user');
 const trackRouter = require('./routers/track');
 const playlistRouter = require('./routers/playlist');
 const replyRouter = require('./routers/reply');
+const searchRouter = require('./routers/search');
 
 const app = express();
 app.use(express.json());
@@ -15,14 +16,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: true,
+    origin: "https://www.hiddentrack.link",
     credentials: true,
-    methods: ["GET", "DELETE", "POST", "PATCH"],
+    methods: ["GET","OPTIONS", "DELETE", "POST", "PATCH"],
   })
 );
 
 app.get("/", (req, res) => {
-  res.status(200).send("Welcome, hidden_track! Server!");
+  res.status(200).send("Welcome, hidden_track??!? Server!");
 });
 
 // db.sequelize
@@ -37,9 +38,10 @@ app.use('/user', usersRouter);
 app.use('/track', trackRouter);
 app.use('/playlist', playlistRouter);
 app.use('/reply', replyRouter);
+app.use('/search', searchRouter);
 
 
-const HTTPS_PORT = 4000;
+const HTTPS_PORT = 80;
 
 app.listen(HTTPS_PORT, () => {
   console.log("server 실행");

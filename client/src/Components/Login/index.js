@@ -15,6 +15,7 @@ import KakaoLogin from './KakaoLogin';
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
 
+
 function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
   const dispatch = useDispatch();
@@ -93,7 +94,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
 
           // 위의 주석코드를 tokenFunction 으로 리펙토링 한 코드
           const accessToken = res.data.data;
-          console.log('엑세스토큰', accessToken);
+         // console.log('엑세스토큰', accessToken);
 
           accessTokenRequest(accessToken) // <- userInfo 담길것이다. (status 200)
             .then(accessTokenResult => {
@@ -141,7 +142,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
       <Portal elementId='modal-root'>
         <div
           className='modal-backdrop__login' style={isLoginModalOpen ? { display: 'block' } : { display: 'none' }}
-          visible={isLoginModalOpen.toString()} onClick={handleModalBack}
+          visible={isLoginModalOpen} onClick={(e) => handleModalBack(e)}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>
