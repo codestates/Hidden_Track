@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router';
 import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
@@ -14,41 +14,43 @@ function Recommend () {
 
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const [recommendChart, setRecommendChart] = useState([]);
-  const [currentChart, setCurrentChart] = useState({});
   const [index, setIndex] = useState(0);
+  const number_ref = useRef(0);
+
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
-      { headers: { accesstoken: accessToken } })
-      .then((res) => {
-        console.log('추천차트 요청 응답', res);
-        setRecommendChart(res.data.recommendchart);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+    requestRecommend(); // Promise
 
-  useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => prev + 1);
-      if (recommendChart[0] === undefined) {
-        console.log('error');
-      } else {
-        setCurrentChart(recommendChart[index]);
-        if (index === 2) {
-          setIndex(0);
-        }
+      number_ref.current += 1;
+      setIndex(number_ref.current);
+      // console.log(number_ref.current);
+      if (number_ref.current >= 3) {
+        number_ref.current = 0;
+        setIndex(number_ref.current);
       }
     }, 2000);
-
     return () => {
       clearInterval(interval);
     };
-  }, [index]);
+  }, []);
+
+  const requestRecommend = async function () {
+    try {
+      const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
+        { headers: { accesstoken: accessToken } });
+      setRecommendChart(result.data.recommendchart);
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.err(err);
+    }
+  };
+
+
 
   function moveTrackDetail () {
-    history.push(`/trackdetails/${currentChart.id}`);
+    history.push(`/trackdetails/${recommendChart[index].id}`);
   }
 
   return (
@@ -56,9 +58,13 @@ function Recommend () {
       <p className='recommend'>추천</p>
       <div className='recommend-content'>
         <div className='recommend-flex-box'>
-          <RecommendImage url={currentChart.img} onClick={(e) => moveTrackDetail(e)} />
-          <p className='recommend-artist'>{currentChart.title}</p>
-          <p className='recommend-title'>{currentChart.title}</p>
+          {recommendChart[index] === undefined
+            ? <></>
+            : <>
+              <RecommendImage url={recommendChart[index].img} onClick={(e) => moveTrackDetail(e)} />
+              <p className='recommend-artist'>{recommendChart[index].title}</p>
+              <p className='recommend-title'>{recommendChart[index].title}</p>
+              </>}
         </div>
       </div>
     </section>
