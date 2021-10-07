@@ -7,5 +7,6 @@ module.exports = {
      trackimage: require('./trackimage'),
      trackfile: require('./trackfile'),
      charts: require('./charts'),
+     recommend: require('./recommend')
 };
     

@@ -1,10 +1,12 @@
 const { track,hashtag,user,reply,grade,playlist } = require("../../models")
 const db = require("../../models");
 const { isAuthorized } = require('../tokenFunctions');
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 
 module.exports = {  
    get: async (req,res) => {
-     console.log(req.headers)
+    const accessTokenData = isAuthorized(req)
      const { trackId } = req.params;
      const likes = db.sequelize.models.likes;
   
@@ -63,9 +65,17 @@ module.exports = {
      sum = sum + gradeAll[i].dataValues.userGrade
      }
      const gradeAev = gradeAll.length !== 0 ? sum/gradeAll.length : 0; 
+     
+     let myLike = false;
+     if(accessTokenData){
+       const findLike = await likes.findOne({
+         where: { trackId: id , userId: accessTokenData.id }
+       })
+       if(findLike) { myLike =true }
+     }
 
-     res.status(200).json({track:findTrack[0], like: count,gradeAev :gradeAev});
-   },
+     res.status(200).json({track:findTrack[0], like: count,gradeAev :gradeAev, myLike:myLike});
+    },
 
     post: async (req,res) =>{ 
       console.log(req.body)
@@ -94,7 +104,7 @@ module.exports = {
     });
 
     for(let i =0;i<tag.length;i++){
-       const [findHashTag,created] =  await hashtag.findOrCreate({
+       const [findHashTag,created] =  await hashtag.findCreateFind({
            where : { tag : tag[i] },
            default : { tag : tag[i] }
         })
@@ -109,6 +119,8 @@ module.exports = {
     },
 
    patch :  async (req,res) =>{ 
+
+     console.log('패치', req.body)
     //  console.log(req.body)
     const accessTokenData = isAuthorized(req);
     const { id, tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
@@ -126,8 +138,10 @@ module.exports = {
       where : {id : id}
     })
 
-    if(findTrack.soundtrack !== soundtrack){
-      const url =  findTrack.soundtrack.split('com/')
+    console.log(findTrack)
+
+    if(findTrack.soundTrack !== soundtrack){
+      const url =  findTrack.soundTrack.split('com/')
       s3.deleteObject({
         Bucket: 'hidden-track-bucket', // 사용자 버켓 이름
         Key: `${url[1]}` // 버켓 내 경로
@@ -153,7 +167,7 @@ module.exports = {
       img : img,
       genre : genre,
       releaseAt : releaseAt,
-      soundtrack : soundtrack,
+      soundTrack : soundtrack,
       userId : accessTokenData.id,
       lyric: lyric,
     },{
@@ -161,7 +175,7 @@ module.exports = {
     })
     
     for(let i =0;i<tag.length;i++){
-      const [findHashTag,created] =  await hashtag.findOrCreate({
+      const [findHashTag,created] =  await hashtag.findCreateFind({
           where : { tag : tag[i] },
           default : { tag : tag[i] }
        })

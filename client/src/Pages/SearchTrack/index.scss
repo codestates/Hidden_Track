@@ -1,50 +1,117 @@
+@import '../../Common.scss';
+
 .searchtrack-container {
-  display: flex;
+  @include flexBox(flex, _, center, _, _);
   flex-direction: column;
   // justify-content: center;
-  align-items: center;
 
-  .hashtag-box {
-    width: 80%;
-    // justify-content: center;
-  }
+  // .hashtag-box {
+  //   width: 80%;
+  //   display: flex;
+  // }
   
+  .searchtrack-msg {
+    color: white;
+  }
+
   .track-list-container {
-    background-color: green;
+    // background-color: green;
+    // border: white solid 3px;
+    // border-radius: 25px;
     margin-bottom: 100px;
+    // width: 80%;
+    width: 1216px;
+    border: 1px solid rgb(214, 216, 218);
+    border-radius: 6px;
+    // border: 0.5rem outset rgb(222, 222, 222);
+    // border-radius: 12px;
+    // margin: 2rem;
+    padding: 1rem;
     
     .track-list-ul {
       display: flex;
-      flex-wrap: wrap;
+      // flex-wrap: wrap;
       // background-color: hotpink;
       // justify-content: space-evenly;
-      width: 1250px;
+      width: 100%;
+      padding: 0;
+      justify-content: center;
     
-      .track-list-li {
-        display: block;
-        background-color: skyblue;
-        float: left; // 자식 태그들 왼쪽부터 채워지게
-        cursor: pointer;
-        margin: 1em;
+      .track-list-box {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        // justify-content: center;
+        // float: left;
+        // background-color: green;
+        // padding: 0 5% 0 5%;
+        // width: 90%;
         
-        .track-list-img {
-          width: 17em;
-          height: 17em;
+        .track-list-li {
+          // display: inline-block;
+          // flex: 1;
+          background-color: skyblue;
+          // float: left; // 자식 태그들 왼쪽부터 채워지게
+          cursor: pointer;
+          margin: 1em;
+          outline: solid 1px white;
+          
+          .track-list-img {
+            @include widthHeight(17em, 17em)
+          }
+    
+          .track-list-title, .track-list-artist {
+            margin: 0;
+          }
         }
-  
-        .track-list-title, .track-list-artist {
-          margin: 0;
+    
+        .track-list-li:hover {
+          transform: scale(1.1);
+          transition: .3s;
         }
       }
   
-      .track-list-li:hover {
-        transform: scale(1.1);
-        transition: .3s;
+      .track-list-msg {
+        color: white;
       }
-  
-      // .track-list-msg & {
-      //   justify-content: center;
-      // }
+
+      .search-result-containcer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .search-result-box {
+          // outline: solid green 1px;
+
+          label {
+            
+          }
+
+          .hashtag-box {
+            width: 100%;
+            @include flexBox(flex, center, _, _, _);
+
+            #hashtag-section:hover {
+              pointer-events: none;
+              box-shadow: none;
+            }
+          }
+        }
+      }
+      
+      label {
+        display: block;
+        color: white;
+        font-weight: bold;
+        // background-color: aqua;
+        margin-bottom: 1em;
+      }
     }
+  }
+
+  .track-list-container:hover {
+    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+    0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+    transition: .5s;
   }
 }

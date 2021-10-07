@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoginHandler, getAccessToken, getUserInfo, isLoadingHandler } from './Redux/actions/actions';
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Main from './Pages/Main';
 import Footer from './Components/Footer';
-import Visualizer from './Pages/Visualizer';
-// import Visualizer2 from './Pages/Visualizer/backup4'
+import Canvas from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import MyPage from './Pages/MyPage';
 import ModiCreate from './Pages/ContentsModiCreate';
 import SearchTrack from './Pages/SearchTrack';
 import Notification from './Components/Notification';
 import LoadingIndicator from './Components/LoadingIndicator';
+import Landing from './Pages/Landing';
+
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
@@ -21,6 +22,7 @@ import axios from 'axios';
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
   const cookies = new Cookies();
 
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
@@ -126,25 +128,30 @@ function App () {
 
   return (
     <>
-      <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual')
-          ? (
-            <></>)
-          : (
+
+      {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
+
+        ? (
+          <></>)
+        : (
+          <div className='nav-container'>
             <Nav handleNotice={handleNotice} />
-            )}
-      </div>
+          </div>
+          )}
       {isLoading
         ? <LoadingIndicator />
         : <Switch>
           <Route exact path='/'>
+            <Landing />
+          </Route>
+          <Route path='/main'>
             <Main />
           </Route>
           <Route path='/signup'>
             <SignUp handleNotice={handleNotice} />
           </Route>
           <Route path='/visual/:id'>
-            <Visualizer handleNotice={handleNotice} />
+            <Canvas handleNotice={handleNotice} history={history} loca={loca} />
           </Route>
           <Route path='/mypage'>
             <MyPage handleNotice={handleNotice} />
@@ -164,10 +171,11 @@ function App () {
           <Route path='/searchtrack/:id'>
             <SearchTrack handleNotice={handleNotice} />
           </Route>
+
         </Switch>}
       <Notification notice={notice} />
       <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual')
+        {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
           ? (
             <></>)
           : (

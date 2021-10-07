@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList } from '../../Redux/actions/actions';
 import axios from 'axios';
-import './TrackInfo.scss';
 import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
@@ -12,40 +11,6 @@ import HashTag from '../../Components/HashTag';
 function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const audioRef = useRef();
-  // ?########################################################
-  let tic = 0;
-  let time;
-
-  function play1min () {
-    if (audioRef.current.paused) {
-      audioRef.current.play();
-      time = setInterval(tictok, 1000);
-    } else {
-      // clearTimeout(timer)
-      console.log('>', time);
-      clearInterval(time);
-      audioRef.current.pause();
-      // audioRef.current.currentTime=0;
-    }
-  }
-
-  function tictok () {
-    console.log(tic);
-    tic += 1;
-    check();
-  }
-
-  function check () {
-    if (tic > 60) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      clearInterval(time);
-      tic = 0;
-    }
-  }
-  // ?########################################################
-
   const playList = useSelector(state => state.playListReducer).playList;
   // const modifyBtn = useSelector(state => state.modifyReducer);
   // const { onClickModify } = modifyBtn;
@@ -55,6 +20,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
+  const [click, setClick] = useState(false);
+
   useEffect(() => {
     if (listenBtn) {
       addPlaylist();
@@ -83,6 +50,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
               console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
+                setClick(!click);
               }
             })
             .catch(err => {
@@ -108,7 +76,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
   // 플레이리스트에 해당 곡이 이미 있는지 확인하는 함수
   function isDuplicateTrack (list, trackId) {
     for (const el of list) {
-      if (el.id === trackId) return true;
+      if (el.track.id === trackId) return true;
     }
     return false;
   }
@@ -130,15 +98,18 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       } else {
         // 리스트에 없는 곡이면 그냥 전역상태에 저장만 함
         dispatch(inputMusic({
-          id: trackDetail.track.id,
-          title: trackDetail.track.title,
-          img: trackDetail.track.img,
-          genre: trackDetail.track.genre,
-          releaseAt: trackDetail.track.releaseAt,
-          lyric: trackDetail.track.lyric,
-          soundtrack: trackDetail.track.soundtrack,
-          user: {
-            nickname: trackDetail.track.user.nickname
+          id: trackDetail.track.title,
+          track: {
+            id: trackDetail.track.id,
+            title: trackDetail.track.title,
+            img: trackDetail.track.img,
+            genre: trackDetail.track.genre,
+            releaseAt: trackDetail.track.releaseAt,
+            lyric: trackDetail.track.lyric,
+            soundTrack: trackDetail.track.soundtrack,
+            user: {
+              nickName: trackDetail.track.user.nickName
+            }
           }
         }));
         // 바로 듣기 버튼 안 눌렀다면 알림 뜸
@@ -220,12 +191,12 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   return (
     <div className='trackinfo-container'>
-      <div className='trackinfo-image-box'>
-        <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} />
+      <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
+        {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
       </div>
       <section className='trackinfo-desc'>
-        <h2>{trackDetail.track.title}</h2>
-        <span>평점: {trackDetail.gradeAev}</span>
+        <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>
+        <span className='trackinfo-grade-avg'>평점: {trackDetail.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
         <div className='trackinfo-box'>
           <div className='trackinfo-info'>
@@ -245,17 +216,16 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           <HashTag tagList={trackDetail.track.hashtags} />
         </div>
         <div className='trackinfo-btn-box'>
+          {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
+            <img className='like-btn' src={likeImage} alt='' />
+          </button> */}
+          <div className='like-btn-box'>
+            <i className='like-btn' id={click ? 'like-btn-clicked' : null} onClick={(e) => requestLike(e)} />
+            <span className='like-btn-msg' id={click ? 'like-btn-msg-clicked' : null}>liked!</span>
+            <span className='trackinfo-total-like'>{trackDetail.like}</span>
+          </div>
           <button className='contents__btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
           <button className='contents__btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
-          <button className='contents__btn' onClick={(e) => { play1min(); }}>1분 들어보기</button>
-          <audio
-            src={trackDetail.track.soundtrack}
-            ref={audioRef}
-          />
-          <button className='contents__btn' onClick={(e) => requestLike(e)}>
-            <img className='like-btn' src={likeImage} alt='' />
-          </button>
-          <span>{trackDetail.like}</span>
         </div>
         {isLogin && userInfo.nickName === trackDetail.track.user.nickName
           ? <div>

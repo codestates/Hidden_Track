@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
 import './index.scss';
 
-function Genre () {
+function Genre ({ genre }) {
   const genreList = ['Jazz', 'HipHop', 'Rock', 'Ballad', 'R&B'];
-  const [selectGenre, setSelectGenre] = useState('');
   const history = useHistory();
 
   // 장르 선택시 실행되는 함수
   function clickGenre (e) {
     console.log(e.target.getAttribute('value'));
     const genre = e.target.getAttribute('value');
-    setSelectGenre(genre);
     // 검색 페이지로 이동
     history.push({
       pathname: `/searchtrack/${genre}`,
@@ -27,8 +25,8 @@ function Genre () {
       <div className='genre-box'>
         {genreList.map((el, idx) => {
           return (
-            <span className={selectGenre === el ? 'genre-bg selected-genre-bg' : 'genre-bg'} value={el} key={idx} onClick={(e) => clickGenre(e)}>
-              <p className={selectGenre === el ? 'genre-name selected-genre-name' : 'genre-name'} value={el} onClick={(e) => clickGenre(e)}>
+            <span className={genre === el ? `genre-bg selected-genre-${idx}` : 'genre-bg'} id={`genre-bg-${idx}`} value={el} key={idx} onClick={(e) => clickGenre(e)}>
+              <p className={genre === el ? 'genre-name selected-genre-name' : 'genre-name'} value={el} onClick={(e) => clickGenre(e)}>
                 {el}
               </p>
             </span>

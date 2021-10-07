@@ -1,45 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
+import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
-import HashTag from '../../Components/HashTag';
+// import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
 import './index.scss';
 
 function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
-  const trackDetail = useSelector(state => state.trackDetailReducer);
   const location = useLocation();
+  const accessToken = useSelector(state => state.accessTokenReducer);
   const [trackList, setTrackList] = useState([]);
-  // {
-  //   id: 1,
-  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Traffic_light.jpg',
-  //   title: '신호등',
-  //   userid: 1,
-  //   user: {
-  //     nickname: '이무진'
-  //   }
-  // },
-  // {
-  //   id: 2,
-  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/Sweet_Dreams.jpg',
-  //   title: 'Sweet Dreams',
-  //   userid: 2,
-  //   user: {
-  //     nickname: 'Eurythmics'
-  //   }
-  // },
-  // {
-  //   id: 3,
-  //   img: 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/wind.jpg',
-  //   title: '바람이나 좀 쐐',
-  //   userid: 3,
-  //   user: {
-  //     nickname: '개리'
-  //   }
-  // }
 
   useEffect(() => {
     // 새로고침시 pathname의 검색값 불러와서 다시 요청
@@ -86,20 +59,21 @@ function SearchTrack ({ handleNotice }) {
           console.log(err.response);
           if (err.response) {
             if (err.response.status === 404) setTrackList([]);
+            if (err.response.status === 400) setTrackList([]);
           } else console.log(err);
         });
     }
     // --------------검색어 입력시 요청----------------
     else {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/search/${search}`)
+      axios.get(`${process.env.REACT_APP_API_URL}/search?query=${search}`)
         .then(res => {
           console.log('검색어 요청 응답', res.data);
-          if (res.status === 200) setTrackList(res.data.track);
+          if (res.status === 200) setTrackList(res.data);
         })
         .catch(err => {
           console.log(err.response);
           if (err.response) {
-            if (err.response.status === 404) {
+            if (err.response.status === 400) {
               setTrackList([]);
             }
             if (err.response.status === 414) {
@@ -114,17 +88,19 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <div className='searchtrack-container'>
-      <Genre />
-      <div className='hashtag-box'>
-        <HashTag tagList={[]} />
-      </div>
-      <p style={{ color: 'white' }}>{genre || hashTag || search}(으)로 검색한 결과</p>
+      <Genre genre={genre} />
+      {/* <div className='hashtag-box'>
+        <HashTag tagList={[]} searchTag={hashTag} />
+      </div> */}
+      <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
       <TrackList
         trackList={trackList}
         dispatch={dispatch}
         getTrackDetails={getTrackDetails}
         handleNotice={handleNotice}
-        trackDetail={trackDetail}
+        search={search}
+        hashTag={hashTag}
+        accessToken={accessToken}
       />
     </div>
   );

@@ -1,0 +1,134 @@
+#modi-create{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    // border: 1px solid black;
+    // justify-content: space-around;
+    width: 1500px;
+    margin: auto;
+    .default-input-box{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    
+        .album-img-box{
+            padding-top: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50%;
+            
+            .album-input-btn {
+                margin-top: 20px;
+                cursor: pointer;
+            }
+
+            .album-img {
+                box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px rgb(254, 3, 128),
+                0 0 2px rgb(254, 3, 128), 0 0 13px rgb(254, 3, 128), 0 0 38px rgb(254, 3, 128), 0 0 50px rgb(254, 3, 128);
+                width: 450px;
+                height: 450px;
+                display: flex;
+                border-radius: 20px;
+            }
+        }
+        .default-input-section{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 50%;
+            .music-input{
+                text-align: center;
+                width: 500px;
+                height: 50px;
+                margin: 10px;
+                font-size: 17px
+            }
+            .music-input-btn {
+                cursor: pointer;
+            }
+            .music-release{
+                text-align: center;
+                height: 35px;
+                width: 400px;
+                margin: 10px;
+                font-size: 15px
+            }
+        
+        }
+    }
+    .music-lyrics-hashtag-box{
+        margin:50px 0 20px 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        .music-lyrics-input{
+            display: flex;
+            flex-direction: column;
+            .input-lyrics{ 
+                margin-top: 20px;
+                resize: none;
+                text-align: center;
+                border: 1px solid rgb(214, 216, 218);
+                width: 600px;
+                height: 200px 
+            }
+            .input-lyrics::-webkit-scrollbar {
+                display: none; 
+            }
+            
+        }
+
+    }
+    .modi-create-btn-box{
+        margin-top: 30px;
+        margin-bottom: 120px;
+        .contents__btn{
+            width: 100px;
+            height: 50px;
+        }
+    }
+
+
+
+}
+
+#title-input:focus-within {
+    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #ff0000,
+    0 0 2px #ff0000, 0 0 13px #ff0000, 0 0 38px #ff0000, 0 0 45px #ff0000;
+    transition: .5s;
+}
+
+#genre-input:focus-within {
+    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #fffc32,
+    0 0 2px #fffc32, 0 0 13px #fffc32, 0 0 38px #fffc32, 0 0 45px #fffc32;
+    transition: .5s;
+}
+
+.music-release:focus-within {
+    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #0fa,
+    0 0 2px #0fa, 0 0 13px #0fa, 0 0 38px #0fa, 0 0 45px #0fa;
+    transition: .5s;
+}
+
+.input-lyrics:focus-within {
+
+    box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #fa4700,
+    0 0 2px #fa4700, 0 0 13px #fa4700, 0 0 38px #fa4700, 0 0 45px #fa4700;
+    transition: .5s;
+}
+// .music-input:focus {
+//     box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+//     0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+//     transition: .5s;
+// }
+
+// .music-release:focus {
+//     box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
+//     0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+//     transition: .5s;
+// }

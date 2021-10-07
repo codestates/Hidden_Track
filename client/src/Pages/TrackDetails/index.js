@@ -6,6 +6,7 @@ import axios from 'axios';
 import TrackInfo from './TrackInfo';
 import Lyrics from './Lyrics';
 import Replys from './Replys';
+import './index.scss';
 
 function TrackDetails ({ handleNotice, isLoading }) {
   const location = useLocation();
@@ -18,6 +19,7 @@ function TrackDetails ({ handleNotice, isLoading }) {
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen;
   const accessToken = useSelector(state => state.accessTokenReducer).accessToken;
 
+  axios.defaults.headers.common.accesstoken = accessToken;
   const trackId = location.pathname.split('/')[2];
 
   useEffect(() => {
@@ -40,33 +42,29 @@ function TrackDetails ({ handleNotice, isLoading }) {
       });
     // 음원 상세 정보가 제대로 들어왔다면 로딩 인디케이터 종료
     if (trackDetail.track.id) dispatch(isLoadingHandler(false));
-  }, []);
+  }, [trackId]);
 
   return (
     <div className='track-details'>
-      <div>
-        <TrackInfo
-          isLogin={isLogin}
-          accessToken={accessToken}
-          trackDetail={trackDetail}
-          userInfo={userInfo}
-          handleNotice={handleNotice}
-          trackId={trackId}
-        />
-      </div>
-      <div>
+      <TrackInfo
+        isLogin={isLogin}
+        accessToken={accessToken}
+        trackDetail={trackDetail}
+        userInfo={userInfo}
+        handleNotice={handleNotice}
+        trackId={trackId}
+      />
+      <div className='lyrics-container'>
         <Lyrics trackDetail={trackDetail} />
       </div>
-      <div>
-        <Replys
-          userInfo={userInfo}
-          trackDetail={trackDetail}
-          isLogin={isLogin}
-          isLoginModalOpen={isLoginModalOpen}
-          accessToken={accessToken}
-          handleNotice={handleNotice}
-        />
-      </div>
+      <Replys
+        userInfo={userInfo}
+        trackDetail={trackDetail}
+        isLogin={isLogin}
+        isLoginModalOpen={isLoginModalOpen}
+        accessToken={accessToken}
+        handleNotice={handleNotice}
+      />
     </div>
   );
 }
