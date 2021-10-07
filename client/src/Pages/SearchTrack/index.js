@@ -65,7 +65,7 @@ function SearchTrack ({ handleNotice }) {
     }
     // --------------검색어 입력시 요청----------------
     else {
-      axios.get(`${process.env.REACT_APP_API_URL}/track/search/${search}`)
+      axios.get(`${process.env.REACT_APP_API_URL}/search?query=${search}`)
         .then(res => {
           console.log('검색어 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data);

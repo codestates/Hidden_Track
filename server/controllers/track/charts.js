@@ -29,6 +29,6 @@ module.exports = async (req, res) => {
     popularchart.push(chart[i])
   }
 
-  res.status(200).json({latestchart: latestchart,popularchart:popularchart}
+  res.status(200).json({latestchart: latestchart,popularchart:popularchart})
 }
      
