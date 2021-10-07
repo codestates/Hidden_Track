@@ -17,35 +17,35 @@ function Recommend () {
   const [currentChart, setCurrentChart] = useState({});
   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
-      { headers: { accesstoken: accessToken } })
-      .then((res) => {
-        console.log('추천차트 요청 응답', res);
-        setRecommendChart(res.data.recommendchart);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
+  //     { headers: { accesstoken: accessToken } })
+  //     .then((res) => {
+  //       console.log('추천차트 요청 응답', res);
+  //       setRecommendChart(res.data.recommendchart);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => prev + 1);
-      if (recommendChart[0] === undefined) {
-        console.log('error');
-      } else {
-        setCurrentChart(recommendChart[index]);
-        if (index === 2) {
-          setIndex(0);
-        }
-      }
-    }, 2000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setIndex((prev) => prev + 1);
+  //     if (recommendChart[0] === undefined) {
+  //       console.log('error');
+  //     } else {
+  //       setCurrentChart(recommendChart[index]);
+  //       if (index === 2) {
+  //         setIndex(0);
+  //       }
+  //     }
+  //   }, 2000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [index]);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, [index]);
 
   function moveTrackDetail () {
     history.push(`/trackdetails/${currentChart.id}`);

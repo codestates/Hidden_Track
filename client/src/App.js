@@ -128,14 +128,14 @@ function App () {
 
   return (
     <>
-      <div className='nav-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual')
-          ? (
-            <></>)
-          : (
+      {loca.pathname === '/signup' || loca.pathname.match('/visual')
+        ? (
+          <></>)
+        : (
+          <div className='nav-container'>
             <Nav handleNotice={handleNotice} />
-            )}
-      </div>
+          </div>
+          )}
       {isLoading
         ? <LoadingIndicator />
         : <Switch>
