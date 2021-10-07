@@ -38,7 +38,7 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
   return (
     <section className='track-list-container'>
       <ul className='track-list-ul'>
-        {!search // 검색어 입력이 없다면 장르 or 해시태그 결과만 랜더링
+        {!search && Array.isArray(trackList)// 검색어 입력이 없다면 장르 or 해시태그 결과만 랜더링
           ? <>
             {trackList && trackList.length !== 0
               ? <div className='track-list-box'>

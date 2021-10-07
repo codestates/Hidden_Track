@@ -54,7 +54,9 @@ function TrackDetails ({ handleNotice, isLoading }) {
         handleNotice={handleNotice}
         trackId={trackId}
       />
-      <Lyrics trackDetail={trackDetail} />
+      <div className='lyrics-container'>
+        <Lyrics trackDetail={trackDetail} />
+      </div>
       <Replys
         userInfo={userInfo}
         trackDetail={trackDetail}

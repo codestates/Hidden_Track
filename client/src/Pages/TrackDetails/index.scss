@@ -176,6 +176,10 @@
     }
   }
 
+  .lyrics-container {
+    @include flexBox(flex, center, _, _, _);
+  }
+
   .replys-container {
     @include flexBox(flex, _, center, _, _);
     flex-direction: column;
