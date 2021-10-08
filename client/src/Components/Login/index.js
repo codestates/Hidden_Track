@@ -146,7 +146,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>
             <legend className='a11yHidden'>회원 로그인 폼</legend>
-            <h1>Hidden Track</h1>
+            <div className='sign-one'>Hidden Track</div>
             <input
               className='modal__login-id' placeholder='아이디를 입력하세요'
               type='text'

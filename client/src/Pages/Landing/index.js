@@ -3,9 +3,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import AOS from 'aos';
+
 import Slider from 'react-slick';
 import styled from 'styled-components';
-
+import Footer from '../../Components/Footer';
 import 'aos/dist/aos.css';
 // import './slick.css';
 // import './slick-theme.css';
@@ -209,6 +210,7 @@ function Landing () {
         </section>
 
       </div>
+      <Footer />
     </>
   );
 }

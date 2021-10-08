@@ -120,11 +120,11 @@ function App () {
     getToken();
   }, []);
 
-  // window.addEventListener('unload', () => {
-  //   // 브라우저 창 닫으면 리프레시 토큰 삭제해서 로그아웃 시킴
-  //   cookies.remove('refreshToken')
-  //   // 만약 로그인 상태유지 체크 누른 상태라면 브라우저 닫아도 쿠키 삭제 x
-  // })
+  window.addEventListener('unload', () => {
+    // 브라우저 창 닫으면 리프레시 토큰 삭제해서 로그아웃 시킴
+    cookies.remove('refreshToken')
+    // 만약 로그인 상태유지 체크 누른 상태라면 브라우저 닫아도 쿠키 삭제 x
+  })
 
   return (
     <>
@@ -174,14 +174,6 @@ function App () {
 
         </Switch>}
       <Notification notice={notice} />
-      <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
-          ? (
-            <></>)
-          : (
-            <Footer />
-            )}
-      </div>
 
     </>
   );

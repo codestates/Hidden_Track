@@ -23,10 +23,6 @@ export const initialState = {
       debut: ''
     }
   },
-  // onClickModify: {
-  // onClickModify: true
-  //   onClickModify: false
-  // },
   isLoading: {
     isLoading: false
   },
