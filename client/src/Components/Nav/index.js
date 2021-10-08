@@ -111,7 +111,7 @@ function Nav ({ handleNotice }) {
         <Link to='/main'>
           {/* <h1 className='logo'>Hidden Track</h1> */}
           <div className='logo sign-one'>
-          <span className='one-onOff-2'>HIDDEN</span><span className='one-onOff'>TRACK</span>
+            <span className='one-onOff-2'>HIDDEN</span><span className='one-onOff'>TRACK</span>
           </div>
 
         </Link>

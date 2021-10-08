@@ -103,11 +103,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     }
   }
 
-  function duplicateCheck (tag) {
-    return inputValue.tag.includes(tag)
-  } 
-
-
   // 파일 업로드시 확장자 유효성 검사 함수
   function isValidFile (key, file) {
     if (key === 'image') {
@@ -244,7 +239,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
         console.log('바디', body);
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            console.log('음원 등록 요청 응답',res.data);
+            console.log('음원 등록 요청 응답', res.data);
             if (res.status === 200 || res.status === 201) {
               const check = playList.map(el => {
                 return el.track.id === res.data.trackId;
@@ -295,7 +290,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   // ?##############################################################################################
 
   return (
-    <div id='modi-create' style={{width: window.innerWidth-14.8}}>
+    <div id='modi-create' style={{ width: window.innerWidth - 14.8 }}>
       {isValidUser()
         ? <>
           <div className='default-input-box'>
@@ -342,12 +337,12 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
               <span>가사</span>
               <textarea className='input-lyrics' placeholder='가사' value={inputValue.lyric} onChange={(e) => { handleInputValue('lyric', e); }} />
             </div>
-            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} duplicateCheck={duplicateCheck} />
+            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
           </section>
           <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
-          <Footer/>
+          <Footer />
           </>
         : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
     </div>

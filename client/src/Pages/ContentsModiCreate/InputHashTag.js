@@ -39,20 +39,19 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice, duplicateCheck
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
             if (e.target.value !== '') {
-              if (!tagList.includes(e.target.value)){
+              if (!tagList.includes(e.target.value)) {
                 if (tagList.length >= 5) {
                   handleNotice('HashTag는 5개까지 추가 가능합니다.', 5000);
                 } else {
                   handleInputValue('tag', e);
                   e.target.value = null;
                 }
-              }else {
+              } else {
                 handleNotice('HashTag가 중복되었습니다.', 5000);
               }
             } else {
               e.target.value = null;
             }
-
           }
         }}
       />

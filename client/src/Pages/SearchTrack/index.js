@@ -89,27 +89,27 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <>
-    <div className='searchtrack-container'>
-      <Genre genre={genre} />
-      {/* <div className='hashtag-box'>
+      <div className='searchtrack-container'>
+        <Genre genre={genre} />
+        {/* <div className='hashtag-box'>
         <HashTag tagList={[]} searchTag={hashTag} />
       </div> */}
-      <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
-      <TrackList
-        trackList={trackList}
-        dispatch={dispatch}
-        getTrackDetails={getTrackDetails}
-        handleNotice={handleNotice}
-        search={search}
-        hashTag={hashTag}
-        accessToken={accessToken}
-      />
-    </div>
-    <div>
-      <Footer />
-    </div>
+        <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
+        <TrackList
+          trackList={trackList}
+          dispatch={dispatch}
+          getTrackDetails={getTrackDetails}
+          handleNotice={handleNotice}
+          search={search}
+          hashTag={hashTag}
+          accessToken={accessToken}
+        />
+      </div>
+      <div>
+        <Footer />
+      </div>
     </>
-    
+
   );
 }
 
