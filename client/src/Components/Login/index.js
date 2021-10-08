@@ -14,6 +14,7 @@ import KakaoLogin from './KakaoLogin';
 // 함수 import
 import { accessTokenRequest } from '../../Components/TokenFunction';
 import './index.scss';
+import cross from '../../assets/cross.png';
 
 function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State 값인, 바뀐 isLoginBtn 값이 넘어오는 것이다.
   const isLoginModalOpen = useSelector(state => state.isLoginModalOpenReducer).isLoginModalOpen; // isModalOpen 관련
@@ -140,13 +141,13 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     <>
       <Portal elementId='modal-root'>
         <div
-          className='modal-backdrop__login' style={isLoginModalOpen ? { display: 'block' } : { display: 'none' }}
+          className='modal-backdrop__login' style={isLoginModalOpen ? { width: window.innerWidth, display: 'block' } : { display: 'none' }}
           visible={isLoginModalOpen} onClick={(e) => handleModalBack(e)}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>
             <legend className='a11yHidden'>회원 로그인 폼</legend>
-            <div className='sign-one'>Hidden Track</div>
+            <div className='sign-login' style={{ fontSize: '40px' }}>Hidden Track</div>
             <input
               className='modal__login-id' placeholder='아이디를 입력하세요'
               type='text'
@@ -166,7 +167,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
                 <input type='checkbox' />
                 <span>로그인 상태 유지</span>
               </div>
-              <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} value='회원가입' />
+              <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} style={{ color: '#fff' }} value='회원가입' />
             </div>
             <button
               className='modal__login-btn' type='submit' name='login-btn'
@@ -174,7 +175,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
             </button>
             {/* <button className='modal__login-btn' name='oauth-login-btn'>소셜 로그인</button> */}
             <KakaoLogin />
-            <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}>X</label>
+            <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}><img src={cross} /></label>
             <button id='modal-close-btn' style={{ display: 'none' }} />
           </fieldset>
         </form>

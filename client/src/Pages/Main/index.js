@@ -49,9 +49,9 @@ function Main () {
         <HashTag />
       </div>
       {/* <div className='main-img'> */}
-        {/* <img src={mainImg} />      */}
+      {/* <img src={mainImg} />      */}
 
-        {/* <div class="sign-two">
+      {/* <div class="sign-two">
         <i class="fa fa-heart-o currency" aria-hidden="true"></i>
         <div class="off">G</div>IRLS
         <i class="fa fa-heart-o currency" aria-hidden="true"></i>
@@ -60,7 +60,7 @@ function Main () {
         GIRLS
       </div> */}
 
-        {/*  <div class="sign-one">
+      {/*  <div class="sign-one">
         <i class="fa fa-heart-o heartoff" aria-hidden="true"></i>
         <div class="on">M</div>
         <div class="heartoff">U</div>
