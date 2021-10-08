@@ -32,7 +32,6 @@ function Main () {
 
   // }, []);
 
-
   return (
 
     <div id='main' style={{ height: window.innerHeight }}>

@@ -13,11 +13,10 @@ function Recommend () {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector(state => state.accessTokenReducer);
-  
+
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
   const number_ref = useRef(0);
-
 
   useEffect(() => {
     requestRecommend(); // Promise
@@ -47,8 +46,6 @@ function Recommend () {
       console.log(err);
     }
   };
-
-
 
   function moveTrackDetail () {
     history.push(`/trackdetails/${recommendChart[index].id}`);
