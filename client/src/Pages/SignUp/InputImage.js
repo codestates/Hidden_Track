@@ -34,7 +34,8 @@ function InputImage ({ inputValue, handleInputValue, initialImage, setImageFile 
       <div className='profile-btn-box'>
         <label className='profile-input-btn' htmlFor='profile'>파일첨부</label>
         <input id='profile' style={{ display: 'none' }} type='file' accept='.jpg, .jpeg, png, gif, bmp' onChange={(e) => handleProfile(e)} />
-        <button className='profile-delete-btn' onClick={(e) => deleteImage(e)}>이미지 삭제</button>
+        <label className='profile-delete-btn' htmlFor='profile-btn'>이미지 삭제</label>
+        <button id='profile-btn' style={{ display: 'none' }} onClick={(e) => deleteImage(e)}>이미지 삭제</button>
       </div>
     </div>
   );

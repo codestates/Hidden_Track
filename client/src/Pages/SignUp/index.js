@@ -157,7 +157,7 @@ function SignUp ({ handleNotice }) {
 
   return (
     <div className='sign-up'>
-      <h1 className='sign-up-logo' onClick={() => history.push('/')}>HIDDEN TRACK</h1>
+      <h1 className='sign-up-logo' onClick={() => history.push('/main')}>HIDDEN TRACK</h1>
       <h2 className='sign-up-title'>SignUp</h2>
       <div className='sign-up-container'>
         <div className='sign-up-input'>
@@ -192,7 +192,7 @@ function SignUp ({ handleNotice }) {
           </div>
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
-        <button className='sign-up-submit-btn' onClick={(e) => requestSignUp(e)}>가입하기</button>
+        <button className='contents__btn' onClick={(e) => requestSignUp(e)}>가입하기</button>
       </div>
       {isOpen
         ? <div>

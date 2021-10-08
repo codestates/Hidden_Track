@@ -78,7 +78,6 @@ function Main () {
 
       <Footer />
 
-
     </div>
   );
 }
