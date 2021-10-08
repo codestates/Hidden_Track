@@ -51,35 +51,10 @@
         transform: scale(1.1);
         transition: .2s;
     } 
-
   }
-
-}
-
-#hashtag-section:hover{
-  box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
-  0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
-  transition: .5s;
 }
 
 .clicked-tag {
-      box-shadow: 0 0 2.5px #fff, 0 0 7.5px #fff, 0 0 10px #fff, 0 0 3px #bc13fe,
-      0 0 6.4px #bc13fe, 0 0 10px #bc13fe, 0 0 16.2px #bc13fe, 0 0 20px #bc13fe;
-      // box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
-    }
-
-
-
-
-// > input {    
-//   flex: 1;
-//   border: none;
-//   height: 46px;
-//   font-size: 14px;
-//   padding: 4px 0 0 0;
-//   :focus {
-//   outline: transparent;
-// }
-// }
-
-
+  box-shadow: 0 0 2.5px #fff, 0 0 7.5px #fff, 0 0 10px #fff, 0 0 3px #bc13fe,
+  0 0 6.4px #bc13fe, 0 0 10px #bc13fe, 0 0 16.2px #bc13fe, 0 0 20px #bc13fe;
+}
