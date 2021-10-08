@@ -32,9 +32,6 @@ function Main () {
 
   // }, []);
 
-  function moveLanding () {
-    history.push('/landing');
-  }
   return (
 
     <div id='main' style={{ height: window.innerHeight }}>
