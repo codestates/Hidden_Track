@@ -295,7 +295,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   // ?##############################################################################################
 
   return (
-    <div id='modi-create' style={{width: window.innerWidth-14.8}}>
+    <div id='modi-create' style={{ width: window.innerWidth - 14.8 }}>
       {isValidUser()
         ? <>
           <div className='default-input-box'>
@@ -347,7 +347,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
           </div>
-          <Footer/>
+          <Footer />
           </>
         : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
     </div>

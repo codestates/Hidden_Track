@@ -26,8 +26,6 @@ function SearchTrack ({ handleNotice }) {
 
   // 검색 페이지에 랜더링될 목록 요청하는 함수
   function getSearchContents () {
-    console.log('dfgdfgdfgdfgdfdf', location.state);
-
     if (!genre && !hashTag && !search) return setTrackList([]);
     dispatch(isLoadingHandler(true));
 
@@ -89,27 +87,27 @@ function SearchTrack ({ handleNotice }) {
 
   return (
     <>
-    <div className='searchtrack-container'>
-      <Genre genre={genre} />
-      {/* <div className='hashtag-box'>
+      <div className='searchtrack-container'>
+        <Genre genre={genre} />
+        {/* <div className='hashtag-box'>
         <HashTag tagList={[]} searchTag={hashTag} />
       </div> */}
-      <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
-      <TrackList
-        trackList={trackList}
-        dispatch={dispatch}
-        getTrackDetails={getTrackDetails}
-        handleNotice={handleNotice}
-        search={search}
-        hashTag={hashTag}
-        accessToken={accessToken}
-      />
-    </div>
-    <div>
-      <Footer />
-    </div>
+        <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
+        <TrackList
+          trackList={trackList}
+          dispatch={dispatch}
+          getTrackDetails={getTrackDetails}
+          handleNotice={handleNotice}
+          search={search}
+          hashTag={hashTag}
+          accessToken={accessToken}
+        />
+      </div>
+      <div>
+        <Footer />
+      </div>
     </>
-    
+
   );
 }
 

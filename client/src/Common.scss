@@ -75,7 +75,7 @@
 
   text-decoration: none;
   text-transform: uppercase;
-
+  cursor: pointer;
   @include borderStyle(1px solid rgba(255, 255, 255, 0.3), 20px);
 
   transition: all 0.7s ease-out;
