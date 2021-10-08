@@ -6,117 +6,55 @@
   width: 100%;
   margin: 0 auto;
   margin-top: 250px;
-
 }
 
 .svg {
   // background-color: yellowgreen;
-  margin-top: -50px;
-  margin-left: -55px;
-  width: 100%;
   position: absolute;
-  z-index: -3;
+  margin: -50px 0 0 -55px;
+  width: 100%;
+  z-index: -2;
 
   svg {
+    // stroke-dasharray: ;
     height: 4500px;
     stroke: rgb(254, 3, 128);
-    // stroke-dasharray: ;
   }
 
   #move-landing {
-    opacity: 0.7;
+    // opacity: 0.7;
+    stroke-dasharray: 300px;
+    z-index: -1;
   }
 }
 
-#section1 {
 
-  button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 250px;
-    height: 60px;
-    font-size: 18px;
-    border: 1px solid #aaa;
-    border-radius: 20px;
-    color: #fff;
-    text-transform: uppercase;
-    cursor: pointer;
-    background-color: transparent;
-    transition: all .5s;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 100%;
-      height: 100%;
-      width: 100%;
-      background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
-      transition: all .5s;
-      z-index: -1;
-
-    }
-
-    &:hover {
-      color: #fff;
-      animation: shake 0.5s infinite;
-    }
-
-    &:hover::before {
-      transform: translateX(-100%);
-
-    }
-  }
-}
 
 
 #section1,
 #section2,
 #section3,
-#section4,
 #section5,
 #section6 {
 
   // background-color: aqua;
-  width: 78%;
-  height: 400px;
+  @include widthHeight(78%, 400px);
   margin: 0 auto;
   margin-bottom: 300px;
 
-
-  .landing__section1-figure {
+  .landing__figure {
     // background-color: chartreuse;
-    display: flex;
-    justify-content: space-around;
+    @include flexBox(flex, space-around, _, _, _);
     margin: 0 auto;
   }
 
-
-  .landing__section3-img {
-    background-image: url('../../assets/cyber5.gif');
-    background-color: purple;
-    background-repeat: no-repeat;
-    width: 480px;
-    height: 480px;
-    border-radius: 50px;
-    margin: 0;
-    background-size: cover;
-  }
-
-  .landing__section1-img,
-  .landing__section2-img {
+  .landing__img {
     // background-color: blueviolet;
-    width: 480px;
-    height: 480px;
-    margin-top: -40px;
+    @include widthHeight(480px, 480px);
+    @include background(contain, _, no-repeat);
     background-image: url('../../assets/landing1.png');
+    margin-top: -40px;
 
-    // background-image: url('../../assets/landing2.png');
-    // background-image: url('../../as/sets/landing3.png');
-    background-repeat: no-repeat;
-    background-size: contain;
     transition: all 1s;
 
     &:hover {
@@ -124,35 +62,26 @@
     }
   }
 
-
-  #landing__section1-figcaption {
+  #landing__figcaption {
 
     // background-color: dodgerblue;
-    width: 55%;
-    margin-top: 30px;
-    height: 300px;
-    margin-left: 30px;
+    @include widthHeight(55%, 300px);
+    margin: 30px 0 0 30px;
     position: relative;
 
-    .landing__section1-pre1 {
+    .landing__section1-pre1,
+    .landing__section1-pre2 {
       // background-color: darkcyan;
-
       text-align: left;
       margin: 0;
       margin-top: 20px;
       color: #fff;
-
     }
 
     .landing__section1-pre2 {
-      text-align: left;
-      margin: 0;
-      margin-top: 20px;
-      color: #fff;
       line-height: 1.6;
     }
   }
-
 
   @media (max-width: 1950px) {
     .landing__section1-pre1 {
@@ -206,50 +135,94 @@
       font-size: 13px;
     }
   }
-
 }
+
+
+
+#section1 {
+
+  button {
+    @include positionBox(absolute, _, _, -20px, 0);
+    background-color: transparent;
+    @include widthHeight(250px, 60px);
+    @include fontStyle(#fff, _, 18px, _);
+    @include borderStyle(1px solid #aaa, 20px);
+
+    text-transform: uppercase;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all .5s;
+
+    &::before {
+      content: '';
+      @include positionBox(absolute, 0, 0, 0, 100%);
+      @include widthHeight(100%, 100%);
+      background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+      transition: all .5s;
+      z-index: -1;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:hover::before {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+.landing__section3-img {
+  // background-color: purple;
+  background-image: url('../../assets/cyber5.gif');
+  @include background(cover, _, no-repeat);
+  @include widthHeight(400px, 400px);
+  border-radius: 50px;
+}
+
+#section4 {
+  position: relative;
+  // background-color: aqua;
+  width: 100%;
+  height: 500px;
+  color: #fff;
+  margin-bottom: 300px;
+
+  #landing__section4-figcaption {
+    height: 100px;
+    background-color: #B80E65;
+  }
+
+  .slick-slider {
+    // background-color: red;
+    width: 85%;
+    padding-left: 25px;
+    margin: 0 auto;
+  }
+
+  .slick-prev {
+    position: absolute;
+    left: 70px;
+    top: 50%;
+  }
+
+  .slick-next {
+    position: absolute;
+    top: 50%;
+    right: 70px;
+  }
+}
+
 
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
   }
 
-  10% {
-    transform: translate(-1px, -1px) rotate(-1deg);
-  }
-
-  20% {
-    transform: translate(3px, 1px) rotate(1deg);
-  }
-
-  30% {
-    transform: translate(3px, 2px) rotate(0deg);
-  }
-
-  40% {
-    transform: translate(1px, -1px) rotate(1deg);
-  }
-
   50% {
     transform: translate(-1px, 1px) rotate(-1deg);
   }
 
-  60% {
-    transform: translate(2px, -1px) rotate(0deg);
-  }
-
-  70% {
-    transform: translate(-1px, 1px) rotate(1deg);
-  }
-
-
-  80% {
-    transform: translate(3px, -1px) rotate(-1deg);
-  }
-
-  90% {
-    transform: translate(1px, 3px) rotate(0deg);
-  }
 
   100% {
     transform: translate(1px, -2px) rotate(1deg);

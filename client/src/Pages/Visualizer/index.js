@@ -15,18 +15,17 @@ class Canvas extends Component {
     constructor(props) {
         super(props)
         this.trackId = this.props.loca.pathname.split('/')[2];
-        console.log('트랙아이디', this.trackId)
         this.audio = new Audio();
         this.audio.volume = 0.5;
         this.audio.crossOrigin = "use-credentials"
         this.img = new Image();
         this.canvas = createRef();
-        this.getData()
         // this.audio.crossOrigin = "use-credentials"; // 자격증명을 하는거 쿠키 헤더
         // this.audio.crossOrigin = "anonymous"; //익명으로 요청보내는건데 자격증명 x default header로 확인하는거같음
     }
 
     state = {
+        context: {},
         title: '',
         nickName: '',
         soundtrack: '',
@@ -34,28 +33,29 @@ class Canvas extends Component {
     }
 
     getData = () => {
-        console.log('트랙 아이디!!',this.trackId)
         axios.get(`${process.env.REACT_APP_API_URL}/track/${this.trackId}`)
             .then(res => {
-                console.log(res.data)
                 this.setState({ title: res.data.track.title, 
                     nickName: res.data.track.user.nickName,
                     soundtrack: res.data.track.soundtrack,
                     img: res.data.track.img
                 })
             }).then(res => {
-                console.log(this.state.soundtrack)
                 this.img.src = this.state.img
                 axios.get(`${this.state.soundtrack}`).then(res => {
-                    console.log(res)
-                    console.log(res.status)
                     this.audio.src=res.config.url
                 })
             })
     } 
 
     componentDidMount () {
-        this.context = new (window.AudioContext || window.webkitAudioContext)();
+        this.getData()
+        this.context = new window.AudioContext();
+        this.setState({
+            context: this.context
+        })
+        // console.log(window.AudioNode)
+        // this.context = new AudioContext();
         this.source = this.context.createMediaElementSource(this.audio);
         this.analyser = this.context.createAnalyser();
         this.source.connect(this.analyser);
@@ -70,7 +70,7 @@ class Canvas extends Component {
     }
 
     animationLooper(canvas) {
-        console.log('실행')
+        // console.log('실행')
         canvas.width = width;
         canvas.height = height;
         ctx = canvas.getContext("2d");
@@ -126,6 +126,10 @@ class Canvas extends Component {
 
     togglePlay = () => {
         if(this.audio.paused) {
+            if(this.state.context.state === 'suspended'){
+                this.context = this.state.context.resume()
+                this.setState({ context: this.context})
+            }
             this.audio.play();
             this.rafId = requestAnimationFrame(this.tick);
         } else {
@@ -141,17 +145,10 @@ class Canvas extends Component {
     }
 
     render() {
-
         return (
             <div id='visualizer'>
                 {this.state.title.length?
                 <>
-                    {/* <button
-                    className='go-main-button' onClick={() => {
-                        this.props.history.push('/')
-                    }}
-                    >Go Main
-                    </button> */}
                     <div className="hamburger" id="hamburger-3" onClick={() => {
                         this.props.history.push('/main')
                     }}>

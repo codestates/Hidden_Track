@@ -10,12 +10,11 @@ import './index.scss';
 // trackId 값은 수정 버튼을 눌렀을때 localstorage에 저장시킨다. 여기서는 값만 가져오고 페이지를 벗어날때는 삭제시킨다.
 // trackdetail의 id값을 localstorage에 저장해서 새로고침시 값이 날라가지 않게 한다.
 axios.defaults.withCredentials = true;
-const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
+const default_album_img = 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/8281633626262253.png';
 
 function ContentsModiCreate ({ handleNotice, isLoading }) {
   const loca = useLocation();
   const trackId = loca.pathname.split('/')[2];
-  console.log(trackId);
   const history = useHistory();
   const userInfo = useSelector(state => state.userInfoReducer);
   const playList = useSelector(state => state.playListReducer.playList);
@@ -23,7 +22,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const trackDetail = useSelector(state => state.trackDetailReducer);
   // const isModify = useSelector(state => state.modifyReducer.onClickModify);
   const dispatch = useDispatch();
-  console.log(trackDetail);
   // console.log(accessToken)
   // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
@@ -38,7 +36,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const trackImgName = trackDetail.track.img.split('trackimage/')[1];
   const trackFileName = trackDetail.track.soundtrack.split('trackfile/')[1];
   const [files, setFiles] = useState({ image: { name: trackId ? trackImgName : '' }, audio: { name: trackId ? trackFileName : '' } });
-  console.log('파일', files.audio);
   // console.log('인풋', inputValue)
   // console.log('파일', files.audio.name)
   // const history = useHistory();
@@ -68,7 +65,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   // ?##############################################################################################
   // input값 state 저장 함수
   function handleInputValue (key, e, value) {
-    console.log('인풋중........');
     if (key === 'tag') {
       e.preventDefault();
       setInputValue({ ...inputValue, [key]: [...inputValue.tag, e.target.value] });
@@ -107,6 +103,11 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     }
   }
 
+  function duplicateCheck (tag) {
+    return inputValue.tag.includes(tag)
+  } 
+
+
   // 파일 업로드시 확장자 유효성 검사 함수
   function isValidFile (key, file) {
     if (key === 'image') {
@@ -129,12 +130,10 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   function isValidUser () {
     // 음원 등록으로 들어왔을 경우
     if (!trackId) {
-      console.log('여기1');
       return userInfo.admin === 'artist';
     }
     // 수정 버튼으로 들어왔을 경우
     else {
-      console.log('여기2');
       // console.log('어드민', userInfo.admin, '닉네임', userInfo.nickName, '음원 닉네임', trackDetail.track.user.nickName);
       return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.track.user.nickName;
     }
@@ -195,7 +194,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
       .then(res => {
         console.log(res.status);
         if (res.status === 201) {
-          console.log(res.data);
           // console.log('확인',{[key === 'image'?'img':'soundtrack']:key === 'image'?'res.data.image_url':'res.data.trackurl'})
           let data;
           if (key === 'image') {
@@ -228,10 +226,8 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     if (CheckEssential()) {
       let method;
       if (trackId) {
-        console.log('patch');
         method = axios.patch;
       } else {
-        console.log('post');
         method = axios.post;
       }
 
@@ -246,10 +242,9 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
         // console.log('인풋 확인', inputValue)
         const body = { ...inputValue, img: imageUpload, soundtrack: audioUpload };
         console.log('바디', body);
-        console.log(method);
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            console.log(res.data);
+            console.log('음원 등록 요청 응답',res.data);
             if (res.status === 200 || res.status === 201) {
               const check = playList.map(el => {
                 return el.track.id === res.data.trackId;
@@ -306,6 +301,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           <div className='default-input-box'>
             <div className='album-img-box'>
               <img className='album-img' src={src} />
+              <div className='album-input-info'>※ 이미지는 500 * 500 사이즈를 권장합니다.</div>
               <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
               <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
               <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
@@ -346,7 +342,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
               <span>가사</span>
               <textarea className='input-lyrics' placeholder='가사' value={inputValue.lyric} onChange={(e) => { handleInputValue('lyric', e); }} />
             </div>
-            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
+            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} duplicateCheck={duplicateCheck} />
           </section>
           <div className='modi-create-btn-box'>
             <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
