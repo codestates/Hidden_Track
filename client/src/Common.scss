@@ -67,7 +67,7 @@
 
 .contents__btn {
   display: inline-block;
-  @include fontStyle(rgba(223, 190, 106, 0.7), normal, 15px, .3em);
+  @include fontStyle(#fff, normal, 15px, .3em);
   // @include marginPadding(.625rem, 18px 80px 20px);
 
   background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);

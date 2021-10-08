@@ -10,7 +10,7 @@ import './index.scss';
 // trackId 값은 수정 버튼을 눌렀을때 localstorage에 저장시킨다. 여기서는 값만 가져오고 페이지를 벗어날때는 삭제시킨다.
 // trackdetail의 id값을 localstorage에 저장해서 새로고침시 값이 날라가지 않게 한다.
 axios.defaults.withCredentials = true;
-const default_album_img = 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/8281633626262253.png';
+const default_album_img = 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/8001633698891683.png';
 
 function ContentsModiCreate ({ handleNotice, isLoading }) {
   const loca = useLocation();
@@ -290,62 +290,69 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   // ?##############################################################################################
 
   return (
-    <div id='modi-create' style={{ width: window.innerWidth - 14.8 }}>
-      {isValidUser()
-        ? <>
-          <div className='default-input-box'>
-            <div className='album-img-box'>
-              <img className='album-img' src={src} />
-              <div className='album-input-info'>※ 이미지는 500 * 500 사이즈를 권장합니다.</div>
-              <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
-              <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
-              <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
-            </div>
-            <section className='default-input-section'>
-              <input
-                type='text' id='title-input' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => {
-                  if (e.target.value.length <= 50) {
-                    handleInputValue('title', e);
-                  } else {
-                    handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
-                    e.target.value = e.target.value.slice(0, e.target.value.length - 1);
-                  }
-                }}
-              />
-              <select name='genre' id='genre-input' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }}>
-                <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
-                <option style={{ background: '#1F104D' }} value='Ballad'>Ballad</option>
-                <option style={{ background: '#1F104D' }} value='HipHop'>HipHop</option>
-                <option style={{ background: '#1F104D' }} value='R&B'>R&B</option>
-                <option style={{ background: '#1F104D' }} value='Rock'>Rock</option>
-                <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
-              </select>
-              <div>
-                <label className='music-release-label' htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
-                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
+    <>
+      <div id='modi-create'>
+        {isValidUser()
+          ? <>
+            <div className='default-input-box'>
+              <div className='album-img-box'>
+                <img className='album-img' src={src} />
+                <div className='album-input-info'>※ 이미지는 500 * 500 사이즈를 권장합니다.</div>
+                <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
+                <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
+                <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
               </div>
-              <div>
-                <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
-                <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
-                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
-              </div>
+              <section className='default-input-section'>
+                <input
+                  type='text' id='title-input' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => {
+                    if (e.target.value.length <= 50) {
+                      handleInputValue('title', e);
+                    } else {
+                      handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
+                      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+                    }
+                  }}
+                />
+                {/* <span id='genre-input' className='music-input'></span> */}
+                <div className='music-input-box'>
+                  <label className='music-genre-release-label' htmlFor='music-genre-release' style={{ fontSize: '20px' }}>장르 :</label>
+                  <select name='genre' id='genre-input' className='music-genre-release' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }}>
+                    <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
+                    <option style={{ background: '#1F104D' }} value='Ballad'>Ballad</option>
+                    <option style={{ background: '#1F104D' }} value='HipHop'>HipHop</option>
+                    <option style={{ background: '#1F104D' }} value='R&B'>R&B</option>
+                    <option style={{ background: '#1F104D' }} value='Rock'>Rock</option>
+                    <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
+                  </select>
+                </div>
+                <div class='music-input-box'>
+                  <label className='music-genre-release-label' htmlFor='music-genre-release' style={{ fontSize: '20px' }}>발매일 :</label>
+                  <input type='date' className='music-genre-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
+                </div>
+                <div>
+                  <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
+                  <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
+                  <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
+                </div>
 
-            </section>
-          </div>
-          <section className='music-lyrics-hashtag-box'>
-            <div className='music-lyrics-input'>
-              <span>가사</span>
-              <textarea className='input-lyrics' placeholder='가사' value={inputValue.lyric} onChange={(e) => { handleInputValue('lyric', e); }} />
+              </section>
             </div>
-            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
-          </section>
-          <div className='modi-create-btn-box'>
-            <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
-          </div>
-          <Footer />
-          </>
-        : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
-    </div>
+            <section className='music-lyrics-hashtag-box'>
+              <div className='music-lyrics-input'>
+                <label className='music-lyrics-label'>가사</label>
+                <textarea className='input-lyrics' placeholder='가사를 작성해주세요' value={inputValue.lyric} onChange={(e) => { handleInputValue('lyric', e); }} />
+              </div>
+              <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
+            </section>
+            <div className='modi-create-btn-box'>
+              <button className='contents__btn modi-create-btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
+            </div>
+
+            </>
+          : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
+      </div>
+      <Footer />
+    </>
   );
 }
 

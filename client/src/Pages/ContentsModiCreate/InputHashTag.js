@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import './inputHashTag.scss';
 
 function InputHashTag ({ tagList, handleInputValue, handleNotice, duplicateCheck }) {
+  // 특수문자 정규식 변수(공백 미포함)
+  const replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi;
+
+  // 완성형 아닌 한글 정규식
+  const replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+
   // 태그 삭제 함수
   const removeTags = (indexToRemove, e) => {
     // console.log(tagList)
@@ -43,8 +49,14 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice, duplicateCheck
                 if (tagList.length >= 5) {
                   handleNotice('HashTag는 5개까지 추가 가능합니다.', 5000);
                 } else {
-                  handleInputValue('tag', e);
-                  e.target.value = null;
+                  if (e.target.value.match(replaceNotFullKorean)) {
+                    handleNotice('한글은 완성형으로 작성해주세요', 5000);
+                  } else if (e.target.value.match(replaceChar)) {
+                    handleNotice('특수문자는 사용이 불가능합니다.', 5000);
+                  } else {
+                    handleInputValue('tag', e);
+                    e.target.value = null;
+                  }
                 }
               } else {
                 handleNotice('HashTag가 중복되었습니다.', 5000);

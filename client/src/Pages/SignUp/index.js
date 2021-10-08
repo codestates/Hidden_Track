@@ -157,7 +157,7 @@ function SignUp ({ handleNotice }) {
 
   return (
     <div className='sign-up'>
-      <h1 className='sign-up-logo' onClick={() => history.push('/main')}>HIDDEN TRACK</h1>
+      <div className='sign-up-logo sign-one' onClick={() => history.push('/main')}><span className='one-onOff-2'>HIDDEN</span><span className='one-onOff'>TRACK</span></div>
       <h2 className='sign-up-title'>SignUp</h2>
       <div className='sign-up-container'>
         <div className='sign-up-input'>
