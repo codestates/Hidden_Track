@@ -7,6 +7,7 @@ const s3 = new AWS.S3();
 module.exports = {  
    get: async (req,res) => {
     const accessTokenData = isAuthorized(req)
+    console.log(accessTokenData)
      const { trackId } = req.params;
      const likes = db.sequelize.models.likes;
   
@@ -78,20 +79,19 @@ module.exports = {
     },
 
     post: async (req,res) =>{ 
-      console.log(req.body)
+      console.log('요청 바디',req.body)
       // console.log(req.headers)
      //req.header -> accesstoken, req.body ->tag(array),title,img,genre,releaseAt,soundtrack,lyric
      const accessTokenData = isAuthorized(req);
      const { tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
      const tagtracks = db.sequelize.models.tagtracks;
-
     if(!title || !img || !genre || !releaseAt || !soundtrack  ) {
       res.status(400).json({message: "input values"})
     }
     if (!accessTokenData) {
        res.status(401).json({ message : "unauthorized"});
     }
-    
+    console.log('크리에트 전')
     const createTrack = await track.create({
       title : title,
       img : img,
@@ -102,19 +102,20 @@ module.exports = {
       lyric: lyric,
       views : 0
     });
-
+    console.log('해시태그 전')
     for(let i =0;i<tag.length;i++){
        const [findHashTag,created] =  await hashtag.findCreateFind({
            where : { tag : tag[i] },
            default : { tag : tag[i] }
         })
-        
-        await tagtracks.create({
+        console.log('태그 크리에이트 전', "파인드 해쉬태그", findHashTag)
+        const temt = await tagtracks.create({
             trackId : createTrack.dataValues.id,
             hashtagId : findHashTag.dataValues.id
         })
+        console.log('태그 트랙스', temt)
     }
-    
+      console.log('응답 전')
      res.status(201).json( {trackId: createTrack.id } );
     },
 

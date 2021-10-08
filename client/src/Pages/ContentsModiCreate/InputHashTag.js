@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './inputHashTag.scss';
 
-function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
+function InputHashTag ({ tagList, handleInputValue, handleNotice, duplicateCheck }) {
   // 태그 삭제 함수
   const removeTags = (indexToRemove, e) => {
     // console.log(tagList)
@@ -39,15 +39,20 @@ function InputHashTag ({ tagList, handleInputValue, handleNotice }) {
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
             if (e.target.value !== '') {
-              if (tagList.length >= 5) {
-                handleNotice('HashTag는 5개까지 추가 가능합니다.', 5000);
-              } else {
-                handleInputValue('tag', e);
-                e.target.value = null;
+              if (!tagList.includes(e.target.value)){
+                if (tagList.length >= 5) {
+                  handleNotice('HashTag는 5개까지 추가 가능합니다.', 5000);
+                } else {
+                  handleInputValue('tag', e);
+                  e.target.value = null;
+                }
+              }else {
+                handleNotice('HashTag가 중복되었습니다.', 5000);
               }
             } else {
               e.target.value = null;
             }
+
           }
         }}
       />
