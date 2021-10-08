@@ -51,7 +51,7 @@ function Main () {
         <span className='main-hashtag-title sign-three'>H a s h T a g s</span>
         <HashTag />
       </div>
-      <div className='main-img'>
+      {/* <div className='main-img'> */}
         {/* <img src={mainImg} />      */}
 
         {/* <div class="sign-two">
@@ -74,7 +74,7 @@ function Main () {
         <i class="fa fa-heart-o heartoff" aria-hidden="true"></i>
       </div>
 */}
-      </div>
+      {/* </div> */}
 
       <Footer />
 

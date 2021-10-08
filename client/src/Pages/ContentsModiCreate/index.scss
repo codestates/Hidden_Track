@@ -19,6 +19,11 @@
             align-items: center;
             width: 50%;
             
+            .album-input-info {
+                margin-top: 12px;
+                color: #a8a8a8;
+            }
+
             .album-input-btn {
                 margin-top: 20px;
                 cursor: pointer;
@@ -28,8 +33,8 @@
                 // box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px rgb(254, 3, 128),
                 // 0 0 2px rgb(254, 3, 128), 0 0 13px rgb(254, 3, 128), 0 0 38px rgb(254, 3, 128), 0 0 50px rgb(254, 3, 128);
                 // border: 1px; 
-                width: 450px;
-                height: 450px;
+                width: 500px;
+                height: 500px;
                 display: flex;
                 border-radius: 20px;
                 box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
