@@ -69,7 +69,7 @@ module.exports = {
      let myLike = false;
      if(accessTokenData){
        const findLike = await likes.findOne({
-         where: { trackId: id , userId: accessTokenData.id }
+         where: { trackId: trackId , userId: accessTokenData.id }
        })
        if(findLike) { myLike =true }
      }
@@ -78,9 +78,6 @@ module.exports = {
     },
 
     post: async (req,res) =>{ 
-      console.log(req.body)
-      // console.log(req.headers)
-     //req.header -> accesstoken, req.body ->tag(array),title,img,genre,releaseAt,soundtrack,lyric
      const accessTokenData = isAuthorized(req);
      const { tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
      const tagtracks = db.sequelize.models.tagtracks;
@@ -119,9 +116,6 @@ module.exports = {
     },
 
    patch :  async (req,res) =>{ 
-
-     console.log('패치', req.body)
-    //  console.log(req.body)
     const accessTokenData = isAuthorized(req);
     const { id, tag ,title,img,genre,releaseAt,soundtrack,lyric } = req.body;
     const tagtracks = db.sequelize.models.tagtracks;
@@ -194,7 +188,6 @@ module.exports = {
     res.status(200).json( {trackId: id } );
    },
    delete :  async (req,res) =>{ 
-    
    const { id } = req.params;
    const tagtracks = db.sequelize.models.tagtracks;
    const likes = db.sequelize.models.likes;
