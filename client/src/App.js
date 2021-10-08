@@ -29,9 +29,6 @@ function App () {
   const authorizationCode = new URL(window.location.href).searchParams.get('code');
   // const keepLogin = new URL(window.location.href).searchParams.get("state");
   // const email = new URL(window.location.href).searchParams.get('account_email');
-  console.log('소셜 로그인시 받은 authorization code', authorizationCode);
-  // console.log(keepLogin)
-  // console.log('email',email)
   const [notice, setNotice] = useState([]);
 
   // 알림 추가, 삭제 핸들러
@@ -93,7 +90,6 @@ function App () {
           authorizationCode
         })
           .then(async (res) => {
-            console.log(res.data);
             if (res.status === 200) {
               // 서버에서 응답으로 리프레시 토큰(쿠키), 액세스 토큰 옴
               // 받은 액세스 토큰을 전역상태에 저장
