@@ -49,8 +49,10 @@ function App () {
   useEffect(() => {
     async function tokenRequest () {
       dispatch(isLoadingHandler(true));
+      console.log('11111111111111111111111')
       if (cookies.get('refreshToken')) {
         const token = await refreshTokenRequest();
+      console.log('2222222222222222222222')
         if (token) {
           // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
           dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
