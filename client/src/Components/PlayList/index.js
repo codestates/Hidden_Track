@@ -2,8 +2,6 @@ import React from 'react';
 import trash from '../../assets/trash.png';
 
 function PlayList ({ playListId, num, music, handleChangeMusic, handleDeleteMusic }) {
-  // console.log('키',trackId)
-  // console.log(music)
   return (
     <li className='track'>
       <button className='track-delete' onClick={(e) => { handleDeleteMusic(e, num, playListId); }}><img src={trash} width='20px' /></button>
