@@ -24,7 +24,6 @@ function TrackDetails ({ handleNotice, isLoading }) {
   const trackId = location.pathname.split('/')[2];
 
   useEffect(() => {
-    console.log('dddd', trackId);
     dispatch(isLoadingHandler(true));
     // 새로고침시 location pathname으로 음원 상세정보 다시 받아옴
     axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`)
