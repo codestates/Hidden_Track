@@ -25,7 +25,7 @@ module.exports = {
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: true, //배포 환경에서는 true로.
-        sameSite: "none", //배포환경에서는 hiddentrack만..
+        SameSite: "None", //배포환경에서는 hiddentrack만..
         domain: 'www.hiddentrack.link',
         maxAge: 60 * 60 * 24 * 1000,
       });
