@@ -2,7 +2,8 @@ const { track , hashtag, user } = require("../../models")
 
 module.exports =  {  
    
-    get: async (req, res) =>{ 
+    get: async (req, res) =>{
+        console.log('해시태그 요청',req.params)
      const { tag } =req.params;
      
      if(!tag){

@@ -24,9 +24,9 @@ module.exports = {
     
     sendRefreshToken: (res, refreshToken) => {
       res.cookie("refreshToken", refreshToken, {
-        HttpOnly: true,
-        Secure: true, //배포 환경에서는 true로.
-        SameSite: "None", //배포환경에서는 hiddentrack만..
+        httpOnly: true,
+        secure: true, //배포 환경에서는 true로.
+        sameSite: "None", //배포환경에서는 hiddentrack만..
       });
     },
 
