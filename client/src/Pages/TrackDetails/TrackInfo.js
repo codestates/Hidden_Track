@@ -8,6 +8,7 @@ import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 import HashTag from '../../Components/HashTag';
 import { refreshTokenRequest } from '../../Components/TokenFunction';
+import playButton from '../../assets/listen.png';
 
 function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice, trackId }) {
   const dispatch = useDispatch();
@@ -205,6 +206,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
     <div className='trackinfo-container'>
       <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
         {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
+        <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} art='playButton' /></button>
       </div>
       <section className='trackinfo-desc'>
         <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>
@@ -226,7 +228,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
         </div>
         <div className='trackinfo-btn-box'>
           <button className='contents__btn trackinfo-playlist-btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
-          <button className='contents__btn trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
+
           {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
             <img className='like-btn' src={likeImage} alt='' />
           </button> */}

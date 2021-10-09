@@ -149,6 +149,7 @@ function Landing () {
             stroke='#f16ffa'
             style={{ filter: 'url(#glow)' }}
             opacity='.7'
+
           />
         </svg>
       </div>
