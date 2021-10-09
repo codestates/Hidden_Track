@@ -48,7 +48,7 @@ module.exports = {
         attributes: ['tag']
       }]
     });
-   
+
     const { count, rows } = await likes.findAndCountAll({
       where: { trackId: trackId }
     });
@@ -77,7 +77,6 @@ module.exports = {
   },
 
   post: async (req, res) => {
-
     // req.header -> accesstoken, req.body ->tag(array),title,img,genre,releaseAt,soundtrack,lyric
     const accessTokenData = isAuthorized(req);
     const { tag, title, img, genre, releaseAt, soundtrack, lyric } = req.body;
@@ -88,7 +87,7 @@ module.exports = {
     if (!accessTokenData) {
       res.status(401).json({ message: 'unauthorized' });
     }
-   
+
     const createTrack = await track.create({
       title: title,
       img: img,
@@ -99,20 +98,19 @@ module.exports = {
       lyric: lyric,
       views: 0
     });
-    
+
     for (let i = 0; i < tag.length; i++) {
       const [findHashTag, created] = await hashtag.findCreateFind({
         where: { tag: tag[i] },
         default: { tag: tag[i] }
       });
-      
+
       const temt = await tagtracks.create({
         trackId: createTrack.dataValues.id,
         hashtagId: findHashTag.dataValues.id
       });
-      
     }
-   
+
     res.status(201).json({ trackId: createTrack.id });
   },
 

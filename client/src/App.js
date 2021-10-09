@@ -66,7 +66,7 @@ function App () {
             // dispatch(getUserInfo(userInfo));
           }
         } else {
-          handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
+          // handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
           dispatch(isLoginHandler(false));
           dispatch(isLoadingHandler(false));
         }
@@ -169,14 +169,6 @@ function App () {
 
         </Switch>}
       <Notification notice={notice} />
-      <div className='footer-container'>
-        {loca.pathname === '/signup' || loca.pathname.match('/visual') || loca.pathname === '/'
-          ? (
-            <></>)
-          : (
-            <Footer />
-            )}
-      </div>
 
     </>
   );

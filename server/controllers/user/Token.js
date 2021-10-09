@@ -5,9 +5,11 @@ module.exports = async (req, res) => {
   // req.cookie -> refreshtoken
 
   // refreshtoken 값저장후  만약에 안들어왔다라면 에러핸들링
+
   const refreshToken = req.cookies.refreshToken;
+
   if (!refreshToken) {
-    res.status(400).json({ message: 'no token' });
+    return res.status(400).json({ message: 'no token' });
   }
 
   // 원래 유저와 같은 refreshtoken 값이 맞는지 확인
@@ -39,5 +41,6 @@ module.exports = async (req, res) => {
   const accessToken = sign(userInfo, process.env.ACCESS_SECRET, {
     expiresIn: '1h'
   });
+
   res.status(200).json({ data: accessToken });
 };
