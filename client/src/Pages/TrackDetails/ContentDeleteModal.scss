@@ -16,17 +16,21 @@
 .modal-container__content-delete {
   // position: absolute;
   // @include PositionBox(50%, _, 50%, _);
-  @include positionBox(absolute, 50%, _, _, 50%);
+  @include positionBox(fixed, 50%, _, _, 50%);
   margin: -150px 0 0 -200px;
   z-index: 20;
-  background-color: #fff;
+  // background-color: #fff;
+  color: #fff;
+  border-radius: 35px;
+  background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
+  border: 2.5px solid rgb(255, 117, 248);
   @include flexBox(flex, center, center, _, _);
   @include widthHeight(400px, 200px);
 
   fieldset {
     @include flexBox(flex, space-between, center, _, _);
     flex-direction: column;
-    @include widthHeight(300px, 100px);
+    @include widthHeight(300px, 120px);
   }
 
   .a11yHidden {
@@ -40,12 +44,17 @@
 
   .modal__content-delete-btn {
     @include flexBox(flex, space-around, center, _, _);
-    @include widthHeight(150px, _);
+    @include widthHeight(300px, _);
     // background-color: red;
 
     button {
       background-color: transparent;
-      border: 0;
+      // border: 0;
+      color: #fff;
+      width: 100px;
+      border: 1px solid rgb(255, 117, 248);
+      border-radius: 15px;
+      padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
     }
@@ -54,7 +63,7 @@
   .content-delete-modal-close-btn {
     // position: absolute;
     // @include PositionBox(3%, _, _, 5%);
-    @include positionBox(absolute, 50%, 5%, _, _);
+    @include positionBox(absolute, 5%, 5%, _, _);
     font-size: 20px;
     cursor: pointer;
   }
