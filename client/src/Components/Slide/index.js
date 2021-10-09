@@ -41,8 +41,6 @@ function Slide () {
     axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
       { headers: { accesstoken: accessToken } })
       .then((res) => {
-        console.log('인기,최신 요청 응답', res);
-        // setRecommendChart(res.data.recommendchart);
         setChart(res.data.popularchart);
         setLatestChart(res.data.latestchart);
         setPopularChart(res.data.popularchart);

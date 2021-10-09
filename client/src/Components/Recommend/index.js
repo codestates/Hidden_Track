@@ -24,7 +24,6 @@ function Recommend () {
     const interval = setInterval(() => {
       number_ref.current += 1;
       setIndex(number_ref.current);
-      // console.log(number_ref.current);
       if (number_ref.current >= 3) {
         number_ref.current = 0;
         setIndex(number_ref.current);
@@ -39,8 +38,6 @@ function Recommend () {
     try {
       const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
         { headers: { accesstoken: accessToken } });
-      // setRecommendChart(result.data.recommendchart);
-      console.log(result);
       return result;
     } catch (err) {
       console.log(err);
