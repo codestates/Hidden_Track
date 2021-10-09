@@ -35,7 +35,6 @@ function Main () {
   return (
     <>
       <div id='main'>
-        {/* <button onClick={moveLanding}>랜딩</button> */}
         <div className='main-slides'>
           <Slide />
           <Recommend />
@@ -48,30 +47,6 @@ function Main () {
           <span className='main-hashtag-title sign-three'>H a s h T a g s</span>
           <HashTag />
         </div>
-        {/* <div className='main-img'> */}
-        {/* <img src={mainImg} />      */}
-
-        {/* <div class="sign-two">
-        <i class="fa fa-heart-o currency" aria-hidden="true"></i>
-        <div class="off">G</div>IRLS
-        <i class="fa fa-heart-o currency" aria-hidden="true"></i>
-        GI<div class="off">RL</div>S
-        <i class="fa fa-heart-o currency heart-off" aria-hidden="true"></i>
-        GIRLS
-      </div> */}
-
-        {/*  <div class="sign-one">
-        <i class="fa fa-heart-o heartoff" aria-hidden="true"></i>
-        <div class="on">M</div>
-        <div class="heartoff">U</div>
-        <div class="on">S</div>
-        <div class="heartoff">I</div>
-        <div class="on">C</div>
-        <i class="fa fa-heart-o " aria-hidden="true"></i>
-        <i class="fa fa-heart-o heartoff" aria-hidden="true"></i>
-      </div>
-*/}
-        {/* </div> */}
       </div>
       <Footer />
     </>

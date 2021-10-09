@@ -27,7 +27,6 @@ function InputID ({ inputValue, handleInputValue, validMessage, handleValidMessa
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/loginidduplication/${inputValue.id}`)
       .then(res => {
-        console.log(res);
         if (res.status === 200) {
           handleValidMessage('validId', '사용 가능한 아이디 입니다.');
         }

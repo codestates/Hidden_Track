@@ -123,8 +123,7 @@ function SignUp ({ handleNotice }) {
   function postSignUp () {
     let admin = 'listener';
     if (selectBtn) admin = 'artist';
-    console.log('dsfsdfsdfsd');
-    console.log(inputValue);
+
     axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {
       loginId: inputValue.id,
       password: inputValue.password,

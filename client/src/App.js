@@ -5,7 +5,6 @@ import { isLoginHandler, getAccessToken, getUserInfo, isLoadingHandler } from '.
 import Nav from './Components/Nav';
 import SignUp from './Pages/SignUp';
 import Main from './Pages/Main';
-import Footer from './Components/Footer';
 import Canvas from './Pages/Visualizer';
 import TrackDetails from './Pages/TrackDetails';
 import MyPage from './Pages/MyPage';
@@ -16,7 +15,6 @@ import LoadingIndicator from './Components/LoadingIndicator';
 import Landing from './Pages/Landing';
 
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
-import Cookies from 'universal-cookie';
 import axios from 'axios';
 
 axios.defaults.withCredentials =true;
@@ -25,12 +23,10 @@ function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
-  const cookies = new Cookies();
 
   const isLoading = useSelector(state => state.loadingIndicatorReducer).isLoading;
   const authorizationCode = new URL(window.location.href).searchParams.get('code');
-  // const keepLogin = new URL(window.location.href).searchParams.get("state");
-  // const email = new URL(window.location.href).searchParams.get('account_email');
+  // console.log('소셜 로그인시 받은 authorization code', authorizationCode);
   const [notice, setNotice] = useState([]);
 
   // 알림 추가, 삭제 핸들러
@@ -73,7 +69,6 @@ function App () {
           handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
           dispatch(isLoginHandler(false));
           dispatch(isLoadingHandler(false));
-          cookies.remove('refreshToken');
         }
     //   } else {
     //     dispatch(isLoginHandler(false));
@@ -107,6 +102,7 @@ function App () {
             }
           })
           .catch(err => {
+            console.log(err.reponse);
             if (err.reponse) {
               // 서버에서 에러처리한 코드 에러 핸들링
               if (err.reponse.status === 401) handleNotice('로그인에 실패하였습니다.', 5000); // code가 서버에 전달되지 않는 경우

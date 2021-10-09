@@ -24,7 +24,6 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${inputValue.nickName}`)
       .then(res => {
-        console.log(res.data);
         if (res.status === 200) {
           handleValidMessage('validNick', '사용 가능한 닉네임 입니다.');
         }

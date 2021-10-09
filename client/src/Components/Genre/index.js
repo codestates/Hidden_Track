@@ -8,7 +8,6 @@ function Genre ({ genre }) {
 
   // 장르 선택시 실행되는 함수
   function clickGenre (e) {
-    console.log(e.target.getAttribute('value'));
     const genre = e.target.getAttribute('value');
     // 검색 페이지로 이동
     history.push({

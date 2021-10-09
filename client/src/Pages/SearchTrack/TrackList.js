@@ -1,15 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-// import axios from 'axios';
 import HashTag from '../../Components/HashTag';
 
-function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search, hashTag, accessToken }) {
+function TrackList ({ trackList, search, hashTag }) {
   const history = useHistory();
 
   // 특정 음원을 클릭 했을 때 실행되는 함수
   function moveToTrackDetails (e) {
     const trackId = e.target.getAttribute('value');
-    console.log(trackId);
 
     history.push(`/trackdetails/${trackId}`);
     // 클릭한 음원의 상세 정보 요청
@@ -36,7 +34,7 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
     //     }
     //   });
   }
-  console.log(trackList);
+
   return (
     <section className='track-list-container'>
       <ul className='track-list-ul'>

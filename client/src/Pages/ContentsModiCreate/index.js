@@ -20,10 +20,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const playList = useSelector(state => state.playListReducer.playList);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
-  // const isModify = useSelector(state => state.modifyReducer.onClickModify);
   const dispatch = useDispatch();
-  // console.log(accessToken)
-  // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
     id: trackId ? trackDetail.track.id : '',
     title: trackId ? trackDetail.track.title : '',
@@ -36,9 +33,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const trackImgName = trackDetail.track.img.split('trackimage/')[1];
   const trackFileName = trackDetail.track.soundtrack.split('trackfile/')[1];
   const [files, setFiles] = useState({ image: { name: trackId ? trackImgName : '' }, audio: { name: trackId ? trackFileName : '' } });
-  // console.log('인풋', inputValue)
-  // console.log('파일', files.audio.name)
-  // const history = useHistory();
+
   useEffect(() => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
     if (trackId) {
@@ -47,7 +42,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           if (res.status === 200) dispatch(getTrackDetails(res.data));
         })
         .catch(err => {
-          console.log(err.response);
           if (err.response) {
             if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
             if (err.response.status === 404) {
@@ -58,7 +52,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
         });
     }
     return () => {
-      // dispatch(isClickModify(false));
+
     };
   }, []);
 
@@ -71,12 +65,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     } else if (key === 'deleteTag') {
       e.preventDefault();
       setInputValue({ ...inputValue, tag: value });
-    }
-    // else if (key === 'soundtrack' || key === 'img'){
-    //   console.log(key, value)
-    //   setInputValue({ ...inputValue, [key]: value });
-    // }
-    else {
+    } else {
       e.preventDefault();
       setInputValue({ ...inputValue, [key]: e.target.value });
     }
@@ -115,7 +104,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
         'image/bmp'
       ];
       return type.indexOf(file.type) > -1;
-      // return file.type.match('image/');
     } else if (key === 'audio') {
       return file.type.match('audio/');
     }
@@ -129,7 +117,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     }
     // 수정 버튼으로 들어왔을 경우
     else {
-      // console.log('어드민', userInfo.admin, '닉네임', userInfo.nickName, '음원 닉네임', trackDetail.track.user.nickName);
       return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.track.user.nickName;
     }
   }
@@ -187,7 +174,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     // return method('http://localhost:4000/upload', formData)
     return method(`${process.env.REACT_APP_API_URL}/track/${path}`, formData)
       .then(res => {
-        console.log(res.status);
         if (res.status === 201) {
           // console.log('확인',{[key === 'image'?'img':'soundtrack']:key === 'image'?'res.data.image_url':'res.data.trackurl'})
           let data;
@@ -229,17 +215,13 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
       dispatch(isLoadingHandler(true));
       handleNotice('업로드중.. 잠시 기다려주세요', 5000);
       const audioUpload = await uploadFile('audio', method);
-      console.log('오디오 완', audioUpload);
       const imageUpload = await uploadFile('image', method);
-      console.log('이미지 완', imageUpload);
+
       if (audioUpload && imageUpload) {
-        // console.log('실행?');
-        // console.log('인풋 확인', inputValue)
         const body = { ...inputValue, img: imageUpload, soundtrack: audioUpload };
-        console.log('바디', body);
+
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            console.log('음원 등록 요청 응답', res.data);
             if (res.status === 200 || res.status === 201) {
               const check = playList.map(el => {
                 return el.track.id === res.data.trackId;
@@ -249,7 +231,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                   .then(res => {
                     if (res.status === 200) {
                       dispatch(inputPlayList(res.data.playlist));
-                      console.log('응답 플레이리스트', res.data);
                     }
                   })
                   .catch(err => {
@@ -265,7 +246,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
               handleNotice(trackId ? '음원 수정을 완료하였습니다' : '음원 등록을 완료하였습니다.', 5000);
               axios.get();
               dispatch(isLoadingHandler(false));
-              console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
               history.push(`/trackdetails/${res.data.trackId}`);
             }
           })
@@ -280,7 +260,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
             console.log(err);
           });
       } else {
-        console.log('못함?');
+
       }
       dispatch(isLoadingHandler(false));
     }

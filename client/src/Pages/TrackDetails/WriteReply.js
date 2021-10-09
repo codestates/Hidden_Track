@@ -25,7 +25,6 @@ function WriteReply ({
     // 댓글 수정 버튼 클릭시 댓글 작성란에 해당 댓글 내용 불러오기
     if (clickedBtn === '수정') {
       const reply = trackDetail.track.replies.filter(el => el.id === Number(selectedReplyId));
-      // console.log('ffff',reply[0].content)
       if (reply && reply.length !== 0) setInputText(reply[0].content);
     }
   }, [clickedBtn, selectedReplyId, trackDetail]);
@@ -41,7 +40,6 @@ function WriteReply ({
 
   // 글자수 제한 유효성 검사 함수
   function isValidLength () {
-    // console.log('유효성 검사 함수',inputText.length)
     if (inputText.length > 100) {
       handleNotice('댓글은 100자를 초과할 수 없습니다.', 5000);
       setInputText(inputText.slice(0, 100));
@@ -65,12 +63,10 @@ function WriteReply ({
       content: inputText
     })
       .then(res => {
-        console.log('댓글 등록 요청 응답', res.data);
         if (res.status === 201) {
           // 댓글 등록 성공시 음원 상세 정보 새로 받아오는 요청
           axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
-              console.log(res.data);
               if (res.status === 200) {
                 // 댓글 등록 성공후 음원 상세 정보 다시 받아옴
                 dispatch(getTrackDetails(res.data));
@@ -100,7 +96,6 @@ function WriteReply ({
   // 댓글 수정 버튼 클릭시 수정 요청 보내는 함수
   function requestModifyReply (e) {
     e.preventDefault();
-    console.log(inputText);
 
     if (!inputText) return handleNotice('댓글을 입력하세요', 5000);
 
@@ -111,7 +106,6 @@ function WriteReply ({
         withCredentials: true
       })
         .then(res => {
-          console.log('리프레시 토큰 요청 응답', res.data);
           if (res.status === 200) {
             dispatch(getAccessToken(res.data.data));
           }
@@ -125,17 +119,14 @@ function WriteReply ({
     }
 
     axios.patch(`${process.env.REACT_APP_API_URL}/reply`, {
-      // trackId: trackDetail.track.id,
       id: selectedReplyId,
       content: inputText
     })
       .then(res => {
-        console.log(res.data);
         if (res.status === 200) {
           // 수정 완료되면 음원 상세 정보 다시 받아옴
           axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
-              console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
               }

@@ -82,7 +82,6 @@ function Landing () {
     try {
       const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
         { headers: { accesstoken: accessToken } });
-      console.log('추천 차트 요청 응답', result.data.latestchart);
       setChart(result.data.latestchart);
       return result;
     } catch (err) {

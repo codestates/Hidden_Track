@@ -22,25 +22,21 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
   // 수정 or 삭제 버튼 누를시 수정/삭제할 댓글 id로 상태 변경하는 함수
   function getReplyId (e) {
     e.preventDefault();
-    console.log(e.target.parentElement.parentElement.parentElement.getAttribute('id'));
     setClickedBtn(e.target.alt);
     setSelectedReplyId(e.target.parentElement.parentElement.parentElement.getAttribute('id'));
   }
 
   // 댓글 삭제요청 보내는 함수
   function deleteReply () {
-    console.log('삭제할 댓글의 id:', selectedReplyId);
     if (!selectedReplyId) return;
     if (!isLogin) return handleNotice('로그인 후 이용하실 수 있습니다.', 5000);
 
     axios.delete(`${process.env.REACT_APP_API_URL}/reply/${selectedReplyId}`)
       .then(res => {
-        console.log('댓글 삭제 요청 응답', res.data);
         if (res.status === 200) {
           // 삭제 요청이 성공하면 다시 상세 음원 목록 받아오는 axios요청 보냄
           axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
-              console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
               }
