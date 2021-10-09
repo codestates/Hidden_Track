@@ -64,7 +64,7 @@ function App () {
           // dispatch(getUserInfo(userInfo));
         }
       } else {
-        handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
+        // handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
         dispatch(isLoginHandler(false));
         dispatch(isLoadingHandler(false));
       }
