@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.withCredentials = true;
+
 // 인자로 받은 액세스 토큰으로 유저정보 요청하는 함수
 export async function accessTokenRequest (accessToken) {
   const userInfo = await axios.get(`${process.env.REACT_APP_API_URL}/user/userinfo`,

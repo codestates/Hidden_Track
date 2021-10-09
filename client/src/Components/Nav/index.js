@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 // 리덕스 import
 import { isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/actions';
@@ -25,7 +25,7 @@ function Nav ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer); // isModalOpen 관련
   const dispatch = useDispatch();
   const history = useHistory();
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
   // 헤드폰 모양을 누르면 사이드바가 나타나도록 해주는 onClick 이벤트
   function showSidebar (e) {
