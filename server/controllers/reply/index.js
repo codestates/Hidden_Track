@@ -1,4 +1,3 @@
 module.exports = {
-    reply: require('./reply'),
- };
-   
+  reply: require('./reply')
+};

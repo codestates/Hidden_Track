@@ -10,11 +10,11 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references :{model: 'users', key: 'id'}
+        references: { model: 'users', key: 'id' }
       },
       trackId: {
         type: Sequelize.INTEGER,
-        references :{model: 'tracks', key: 'id'}
+        references: { model: 'tracks', key: 'id' }
       },
       createdAt: {
         allowNull: false,

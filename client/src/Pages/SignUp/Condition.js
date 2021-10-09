@@ -29,7 +29,7 @@ function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
         <label>이메일:</label>
         <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
-      {isAdminCheck && <button className='change-admin-btn' type='submit'>계정 전환</button>}
+      {isAdminCheck && <button className='change-admin-btn contents__btn' type='submit'>계정 전환</button>}
     </form>
   );
 }

@@ -6,7 +6,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-        references :{model: 'users', key: 'id'}
+        references: { model: 'users', key: 'id' }
       },
       agency: {
         type: Sequelize.STRING(20)

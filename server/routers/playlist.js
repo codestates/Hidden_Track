@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { playlistController } = require("../controllers");
+const { playlistController } = require('../controllers');
 
 router.post('/', playlistController.playlist.post);
 router.delete('/:id', playlistController.playlist.delete);

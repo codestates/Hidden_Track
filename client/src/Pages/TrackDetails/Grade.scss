@@ -54,3 +54,18 @@ input:checked~.grade-label,
   color: #fbff00;
   text-shadow: 0 0 1px #fbff00, 0 0 2px #fbff00, 0 0 3px #fbff00
 }
+
+.star-rating {
+  display: flex;
+  margin-top: 10px;
+  flex-wrap: wrap;
+
+  .rate {
+    // display: flex;
+  }
+
+  .grade-btn {
+    letter-spacing: 0.3em;
+    padding: 5px 20px 5px;
+  }
+}

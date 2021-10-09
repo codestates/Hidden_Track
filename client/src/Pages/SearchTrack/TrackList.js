@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import axios from 'axios';
+// import axios from 'axios';
 import HashTag from '../../Components/HashTag';
 
 function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search, hashTag, accessToken }) {
@@ -10,29 +10,31 @@ function TrackList ({ trackList, dispatch, getTrackDetails, handleNotice, search
   function moveToTrackDetails (e) {
     const trackId = e.target.getAttribute('value');
     console.log(trackId);
+
+    history.push(`/trackdetails/${trackId}`);
     // 클릭한 음원의 상세 정보 요청
-    axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`, {
-      headers: {
-        accesstoken: accessToken
-      }
-    })
-      .then(res => {
-        console.log('음원 클릭시 요청 응답', res.data);
-        if (res.status === 200) {
-        // 요청 성공시 상세 음원 정보 상태에 저장
-          dispatch(getTrackDetails(res.data));
-          // 상세 음원 정보 저장 성공 후 음원 상세 페이지 이동
-          history.push(`/trackdetails/${trackId}`);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        // 요청 응답 실패시 함수 종료 후 알림 메시지
-        if (err.response) {
-          if (err.response.status === 400) return handleNotice('잘못된 요청입니다.', 5000);
-          if (err.response.status === 404) return handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
-        }
-      });
+    // axios.get(`${process.env.REACT_APP_API_URL}/track/${trackId}`, {
+    //   headers: {
+    //     accesstoken: accessToken
+    //   }
+    // })
+    //   .then(res => {
+    //     console.log('음원 클릭시 요청 응답', res.data);
+    //     if (res.status === 200) {
+    //     // 요청 성공시 상세 음원 정보 상태에 저장
+    //       dispatch(getTrackDetails(res.data));
+    //       // 상세 음원 정보 저장 성공 후 음원 상세 페이지 이동
+    //       history.push(`/trackdetails/${trackId}`);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     // 요청 응답 실패시 함수 종료 후 알림 메시지
+    //     if (err.response) {
+    //       if (err.response.status === 400) return handleNotice('잘못된 요청입니다.', 5000);
+    //       if (err.response.status === 404) return handleNotice('해당 음원을 찾을 수 없습니다.', 5000);
+    //     }
+    //   });
   }
   console.log(trackList);
   return (

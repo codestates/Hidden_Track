@@ -178,11 +178,13 @@ function WriteReply ({
         ? <textarea className='write-reply-area' value={inputText} onChange={(e) => handleInputText(e)} />
         : <textarea className='write-reply-area' value={inputText} onChange={(e) => handleInputText(e)} />}
       {clickedBtn === '수정'
-        ? <>
+        ? <div className='write-reply-btn-box'>
           <button className='contents__btn modify-reply-btn' onClick={(e) => requestModifyReply(e)}>댓글 수정</button>
           <button className='contents__btn cancel-reply-btn' onClick={(e) => cancelModify(e)}>취소</button>
-        </>
-        : <button className='contents__btn create-reply-btn' onClick={(e) => requestReply(e)}>댓글 등록</button>}
+        </div>
+        : <div className='write-reply-btn-box'>
+          <button className='contents__btn create-reply-btn' onClick={(e) => requestReply(e)}>댓글 등록</button>
+        </div>}
     </div>
   );
 }

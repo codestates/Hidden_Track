@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 
 // 리덕스 import
 import { isLoginHandler, isLoginModalOpenHandler } from '../../Redux/actions/actions';
@@ -27,7 +27,7 @@ function Nav ({ handleNotice }) {
   const userInfo = useSelector(state => state.userInfoReducer); // isModalOpen 관련
   const dispatch = useDispatch();
   const history = useHistory();
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
 
   // 헤드폰 모양을 누르면 사이드바가 나타나도록 해주는 onClick 이벤트
   function showSidebar (e) {
@@ -85,8 +85,8 @@ function Nav ({ handleNotice }) {
         // isLoginHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
           dispatch(isLoginHandler(false));
           // refreshToken 가 담긴 cookie 삭제
-          cookies.remove('refreshToken');
-          history.push('/');
+          // cookies.remove('refreshToken');
+          history.push('/main');
         }
       }
       ).catch(err => {
@@ -108,10 +108,10 @@ function Nav ({ handleNotice }) {
       <Sidebar isSidebarOpen={isSidebarOpen} showSidebar={showSidebar} handleNotice={handleNotice} />
 
       <nav className='navigation'>
-        <Link to='/'>
+        <Link to='/main'>
           {/* <h1 className='logo'>Hidden Track</h1> */}
           <div className='logo sign-one'>
-            <span className='one-onOff-2'>H</span>ID<span className='one-onOff'>D</span>EN T<span className='sign-one-off'>R</span>A<span className='one-onOff-2'>c</span>K
+            <span className='one-onOff-2'>HIDDEN</span><span className='one-onOff'>TRACK</span>
           </div>
 
         </Link>

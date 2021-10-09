@@ -1,26 +1,35 @@
 #modi-create{
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
+    width: 100%;
     // border: 1px solid black;
     // justify-content: space-around;
-    width: 1500px;
-    margin: auto;
+    // width: 1500px;
+    // margin: auto;
     .default-input-box{
         display: flex;
         justify-content: space-between;
-        width: 100%;
+        width: 1200px;
     
         .album-img-box{
-            padding-top: 48px;
+            // padding-top: 48px;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 50%;
             
+            .album-input-info {
+                margin-top: 15px;
+                color: #a8a8a8;
+            }
+
             .album-input-btn {
-                margin-top: 20px;
+                font-weight: bold;
+                font-size: 20px;
+                margin-top: 10px;
                 cursor: pointer;
             }
 
@@ -28,8 +37,8 @@
                 // box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px rgb(254, 3, 128),
                 // 0 0 2px rgb(254, 3, 128), 0 0 13px rgb(254, 3, 128), 0 0 38px rgb(254, 3, 128), 0 0 50px rgb(254, 3, 128);
                 // border: 1px; 
-                width: 450px;
-                height: 450px;
+                width: 500px;
+                height: 500px;
                 display: flex;
                 border-radius: 20px;
                 box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
@@ -54,10 +63,10 @@
             }
             .music-input{
                 text-align: center;
-                width: 500px;
+                width: 400px;
                 height: 50px;
-                margin: 10px;
-                font-size: 17px;
+                // margin: 5px;
+                font-size: 22.5px;
                 // border-color: transparent;
                 border:0;
                 border-bottom: 3px solid transparent;
@@ -74,14 +83,22 @@
                 // border-radius: 50px;
             }
             .music-input-btn {
+                font-weight: bold;
+                font-size: 20px;
                 cursor: pointer;
             }
-            .music-release{
+            .music-input-box{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 500px;
+            }
+            .music-genre-release{
                 text-align: center;
                 height: 35px;
                 width: 400px;
                 margin: 10px;
-                font-size: 15px;
+                font-size: 20px;
                 color: #fff;
                 outline: none;
                 background: transparent;
@@ -90,7 +107,7 @@
                 border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
                 border-image-slice: 1;
             }
-            .music-release::-webkit-calendar-picker-indicator {
+            .music-genre-release::-webkit-calendar-picker-indicator {
                 cursor: pointer;
                 filter: invert(1);
             }
@@ -98,7 +115,7 @@
         }
     }
     .music-lyrics-hashtag-box{
-        margin:50px 0 20px 0;
+        margin:60px 0 20px 0;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -107,8 +124,14 @@
         .music-lyrics-input{
             display: flex;
             flex-direction: column;
+            .music-lyrics-label{
+                font-size: 22.5px;
+                font-weight: bold;
+            }
             .input-lyrics{ 
                 margin-top: 20px;
+                font-size: 18px;
+                padding: 10px 50px;
                 resize: none;
                 text-align: center;
                 border: 1px solid rgb(214, 216, 218);
@@ -116,7 +139,7 @@
                 color: #fff;
                 outline: none;
                 background-color: transparent;
-                width: 610px;
+                width: 616px;
                 height: 200px;
             }
             .input-lyrics::-webkit-scrollbar {
@@ -127,9 +150,14 @@
 
     }
     .modi-create-btn-box{
-        margin-top: 30px;
-        margin-bottom: 120px;
+        margin-top: 40px;
+        margin-bottom: 100px;
         
+        .modi-create-btn{
+            font-size: 20px;
+            width: 100px;
+            padding: 10px 0;
+        }
     }
 
 

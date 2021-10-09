@@ -49,7 +49,7 @@ function App () {
   useEffect(() => {
     async function tokenRequest () {
       dispatch(isLoadingHandler(true));
-      console.log('11111111111111111111111')
+
       // if (cookies.get('refreshToken')) {
         const token = await refreshTokenRequest();
         if (token) {

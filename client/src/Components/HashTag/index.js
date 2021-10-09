@@ -6,8 +6,8 @@ import './index.scss';
 function HashTag ({ tagList, searchTag }) {
   // const tagList = [{ tag: '가을' }, { tag: '우울할때듣는곡' }, { tag: '설렘' }, { tag: '드라이브' }, { tag: '감미로운' }, { tag: '인디' }, { tag: '랩' }, { tag: '흑인음악' }, { tag: '카페' }, { tag: '10' }, { tag: '11' }, { tag: '12사' }, { tag: '13' }, { tag: '14사432랑' }, { tag: '15사랑' }, { tag: '16사' }, { tag: '17사랑' }, { tag: '18사' }, { tag: '19' }, { tag: '2' }];
   const history = useHistory();
-  // console.log('해시태그', tagList);
-  const [allTag, setAllTag] = useState(["음악"]);
+  console.log('해시태그', tagList);
+  const [allTag, setAllTag] = useState(['음악']);
 
   useEffect(() => {
     if (!tagList) {
@@ -30,9 +30,9 @@ function HashTag ({ tagList, searchTag }) {
     if (tagList) {
       hashTag = tagList[idx].tag;
     } else {
-      hashTag = allTag[idx].tag;
+      hashTag = allTag[idx];
     }
-
+    console.log('해시태그 검색', hashTag);
     history.push({
       pathname: `/searchtrack/${hashTag}`,
       state: {

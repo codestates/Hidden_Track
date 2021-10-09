@@ -9,18 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
       this.belongsTo(models.user);
       this.belongsTo(models.track);
     }
-  };
+  }
   playlist.init({
     userId: DataTypes.INTEGER,
     trackId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'playlist',
+    modelName: 'playlist'
   });
   return playlist;
 };

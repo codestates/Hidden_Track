@@ -13,10 +13,10 @@ function Recommend () {
   const dispatch = useDispatch();
 
   const { accessToken } = useSelector(state => state.accessTokenReducer);
+
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
   const number_ref = useRef(0);
-
 
   useEffect(() => {
     requestRecommend(); // Promise
@@ -47,15 +47,13 @@ function Recommend () {
     }
   };
 
-
-
   function moveTrackDetail () {
     history.push(`/trackdetails/${recommendChart[index].id}`);
   }
 
   return (
     <section className='recommend-container'>
-      <p className='recommend'>추천</p>
+      <p className='recommend sign-four'>Inspired</p>
       <div className='recommend-content'>
         <div className='recommend-flex-box'>
           {recommendChart.length === 0

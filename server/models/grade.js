@@ -9,17 +9,17 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
     }
-  };
+  }
   grade.init({
     userId: DataTypes.INTEGER,
     trackId: DataTypes.INTEGER,
     userGrade: DataTypes.FLOAT
   }, {
     sequelize,
-    modelName: 'grade',
+    modelName: 'grade'
   });
 
   grade.removeAttribute('id');

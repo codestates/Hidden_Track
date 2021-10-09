@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
+import Footer from '../../Components/Footer';
 // import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
 import './index.scss';
@@ -25,8 +26,6 @@ function SearchTrack ({ handleNotice }) {
 
   // 검색 페이지에 랜더링될 목록 요청하는 함수
   function getSearchContents () {
-    console.log('dfgdfgdfgdfgdfdf', location.state);
-
     if (!genre && !hashTag && !search) return setTrackList([]);
     dispatch(isLoadingHandler(true));
 
@@ -87,22 +86,25 @@ function SearchTrack ({ handleNotice }) {
   }
 
   return (
-    <div className='searchtrack-container'>
-      <Genre genre={genre} />
-      {/* <div className='hashtag-box'>
+    <>
+      <div className='searchtrack-container'>
+        <Genre genre={genre} />
+        {/* <div className='hashtag-box'>
         <HashTag tagList={[]} searchTag={hashTag} />
       </div> */}
-      <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
-      <TrackList
-        trackList={trackList}
-        dispatch={dispatch}
-        getTrackDetails={getTrackDetails}
-        handleNotice={handleNotice}
-        search={search}
-        hashTag={hashTag}
-        accessToken={accessToken}
-      />
-    </div>
+        <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
+        <TrackList
+          trackList={trackList}
+          dispatch={dispatch}
+          getTrackDetails={getTrackDetails}
+          handleNotice={handleNotice}
+          search={search}
+          hashTag={hashTag}
+          accessToken={accessToken}
+        />
+      </div>
+      <Footer />
+    </>
   );
 }
 
