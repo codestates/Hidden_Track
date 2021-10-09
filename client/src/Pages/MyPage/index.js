@@ -23,7 +23,6 @@ function MyPage ({ handleNotice }) {
   const dispatch = useDispatch();
 
   const { accessToken } = state3;
-  // console.log(accessToken);
   const [isWithDrawalModalOpen, setIsWithDrawalModalOpen] = useState(false);
   const [user, setUser] = useState(userInfo);
   const [isAdminCheck, setIsAdminCheck] = useState(false);
@@ -45,7 +44,6 @@ function MyPage ({ handleNotice }) {
     e.preventDefault();
 
     const file = e.target.files[0];
-    console.log(file);
 
     const reader = new FileReader(); // -> 파일 읽기 완료
     reader.onload = function () {
@@ -70,7 +68,6 @@ function MyPage ({ handleNotice }) {
       { headers: { accesstoken: accessToken } }
 
     ).then(res => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
-      console.log('프로필 이미지 변경 요청 응답', res.data);
       if (res.status === 200) {
         // setState
         handleInputValue('profile', res.data.profile);
@@ -85,11 +82,9 @@ function MyPage ({ handleNotice }) {
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 401) { // <- 유저 권한이 없는 경우
-          console.log('401 에러다');
           handleNotice('권한이 없습니다.', 2000);
         }
       } else {
-        console.log('다른 에러다', err);
         handleNotice('잘못된 접근입니다', 2000);
       }
     }
@@ -103,7 +98,6 @@ function MyPage ({ handleNotice }) {
       { headers: { accesstoken: accessToken } }
 
     ).then(res => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
-      console.log('프로필 이미지 삭제 요청 응답', res.data);
       if (res.status === 200) {
         // setState
         handleInputValue('profile', res.data.profile);
@@ -118,11 +112,8 @@ function MyPage ({ handleNotice }) {
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 400) { // <- 이미 기본 이미지일 경우
-          // console.log('400 에러다');
-          console.log(err.response);
           handleNotice('삭제할 이미지가 없습니다', 2000);
         } else if (err.response.status === 401) { // <- 유저 권한이 없는 경우
-          console.log('401 에러다');
           handleNotice('권한이 없습니다.', 2000);
         }
       }
@@ -140,7 +131,6 @@ function MyPage ({ handleNotice }) {
       { headers: { accesstoken: accessToken } }// <- password api 에서 얘를 요청 보내라고 했음
 
     ).then(res => {
-      console.log('비밀번호 변경 요청 응답', res.data);
       if (res.status === 200) { // <- 응~ 변경해도 돼~
         handleNotice('비밀번호가 변경되었습니다', 2000);
       }
@@ -148,10 +138,8 @@ function MyPage ({ handleNotice }) {
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 400) { // <- 비밀번호가 안들어왓을 때
-          console.log('400 에러다');
           handleNotice('입력값이 부족합니다!', 2000);
         } else if (err.response.status === 401) { // <- 비밀번호가 틀리거나, accessToken이 이상하거나 만료되었거나, 안들어왓을 때
-          console.log('401 에러다');
           handleNotice('권한이 없습니다.', 2000);
         }
       }
@@ -168,8 +156,6 @@ function MyPage ({ handleNotice }) {
     } else {
       axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${user.nickName}`
       ).then(res => {
-        console.log('닉네임 중복확인 요청 응답', res);
-        console.log('닉네임 중복확인 요청 응답', res.data); // {message: ok}
         if (res.status === 200) {
           showCheckMessage(key, '사용 가능한 닉네임 입니다.');
         }
@@ -212,7 +198,6 @@ function MyPage ({ handleNotice }) {
         { headers: { accesstoken: accessToken } } // <- nickname api 에서 얘를 요청 보내라고 했음
 
       ).then(res => { // <- res의 data에 accessToken 과, refreshToken 담겨있을 것이다.
-        console.log('닉네임 변경 요청 응답', res.data);
         if (res.status === 200) {
         // setState
           handleInputValue('nickName', user.nickName);
@@ -228,10 +213,8 @@ function MyPage ({ handleNotice }) {
       ).catch(err => {
         if (err.response) {
           if (err.response.status === 400) { // 닉네임이 안들어 왔을 때
-            console.log('400 에러다');
             handleNotice('입력값이 부족합니다!', 2000);
           } else if (err.response.status === 401) { // accessToken이 이상하거나 만료되거나 안들어왓을 때
-            console.log('401 에러다');
             handleNotice('권한이 없습니다.', 2000);
           }
         }
@@ -250,7 +233,6 @@ function MyPage ({ handleNotice }) {
     const check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/.test(inputValue);
 
     if (check || !inputValue) { // <- 위 결과가 true 이면 false
-      console.log('유효성 검사 성공');
       showCheckMessage(key, '');
     } else {
       showCheckMessage(key, '비밀번호는 8자 이상 16자 이하, 알파벳과 숫자 및 특수문자를 하나 이상 포함해야 합니다.');
@@ -265,7 +247,6 @@ function MyPage ({ handleNotice }) {
       showCheckMessage(key, '');
     } else {
       if (ChangePassword !== checkedPassword) {
-        console.log('일치하지 않음');
         showCheckMessage(key, '비밀번호가 일치하지 않습니다.');
       } else {
         console.log('일치함');
@@ -277,7 +258,6 @@ function MyPage ({ handleNotice }) {
   // 수정할 닉네임 글자수가 10자 초과할때 메세지 나타나게 하는 함수
   function checkNickLength (key, inputValue, e) {
     const check = inputValue.length < 10;
-    console.log(check);
     if (check || !inputValue) {
       showCheckMessage(key, '');
     } else {
@@ -310,7 +290,6 @@ function MyPage ({ handleNotice }) {
       { headers: { accesstoken: accessToken } }
 
     ).then(async (res) => { // <- res의 data에 accessToken 과, 쿠키에 refreshToken 담겨있을 것이다.
-      console.log('계정 전환 요청 응답', res);
       if (res.status === 200) {
         // setState
         handleInputValue('agency', user.userArtist.agency, 'useArtist');
@@ -327,10 +306,8 @@ function MyPage ({ handleNotice }) {
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 400) { // <- 전환할 계정의 정보가 덜 들어오거나 토큰이 없을때
-          console.log('400 에러다');
           handleNotice('입력값이 부족합니다!', 2000);
         } else if (err.response.status === 401) { // <- 토큰이 제대로 된게 아니거나 만료된것
-          console.log('401 에러다');
           handleNotice('권한이 없습니다.', 2000);
         } else if (err.response.status === 409) { // <- 이미 artist 계정일때
           handleNotice('이미 artist 계정입니다.', 2000);

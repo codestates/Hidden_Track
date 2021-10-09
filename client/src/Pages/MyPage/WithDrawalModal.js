@@ -9,7 +9,6 @@ import Portal from './Portal';
 import './WithDrawalModal.scss';
 
 function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
-  const cookies = new Cookies();
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector(state => state.accessTokenReducer).accessToken; // accessToken 관련
@@ -35,7 +34,6 @@ function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
       { headers: { accesstoken: accessToken } }
 
     ).then(async (res) => {
-      console.log('회원탈퇴 요청 응답', res);
       if (res.status === 200) {
         const deletedUserInfo = {
           id: '1',
@@ -54,18 +52,15 @@ function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
         // accessToken 빈 문자열 바꿔줘야 한다.
         dispatch(getUserInfo(deletedUserInfo));
         dispatch(isLoginHandler(false));
-        cookies.remove('refreshToken');
         history.push('/');
       }
     }
     ).catch(err => {
       if (err.response) {
         if (err.response.status === 401) { // <- 권한이 없을때(토큰이 이상하거나 만료되었을 경우)
-          console.log('401 에러다');
           handleNotice('권한이 없습니다', 2000);
         }
       } else {
-        console.log('다른 에러다', err);
         handleNotice('잘못된 접근입니다', 2000);
       }
     });

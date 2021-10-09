@@ -15,8 +15,6 @@ import Sidebar from './Sidebar';
 
 import './index.scss';
 import headphone from '../../assets/headphones (2).png';
-// import headphone from '../../assets/headphones (1).png';
-// import headphone from '../../assets/headphones.png';
 
 function Nav ({ handleNotice }) {
   const [isShowUserProfileList, setIsShowUserProfileList] = useState('hide');
@@ -85,13 +83,11 @@ function Nav ({ handleNotice }) {
         // isLoginHandler 라는 리덕스의 action 의 인수로, false 전달하여 리덕스의 state 업데이트
           dispatch(isLoginHandler(false));
           // refreshToken 가 담긴 cookie 삭제
-          cookies.remove('refreshToken');
           history.push('/main');
         }
       }
       ).catch(err => {
       // 뭔가 알림모달을 띄우게
-        console.log(err.response);
         if (err.response) {
           if (err.response.status === 400) { // <- refreshToken 이 안들어왔을때
             handleNotice('권한이 없습니다', 2000);
@@ -161,7 +157,7 @@ function Nav ({ handleNotice }) {
           isShowUserProfileList={isShowUserProfileList}
           setIsShowUserProfileList={setIsShowUserProfileList}
           handleNotice={handleNotice}
-                             />}
+        />}
       </nav>
     </header>
 
