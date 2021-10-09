@@ -29,7 +29,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   useEffect(() => {
     // 액세스 토큰 다시 얻어오면 좋아요 다시 요청
-    if (clickLike) {
+    if (isLogin && clickLike) {
       requestLike();
     }
     return () => {
@@ -225,8 +225,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           </div>
         </div>
         <div className='trackinfo-btn-box'>
-          <button className='trackinfo-playlist-btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
-          <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
+          <button className='contents__btn trackinfo-playlist-btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
+          <button className='contents__btn trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}>바로 듣기</button>
           {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
             <img className='like-btn' src={likeImage} alt='' />
           </button> */}
@@ -236,13 +236,13 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
             </i>
             <span className='like-btn-msg' id={trackDetail.myLike ? 'like-btn-msg-clicked' : null}>liked!</span>
           </div>
+          {isLogin && userInfo.nickName === trackDetail.track.user.nickName
+            ? <div className='trackinfo-auth-btn'>
+              <button className='contents__btn trackinfo-modi-btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
+              <button className='contents__btn trackinfo-delete-btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+            </div>
+            : null}
         </div>
-        {isLogin && userInfo.nickName === trackDetail.track.user.nickName
-          ? <div className='trackinfo-auth-btn'>
-            <button className='trackinfo-modi-btn' onClick={(e) => clickModifyBtn(e)}>음원 수정</button>
-            <button className='trackinfo-delete-btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>음원 삭제</button>
-          </div>
-          : null}
         <div className='trackinfo-hashtag-box'>
           <HashTag tagList={trackDetail.track.hashtags} />
         </div>

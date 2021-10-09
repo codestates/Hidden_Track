@@ -120,6 +120,10 @@ function App () {
     getToken();
   }, []);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c301a44245aa1e36e80952cc51ebecb82a37843f
   return (
     <>
 

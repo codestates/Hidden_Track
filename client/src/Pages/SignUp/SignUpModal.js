@@ -19,7 +19,7 @@ function SignUpModal ({ isOpen, handleModalOpen, text }) {
         ? <div className='modal-backdrop__signup'>
           <div className='modal-container__signup'>
             <div className='modal-view'>
-              <p className='desc'>{text}</p>
+              <p className='modal-desc'>{text}</p>
               <div className='modal__signup-btn' onClick={openModalHandler}>확인</div>
             </div>
           </div>

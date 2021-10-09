@@ -296,7 +296,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           ? <>
             <div className='default-input-box'>
               <div className='album-img-box'>
-                <img className='album-img' src={src} />
+                <img className='album-img' src={src} alt='' />
                 <div className='album-input-info'>※ 이미지는 500 * 500 사이즈를 권장합니다.</div>
                 <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
                 <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
@@ -325,7 +325,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                     <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
                   </select>
                 </div>
-                <div class='music-input-box'>
+                <div className='music-input-box'>
                   <label className='music-genre-release-label' htmlFor='music-genre-release' style={{ fontSize: '20px' }}>발매일 :</label>
                   <input type='date' className='music-genre-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
                 </div>

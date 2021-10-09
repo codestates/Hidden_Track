@@ -6,6 +6,7 @@
   width: 100%;
   margin: 0 auto;
   margin-top: 250px;
+  position: relative;
 }
 
 .svg {
@@ -16,19 +17,15 @@
   z-index: -2;
 
   svg {
-    // stroke-dasharray: ;
     height: 4500px;
-    stroke: rgb(254, 3, 128);
+    // stroke: #e845f4;
+    // stroke: #f16ffa;
   }
 
   #move-landing {
-    // opacity: 0.7;
-    stroke-dasharray: 300px;
     z-index: -1;
   }
 }
-
-
 
 
 #section1,
@@ -40,7 +37,7 @@
   // background-color: aqua;
   @include widthHeight(78%, 400px);
   margin: 0 auto;
-  margin-bottom: 300px;
+  margin-bottom: 500px;
 
   .landing__figure {
     // background-color: chartreuse;
@@ -142,11 +139,13 @@
 #section1 {
 
   button {
-    @include positionBox(absolute, _, _, -20px, 0);
+    // @include positionBox(absolute, _, _, -20px, 0);
     background-color: transparent;
     @include widthHeight(250px, 60px);
     @include fontStyle(#fff, _, 18px, _);
     @include borderStyle(1px solid #aaa, 20px);
+    background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+
 
     text-transform: uppercase;
     overflow: hidden;
@@ -157,19 +156,43 @@
       content: '';
       @include positionBox(absolute, 0, 0, 0, 100%);
       @include widthHeight(100%, 100%);
-      background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+      // background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
       transition: all .5s;
       z-index: -1;
     }
 
     &:hover {
       color: #fff;
+      animation: shake 0.5s infinite;
     }
 
     &:hover::before {
       transform: translateX(-100%);
     }
   }
+
+  #landing__figcaption1 {
+    // background-color: dodgerblue;
+    @include widthHeight(55%, 440px);
+    margin: 30px 0 0 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .landing__section1-pre1,
+    .landing__section1-pre2 {
+      // background-color: darkcyan;
+      text-align: left;
+      margin: 0;
+      // margin-top: 20px;
+      color: #fff;
+    }
+
+    .landing__section1-pre2 {
+      line-height: 1.6;
+    }
+  }
+
 }
 
 .landing__section3-img {
@@ -213,6 +236,16 @@
   }
 }
 
+
+.scrollTop {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  // z-index: -10;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
 
 @keyframes shake {
   0% {
