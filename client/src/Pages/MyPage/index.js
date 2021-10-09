@@ -365,9 +365,9 @@ function MyPage ({ handleNotice }) {
                 style={{ display: 'none' }}
                 onChange={(e) => { ProfileImagePreview(e); }}
               />
-              <button className='change-btn' type='submit' id='submit'>이미지 변경</button>
+              <button className='change-btn contents__btn' type='submit' id='submit'>이미지 변경</button>
             </form>
-            <button className='delete-btn' onClick={requestDeleteProfileImage}>이미지 삭제</button>
+            <button className='delete-btn contents__btn' onClick={requestDeleteProfileImage}>이미지 삭제</button>
           </div>
 
           {/* 비밀번호 변경 폼 */}
@@ -414,7 +414,7 @@ function MyPage ({ handleNotice }) {
                     PasswordMatchCheck('validMatchPW', e);
                   }}
                 />
-                <button type='submit' className='change-btn-password'>변경</button>
+                <button type='submit' className='change-btn-password contents__btn'>변경</button>
               </div>
 
               {/* 확인 비밀번호 유효성 검사메세지는 message.validMatchPW 가 truthy 할때만 나타나도록 해야 한다. */}
@@ -442,7 +442,7 @@ function MyPage ({ handleNotice }) {
               />
 
               <button
-                className='check-duplicate-btn-nickname'
+                className='check-duplicate-btn-nickname contents__btn'
                 onClick={(e) => {
                   checkNickLength('checkNickLength', user.nickName);
                   CheckDuplicateNickname('duplicatedNick', e);
@@ -451,7 +451,7 @@ function MyPage ({ handleNotice }) {
               </button>
 
               {/* 중복확인 메세지는 message.duplicatedNick 가 truthy 할때만 나타나도록 해야 한다. */}
-              <button type='submit' className='change-btn-nickname'>변경</button>
+              <button type='submit' className='change-btn-nickname contents__btn'>변경</button>
             </div>
 
             {message.checkNickLength && <p className='check-nickname-length'>{message.checkNickLength}</p>}
@@ -468,7 +468,7 @@ function MyPage ({ handleNotice }) {
           </div>
         </div>
         {isAdminCheck && <Condition handleInputValue={handleInputValue} requestAdminChange={requestAdminChange} isAdminCheck={isAdminCheck} />}
-        <button className='with-drawal-btn' onClick={(e) => showWithDrawalModal(e)}>회원 탈퇴</button>
+        <button className='with-drawal-btn contents__btn' onClick={(e) => showWithDrawalModal(e)}>회원 탈퇴</button>
         {isWithDrawalModalOpen && <WithDrawalModal visible={isWithDrawalModalOpen} setIsWithDrawalModalOpen={setIsWithDrawalModalOpen} handleNotice={handleNotice} />}
       </div>
       <Footer />
