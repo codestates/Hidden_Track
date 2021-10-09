@@ -81,7 +81,7 @@ function SignUp ({ handleNotice }) {
       return handleNotice('아이디가 유효하지 않습니다.', 5000);
     } else if (!inputValue.password || validMessage.validPW || validMessage.matchPW) {
       return handleNotice('비밀번호가 유효하지 않습니다.', 5000);
-    } else if (!inputValue.nickName || inputValue.nickName.length > 10 || validMessage.validNick !== '사용 가능한 닉네임 입니다.') {
+    } else if (!inputValue.nickName || inputValue.nickName.length > 9 || validMessage.validNick !== '사용 가능한 닉네임 입니다.') {
       return handleNotice('닉네임이 유효하지 않습니다.', 5000);
     }
     // 아티스트로 가입하는 경우의 유효성 검사
