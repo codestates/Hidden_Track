@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+// import Cookies from 'universal-cookie';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { isLoginHandler, getUserInfo } from '../../Redux/actions/actions';
@@ -9,7 +9,7 @@ import Portal from './Portal';
 import './WithDrawalModal.scss';
 
 function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
-  const cookies = new Cookies();
+  // const cookies = new Cookies();
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector(state => state.accessTokenReducer).accessToken; // accessToken 관련
@@ -54,7 +54,7 @@ function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
         // accessToken 빈 문자열 바꿔줘야 한다.
         dispatch(getUserInfo(deletedUserInfo));
         dispatch(isLoginHandler(false));
-        cookies.remove('refreshToken');
+        // cookies.remove('refreshToken');
         history.push('/');
       }
     }

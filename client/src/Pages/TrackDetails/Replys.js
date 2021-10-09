@@ -77,6 +77,11 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                 <div className='replys-info'>
                   <img className='replys-profile' src={el.user.profile} alt='' />
                   <p className='replys-nickname'>{el.user.nickname}</p>
+                </div>
+                <div className='replys-content'>
+                  <div className='replys-comment-box'>
+                    <pre className='replys-comment'>{el.content}</pre>
+                  </div>
                   <span className='replys-btn-box'>
                     {isLogin && userInfo.nickName === trackDetail.track.replies[idx].user.nickname && clickedBtn !== '수정'
                       ? <img className='replys-modify' src={editBtn} alt='수정' onClick={(e) => getReplyId(e)} />
@@ -85,9 +90,6 @@ function Replys ({ userInfo, trackDetail, isLogin, isLoginModalOpen, accessToken
                       ? <img className='replys-delete' src={deleteBtn} alt='삭제' onClick={(e) => getReplyId(e)} />
                       : null}
                   </span>
-                </div>
-                <div className='replys-comment-box'>
-                  <pre className='replys-comment'>{el.content}</pre>
                 </div>
               </li>
             );
