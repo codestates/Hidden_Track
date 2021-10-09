@@ -8,9 +8,9 @@
   font-style: normal;
   font-size: 15px;
   letter-spacing: 0.3em;
+  padding: 5px 20px 5px;
   color: rgba(223,190,106,0.7);
   border-radius: 20px;
-  padding: 5px 20px 5px;
   transition: all 0.7s ease-out;
   background:linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
   background-position: 1% 50%;
@@ -121,22 +121,27 @@
       .trackinfo-btn-box {
         // flex: 1 1 auto;
         @include flexBox(flex, _, center, _, _);
+        flex-wrap: wrap;
         width: 90%;
         margin-bottom: 10px;
         
         .trackinfo-playlist-btn {
-          @extend %track-details-btn
+          letter-spacing: 0.1em;
+          padding: 5px 20px 5px;
+          height: 42px;
         }
 
         .trackinfo-listen-btn {
-          @extend %track-details-btn;
-          // margin-left: 20px;
+          letter-spacing: 0.1em;
+          padding: 5px 20px 5px;
+          height: 42px;
+          margin-left: 20px;
         }
 
         .like-btn-box {
           position: relative;
-          margin-left: auto;
-          @include widthHeight(40px, 42px);
+          margin-left: 20px;
+          @include widthHeight(80px, 42px);
           
           .like-btn {
             // @include widthHeight(15px, 15px);
@@ -174,7 +179,7 @@
 
           .like-btn-msg {
             position: absolute;
-            bottom:70px;
+            bottom:30px;
             left:0;
             right:0;
             visibility: hidden;
@@ -208,13 +213,17 @@
       }
 
       .trackinfo-auth-btn {
-        width: 90%;
-        display: flex;
-        // justify-content: space-evenly;
+        width: 160px;
+        @include flexBox(flex, space-around, _, _, _);
+        flex-wrap: wrap;
+        margin-left: auto;
 
         .trackinfo-modi-btn, .trackinfo-delete-btn {
-          @extend %track-details-btn;
+          // @extend %track-details-btn;
           // margin-left: 20px;
+          letter-spacing: 0.1em;
+          padding: 5px 20px 5px;
+          height: 42px;
         }
       }
 
@@ -279,7 +288,12 @@
             
             .replys-modify, .replys-delete {
               @include widthHeight(20px, 20px);
+              margin-left: 5px;
               cursor: pointer;
+
+              &:hover {
+                animation: shake 0.5s infinite;
+              }
             }
           }
         }
@@ -305,15 +319,24 @@
         resize: none;
       }
     
-      // .write-reply-area:focus-within {
-      //   box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #fbff00,
-      //   0 0 2px #fbff00, 0 0 13px #fbff00, 0 0 38px #fbff00, 0 0 45px #fbff00;
-      //   transition: .5s;
-      // }
-    
-      .modify-reply-btn, .cancel-reply-btn, .create-reply-btn {
-        // flex: auto;
-        @extend %track-details-btn;
+      .write-reply-btn-box {
+        @include widthHeight(250px, 50px);
+        @include flexBox(flex, space-evenly, _, _, _);
+        
+        .modify-reply-btn {
+          letter-spacing: 0.3em;
+          padding: 5px 20px 5px;
+        }
+
+        .cancel-reply-btn {
+          letter-spacing: 0.3em;
+          padding: 5px 20px 5px;
+        }
+
+        .create-reply-btn {
+          letter-spacing: 0.3em;
+          padding: 5px 40px 5px;
+        }
       }
     }
   }

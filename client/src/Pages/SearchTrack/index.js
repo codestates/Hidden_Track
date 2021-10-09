@@ -103,11 +103,8 @@ function SearchTrack ({ handleNotice }) {
           accessToken={accessToken}
         />
       </div>
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </>
-
   );
 }
 

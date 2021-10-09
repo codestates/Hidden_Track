@@ -66,9 +66,7 @@ function TrackDetails ({ handleNotice, isLoading }) {
         accessToken={accessToken}
         handleNotice={handleNotice}
       />
-      <div>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

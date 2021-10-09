@@ -1,53 +1,66 @@
+@import '../../Common.scss';
+
 .modal-backdrop__signup {
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0,0,0,0.4);
-  display: grid;
-  place-items: center;
-}
-
-.modal-container__signup {
-  z-index: 999;
-  position: absolute;
-  // height: 15rem;
-  text-align: center;
-  // margin: 120px auto;
-  width: 300px;
-  height: 200px;
-  border-radius: 20px;
-  background-color: rgb(166, 187, 187);
-}
-
-.modal-view {
-  // display: flex;
-  align-items: center;
-  text-align: center;
-  width: 300px;
-  height: 200px;
-}
-
-.desc {
-  font-size: large;
-  font-style: initial;
-  margin-top: 20%;
-}
-
-.modal__signup-btn {
-  background-color: #6222ec;
-  text-decoration: none;
-  width: 50px;
-  margin-top: 10%;
-  margin-left: 35%;
-  border: none;
-  padding: 20px;
-  color: white;
-  border-radius: 30px;
-  cursor: pointer;
-}
-.modal__signup-btn:hover {
-  background-color: lightcoral;
+  @include positionBox(fixed, 0, 0, 0, 0);
+  z-index: 10;
+  background-color: rgba(0,0,0,0.8);
+  // background: #000;
+  // opacity: .8;
+  // position: fixed;
+  // filter: alpha(opacity=80);
+  // top: 0;
+  // left: 0;
+  // bottom: 0;
+  // right: 0;
+  // display: grid;
+  // place-items: center;
+  
+  .modal-container__signup {
+    // position: absolute;
+    // height: 15rem;
+    // margin: 120px auto;
+    // width: 300px;
+    // height: 200px;
+    // border-radius: 20px;
+    // background-color: rgb(166, 187, 187);
+    // text-align: center;
+    @include flexBox(flex, center, center, _, _);
+    @include positionBox(fixed, 50%, _, _, 50%);
+    @include widthHeight(400px, 200px);
+    z-index: 20;
+    margin: -150px 0 0 -200px;
+    color: #fff;
+    border-radius: 35px;
+    background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
+    border: 2.5px solid rgb(255, 117, 248);
+    opacity: 1;
+    
+    .modal-view {
+      @include flexBox(flex, space-around, center, _, _);
+      flex-direction: column;
+      @include widthHeight(300px, 150px);
+      
+      .modal-desc {
+        font-size: 18px;
+      }
+      
+      .modal__signup-btn {
+        // background-color: #6222ec;
+        // text-decoration: none;
+        // margin-top: 10%;
+        // margin-left: 35%;
+        // border: none;
+        width: 100px;
+        padding: 10px 20px;
+        color: #fff;
+        border: 1px solid rgb(255, 117, 248);
+        border-radius: 15px;
+        cursor: pointer;
+      
+        // &:hover {
+        //   background-color: lightcoral;
+        // }
+      }
+    }
+  }
 }
