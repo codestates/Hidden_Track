@@ -98,7 +98,6 @@
             bottom: 25px;
             left: 165px;
             font-size: 30px;
-            
         }
 
         .inner-circle-button{
@@ -127,7 +126,6 @@
 .inner-circle-button:hover {
     box-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px rgb(254, 3, 128),
     0 0 82px rgb(254, 3, 128), 0 0 92px rgb(254, 3, 128), 0 0 102px rgb(254, 3, 128), 0 0 151px rgb(254, 3, 128);
-    // animation: flicker 6s infinite alternate;
 }
     }
     #canvas {
@@ -146,16 +144,7 @@
     transform: translate(-50%, -50%)
 }    
 
-    // .circle{
-    //     position: absolute;
-    //     z-index: 5;
-    //     color: white;
-    //     .inner-circle-cotrol{
-    //         position: absolute;
-    //         // left: 100px
-    //         top: 1000;
-    //     }
-    // }
+
 
 
 

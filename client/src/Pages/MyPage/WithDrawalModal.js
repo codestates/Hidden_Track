@@ -9,7 +9,6 @@ import Portal from './Portal';
 import './WithDrawalModal.scss';
 
 function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
-
   const dispatch = useDispatch();
   const history = useHistory();
   const accessToken = useSelector(state => state.accessTokenReducer).accessToken; // accessToken 관련
