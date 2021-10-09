@@ -26,7 +26,7 @@ module.exports = {
         HttpOnly: true,
         Secure: true, //배포 환경에서는 true로.
         SameSite: "none", //배포환경에서는 hiddentrack만..
-        domain: 'www.hiddentrack.link'
+        maxAge: 60 * 60 * 24 * 1000,
       });
     },
 };
