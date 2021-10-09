@@ -5,7 +5,6 @@ import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/a
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
 import Footer from '../../Components/Footer';
-// import HashTag from '../../Components/HashTag';
 import TrackList from './TrackList';
 import './index.scss';
 
@@ -31,10 +30,8 @@ function SearchTrack ({ handleNotice }) {
 
     // -------------장르 선택시 장르 목록 요청------------
     if (genre) {
-      console.log(genre);
       axios.get(`${process.env.REACT_APP_API_URL}/track/genre/${genre}`)
         .then(res => {
-          console.log('장르 선택 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);
           else setTrackList([]);
         })
@@ -47,10 +44,8 @@ function SearchTrack ({ handleNotice }) {
     }
     // ------------해시태그 검색시 요청--------------
     else if (hashTag) {
-      console.log(hashTag);
       axios.get(`${process.env.REACT_APP_API_URL}/track/hashtag/${hashTag}`)
         .then(res => {
-          console.log('해시태그 선택 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data.track);
           else setTrackList([]);
         })
@@ -66,7 +61,6 @@ function SearchTrack ({ handleNotice }) {
     else {
       axios.get(`${process.env.REACT_APP_API_URL}/search?query=${search}`)
         .then(res => {
-          console.log('검색어 요청 응답', res.data);
           if (res.status === 200) setTrackList(res.data);
         })
         .catch(err => {
@@ -95,12 +89,8 @@ function SearchTrack ({ handleNotice }) {
         <p className='searchtrack-msg'>{genre || hashTag || search}(으)로 검색한 결과</p>
         <TrackList
           trackList={trackList}
-          dispatch={dispatch}
-          getTrackDetails={getTrackDetails}
-          handleNotice={handleNotice}
           search={search}
           hashTag={hashTag}
-          accessToken={accessToken}
         />
       </div>
       <Footer />

@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, getAccessToken } from '../../Redux/actions/actions';
 import axios from 'axios';
-// import likeImage from '../../assets/love.png';
 import ContentDeleteModal from './ContentDeleteModal.js';
 import Grade from './Grade';
 import HashTag from '../../Components/HashTag';
@@ -16,7 +15,6 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
   const playList = useSelector(state => state.playListReducer).playList;
 
   axios.defaults.headers.common.accesstoken = accessToken;
-  console.log(trackDetail);
 
   const [isContentDeleteModalOpen, setIsContentDeleteModalOpen] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
@@ -40,7 +38,6 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
   // 좋아요 버튼 클릭시 서버로 요청하는 함수
   function requestLike () {
-    // e.preventDefault();
     if (!isLogin) {
       handleNotice('로그인 후 이용할 수 있습니다.', 5000);
       return dispatch(isLoginModalOpenHandler(true));
@@ -51,12 +48,10 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       trackId: trackDetail.track.id
     })
       .then(res => {
-        console.log(res.data);
         if (res.status === 200) {
           // 좋아요 요청 완료되면 음원 상세 정보 다시 받아오는 요청 보냄
           axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
-              console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
               }
@@ -94,7 +89,6 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
     }
     return false;
   }
-  console.log('ewrwerer', playList);
 
   // 플레이 리스트 담기 or 바로 듣기 버튼 클릭시 실행되는 함수
   function addPlaylist () {
@@ -151,13 +145,10 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
           trackId: trackDetail.track.id
         })
           .then(res => {
-            console.log('플레이리스트 추가 요청 응답', res.data);
             if (res.status === 201) {
             // 성공 요청시 플레이리스트 상태 다시 받아옴
               axios.get(`${process.env.REACT_APP_API_URL}/playlist`)
                 .then(res => {
-                  console.log('fdsafasd', res.data);
-                  console.log('플레이리스트 요청 응답', res.data);
                   if (res.status === 200) {
                     dispatch(inputPlayList(res.data.playlist));
                     // 바로 듣기 버튼을 누르지 않았다면 알림 메시지
@@ -206,7 +197,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
     <div className='trackinfo-container'>
       <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
         {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
-        <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} art='playButton' /></button>
+        <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} alt='playButton' /></button>
       </div>
       <section className='trackinfo-desc'>
         <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>
