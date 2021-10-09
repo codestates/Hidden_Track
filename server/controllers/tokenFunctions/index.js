@@ -26,7 +26,7 @@ module.exports = {
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 1000,
         secure: true,
-        sameSite:"None",
+        sameSite:"none",
         //domain: 'www.hiddentrack.link',
       });
     },

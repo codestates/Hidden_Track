@@ -19,6 +19,8 @@ import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunct
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 
+axios.defaults.withCredentials =true;
+
 function App () {
   const loca = useLocation();
   const dispatch = useDispatch();
