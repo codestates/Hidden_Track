@@ -39,7 +39,7 @@ app.use('/playlist', playlistRouter);
 app.use('/reply', replyRouter);
 app.use('/search', searchRouter);
 
-const HTTPS_PORT = 4000;
+const HTTPS_PORT = 80;
 
 app.listen(HTTPS_PORT, () => {
   console.log('server 실행');
