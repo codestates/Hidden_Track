@@ -9,7 +9,7 @@ function SignUpModal ({ isOpen, handleModalOpen, text }) {
   function openModalHandler () {
     handleModalOpen();
     if (text === '가입이 완료되었습니다.') {
-      history.push('/');
+      history.push('/main');
     }
   }
 

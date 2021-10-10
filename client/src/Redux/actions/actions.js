@@ -7,7 +7,6 @@ export const IS_LOGIN_MODAL_OPEN = 'IS_LOGIN_MODAL_OPEN';
 export const TRACK_DETAIL = 'TRACK_DETAIL';
 export const ACCESS_TOKEN = 'ACCESS_TOKEN';
 export const IS_LOADING = 'IS_LOADING';
-// export const TRACK_LIST = 'TRACK_LIST';
 
 export function getUserInfo (userInfo) {
   return {
@@ -89,12 +88,3 @@ export function isLoadingHandler (boolean) {
     }
   };
 }
-
-// export function getTrackList (list) {
-//   return {
-//     type: TRACK_LIST,
-//     payload: {
-//       trackList: list
-//     }
-//   };
-// }
