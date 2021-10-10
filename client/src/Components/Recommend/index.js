@@ -16,9 +16,12 @@ function Recommend () {
 
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   const number_ref = useRef(0);
 
   useEffect(() => {
+    setLoading(true);
     requestRecommend(); // Promise
 
     const interval = setInterval(() => {
@@ -31,6 +34,7 @@ function Recommend () {
     }, 2000);
     return () => {
       clearInterval(interval);
+      setLoading(false);
     };
   }, []);
 
@@ -38,7 +42,8 @@ function Recommend () {
     try {
       const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
         { headers: { accesstoken: accessToken } });
-      return result;
+        setRecommendChart(result.data.recommend)
+        return result;
     } catch (err) {
       console.log(err);
     }

@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Allison&family=Architects+Daughter&family=Dancing+Script&family=Hina+Mincho&family=Lobster&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
 @import '../../Common.scss';
 
 
@@ -79,9 +81,11 @@
       border-image-slice: 1;
       background-color: transparent;
       color: #fff;
+      font-family: 'Noto Sans KR', sans-serif;
 
       &::placeholder {
         color: #fff;
+
       }
     }
 
@@ -109,6 +113,9 @@
         @include widthHeight(80px, 50px);
         margin-right: 30px;
         letter-spacing: 0.3em;
+        padding-left: 10px;
+
+
       }
     }
   }
@@ -148,13 +155,14 @@
 
       .add-profile-image-btn {
         font-size: 100px;
-        color: #ccc;
+        color: #aaa;
         cursor: pointer;
-        @include positionBox(absolute, 10%, 37%, _, _);
+        @include positionBox(absolute, 0%, 37%, _, _);
       }
 
       .change-btn {
         @include widthHeight(120px, 40px);
+
       }
     }
 
@@ -207,12 +215,14 @@
 
   .check-duplicate-btn-nickname {
     @include widthHeight(110px, 50px);
-    letter-spacing: 0.3em;
+    letter-spacing: .3em;
+    padding-left: 10px;
   }
 
   .change-btn-nickname {
     @include widthHeight(80px, 50px);
-    letter-spacing: 0.3em;
+    letter-spacing: .3em;
+    padding-left: 10px;
     margin-right: 30px;
   }
 
@@ -308,4 +318,5 @@
   @include positionBox(absolute, _, _, 150px, _);
   @include widthHeight(130px, 50px);
   letter-spacing: 0.3em;
+  padding-left: 10px;
 }

@@ -1,14 +1,17 @@
 @import '../../Common.scss';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
 
 .sign-up {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 50px 0;
+
 }
 
 .sign-up-logo {
-  max-width:300px;
+  max-width: 500px;
   display: block;
   text-align: center;
   cursor: pointer;
@@ -28,7 +31,7 @@
   flex-direction: column;
 
   .sign-up-container {
-    
+
     .sign-up-input {
       @include flexBox(flex, space-around, center, _, _);
       flex-direction: column;
@@ -65,6 +68,11 @@
             border-bottom: 3px solid transparent;
             border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
             border-image-slice: 1;
+
+            &::placeholder {
+              color: #fff;
+              font-family: 'Noto Sans KR', sans-serif;
+            }
           }
 
           // .sign-up-input-id:focus-within {
@@ -75,7 +83,8 @@
 
           .sign-up-id-btn {
             letter-spacing: 0.3em;
-            @include marginPadding(0.625rem, 10px 20px 10px);
+            @include marginPadding(0, 10px 20px 10px 25px);
+            // padding-left: 5px;
           }
         }
 
@@ -110,6 +119,11 @@
             border-bottom: 3px solid transparent;
             border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
             border-image-slice: 1;
+
+            &::placeholder {
+              color: #fff;
+              font-family: 'Noto Sans KR', sans-serif;
+            }
           }
 
           // .sign-up-input-pw:focus-within {
@@ -154,6 +168,11 @@
             border-bottom: 3px solid transparent;
             border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
             border-image-slice: 1;
+
+            &::placeholder {
+              color: #fff;
+              font-family: 'Noto Sans KR', sans-serif;
+            }
           }
 
           // .sign-up-input-nick:focus-within {
@@ -164,7 +183,7 @@
 
           .sign-up-nick-btn {
             letter-spacing: 0.3em;
-            @include marginPadding(0.625rem, 10px 20px 10px);
+            @include marginPadding(0, 10px 20px 10px 25px);
           }
         }
 
@@ -228,7 +247,7 @@
 
           &:hover {
             text-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
-            0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+              0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
           }
         }
 
@@ -249,12 +268,12 @@
 
       div {
         @include flexBox(flex, center, center, _, _);
-        
+
         input[type='radio'] {
           zoom: 2;
           outline: none;
         }
-        
+
         label {
           color: white;
         }
@@ -295,7 +314,7 @@
 
     .sign-up-submit-btn {
       letter-spacing: 0.5em;
-      @include marginPadding(0.625rem, 18px 70px 20px);
+      @include marginPadding(30px, 18px 70px 20px 75px);
     }
   }
 }
