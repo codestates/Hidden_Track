@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/actions/actions';
+import { useDispatch } from 'react-redux';
+import { isLoadingHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
 import Footer from '../../Components/Footer';
@@ -11,7 +11,6 @@ import './index.scss';
 function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
   const location = useLocation();
-  const accessToken = useSelector(state => state.accessTokenReducer);
   const [trackList, setTrackList] = useState([]);
 
   useEffect(() => {
@@ -40,6 +39,7 @@ function SearchTrack ({ handleNotice }) {
           if (err.response) {
             if (err.response.status === 404) setTrackList([]);
           } else console.log(err);
+          dispatch(isLoadingHandler(false));
         });
     }
     // ------------해시태그 검색시 요청--------------
@@ -55,6 +55,7 @@ function SearchTrack ({ handleNotice }) {
             if (err.response.status === 404) setTrackList([]);
             if (err.response.status === 400) setTrackList([]);
           } else console.log(err);
+          dispatch(isLoadingHandler(false));
         });
     }
     // --------------검색어 입력시 요청----------------
@@ -74,6 +75,7 @@ function SearchTrack ({ handleNotice }) {
               setTrackList([]);
             }
           } else console.log(err);
+          dispatch(isLoadingHandler(false));
         });
     }
     dispatch(isLoadingHandler(false));

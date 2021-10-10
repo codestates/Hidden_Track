@@ -36,7 +36,7 @@ function HashTag ({ tagList, searchTag }) {
 
   return (
     <section id='hashtag-section'>
-      <ul className='hashtag-ul'>
+      <ul className='hashtag-ul ul-of-track-details'>
         {tagList
           ? tagList.map((el, idx) => {
             return (

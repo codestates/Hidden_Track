@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, getAccessToken } from '../../Redux/actions/actions';
@@ -197,12 +197,16 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
     <div className='trackinfo-container'>
       <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
         {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
-        <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} alt='playButton' /></button>
+        {/* <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} alt='playButton' onClick={(e) => clickListenBtn(e)}/></button> */}
+        <img className='trackinfo-listen-btn' src={playButton} alt='playButton' onClick={(e) => clickListenBtn(e)} />
       </div>
+
       <section className='trackinfo-desc'>
+
         <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>
         <span className='trackinfo-grade-avg'>평점: {trackDetail.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
+
         <div className='trackinfo-box'>
           <div className='trackinfo-info'>
             <span className='trackinfo-key'>아티스트</span>
@@ -217,28 +221,34 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
             <span className='trackinfo-value'>{trackDetail.track.releaseAt}</span>
           </div>
         </div>
-        <div className='trackinfo-btn-box'>
-          <button className='contents__btn trackinfo-playlist-btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
 
-          {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
-            <img className='like-btn' src={likeImage} alt='' />
-          </button> */}
-          <div className='like-btn-box'>
-            <i className='like-btn' id={trackDetail.myLike ? 'like-btn-clicked' : null} onClick={requestLike}>
-              <span className='trackinfo-total-like'>{trackDetail.like}</span>
-            </i>
-            <span className='like-btn-msg' id={trackDetail.myLike ? 'like-btn-msg-clicked' : null}>liked!</span>
+        <div className='trackinfo-btn-box'>
+
+          <div className='trackinfo-btn-box-right'>
+            <button className='contents__btn trackinfo-playlist-btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
+            {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
+              <img className='like-btn' src={likeImage} alt='' />
+            </button> */}
+            <div className='like-btn-box'>
+              <i className='like-btn' id={trackDetail.myLike ? 'like-btn-clicked' : null} onClick={requestLike}>
+                <span className='trackinfo-total-like'>{trackDetail.like}</span>
+              </i>
+              <span className='like-btn-msg' id={trackDetail.myLike ? 'like-btn-msg-clicked' : null}>liked!</span>
+            </div>
           </div>
+
           {isLogin && userInfo.nickName === trackDetail.track.user.nickName
             ? <div className='trackinfo-auth-btn'>
               <button className='contents__btn trackinfo-modi-btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
               <button className='contents__btn trackinfo-delete-btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
-            </div>
+              </div>
             : null}
         </div>
+
         <div className='trackinfo-hashtag-box'>
           <HashTag tagList={trackDetail.track.hashtags} />
         </div>
+
         {isContentDeleteModalOpen &&
           <ContentDeleteModal
             visible={isContentDeleteModalOpen}

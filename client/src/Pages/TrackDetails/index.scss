@@ -2,21 +2,19 @@
 
 %track-details-btn {
   display: inline-block;
-  // background: transparent;
-  // text-transform: uppercase;
+
   font-weight: 500;
   font-style: normal;
   font-size: 15px;
   letter-spacing: 0.3em;
   padding: 5px 20px 5px;
-  color: rgba(223,190,106,0.7);
+  color: rgba(223, 190, 106, 0.7);
   border-radius: 20px;
   transition: all 0.7s ease-out;
-  background:linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+  background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
   background-position: 1% 50%;
   background-size: 300% 300%;
   text-decoration: none;
-  // margin: 0.625rem;
   border: none;
   border: 1px solid rgba(255, 255, 255, 0.3);
   cursor: pointer;
@@ -31,17 +29,20 @@
 
 .track-details {
 
+
   .trackinfo-container {
-    @include flexBox(flex, space-evenly, center, _, _);
-    // background-color: wheat;
+
+    display: flex;
+    align-items: center;
     margin-top: 100px;
-    // width: 80%;
-  
+    width: 80%;
+    margin: 0 auto;
+
+
+
     .trackinfo-image-box {
       @include widthHeight(30em, 30em);
-      // margin: 0 auto;
-      // padding-bottom: 50%;
-      // position: relative;
+
       position: relative;
       background-size: cover;
       background-position: center;
@@ -50,216 +51,199 @@
       border-radius: 12px;
       margin: 2rem;
       padding: 1rem;
-      // box-shadow: 0 0 0 2rem skyblue;
-      // outline: 0.5rem solid khaki;
-      // outline-offset: 0.5rem;
-      
-      // .trackinfo-image {
-      //   // height: 500px;
-      //   // size: 100%;
-      //   // object-fit: cover;
-      //   // padding-bottom: 100%;
-      //   position: absolute;
-      //   top: 0; left: 0; right: 0; bottom: 0;
-      //   @include widthHeight(100%, 100%);
-      // }
+
       .trackinfo-listen-btn {
         position: absolute;
-        border-radius: 50%;
-        top: 50%;
-        left:50%;
-        transform: translate(-50%, -50%);
-        border: 0;
-        outline: 0;
-        // letter-spacing: 0.1em;
-        // padding: 5px 20px 5px;
-        // height: 42px;
-        // margin-left: 20px;
-        background: transparent;
-        width: 250px;
-        height: 250px;
-        // transition: all 0.3s ease;
-        // outline: none;
-        .trackinfo-listen-img {
-          position: absolute;
-          top: 50%;
-          left:50%;
-          transform: translate(-50%, -50%);
-          cursor: pointer;
-          width: 200px;
-        }
-        }
-        .trackinfo-listen-btn:hover {
+        border-radius: 30%;
+
+        @include widthHeight(15.625em, 15.625em);
+        top: 25%;
+        left: 26%;
+        cursor: pointer;
+
+        &:hover {
           animation: shake 0.5s infinite;
-          // box-shadow: 0 0 1px #fff, 0 0 4px #fff, 0 0 6px #fff, 0 0 1px rgb(254, 3, 128),
-          // 0 0 2px rgb(254, 3, 128), 0 0 5px rgb(254, 3, 128), 0 0 7px rgb(254, 3, 128), 0 0 10px rgb(254, 3, 128);
         }
+      }
+
     }
-    
+
+
+
     .trackinfo-desc {
-      @include flexBox(flex, _, center, _, _);
+      display: flex;
       flex-direction: column;
-      width: 40%;
-      // flex-wrap: wrap;
-      // outline: chartreuse solid 1px;
-      // border: 0.5rem outset rgb(222, 222, 222);
-      border: solid 1px #fff;
+
+      padding: 40px;
+      justify-content: space-around;
+      margin-left: 80px;
+
+      @include widthHeight(60em, 28em);
+
       border-radius: 12px;
 
       &:hover {
         box-shadow: 0 0 1px #fff, 0 0 2.5px #fff, 0 0 9px #fff, 0 0 1px #4566F6,
-        0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
+          0 0 2px #4566F6, 0 0 13px #4566F6, 0 0 38px #4566F6, 0 0 45px #4566F6;
       }
-      
+
       .trackinfo-title {
         color: white;
-        width: 90%;
+        display: inline-block;
+        text-align: left;
+        margin: 0;
+        margin-bottom: 20px;
       }
-  
+
       .trackinfo-grade-avg {
         color: white;
         font-size: 20px;
+        display: inline-block;
+        text-align: left;
       }
-  
+
       .trackinfo-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        // justify-content: center;
-        // background-color: yellowgreen;
-        // margin-bottom: 1px;
-        // outline: blue solid 1px;
-        // border: 0.5rem outset rgb(222, 222, 222);
-        // border-radius: 12px;
-        margin: 1rem;
-        padding: 1rem;
-        width: 90%;
-        
+
+
+        margin: 1rem 0 0 0;
+
         .trackinfo-info {
-          // width: 300px;
           height: 35px;
           display: flex;
-          width: 100%;
-          justify-content: center;
-          // outline: white solid 1px;
-          
+
+
           .trackinfo-key {
-            @include flexBox(flex, center, center, _, _);
-            // background-color: red;
+            @include flexBox(flex, _, _, _, _);
             width: 50px;
             flex-basis: 30%;
-            // border-right: solid 1px white;
             color: white;
             font-size: 20px;
           }
-          
+
           .trackinfo-value {
-            @include flexBox(flex, center, center, _, _);
-            // flex-basis: 70%;
-            width: 150px;
+            @include flexBox(flex, _, _, _, _);
+            width: 100%;
+            overflow: hidden;
             color: white;
             font-size: 20px;
           }
         }
       }
-      
+
       .trackinfo-btn-box {
-        // flex: 1 1 auto;
-        @include flexBox(flex, _, center, _, _);
+        // background-color: blue;
+        display: flex;
+        justify-content: space-between;
         flex-wrap: wrap;
-        width: 90%;
+        width: 100%;
         margin-bottom: 10px;
-        
+        margin-top: 20px;
+
+
+        .trackinfo-btn-box-right {
+          display: flex;
+        }
+
         .trackinfo-playlist-btn {
           letter-spacing: 0.1em;
           padding: 5px 20px 5px;
           height: 42px;
         }
 
-        // .trackinfo-listen-btn {
-          // letter-spacing: 0.1em;
-          // padding: 5px 20px 5px;
-          // height: 42px;
-          // margin-left: 20px;
-          // background-color: transparent;
-          // width: 50px;
-          // height: 50px;
-          // outline: none;
-          // .trackinfo-listen-img {
-          //   width: 50px;
-          // }
-        // }
+
 
         .like-btn-box {
           position: relative;
           margin-left: 20px;
           @include widthHeight(80px, 42px);
-          
+
+
           .like-btn {
-            // @include widthHeight(15px, 15px);
-            width: 50px;
-            cursor:pointer;
-            padding:10px 12px 8px;
-            background:#fff;
-            border-radius:30px;
-            display:inline-block;
-            // margin:0 0 15px;
-            color:#aaa;
-            transition:.2s;
+            display: inline-block;
+            width: 80px;
+            padding: 12px 0;
+            text-align: center;
+            cursor: pointer;
+            background: #fff;
+            border-radius: 30px;
+            color: #aaa;
+            transition: .2s;
+            text-align: center;
+
+
 
             &:hover {
-              color:#666;
+              color: #666;
             }
 
             &::before {
-              font-family:fontawesome;
-              content:'\f004';
-              font-style:normal;
+              font-family: fontawesome;
+              content: '\f004';
+              font-style: normal;
+              vertical-align: middle;
             }
-            
+
             .trackinfo-total-like {
               color: black;
               font-style: normal;
               margin-left: 5px;
+
+
             }
           }
 
           #like-btn-clicked {
             animation: size .4s;
-            color:#e23b3b;
+            color: #e23b3b;
           }
 
           .like-btn-msg {
             position: absolute;
-            bottom:30px;
-            left:0;
-            right:0;
+            bottom: 30px;
+            left: 0;
+            right: 0;
             visibility: hidden;
-            transition:.6s;
-            z-index:-2;
-            font-size:2px;
-            color:transparent;
-            font-weight:400;
+            transition: .6s;
+            z-index: -2;
+            font-size: 2px;
+            color: transparent;
+            font-weight: 400;
           }
 
           #like-btn-msg-clicked {
-            bottom:50px;
-            font-size:14px;
-            visibility:visible;
+            bottom: 50px;
+            font-size: 14px;
+            visibility: visible;
             animation: fade 1s;
           }
 
           @keyframes fade {
-            0% {color:transparent;}
-            50% {color:#e23b3b;}
-            100% {color:transparent;}
+            0% {
+              color: transparent;
+            }
+
+            50% {
+              color: #e23b3b;
+            }
+
+            100% {
+              color: transparent;
+            }
           }
 
           @keyframes size {
-            0% {padding:10px 12px 8px;}
-            50% {padding:14px 16px 12px;  
-              margin-top:-4px;}
-            100% {padding:10px 12px 8px;}
+            0% {
+              padding: 10px 12px 8px;
+            }
+
+            50% {
+              padding: 14px 16px 12px;
+              margin-top: -4px;
+            }
+
+            100% {
+              padding: 10px 12px 8px;
+            }
           }
         }
       }
@@ -270,9 +254,9 @@
         flex-wrap: wrap;
         margin-left: auto;
 
-        .trackinfo-modi-btn, .trackinfo-delete-btn {
-          // @extend %track-details-btn;
-          // margin-left: 20px;
+        .trackinfo-modi-btn,
+        .trackinfo-delete-btn {
+
           letter-spacing: 0.1em;
           padding: 5px 20px 5px;
           height: 42px;
@@ -280,11 +264,23 @@
       }
 
       .trackinfo-hashtag-box {
-        display: flex;
-        width: 95%;
-        // .tag {
-        //   height: 30px;
-        // }
+
+        height: 29%;
+        margin-top: 30px;
+        // background-color: red;
+        margin-left: -5px;
+
+        #hashtag-section {
+
+          .ul-of-track-details {
+            margin: 0;
+            align-items: normal;
+            justify-content: normal;
+            padding: 0;
+          }
+        }
+
+
       }
     }
   }
@@ -297,36 +293,41 @@
     @include flexBox(flex, _, center, _, _);
     flex-direction: column;
     // background-color: violet;
-  
+
     .replys-box {
       @include widthHeight(80%, 400px);
       // padding: 0;
       // outline: solid white 2px;
       overflow: auto;
-      border: 0.5rem outset rgb(222, 222, 222);
+      // border: 0.5rem outset rgb(222, 222, 222);
+      border: solid 1px #fff;
       border-radius: 12px;
       margin: 2rem;
       padding: 1rem;
-  
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
       .replys-li {
         @include flexBox(flex, _, _, _, _);
         border-radius: 10px;
         margin: 5px 5px 0 5px;
         // background-color: #616060;
         opacity: .8;
-        
+
         .replys-info {
           display: flex;
           align-items: center;
           // align-items: baseline;
           margin: 5px;
-          border-right: #fff solid 1px ;
-          
+          border-right: #fff solid 1px;
+
           .replys-profile {
             @include widthHeight(70px, 70px);
             border-radius: 50%;
           }
-  
+
           .replys-nickname {
             margin: 0 10px;
             color: #fff;
@@ -335,15 +336,15 @@
             font-size: 25px;
           }
         }
-        
+
         .replys-content {
           display: flex;
           width: 100%;
-          
+
           .replys-comment-box {
             display: flex;
             flex: 1 1 auto;
-    
+
             .replys-comment {
               @include flexBox(flex, _, center, 5px, _);
               white-space: pre-wrap;
@@ -352,16 +353,17 @@
               font-size: 20px;
             }
           }
-          
+
           .replys-btn-box {
             // margin-left: auto;
             min-width: 80px;
-            
-            .replys-modify, .replys-delete {
+
+            .replys-modify,
+            .replys-delete {
               @include widthHeight(30px, 30px);
               margin: 5px 5px 0 5px;
               cursor: pointer;
-  
+
               &:hover {
                 animation: shake 0.5s infinite;
               }
@@ -370,20 +372,20 @@
         }
       }
     }
-  
+
     .write-reply-container {
       @include flexBox(flex, center, center, _, _);
       width: 80%;
-    
+
       .write-reply-area {
         @include widthHeight(80%, 20vh);
         resize: none;
       }
-    
+
       .write-reply-btn-box {
         @include widthHeight(250px, 50px);
         @include flexBox(flex, space-evenly, _, _, _);
-        
+
         .modify-reply-btn {
           letter-spacing: 0.3em;
           padding: 5px 20px 5px;

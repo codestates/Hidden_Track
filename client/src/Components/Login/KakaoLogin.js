@@ -11,7 +11,7 @@ function KakaoLogin () {
 
   // const [keepLogin, setKeepLogin] = useState(false);
 
-  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://www.hiddentrack.link/main&response_type=code`;
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/main&response_type=code`;
 
   function requestAssign () {
     window.location.assign(KAKAO_LOGIN_URL);

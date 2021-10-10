@@ -7,6 +7,7 @@ const {
 } = require('../tokenFunctions');
 
 module.exports = async (req, res) => {
+  console.log(req.body)
   axios.post(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${req.body.authorizationCode}`,
     { headers: { 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8' } }
   ).then(response1 => {

@@ -8,9 +8,7 @@ import {
   INPUT_MUSIC,
   DELETE_MUSIC,
   ACCESS_TOKEN,
-  // CLICK_MODIFY,
   IS_LOADING
-  // TRACK_LIST
 } from '../actions/actions';
 import { initialState } from './initialState';
 
@@ -22,7 +20,6 @@ const rootReducer = combineReducers({
   trackDetailReducer,
   accessTokenReducer,
   loadingIndicatorReducer
-  // trackListReducer
 });
 
 // reducer : 변화를 일으키는 함수
@@ -103,15 +100,5 @@ function loadingIndicatorReducer (state = initialState.isLoading, action) {
     default: return state;
   }
 }
-
-// function trackListReducer (state = initialState.trackList, action) {
-//   switch (action.type) {
-//     case TRACK_LIST:
-//       return Object.assign({}, {
-//         trackList: action.payload.trackList
-//       });
-//     default: return state;
-//   }
-// }
 
 export default rootReducer;

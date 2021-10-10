@@ -37,8 +37,10 @@ function Landing () {
   const [scrollY, setScrollY] = useState(0);
   const [isScrollToTopBtn, setIsScrollToTopBtn] = useState(false);
   const [chart, setChart] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     AOS.init();
     requestRecommend(); // Promise
 
@@ -63,13 +65,10 @@ function Landing () {
       window.addEventListener('scroll', setScrollPosition);
     };
     watch();
-    return () => {
-      window.removeEventListener('scroll', setScrollPosition);
-    };
+    return () => setLoading(false);
   }, []);
 
   useEffect(() => {
-    console.log(`현재 스크롤 위치는 ${scrollY}입니다`);
     if (scrollY > 570) {
       setIsScrollToTopBtn(true);
     } else {
@@ -160,7 +159,7 @@ function Landing () {
 어디서든 똑같은 음원 순위... 
 지겨우셨나요?`}
               </pre>
-              <pre className='landing__section1-pre2'>{`hidden track에서 
+              <pre className='landing__section1-pre2'>{`HIDDEN TRACK에서 
 신선한 음악, 색다른 아티스트들의 다양한 음악을 즐겨보세요!`}
               </pre>
               <button onClick={(e) => moveMain(e)}>enjoy right now</button>
@@ -182,7 +181,7 @@ function Landing () {
             <figcaption id='landing__figcaption'>
               <pre className='landing__section1-pre1'>신선한 음악, 색다른 아티스트.
               </pre>
-              <pre className='landing__section1-pre2'>{`hidden track에서는 
+              <pre className='landing__section1-pre2'>{`HIDDEN TRACK에서는 
 신인 가수, 아직 알려지지 않은 가수들이 직접 등록한 음악을 감상하실 수 있습니다.`}
               </pre>
               <pre className='landing__section1-pre3'>* 아티스트 계정으로 가입시, 음원 등록 및 수정, 삭제가 가능합니다.
@@ -194,7 +193,7 @@ function Landing () {
         <section id='section3'>
           <figure className='landing__section3-figure' role='img' aria-labelledby='landing-caption'>
             <figcaption id='landing__figcaption'>
-              <pre className='landing__section3-pre1'>내가 원하는 음악을 추천받으세요!
+              <pre className='landing__section3-pre1'>당신을 위한 음악 추천!
               </pre>
             </figcaption>
             <LandingSlider {...settings}>
@@ -207,8 +206,8 @@ function Landing () {
                 );
               })}
             </LandingSlider>
-            <pre className='landing__section3-pre2'>{`데이터 기록을 바탕으로 Listner가 원하는 음악을 추천해드립니다.
-또한 인기곡 최신곡을 쉽게 확인 가능합니다.`}
+            <pre className='landing__section3-pre2'>{`HIDDEN TRACK에서 추천하는 음악을 들어보세요!
+인기곡 최신곡과 더불어, 이용패턴을 분석해 내 취향에 꼭 맞는 음악을 추천해드립니다.`}
             </pre>
           </figure>
         </section>
@@ -217,10 +216,10 @@ function Landing () {
           <figure className='landing__figure' role='img' aria-labelledby='landing-caption'>
             <div className='landing__section4-img' />
             <figcaption id='landing__figcaption'>
-              <pre className='landing__section1-pre1'>검색을 통해 음원을 쉽게 찾아보세요!
+              <pre className='landing__section1-pre1'>원하는 음악을 더 쉽게 찾아보세요!
               </pre>
-              <pre className='landing__section1-pre2'>{`장르별로 음원을 찾아보실 수도 있고, 
-검색을 통해 음원, 아티스트, 해시태그로 총 3가지 검색 결과가 확인 가능합니다.`}
+              <pre className='landing__section1-pre2'>{`HIDDEN TRACK은 검색시, 
+음원, 아티스트, 해시태그로 구성된 3가지 검색 결과를 제공합니다.`}
               </pre>
             </figcaption>
           </figure>
@@ -233,10 +232,10 @@ function Landing () {
             <figcaption id='landing__figcaption'>
               <pre className='landing__section1-pre1'>자유롭게 음악을 감상하세요!
               </pre>
-              <pre className='landing__section1-pre2'>{`사이드 바에 있는 music player를 통해 나만의 play list 구성이 가능하며,  
-음악 재생중 자유롭게 페이지 이동이 가능합니다.
-또한, 음원 상세페이지에서 바로 듣기 버튼을 통해 특정 곡을 
-visualizer(음원 시각화)로 감상 가능합니다.`}
+              <pre className='landing__section1-pre2'>{`side bar에 있는 music player를 통해 나만의 play list 구성하고 음악을 감상하세요!  
+음악 재생중엔 편하게 HIDDEN TRACK 을 이용하실 수 있습니다.`}
+              </pre>
+              <pre className='landing__section1-pre3'>* HIDDEN TRACK은 visualizer(음원 시각화)기능을 추가로 제공합니다.
               </pre>
             </figcaption>
           </figure>

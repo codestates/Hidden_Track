@@ -128,7 +128,11 @@ module.exports = {
     }
 
     const findTrack = await track.findOne({
-      where: { id: id }
+      where: { id: id },
+      include: {
+        model: hashtag,
+        attributes: ['id', 'tag']
+      }
     });
 
     if (findTrack.soundTrack !== soundtrack) {
@@ -162,6 +166,21 @@ module.exports = {
     }, {
       where: { id: id }
     });
+
+    await tagtracks.destroy({
+      where: { trackId: id }
+    });
+
+    for (let i = 0; i < findTrack.hashtags.length; i++) {
+      const { count, rows } = await tagtracks.findAndCountAll({
+        where: { hashtagId: findTrack.hashtags[i].id }
+      });
+      if (count === 0) {
+        await hashtag.destroy({
+          where: { id: findTrack.hashtags[i].id }
+        });
+      }
+    }
 
     for (let i = 0; i < tag.length; i++) {
       const [findHashTag, created] = await hashtag.findCreateFind({

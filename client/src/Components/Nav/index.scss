@@ -13,8 +13,8 @@ body {
 }
 
 .logo {
-@include flexBox(_, _, _, 0, 0);
-font-size: 4em;
+  @include flexBox(_, _, _, 0, 0);
+  font-size: 4em;
 }
 
 %h1 {

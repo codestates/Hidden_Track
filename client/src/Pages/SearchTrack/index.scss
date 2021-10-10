@@ -12,6 +12,7 @@
   
   .searchtrack-msg {
     color: white;
+    font-size: 20px;
   }
 
   .track-list-container {
@@ -41,6 +42,7 @@
         display: flex;
         flex-wrap: wrap;
         list-style: none;
+        margin-bottom: 1em;
         // justify-content: center;
         // float: left;
         // background-color: green;
@@ -50,8 +52,6 @@
         .track-list-li {
           @include flexBox(flex, _, center, 1em, _);
           flex-direction: column;
-          // flex: 1;
-          background-color: skyblue;
           // float: left; // 자식 태그들 왼쪽부터 채워지게
           cursor: pointer;
           outline: solid 1px white;
@@ -60,13 +60,24 @@
           .track-list-img {
             @include widthHeight(17em, 17em)
           }
-    
-          .track-list-title, .track-list-artist {
-            margin: 0;
-            width: 80%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+          
+          div {
+            @include flexBox(flex, _, center, _, _);
+            flex-direction: column;
+            width: 100%;
+            background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
+            
+            .track-list-title, .track-list-artist {
+              margin: 0;
+              width: 80%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: #fff;
+              font-size: 20px;
+              text-align: center;
+              background-color: transparent;
+            }
           }
         }
     
@@ -78,6 +89,7 @@
   
       .track-list-msg {
         color: white;
+        text-align: center;
       }
 
       .search-result-containcer {
@@ -87,10 +99,6 @@
 
         .search-result-box {
           // outline: solid green 1px;
-
-          label {
-            
-          }
 
           .hashtag-box {
             width: 100%;
@@ -106,10 +114,15 @@
       
       label {
         display: block;
-        color: white;
+        color: #fff;
         font-weight: bold;
-        // background-color: aqua;
         margin-bottom: 1em;
+        font-size: 25px;
+        border: 0;
+        border-bottom: 3px solid transparent;
+        border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+        border-image-slice: 1;
+        text-align: center;
       }
     }
   }
