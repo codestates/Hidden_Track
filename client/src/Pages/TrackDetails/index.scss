@@ -287,10 +287,14 @@
       // padding: 0;
       // outline: solid white 2px;
       overflow: auto;
-      border: 0.5rem outset rgb(222, 222, 222);
+      // border: 0.5rem outset rgb(222, 222, 222);
+      border: solid 1px #fff;
       border-radius: 12px;
       margin: 2rem;
       padding: 1rem;
+      &::-webkit-scrollbar {
+        display: none; 
+      }
 
       .replys-li {
         @include flexBox(flex, _, _, _, _);

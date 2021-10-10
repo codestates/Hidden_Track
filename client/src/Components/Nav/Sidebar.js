@@ -45,7 +45,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   const [previousMusic, setPreviousMusic] = useState([]);
   const [afterRender, setAfterRender] = useState(false);
   const [time, setTime] = useState();
-
   useEffect(() => {
     clearInterval(timeSet);
     audio.current.audio.current.onplay = () => {
@@ -81,11 +80,16 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
     }
   }, [isLogin]);
 
+  function goVisual (trackId) {
+    history.push(`/visual/${trackId}`);
+  }
+
   // 비로그인 상태일때 음원 1분재생 해주는 함수
   function play1min () {
     clearInterval(timeSet);
     if (!isLogin) {
       if (!audio.current.audio.current.paused) {
+        handleNotice('1분 미리듣기 상태입니다.', 5000);
         timeSet = setInterval(tictok, 1000);
         setTime(timeSet);
         // return time
@@ -97,6 +101,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
 
   function tictok () {
     tic += 1;
+    console.log(tic);
     check();
   }
 
@@ -110,7 +115,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
       clearInterval(timeSet);
       tic = 0;
       // dispatch(isLoginModalOpenHandler(true))
-      handleNotice('현재 1분 미리듣기 상태입니다.\n로그인하시겠어요?', 5000);
+      handleNotice('로그인후 멋진 음악을 FULL로 감상하세요!', 5000);
     }
   }
 
@@ -118,12 +123,10 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
     setAfterRender(true);
     if (!isLogin) {
       // 비로그인 상태에서는 노래 재생중엔 노래 변경 불가능
-      if (audio.current.audio.current.currentTime === 0) {
-        clearInterval(timeSet);
-        tic = 0;
-        handlePreviousMusic('push', playList[playList.indexOf(currentMusic)]);
-        setCurrentMusic(playList[index]);
-      }
+      clearInterval(timeSet);
+      tic = 0;
+      handlePreviousMusic('push', playList[playList.indexOf(currentMusic)]);
+      setCurrentMusic(playList[index]);
     } else {
       setCurrentMusic(playList[index]);
       audio.current.audio.current.play();
@@ -297,6 +300,9 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                     handleChangeMusic={handleChangeMusic}
                     handlePreviousMusic={handlePreviousMusic}
                     handleDeleteMusic={handleDeleteMusic}
+                    currentMusic={currentMusic}
+                    trackId={el.track.id}
+                    goVisual={goVisual}
                   />
                 );
               })}
