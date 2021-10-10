@@ -1,4 +1,3 @@
 module.exports = {
-    playlist: require('./playlist'),
- };
-   
+  playlist: require('./playlist')
+};

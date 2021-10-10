@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { replyController } = require("../controllers");
+const { replyController } = require('../controllers');
 
 router.post('/', replyController.reply.post);
 router.delete('/:id', replyController.reply.delete);

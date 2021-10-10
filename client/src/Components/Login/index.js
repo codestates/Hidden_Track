@@ -63,7 +63,10 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     // inputId 와 inputPw 는 state 다
     const body = {
       loginId: inputId,
-      password: inputPw
+      password: inputPw,
+       headers: {
+        'content-type': 'application/json'
+      }
     };
 
     // 로그인 요청 서버에 보냄

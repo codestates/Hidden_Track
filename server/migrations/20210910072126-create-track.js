@@ -25,7 +25,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references :{model: 'users', key: 'id'}
+        references: { model: 'users', key: 'id' }
       },
       lyric: {
         type: Sequelize.TEXT
@@ -41,7 +41,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    })
+    });
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('tracks');

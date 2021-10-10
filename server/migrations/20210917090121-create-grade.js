@@ -6,13 +6,13 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        references :{model: 'users', key: 'id'}
+        references: { model: 'users', key: 'id' }
       },
       trackId: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        references :{model: 'tracks', key: 'id'}
+        references: { model: 'tracks', key: 'id' }
       },
       userGrade: {
         type: Sequelize.FLOAT

@@ -11,17 +11,17 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    let tags = [];
-    for(let i =1;i<=5;i++){
+    const tags = [];
+    for (let i = 1; i <= 5; i++) {
       tags.push({
-        trackId : Math.floor((Math.random()*100)%20+1),
-        hashtagId : 30,
+        trackId: Math.floor((Math.random() * 100) % 20 + 1),
+        hashtagId: 30,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      })
-    } 
-    console.log(tags)
-     return queryInterface.bulkInsert("tagtracks",tags);
+        updatedAt: new Date()
+      });
+    }
+    console.log(tags);
+    return queryInterface.bulkInsert('tagtracks', tags);
   },
 
   down: async (queryInterface, Sequelize) => {

@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
     }
-  };
+  }
   userArtist.init({
     userId: DataTypes.INTEGER,
     agency: DataTypes.STRING,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     debut: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'userArtist',
+    modelName: 'userArtist'
   });
   userArtist.removeAttribute('id');
   return userArtist;

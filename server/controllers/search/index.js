@@ -1,5 +1,4 @@
 module.exports = {
-    search: require('./search'),
-    hashtag: require('./hashtag')
- };
-   
+  search: require('./search'),
+  hashtag: require('./hashtag')
+};
