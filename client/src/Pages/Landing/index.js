@@ -37,8 +37,10 @@ function Landing () {
   const [scrollY, setScrollY] = useState(0);
   const [isScrollToTopBtn, setIsScrollToTopBtn] = useState(false);
   const [chart, setChart] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     AOS.init();
     requestRecommend(); // Promise
 
@@ -63,13 +65,10 @@ function Landing () {
       window.addEventListener('scroll', setScrollPosition);
     };
     watch();
-    return () => {
-      window.removeEventListener('scroll', setScrollPosition);
-    };
+    return () => setLoading(false);
   }, []);
 
   useEffect(() => {
-    console.log(`현재 스크롤 위치는 ${scrollY}입니다`);
     if (scrollY > 570) {
       setIsScrollToTopBtn(true);
     } else {
