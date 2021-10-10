@@ -197,7 +197,8 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
     <div className='trackinfo-container'>
       <div className='trackinfo-image-box' style={{ backgroundImage: `url(${trackDetail.track.img})` }}>
         {/* <img className='trackinfo-image' src={trackDetail.track.img} alt={trackDetail.track.title} /> */}
-        <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} alt='playButton' /></button>
+        {/* <button className='trackinfo-listen-btn' onClick={(e) => clickListenBtn(e)}><img className='trackinfo-listen-img' src={playButton} alt='playButton' onClick={(e) => clickListenBtn(e)}/></button> */}
+        <img className='trackinfo-listen-btn' src={playButton} alt='playButton' onClick={(e) => clickListenBtn(e)} />
       </div>
       <section className='trackinfo-desc'>
         <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>

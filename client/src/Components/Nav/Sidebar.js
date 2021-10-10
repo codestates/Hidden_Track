@@ -304,6 +304,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         </div>
       </div>
       <div className={isSidebarOpen ? 'sidebar-backdrop sidebar-opened' : 'sidebar-backdrop sidebar-closed'} onClick={(e) => showSidebar(e)} style={{ width: window.innerWidth, height: window.innerHeight }} />
+      {/*  background: 'black',   opacity: .8 */}
     </>
   );
 }
