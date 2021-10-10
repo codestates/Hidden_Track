@@ -257,11 +257,11 @@ function MyPage ({ handleNotice }) {
 
   // 수정할 닉네임 글자수가 10자 초과할때 메세지 나타나게 하는 함수
   function checkNickLength (key, inputValue, e) {
-    const check = inputValue.length < 10;
+    const check = inputValue.length < 16;
     if (check || !inputValue) {
       showCheckMessage(key, '');
     } else {
-      showCheckMessage(key, '닉네임은 10자 미만으로 입력해주세요');
+      showCheckMessage(key, '닉네임은 15자 이하로 입력해주세요');
     }
   }
 
