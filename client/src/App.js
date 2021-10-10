@@ -73,7 +73,7 @@ function App () {
       //   } else {
       //     dispatch(isLoadingHandler(false));
       //   }
-      dispatch(isLoginHandler(false));
+      // dispatch(isLoginHandler(false));
       dispatch(isLoadingHandler(false));
     }
     tokenRequest();

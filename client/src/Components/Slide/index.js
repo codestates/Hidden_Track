@@ -99,4 +99,3 @@ export const ImgSlide = styled.div`
   background-position: center;
   cursor: pointer;
 `;
-
