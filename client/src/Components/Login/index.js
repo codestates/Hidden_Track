@@ -64,7 +64,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     const body = {
       loginId: inputId,
       password: inputPw,
-       headers: {
+      headers: {
         'content-type': 'application/json'
       }
     };
