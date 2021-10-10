@@ -68,6 +68,8 @@
 
     }
 
+
+
     .trackinfo-desc {
       display: flex;
       flex-direction: column;
@@ -264,11 +266,11 @@
         position: relative;
         height: 15%;
 
-        li {
-          position: absolute;
-          left: -10px;
-          top: 0;
-        }
+        // li {
+        //   position: absolute;
+        //   left: -10px;
+        //   top: 0;
+        // }
       }
     }
   }

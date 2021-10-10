@@ -222,8 +222,8 @@
 
     &::before {
       content: '';
-      @include positionBox(absolute, 0, 0, 0, 100%);
-      @include widthHeight(100%, 100%);
+      // @include positionBox(absolute, 0, 0, 0, 100%);
+      // @include widthHeight(100%, 100%);
       // background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
       transition: all .5s;
       z-index: -1;

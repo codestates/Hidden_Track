@@ -99,6 +99,11 @@
     #genre-name-0 {
       text-shadow: 0 0 3px #b46101, 0 0 10px #b46101, 0 0 21px #b46101,
     }
+
+    &::after:hover {
+      outline: white solid 0.2em;
+    }
+
   }
 
   #genre-bg-1:hover {
