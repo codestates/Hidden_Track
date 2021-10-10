@@ -10,8 +10,8 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
 
   // 닉네임 글자수 유효성 검사 함수
   function isValidNick (e) {
-    if (e.target.value.length > 9) {
-      handleValidMessage('validNick', '닉네임은 10자 미만이어야 합니다.');
+    if (e.target.value.length > 15) {
+      handleValidMessage('validNick', '닉네임은 15자 이하여야 합니다.');
     } else handleValidMessage('validNick', '');
   }
 
@@ -20,7 +20,7 @@ function InputNickName ({ inputValue, handleInputValue, validMessage, handleVali
     e.preventDefault();
 
     if (!inputValue.nickName) return handleValidMessage('validNick', '닉네임을 입력하세요.');
-    if (inputValue.nickName.length > 9) return handleValidMessage('validNick', '닉네임은 10자 미만이어야 합니다.');
+    if (inputValue.nickName.length > 15) return handleValidMessage('validNick', '닉네임은 15자 이하여야 합니다.');
 
     axios.get(`${process.env.REACT_APP_API_URL}/user/nicknameduplication/${inputValue.nickName}`)
       .then(res => {
