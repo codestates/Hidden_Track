@@ -55,12 +55,6 @@
                 width: 450px;
             }
 
-            #genre-input{
-                // -o-appearance: none;
-                // -webkit-appearance: none;
-                // -moz-appearance: none;
-                // appearance: none;
-            }
             .music-input{
                 text-align: center;
                 width: 400px;
@@ -125,6 +119,7 @@
             display: flex;
             flex-direction: column;
             .music-lyrics-label{
+                text-align: center;
                 font-size: 22.5px;
                 font-weight: bold;
             }
