@@ -52,8 +52,6 @@
         .track-list-li {
           @include flexBox(flex, _, center, 1em, _);
           flex-direction: column;
-          // flex: 1;
-          // background-color: skyblue;
           // float: left; // 자식 태그들 왼쪽부터 채워지게
           cursor: pointer;
           outline: solid 1px white;
@@ -62,16 +60,24 @@
           .track-list-img {
             @include widthHeight(17em, 17em)
           }
-    
-          .track-list-title, .track-list-artist {
-            margin: 0;
-            width: 80%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #fff;
-            font-size: 20px;
-            text-align: center;
+          
+          div {
+            @include flexBox(flex, _, center, _, _);
+            flex-direction: column;
+            width: 100%;
+            background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
+            
+            .track-list-title, .track-list-artist {
+              margin: 0;
+              width: 80%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: #fff;
+              font-size: 20px;
+              text-align: center;
+              background-color: transparent;
+            }
           }
         }
     
