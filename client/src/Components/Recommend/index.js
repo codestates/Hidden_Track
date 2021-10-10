@@ -42,8 +42,8 @@ function Recommend () {
     try {
       const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
         { headers: { accesstoken: accessToken } });
-        setRecommendChart(result.data.recommend)
-        return result;
+      setRecommendChart(result.data.recommend);
+      return result;
     } catch (err) {
       console.log(err);
     }

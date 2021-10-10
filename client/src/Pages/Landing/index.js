@@ -179,12 +179,12 @@ function Landing () {
           <figure className='landing__figure' role='img' aria-labelledby='landing-caption'>
             <div className='landing__img' />
             <figcaption id='landing__figcaption'>
-              <pre className='landing__section1-pre1'>{`신선한 음악, 색다른 아티스트.`}
+              <pre className='landing__section1-pre1'>신선한 음악, 색다른 아티스트.
               </pre>
               <pre className='landing__section1-pre2'>{`HIDDEN TRACK에서는 
 신인 가수, 아직 알려지지 않은 가수들이 직접 등록한 음악을 감상하실 수 있습니다.`}
               </pre>
-              <pre className='landing__section1-pre3'>{`* 아티스트 계정으로 가입시, 음원 등록 및 수정, 삭제가 가능합니다.`}
+              <pre className='landing__section1-pre3'>* 아티스트 계정으로 가입시, 음원 등록 및 수정, 삭제가 가능합니다.
               </pre>
             </figcaption>
           </figure>
@@ -193,7 +193,7 @@ function Landing () {
         <section id='section3'>
           <figure className='landing__section3-figure' role='img' aria-labelledby='landing-caption'>
             <figcaption id='landing__figcaption'>
-              <pre className='landing__section3-pre1'>{`당신을 위한 음악 추천!`}
+              <pre className='landing__section3-pre1'>당신을 위한 음악 추천!
               </pre>
             </figcaption>
             <LandingSlider {...settings}>
@@ -216,7 +216,7 @@ function Landing () {
           <figure className='landing__figure' role='img' aria-labelledby='landing-caption'>
             <div className='landing__section4-img' />
             <figcaption id='landing__figcaption'>
-              <pre className='landing__section1-pre1'>{`원하는 음악을 더 쉽게 찾아보세요!`}
+              <pre className='landing__section1-pre1'>원하는 음악을 더 쉽게 찾아보세요!
               </pre>
               <pre className='landing__section1-pre2'>{`HIDDEN TRACK은 검색시, 
 음원, 아티스트, 해시태그로 구성된 3가지 검색 결과를 제공합니다.`}
@@ -230,12 +230,12 @@ function Landing () {
             {/* <img className="landing__section1-img" src='../../assets/landing1.png' alt="" /> */}
             <div className='landing__img' />
             <figcaption id='landing__figcaption'>
-              <pre className='landing__section1-pre1'>{`자유롭게 음악을 감상하세요!`}
+              <pre className='landing__section1-pre1'>자유롭게 음악을 감상하세요!
               </pre>
               <pre className='landing__section1-pre2'>{`side bar에 있는 music player를 통해 나만의 play list 구성하고 음악을 감상하세요!  
 음악 재생중엔 편하게 HIDDEN TRACK 을 이용하실 수 있습니다.`}
               </pre>
-              <pre className='landing__section1-pre3'>{`* HIDDEN TRACK은 visualizer(음원 시각화)기능을 추가로 제공합니다.`}
+              <pre className='landing__section1-pre3'>* HIDDEN TRACK은 visualizer(음원 시각화)기능을 추가로 제공합니다.
               </pre>
             </figcaption>
           </figure>
