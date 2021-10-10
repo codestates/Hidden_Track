@@ -101,6 +101,7 @@ export const ImgSlide = styled.div`
   height: ${props => props.className ? ' 150px' : '200px'};
   padding: ${props => props.className ? '5px' : 0} ; */
    /* margin-left: ${props => props.className ? '20px' : 0}; */
+   cursor: pointer;
 `;
 
 // main-slides <div>

@@ -9,6 +9,7 @@
     @include widthHeight(150px, 220px);
     margin: 0 auto;
     overflow: hidden;
+    cursor: pointer;
 
     .recommend-flex-box {
       display: flex;
