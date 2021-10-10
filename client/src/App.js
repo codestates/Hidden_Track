@@ -71,9 +71,9 @@ function App () {
           dispatch(isLoadingHandler(false));
         }
     //   } else {
-    //     dispatch(isLoginHandler(false));
     //     dispatch(isLoadingHandler(false));
     //   }
+      dispatch(isLoginHandler(false));
       dispatch(isLoadingHandler(false));
     }
     tokenRequest();

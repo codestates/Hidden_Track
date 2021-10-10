@@ -97,7 +97,7 @@ function TrackList ({ trackList, search, hashTag }) {
               <label>해시태그 검색 결과</label>
               {trackList.hashTag && trackList.hashTag.length !== 0
                 ? <div className='hashtag-box'>
-                  <HashTag tagList={[]} searchTag={hashTag} />
+                  <HashTag tagList={trackList.hashTag} searchTag={hashTag} />
                 </div>
                 : <p className='track-list-msg'>검색 결과를 찾을 수 없습니다.</p>}
             </div>

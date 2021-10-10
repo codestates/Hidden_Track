@@ -37,7 +37,6 @@ export function isLoginModalOpenHandler (boolean) {
 }
 
 export function inputPlayList (playList) {
-  console.log('리덕스 플레이리스트', playList);
   return {
     type: INPUT_PLAYLIST,
     payload: {
