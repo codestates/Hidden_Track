@@ -71,6 +71,7 @@
             text-overflow: ellipsis;
             color: #fff;
             font-size: 20px;
+            text-align: center;
           }
         }
     
@@ -82,6 +83,7 @@
   
       .track-list-msg {
         color: white;
+        text-align: center;
       }
 
       .search-result-containcer {
@@ -114,6 +116,7 @@
         border-bottom: 3px solid transparent;
         border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
         border-image-slice: 1;
+        text-align: center;
       }
     }
   }
