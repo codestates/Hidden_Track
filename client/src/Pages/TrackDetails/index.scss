@@ -76,7 +76,7 @@
       justify-content: space-around;
       margin-left: 80px;
 
-      @include widthHeight(40em, 28em);
+      @include widthHeight(60em, 28em);
 
       border-radius: 12px;
 
@@ -90,6 +90,7 @@
         display: inline-block;
         text-align: left;
         margin: 0;
+        margin-bottom: 20px;
       }
 
       .trackinfo-grade-avg {
@@ -261,14 +262,21 @@
       }
 
       .trackinfo-hashtag-box {
-        position: relative;
-        height: 15%;
+        height: 29%;
+        margin-top: 30px;
+        // background-color: red;
+        margin-left: -5px;
 
-        li {
-          position: absolute;
-          left: -10px;
-          top: 0;
+        #hashtag-section {
+
+          .ul-of-track-details {
+            margin: 0;
+            align-items: normal;
+            justify-content: normal;
+            padding: 0;
+          }
         }
+
       }
     }
   }
@@ -292,8 +300,9 @@
       border-radius: 12px;
       margin: 2rem;
       padding: 1rem;
+
       &::-webkit-scrollbar {
-        display: none; 
+        display: none;
       }
 
       .replys-li {

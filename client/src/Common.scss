@@ -1,4 +1,9 @@
 @import url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
 @font-face {
   font-family: moon;
@@ -69,7 +74,7 @@
   display: inline-block;
   @include fontStyle(#fff, normal, 15px, .3em);
   // @include marginPadding(.625rem, 18px 80px 20px);
-
+  // font-family: 'Noto Sans KR', sans-serif;
   background: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
   @include background(300% 300%, 1% 50%, _);
 
@@ -97,10 +102,10 @@
   // line-height: 5vw;
   // margin-right: 2vw;
   // transform: matrix3d(0.77,0,-0.64,-.001,0.00,1,0.00,0,0.64,0,0.77,0,0,0,0,1);
-  text-shadow: 
-  -.1vw 0vw .15vw #FBB4FF, -.05vw 0vw .25vw #FBB4FF, -.08vw 0vw .15vw #FBB4FF, 
-  -.1vw 0vw .5vw #E82FF5, -.2vw 0vw .3vw #E82FF5, -.4vw 0vw .5vw #E82FF5, .2vw 0vw .5vw #E82FF5,
-  // -.1vw 0vw 10vw #CB16FA, -.2vw 0vw 10vw #CB16FA, -.4vw 0vw 10vw #CB16FA;
+  text-shadow:
+    -.1vw 0vw .15vw #FBB4FF, -.05vw 0vw .25vw #FBB4FF, -.08vw 0vw .15vw #FBB4FF,
+    -.1vw 0vw .5vw #E82FF5, -.2vw 0vw .3vw #E82FF5, -.4vw 0vw .5vw #E82FF5, .2vw 0vw .5vw #E82FF5,
+    // -.1vw 0vw 10vw #CB16FA, -.2vw 0vw 10vw #CB16FA, -.4vw 0vw 10vw #CB16FA;
 }
 
 // -.1vw 0vw .15vw #fea128, -.05vw 0vw .15vw #fea128, -.08vw 0vw .15vw #fea128, 
@@ -186,37 +191,37 @@
   // line-height: 5vw;
   // margin-right: 2vw;
   // transform: matrix3d(0.77,0,-0.64,-.001,0.00,1,0.00,0,0.64,0,0.77,0,0,0,0,1);
-  text-shadow: 
-  -.1vw 0vw .2vw #e5b9ff, -.1vw 0vw .2vw #e5b9ff, -.2vw 0vw .15vw #e5b9ff, 
-  -.1vw 0vw 1vw #800ec2, -.2vw 0vw .8vw #800ec2, -.4vw 0vw .8vw #800ec2, .2vw 0vw .5vw #800ec2,
-  -.1vw 0vw 8vw #6602a0, -.2vw 0vw 8vw #6602a0, -.4vw 0vw 8vw #6602a0;
+  text-shadow:
+    -.1vw 0vw .2vw #e5b9ff, -.1vw 0vw .2vw #e5b9ff, -.2vw 0vw .15vw #e5b9ff,
+    -.1vw 0vw 1vw #800ec2, -.2vw 0vw .8vw #800ec2, -.4vw 0vw .8vw #800ec2, .2vw 0vw .5vw #800ec2,
+    -.1vw 0vw 8vw #6602a0, -.2vw 0vw 8vw #6602a0, -.4vw 0vw 8vw #6602a0;
 }
 
 .sign-three {
   // -webkit-transform: matrix3d(0.77,0,0.64,.001,0.00,1,0.00,0,-0.64,0,0.77,0,0,0,0,1);
-  color:#c7f5ff;
+  color: #c7f5ff;
   font-family: moon;
   // font-size: 4vw;
   // line-height: 5vw;
   // margin-right: 2vw;
   // transform: matrix3d(0.77,0,-0.64,-.001,0.00,1,0.00,0,0.64,0,0.77,0,0,0,0,1);
-  text-shadow: 
-  -.1vw 0vw .2vw #c7f5ff, -.1vw 0vw .2vw #c7f5ff, -.2vw 0vw .15vw #c7f5ff, 
-  -.1vw 0vw 1vw #4566F6, -.2vw 0vw .8vw #4566F6, -.4vw 0vw .8vw #4566F6, .2vw 0vw .5vw #4566F6,
-  -.1vw 0vw 8vw #0234fc, -.2vw 0vw 8vw #0234fc, -.4vw 0vw 8vw #0234fc;
+  text-shadow:
+    -.1vw 0vw .2vw #c7f5ff, -.1vw 0vw .2vw #c7f5ff, -.2vw 0vw .15vw #c7f5ff,
+    -.1vw 0vw 1vw #4566F6, -.2vw 0vw .8vw #4566F6, -.4vw 0vw .8vw #4566F6, .2vw 0vw .5vw #4566F6,
+    -.1vw 0vw 8vw #0234fc, -.2vw 0vw 8vw #0234fc, -.4vw 0vw 8vw #0234fc;
 
 }
 
 .sign-four {
   // -webkit-transform: matrix3d(0.77,0,0.64,.001,0.00,1,0.00,0,-0.64,0,0.77,0,0,0,0,1);
-  color:#FED128;
+  color: #FED128;
   font-family: moon;
   // font-size: 4vw;
   // line-height: 5vw;
   // margin-right: 2vw;
   // transform: matrix3d(0.77,0,-0.64,-.001,0.00,1,0.00,0,0.64,0,0.77,0,0,0,0,1);
-  text-shadow: 
-  -.1vw 0vw .15vw #fea128, -.05vw 0vw .15vw #fea128, -.08vw 0vw .15vw #fea128, 
-  -.1vw 0vw .5vw #ff0000, -.2vw 0vw .3vw #ff5252, -.4vw 0vw .5vw #ff0000, .2vw 0vw .5vw #ff5252,
-  
+  text-shadow:
+    -.1vw 0vw .15vw #fea128, -.05vw 0vw .15vw #fea128, -.08vw 0vw .15vw #fea128,
+    -.1vw 0vw .5vw #ff0000, -.2vw 0vw .3vw #ff5252, -.4vw 0vw .5vw #ff0000, .2vw 0vw .5vw #ff5252,
+
 }
