@@ -91,7 +91,7 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
         <label className='half grade-label' htmlFor='rating1' title='1/2 star' />
 
       </fieldset>
-      <button className='contents__btn grade-btn' type='submit'>별점주기</button>
+      <button className='grade-btn' type='submit'>별점주기</button>
     </form>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTrackDetails, isLoadingHandler, getAccessToken } from '../../Redux/actions/actions';
+import { useDispatch } from 'react-redux';
+import { isLoadingHandler } from '../../Redux/actions/actions';
 import axios from 'axios';
 import Genre from '../../Components/Genre/';
 import Footer from '../../Components/Footer';
@@ -11,7 +11,6 @@ import './index.scss';
 function SearchTrack ({ handleNotice }) {
   const dispatch = useDispatch();
   const location = useLocation();
-  const accessToken = useSelector(state => state.accessTokenReducer);
   const [trackList, setTrackList] = useState([]);
 
   useEffect(() => {
