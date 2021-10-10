@@ -16,7 +16,8 @@ import Landing from './Pages/Landing';
 
 import { refreshTokenRequest, accessTokenRequest } from './Components/TokenFunction';
 import axios from 'axios';
-axios.defaults.withCredentials = true;
+
+axios.defaults.withCredentials =true;
 
 function App () {
   const loca = useLocation();
@@ -44,34 +45,35 @@ function App () {
   useEffect(() => {
     async function tokenRequest () {
       dispatch(isLoadingHandler(true));
+
       // if (cookies.get('refreshToken')) {
-      const token = await refreshTokenRequest();
-      if (token) {
-        // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
-        dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
-        const userInfo = await accessTokenRequest(token);
-        if (userInfo) {
-          // 유저 정보 얻어왔으면 전역 상태에 저장
-          dispatch(getUserInfo(userInfo));
-          dispatch(isLoginHandler(true));
+        const token = await refreshTokenRequest();
+        if (token) {
+          // 액세스 토큰 성공적으로 얻어 왔다면 유저정보 받아옴
+          dispatch(getAccessToken(token)); // 액세스 토큰 전역 상태에 저장
+          const userInfo = await accessTokenRequest(token);
+          if (userInfo) {
+            // 유저 정보 얻어왔으면 전역 상태에 저장
+            dispatch(getUserInfo(userInfo));
+            dispatch(isLoginHandler(true));
+            dispatch(isLoadingHandler(false));
+          }
+          // 유저 정보를 못 얻어왔다면 -> 액세스 토큰이 유효하지 x -> 리프레시 토큰으로 다시 얻어옴
+          else {
+            // token = refreshTokenRequest();
+            // dispatch(getAccessToken(token));
+            // userInfo = accessTokenRequest(token);
+            // dispatch(getUserInfo(userInfo));
+          }
+        } else {
+          // handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
+          dispatch(isLoginHandler(false));
           dispatch(isLoadingHandler(false));
         }
-        // 유저 정보를 못 얻어왔다면 -> 액세스 토큰이 유효하지 x -> 리프레시 토큰으로 다시 얻어옴
-        else {
-          // token = refreshTokenRequest();
-          // dispatch(getAccessToken(token));
-          // userInfo = accessTokenRequest(token);
-          // dispatch(getUserInfo(userInfo));
-        }
-      } else {
-        handleNotice('refreshToken이 유효하지 않습니다. 다시 로그인 해주세요.', 5000);
-        dispatch(isLoginHandler(false));
-        dispatch(isLoadingHandler(false));
-      }
-      // } else {
-      //   dispatch(isLoadingHandler(false));
-      // }
-      dispatch(isLoginHandler(false));
+    //   } else {
+    //     dispatch(isLoginHandler(false));
+    //     dispatch(isLoadingHandler(false));
+    //   }
       dispatch(isLoadingHandler(false));
     }
     tokenRequest();
@@ -112,6 +114,12 @@ function App () {
     }
     getToken();
   }, []);
+
+  // window.addEventListener('unload', () => {
+  //   // 브라우저 창 닫으면 리프레시 토큰 삭제해서 로그아웃 시킴
+  //   cookies.remove('refreshToken')
+  //   // 만약 로그인 상태유지 체크 누른 상태라면 브라우저 닫아도 쿠키 삭제 x
+  // })
 
   return (
     <>

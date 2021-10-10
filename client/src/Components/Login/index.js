@@ -63,7 +63,10 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
     // inputId 와 inputPw 는 state 다
     const body = {
       loginId: inputId,
-      password: inputPw
+      password: inputPw,
+       headers: {
+        'content-type': 'application/json'
+      }
     };
 
     // 로그인 요청 서버에 보냄
@@ -116,7 +119,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
       <Portal elementId='modal-root'>
         <div
           className='modal-backdrop__login' style={isLoginModalOpen ? { width: window.innerWidth, display: 'block' } : { display: 'none' }}
-          visible={isLoginModalOpen} onClick={(e) => handleModalBack(e)}
+          visible={isLoginModalOpen.toString()} onClick={(e) => handleModalBack(e)}
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>

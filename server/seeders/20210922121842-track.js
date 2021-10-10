@@ -11,83 +11,82 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    let track = [];
-    for(let i=0;i<4;i++){
+    const track = [];
+    for (let i = 0; i < 4; i++) {
       const temp = {
-        title : `트렉테스트${i}`,
-        img : `img${i}`,
-        genre : "jazz",
-        releaseAt : "2020-08-01",
-        soundTrack : `track${i}`,
-        userId : i%4+2,
-        lyric : "asdasd",
-        views : 0,
+        title: `트렉테스트${i}`,
+        img: `img${i}`,
+        genre: 'jazz',
+        releaseAt: '2020-08-01',
+        soundTrack: `track${i}`,
+        userId: i % 4 + 2,
+        lyric: 'asdasd',
+        views: 0,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-      track.push(temp)
+        updatedAt: new Date()
+      };
+      track.push(temp);
     }
-    for(let i=4;i<8;i++){
+    for (let i = 4; i < 8; i++) {
       const temp = {
-        title : `트렉테스트${i}`,
-        img : `img${i}`,
-        genre : "R&B",
-        releaseAt : "2020-08-01",
-        soundTrack : `track${i}`,
-        userId : i%4+2,
-        lyric : "asdasd",
-        views : 0,
+        title: `트렉테스트${i}`,
+        img: `img${i}`,
+        genre: 'R&B',
+        releaseAt: '2020-08-01',
+        soundTrack: `track${i}`,
+        userId: i % 4 + 2,
+        lyric: 'asdasd',
+        views: 0,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-      track.push(temp)
+        updatedAt: new Date()
+      };
+      track.push(temp);
     }
-    for(let i=8;i<12;i++){
+    for (let i = 8; i < 12; i++) {
       const temp = {
-        title : `트렉테스트${i}`,
-        img : `img${i}`,
-        genre : "ballad",
-        releaseAt : "2020-08-01",
-        soundTrack : `track${i}`,
-        userId : i%4+2,
-        lyric : "asdasd",
-        views : 0,
+        title: `트렉테스트${i}`,
+        img: `img${i}`,
+        genre: 'ballad',
+        releaseAt: '2020-08-01',
+        soundTrack: `track${i}`,
+        userId: i % 4 + 2,
+        lyric: 'asdasd',
+        views: 0,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-      track.push(temp)
+        updatedAt: new Date()
+      };
+      track.push(temp);
     }
-    for(let i=12;i<16;i++){
+    for (let i = 12; i < 16; i++) {
       const temp = {
-        title : `트렉테스트${i}`,
-        img : `img${i}`,
-        genre : "rock",
-        releaseAt : "2020-08-01",
-        soundTrack : `track${i}`,
-        userId : i%4+2,
-        lyric : "asdasd",
-        views : 0,
+        title: `트렉테스트${i}`,
+        img: `img${i}`,
+        genre: 'rock',
+        releaseAt: '2020-08-01',
+        soundTrack: `track${i}`,
+        userId: i % 4 + 2,
+        lyric: 'asdasd',
+        views: 0,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-      track.push(temp)
-    }for(let i=16;i<20;i++){
+        updatedAt: new Date()
+      };
+      track.push(temp);
+    } for (let i = 16; i < 20; i++) {
       const temp = {
-        title : `트렉테스트${i}`,
-        img : `img${i}`,
-        genre : "hiphop",
-        releaseAt : "2020-08-01",
-        soundTrack : `track${i}`,
-        userId : i%4+2,
-        lyric : "asdasd",
-        views : 0,
+        title: `트렉테스트${i}`,
+        img: `img${i}`,
+        genre: 'hiphop',
+        releaseAt: '2020-08-01',
+        soundTrack: `track${i}`,
+        userId: i % 4 + 2,
+        lyric: 'asdasd',
+        views: 0,
         createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-      track.push(temp)
+        updatedAt: new Date()
+      };
+      track.push(temp);
     }
-     return queryInterface.bulkInsert("tracks",track);
-
+    return queryInterface.bulkInsert('tracks', track);
   },
 
   down: async (queryInterface, Sequelize) => {

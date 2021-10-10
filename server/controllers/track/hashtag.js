@@ -1,33 +1,31 @@
-const { track , hashtag, user } = require("../../models")
+const { track, hashtag, user } = require('../../models');
 
-module.exports =  {  
-   
-    get: async (req, res) =>{
-        console.log('해시태그 요청',req.params)
-     const { tag } =req.params;
-     
-     if(!tag){
-         res.status(400).json({message: "input values"});
-     }
+module.exports = {
 
-     const findHashtag = await hashtag.findAll({
-         where :{ tag :tag },
-         include: [{
-            model : track,
-            required : true,
-            attributes: ["id","img","title"],
-            include :[{
-              model :user,
-              required : true,
-              attributes : ["nickName"]
-            }]
-         }]
-     })
-     
-     if(!findHashtag){
-         res.status(204).json({message:"No contents"});
-     }
-     res.status(200).json({track: findHashtag[0].tracks})
+  get: async (req, res) => {
+    const { tag } = req.params;
+
+    if (!tag) {
+      res.status(400).json({ message: 'input values' });
     }
-}
-     
+
+    const findHashtag = await hashtag.findAll({
+      where: { tag: tag },
+      include: [{
+        model: track,
+        required: true,
+        attributes: ['id', 'img', 'title'],
+        include: [{
+          model: user,
+          required: true,
+          attributes: ['nickName']
+        }]
+      }]
+    });
+
+    if (!findHashtag) {
+      res.status(204).json({ message: 'No contents' });
+    }
+    res.status(200).json({ track: findHashtag[0].tracks });
+  }
+};
