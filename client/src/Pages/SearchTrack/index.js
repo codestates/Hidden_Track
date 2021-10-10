@@ -39,6 +39,7 @@ function SearchTrack ({ handleNotice }) {
           if (err.response) {
             if (err.response.status === 404) setTrackList([]);
           } else console.log(err);
+          dispatch(isLoadingHandler(false));
         });
     }
     // ------------해시태그 검색시 요청--------------
@@ -54,6 +55,7 @@ function SearchTrack ({ handleNotice }) {
             if (err.response.status === 404) setTrackList([]);
             if (err.response.status === 400) setTrackList([]);
           } else console.log(err);
+          dispatch(isLoadingHandler(false));
         });
     }
     // --------------검색어 입력시 요청----------------
@@ -73,6 +75,7 @@ function SearchTrack ({ handleNotice }) {
               setTrackList([]);
             }
           } else console.log(err);
+          dispatch(isLoadingHandler(false));
         });
     }
     dispatch(isLoadingHandler(false));

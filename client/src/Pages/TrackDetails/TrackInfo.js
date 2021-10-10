@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTrackDetails, isLoginModalOpenHandler, inputMusic, inputPlayList, getAccessToken } from '../../Redux/actions/actions';
@@ -202,11 +202,11 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
       </div>
 
       <section className='trackinfo-desc'>
-        
+
         <h2 className='trackinfo-title'>{trackDetail.track.title}</h2>
         <span className='trackinfo-grade-avg'>평점: {trackDetail.gradeAev}</span>
         <Grade trackDetail={trackDetail} isLogin={isLogin} accessToken={accessToken} handleNotice={handleNotice} />
-        
+
         <div className='trackinfo-box'>
           <div className='trackinfo-info'>
             <span className='trackinfo-key'>아티스트</span>
@@ -224,7 +224,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
 
         <div className='trackinfo-btn-box'>
 
-          <div className="trackinfo-btn-box-right">
+          <div className='trackinfo-btn-box-right'>
             <button className='contents__btn trackinfo-playlist-btn' onClick={addPlaylist}>플레이 리스트에 담기</button>
             {/* <button className='contents__btn' onClick={(e) => requestLike(e)}>
               <img className='like-btn' src={likeImage} alt='' />
@@ -237,12 +237,12 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
             </div>
           </div>
 
-          {isLogin && userInfo.nickName === trackDetail.track.user.nickName 
-        ? <div className='trackinfo-auth-btn'>
-            <button className='contents__btn trackinfo-modi-btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
-            <button className='contents__btn trackinfo-delete-btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
-          </div>
-        : null}
+          {isLogin && userInfo.nickName === trackDetail.track.user.nickName
+            ? <div className='trackinfo-auth-btn'>
+              <button className='contents__btn trackinfo-modi-btn' onClick={(e) => clickModifyBtn(e)}>수정</button>
+              <button className='contents__btn trackinfo-delete-btn' onClick={() => { setIsContentDeleteModalOpen(true); }}>삭제</button>
+              </div>
+            : null}
         </div>
 
         <div className='trackinfo-hashtag-box'>
