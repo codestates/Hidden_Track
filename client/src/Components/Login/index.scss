@@ -9,7 +9,7 @@
   opacity: .8;
   // filter: alpha(opacity=80);
   z-index: 10;
-  
+
 }
 
 .a11yHidden {
@@ -31,10 +31,15 @@
   background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
   border: 2.5px solid rgb(255, 117, 248);
   transform: translate(-5%, -25%);
+
   fieldset {
     @include flexBox(flex, space-around, center, _, 20px);
     flex-direction: column;
     @include widthHeight(400px, 500px);
+
+    .sign-login {
+      text-align: center;
+    }
   }
 
   input[class^="modal__"] {
@@ -47,18 +52,28 @@
     font-size: 18px;
   }
 
-  .keeping-login-sign-up-btn {
-    // color: #fff;
-    @include flexBox(flex, space-between, _, -20px 0 0 0, _);
-    width: 325px;
-    font-size: 15px;
+  // .keeping-login-sign-up-btn {
+  //   // color: #fff;
+  //   @include flexBox(flex, space-between, _, -20px 0 0 0, _);
+  //   width: 325px;
+  //   font-size: 15px;
 
-    button {
-      border: 0;
-      font-size: 15px;
-      background-color: transparent;
-      cursor: pointer;
-    }
+  //   button {
+  //     border: 0;
+  //     font-size: 15px;
+  //     background-color: transparent;
+  //     cursor: pointer;
+  //   }
+  // }
+  .sign-up-btn {
+    color: #fff;
+    border: 1px solid rgb(255, 117, 248);
+    font-size: 16.5px;
+    border-radius: 10px;
+    padding: 13px 40px;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
   }
 
   .modal__login-btn {

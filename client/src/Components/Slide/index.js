@@ -97,16 +97,7 @@ export const ImgSlide = styled.div`
   background-image: url(${props => props.img});
   background-size: cover;
   background-position: center;
-  /* width: ${props => props.className ? ' 150px' : '200px'};
-  height: ${props => props.className ? ' 150px' : '200px'};
-  padding: ${props => props.className ? '5px' : 0} ; */
-   /* margin-left: ${props => props.className ? '20px' : 0}; */
+  cursor: pointer;
+
 `;
 
-// main-slides <div>
-//  > slide-container <section>
-//      > slide-container <slide-btn> : 인기 / 추천
-//      > slide-slider <div>
-//          > slick-prev <button>
-//          > slick-list <div>
-//          > slick-next <button>

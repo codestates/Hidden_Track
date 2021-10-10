@@ -123,8 +123,11 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
         />
         <form className='modal-container__login' onSubmit={requestLogin}>
           <fieldset>
+
             <legend className='a11yHidden'>회원 로그인 폼</legend>
+            
             <div className='sign-login' style={{ fontSize: '40px' }}>HIDDENTRACK</div>
+            
             <input
               className='modal__login-id' placeholder='아이디를 입력하세요'
               type='text'
@@ -132,6 +135,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
               required
               onChange={(e) => changeIdValue(e)}
             />
+
             <input
               className='modal__login-pw' placeholder='비밀번호를 입력하세요'
               type='password'
@@ -139,13 +143,15 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
               required
               onChange={(e) => { changePwValue(e); }}
             />
-            <div className='keeping-login-sign-up-btn'>
-              <div className='keeping-login'>
+
+            {/* <div className='keeping-login-sign-up-btn'> */}
+              {/* <div className='keeping-login'>
                 <input type='checkbox' />
                 <span>로그인 상태 유지</span>
-              </div>
-              <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} style={{ color: '#fff' }} value='회원가입' />
-            </div>
+              </div> */}
+            <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} style={{ color: '#fff' }} value='회원가입' />
+            {/* </div> */}
+            
             <button
               className='modal__login-btn' type='submit' name='login-btn'
             >로그인

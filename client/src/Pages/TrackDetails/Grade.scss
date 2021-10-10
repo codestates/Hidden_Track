@@ -1,15 +1,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 @import '../../Common.scss';
 
-body {
-  // margin: 5%;
-  text-align: center;
-}
-
-h1 {
-  font-size: 2em;
-  margin-bottom: .5rem;
-}
 
 /* 필드셋 */
 .rate {
@@ -57,9 +48,10 @@ input:checked~.grade-label,
 
 .star-rating {
   display: flex;
+  justify-content: space-between;
   margin-top: 10px;
   flex-wrap: wrap;
-
+  width: 65%;
   // .rate {
   //   display: flex;
   // }
