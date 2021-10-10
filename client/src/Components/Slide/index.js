@@ -36,8 +36,10 @@ function Slide () {
   const [chart, setChart] = useState([]);
   const [latestChart, setLatestChart] = useState('');
   const [popularChart, setPopularChart] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
       { headers: { accesstoken: accessToken } })
       .then((res) => {
@@ -49,6 +51,7 @@ function Slide () {
         console.log(err);
       }
       );
+    return () => setLoading(false);
   }, []);
 
   function handleRecent (e) {
@@ -62,7 +65,6 @@ function Slide () {
   }
 
   function moveTrackDetail (e, id) {
-    // console.log(id);
     history.push(`/trackdetails/${id}`);
   }
 
