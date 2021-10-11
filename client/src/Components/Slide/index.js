@@ -98,4 +98,5 @@ export const ImgSlide = styled.div`
   background-size: cover;
   background-position: center;
   cursor: pointer;
+
 `;

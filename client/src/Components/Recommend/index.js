@@ -64,8 +64,8 @@ function Recommend () {
             ? <></>
             : <>
               <RecommendImage url={recommendChart[index].img} onClick={(e) => moveTrackDetail(e)} />
-              <p className='recommend-artist'>{recommendChart[index].title}</p>
               <p className='recommend-title'>{recommendChart[index].title}</p>
+              <p className='recommend-artist'>{recommendChart[index].user.nickName}</p>
               </>}
         </div>
       </div>
