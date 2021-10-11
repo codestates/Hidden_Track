@@ -26,15 +26,15 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   const default_music = {
     id: 1,
     track: {
-      id: 1,
-      title: 'joy-ride',
-      img: ' https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/4831632834753004.jpg',
+      id: 33,
+      title: 'mar grande',
+      img: ' https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/9381633934446787.jpg',
       genre: 'Jazz',
-      releaseAt: '2021-09-28',
+      releaseAt: '2017-09-20',
       lyric: '등록된 가사가 없습니다.',
-      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/joy-ride+by+aves+Artlist.mp3',
+      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/3361633934444630.mp3 ',
       user: {
-        nickName: 'Aves'
+        nickName: 'andrea musci'
       }
     }
   };
@@ -206,7 +206,13 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             <div className='square'>
               <img
                 className='inner-square'
-                onClick={() => { history.push(`/trackdetails/${currentMusic.track.id}`); }}
+                onClick={() => {
+                  if (currentMusic) {
+                    history.push(`/trackdetails/${currentMusic.track.id}`);
+                  } else {
+                    history.push(`/trackdetails/${default_music.track.id}`);
+                  }
+                }}
                 src={currentMusic ? currentMusic.track.img : default_music.track.img}
                 alt={currentMusic ? currentMusic.track.title : default_music.track.title}
               />
