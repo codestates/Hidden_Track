@@ -27,11 +27,11 @@
     .genre-bg {
       cursor: pointer;
       // background-color: white;
-      margin: 30px;
+      // margin: 30px;
       // flex: 1 1 auto;
       @include widthHeight(180px, 180px);
       border-radius: 50%;
-      @include flexBox(flex, center, center, _, _);
+      @include flexBox(flex, center, center, 30px, _);
       overflow: hidden;
       position: relative;
       border: #ccc solid 1px;
