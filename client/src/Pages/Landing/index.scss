@@ -15,12 +15,12 @@
   position: absolute;
   padding: 20px 0;
 
-  margin: -80px 0 0 90px;
+  // margin: -80px 0 0 90px;
   width: 100%;
   z-index: -2;
 
   svg {
-    height: 4150px;
+    height: 3050px;
     // stroke: #e845f4;
     // stroke: #f16ffa;
   }
@@ -42,11 +42,12 @@
 
 
 
+
 #section2,
 #section4,
 #section5,
 #section6 {
-  @include widthHeight(78%, 400px);
+  @include widthHeight(80%, 400px);
 }
 
 #section1,
@@ -62,16 +63,40 @@
 
   .landing__figure {
     // background-color: chartreuse;
+    // width: 90%;
     @include flexBox(flex, space-around, _, _, _);
     margin: 0 auto;
   }
 
-  .landing__img {
+  #landing__figcaption {
+
+    // background-color: dodgerblue;
+    // background-color: purple;
+    @include widthHeight(53%, 230px);
+    margin: 0 0 0 30px;
+    position: relative;
+
+    .landing__pre1,
+    .landing__pre2 {
+      // background-color: darkcyan;
+      text-align: left;
+      margin: 0;
+      margin-top: 20px;
+      color: #fff;
+
+    }
+  }
+
+  .landing__section1_img {
     // background-color: blueviolet;
-    @include widthHeight(480px, 480px);
-    @include background(contain, _, no-repeat);
-    background-image: url('../../assets/landing1.png');
-    margin-top: -40px;
+    background-image: url('../../assets/landing4.png');
+    // background-image: url('../../assets/landing3.png');
+    // background-image: url('../../assets/landing2.png');
+    // background-image: url('../../assets/landing1.png');
+    // background-image: url('../../assets/landing.png');
+    @include background(cover, _, no-repeat);
+    @include widthHeight(600px, 450px);
+    margin-top: 50px;
 
     transition: all 1s;
 
@@ -80,15 +105,26 @@
     }
   }
 
-  #landing__figcaption {
+  .landing__section2-img,
+  .landing__section4-img,
+  .landing__section5-img {
+    background-color: blueviolet;
+    @include widthHeight(600px, 500px);
+    // @include background(contain, _, no-repeat);
+    // background-image: url('../../assets/landing1.png');
+    // margin-top: -40px;
+  }
 
-    // background-color: dodgerblue;
-    @include widthHeight(55%, 300px);
-    margin: 30px 0 0 30px;
+
+
+  #landing__section2-figcaption {
+    background-color: purple;
+    @include widthHeight(53%, 230px);
+    margin: 0 0 0 30px;
     position: relative;
 
-    .landing__section1-pre1,
-    .landing__section1-pre2 {
+    .landing__pre1,
+    .landing__pre2 {
       // background-color: darkcyan;
       text-align: left;
       margin: 0;
@@ -97,30 +133,35 @@
 
     }
 
-
-
-    .landing__section1-pre2 {
-      line-height: 1.6;
-    }
-
-    .landing__section1-pre3 {
-      margin: 0;
-      margin-top: 20px;
-      color: #fff;
-      text-align: right;
-    }
-
   }
+
+  .landing__pre2 {
+    line-height: 1.6;
+  }
+
+  .landing__pre3 {
+    margin: 0;
+    margin-top: 20px;
+    color: #fff;
+    text-align: right;
+    // background-color: red;
+    // width: 88.5%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+
 }
+
 
 @media (max-width: 1950px) {
 
-  .landing__section1-pre1,
+  .landing__pre1,
   .landing__section3-pre1 {
     font-size: 55px;
   }
 
-  .landing__section1-pre2 {
+  .landing__pre2 {
     font-size: 20px;
   }
 
@@ -131,16 +172,19 @@
   .landing__section1-pre3 {
     font-size: 16px;
   }
+
 }
+
+
 
 @media (max-width: 1600px) {
 
-  .landing__section1-pre1,
+  .landing__pre1,
   .landing__section3-pre1 {
     font-size: 45px;
   }
 
-  .landing__section1-pre2,
+  .landing__pre2,
   .landing__section3-pre2 {
     font-size: 18px;
   }
@@ -148,29 +192,53 @@
   .landing__section1-pre3 {
     font-size: 16px;
   }
+
+  .slick-next {
+    position: absolute;
+    top: 55%;
+    right: 75px;
+  }
+
 }
 
 @media (max-width: 1400px) {
 
-  .landing__section1-pre1,
+  .landing__pre1,
   .landing__section3-pre1 {
     font-size: 40px;
   }
 
-  .landing__section1-pre2,
+  .landing__pre2,
   .landing__section3-pre2 {
     font-size: 13px;
+  }
+
+  .slick-next {
+    position: absolute;
+    top: 55%;
+    right: 30px;
+    // right: 5%;
+  }
+}
+
+@media (min-width: 1300px) {
+
+  .slick-next {
+    position: absolute;
+    top: 55%;
+    right: 70px;
+    // right: 5%;
   }
 }
 
 @media (max-width: 960px) {
 
-  .landing__section1-pre1,
+  .landing__pre1,
   .landing__section3-pre1 {
     font-size: 30px;
   }
 
-  .landing__section1-pre2,
+  .landing__pre2,
   .landing__section3-pre2 {
     font-size: 13px;
   }
@@ -178,12 +246,12 @@
 
 @media (max-width: 790px) {
 
-  .landing__section1-pre1,
+  .landing__pre1,
   .landing__section3-pre1 {
     font-size: 25px;
   }
 
-  .landing__section1-pre2,
+  .landing__pre2,
   .landing__section3-pre2 {
     font-size: 13px;
   }
@@ -191,13 +259,13 @@
 
 @media (max-width: 500px) {
 
-  .landing__section1-pre1,
+  .landing__pre1,
   .landing__section3-pre1 {
     font-size: 18px;
     // margin-top: -10px;
   }
 
-  .landing__section1-pre2,
+  .landing__pre2,
   .landing__section3-pre2 {
     font-size: 13px;
   }
@@ -208,9 +276,11 @@
 
 #section1 {
   // background-color: aqua;
-  @include widthHeight(75%, 490px);
-  margin: 0 auto;
+  @include widthHeight(80%, 490px);
+  // margin: 0 auto;
   margin-bottom: 350px;
+
+
 
   button {
     // @include positionBox(absolute, _, _, -20px, 0);
@@ -245,16 +315,16 @@
     }
   }
 
-  #landing__figcaption1 {
+  #landing__section1_figcaption {
     // background-color: dodgerblue;
-    @include widthHeight(55%, 440px);
+    @include widthHeight(45%, 440px);
     margin: 30px 0 0 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 
-    .landing__section1-pre1,
-    .landing__section1-pre2 {
+    .landing__pre1,
+    .landing__pre2 {
       // background-color: darkcyan;
       text-align: left;
       margin: 0;
@@ -263,7 +333,7 @@
 
     }
 
-    .landing__section1-pre1 {
+    .landing__pre1 {
 
       font-weight: 900;
       -webkit-text-stroke: 2px black;
@@ -276,23 +346,22 @@
 
 }
 
-.landing__section4-img {
-  // background-color: purple;
-  background-image: url('../../assets/cyber5.gif');
-  @include background(cover, _, no-repeat);
-  @include widthHeight(400px, 400px);
-  border-radius: 50px;
-}
+
 
 #section3 {
   // background-color: aqua;
-  position: relative;
   width: 100%;
   height: 650px;
   margin-bottom: 300px;
 
+
   .landing__section3-figure {
-    // background-color: blue
+    // background-color: goldenrod;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100%;
   }
 
   #landing__figcaption {
@@ -301,66 +370,74 @@
     margin-bottom: 50px;
   }
 
-  .landing__section3-pre1,
-  .landing__section3-pre2 {
+  .landing__pre1,
+  .landing__pre2 {
     // background-color: darkcyan;
     // text-align: left;
     margin: 0;
     margin-top: 20px;
     color: #fff;
-    position: absolute;
+    // position: absolute;
     text-align: center;
 
   }
 
-  .landing__section3-pre1 {
+  .landing__pre1 {
     left: 30%;
     font-weight: 900;
     -webkit-text-stroke: 2px black;
+    // margin-bottom: 50px;
 
   }
 
-  .landing__section3-pre2 {
+  .landing__pre2 {
     line-height: 1.6;
-    left: 35%;
-    bottom: 30px;
-    // font-weight: 900;
-    // -webkit-text-stroke: 1px black;
-    // opacity: .6;
+    // left: 35%;
+    // bottom: 30px;
+    margin-top: 60px;
     background-color: rgb(22, 21, 21, .7);
-    // baop
-    // background-color: opacify($color: #000000, $amount: .5);
   }
 
   .slick-slider {
     // background-color: red;
-    width: 70%;
-    padding-left: 60px;
-    margin: 0 auto;
+    width: 90%;
+    margin: 30px 0;
+
+    .slick-list {
+      // background-color: olive;
+      margin: 0 auto;
+      width: 90%;
+    }
   }
+
 
   .slick-prev {
     position: absolute;
-    left: 220px;
-    top: 50%;
+    left: 70px;
+    top: 45%;
   }
 
   .slick-next {
     position: absolute;
-    top: 50%;
-    right: 220px;
+    top: 45%;
+    right: 140px;
+    // right: 5%;
   }
 }
 
 #section4 {
-  .landing__section1-pre2 {
+
+
+  .landing__pre2 {
     background-color: rgb(22, 21, 21, .7);
     // .landing__section1-pre2
   }
 }
 
 #section5 {
-  .landing__section1-pre2 {
+  margin-top: 480px;
+
+  .landing__pre2 {
     background-color: rgb(22, 21, 21, .7);
     // .landing__section1-pre2
   }
