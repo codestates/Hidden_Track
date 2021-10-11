@@ -74,7 +74,7 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
 
           setIsContentDeleteModalOpen(false);
           handleNotice('게시글이 삭제 되었습니다.', 5000);
-          history.push('/');
+          history.push('/main');
         }
       })
       .catch(err => {

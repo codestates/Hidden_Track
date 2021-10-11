@@ -34,8 +34,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const trackFileName = trackDetail.track.soundtrack.split('trackfile/')[1];
   const [files, setFiles] = useState({ image: { name: trackId ? trackImgName : '' }, audio: { name: trackId ? trackFileName : '' } });
 
-  console.log('인풋', inputValue);
-
   useEffect(() => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
     if (trackId) {
@@ -48,7 +46,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
             if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
             if (err.response.status === 404) {
               handleNotice('해당 게시글을 찾을 수 없습니다.', 5000);
-              history.push('/');
+              history.push('/main');
             }
           } else console.log(err);
         });
@@ -221,7 +219,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
 
       if (audioUpload && imageUpload) {
         const body = { ...inputValue, img: imageUpload, soundtrack: audioUpload };
-        console.log('바디', body);
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
             if (res.status === 200 || res.status === 201) {

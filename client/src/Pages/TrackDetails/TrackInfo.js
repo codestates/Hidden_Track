@@ -69,7 +69,7 @@ function TrackInfo ({ isLogin, accessToken, trackDetail, userInfo, handleNotice,
         if (err.response) {
           if (err.response.status === 400) {
             handleNotice('게시글이 존재하지 않습니다.', 5000);
-            history.push('/');
+            history.push('/main');
           }
           if (err.response.status === 401) {
             // handleNotice('권한이 없습니다.', 5000);

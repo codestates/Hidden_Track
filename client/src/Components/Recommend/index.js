@@ -25,7 +25,8 @@ function Recommend () {
 
     const interval = setInterval(() => {
       number_ref.current += 1;
-      if (number_ref.current > 4) {
+
+      if (number_ref.current >= 5) {
         number_ref.current = 0;
         setIndex(number_ref.current);
       } else {
@@ -62,8 +63,8 @@ function Recommend () {
             ? <></>
             : <>
               <RecommendImage url={recommendChart[index].img} onClick={(e) => moveTrackDetail(e)} />
-              <p className='recommend-artist'>{recommendChart[index].title}</p>
               <p className='recommend-title'>{recommendChart[index].title}</p>
+              <p className='recommend-artist'>{recommendChart[index].user.nickName}</p>
               </>}
         </div>
       </div>

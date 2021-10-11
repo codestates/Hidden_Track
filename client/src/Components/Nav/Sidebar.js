@@ -101,7 +101,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
 
   function tictok () {
     tic += 1;
-    console.log(tic);
     check();
   }
 
@@ -242,7 +241,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                 if (playList.length <= 1) return;
                 handlePreviousMusic('push', currentMusic);
                 if (!isRandom) {
-                  console.log('1');
                   if (isValid('playList', playList.indexOf(currentMusic) + 1)) {
                     handleChangeMusic(playList.indexOf(currentMusic) + 1);
                   } else {
