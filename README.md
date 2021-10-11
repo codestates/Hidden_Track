@@ -13,7 +13,7 @@ HIDDEN TRACK에서는 신인 가수, 대중적으로 알려지지 않은 가수�
 
 ## 💻 기술 스택
 
-![2021-10-11_23-37-32](https://user-images.githubusercontent.com/81761175/136831851-80b7eb53-1569-4f27-921f-ecda25576d00.png)
+![f3840b415645afc9](https://user-images.githubusercontent.com/81761175/136849810-48ec546e-a85b-437c-aeae-0922064c60d3.png)
 
 ## 🛠Architecture
 
