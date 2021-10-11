@@ -149,7 +149,6 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
                 <input type='checkbox' />
                 <span>로그인 상태 유지</span>
               </div> */}
-            <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} style={{ color: '#fff' }} value='회원가입' />
             {/* </div> */}
 
             <button
@@ -158,6 +157,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
             </button>
             <KakaoLogin />
             <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}><img src={cross} /></label>
+            <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} style={{ color: '#fff' }} value='회원가입' />
             <button id='modal-close-btn' style={{ display: 'none' }} />
           </fieldset>
         </form>
