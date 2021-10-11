@@ -46,7 +46,7 @@ function TrackDetails ({ handleNotice, isLoading }) {
   }, [trackId]);
 
   return (
-    <div className='track-details'>
+    <div className='track-details' style={{width: window.innerWidth-15, height:window.innerHeight}}>
       <TrackInfo
         isLogin={isLogin}
         accessToken={accessToken}

@@ -41,22 +41,22 @@
 
 
     .trackinfo-image-box {
-      @include widthHeight(380px, 380px);
+      @include widthHeight(425px, 425px);
 
       position: relative;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      border: 0.5rem outset rgb(222, 222, 222);
+      border: 8px outset rgb(222, 222, 222);
       border-radius: 12px;
-      margin: 2rem;
-      padding: 1rem;
+      margin: 25px;
+      padding: 10px;
 
       .trackinfo-listen-btn {
         position: absolute;
         border-radius: 30%;
 
-        @include widthHeight(15.625em, 15.625em);
+        @include widthHeight(250px, 250px);
         top: 25%;
         left: 26%;
         cursor: pointer;
@@ -73,12 +73,11 @@
     .trackinfo-desc {
       display: flex;
       flex-direction: column;
-
-      padding: 40px;
+      padding: 10px;
       justify-content: space-around;
       margin-left: 80px;
 
-      @include widthHeight(60em, 28em);
+      @include widthHeight(955px, 468px);
 
       border-radius: 12px;
 
@@ -295,15 +294,15 @@
     // background-color: violet;
 
     .replys-box {
-      @include widthHeight(80%, 400px);
+      @include widthHeight(1500px, 400px);
       // padding: 0;
       // outline: solid white 2px;
       overflow: auto;
       // border: 0.5rem outset rgb(222, 222, 222);
       border: solid 1px #fff;
       border-radius: 12px;
-      margin: 2rem;
-      padding: 1rem;
+      margin: 32px, 0;
+      padding: 16px;
 
       &::-webkit-scrollbar {
         display: none;
@@ -378,7 +377,8 @@
       width: 80%;
 
       .write-reply-area {
-        @include widthHeight(80%, 20vh);
+        font-size: 20px;
+        @include widthHeight(1225px, 70px);
         resize: none;
       }
 
