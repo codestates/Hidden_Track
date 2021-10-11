@@ -17,18 +17,20 @@ function Recommend () {
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  console.log('인덱스', index);
   const number_ref = useRef(0);
 
   useEffect(() => {
     setLoading(true);
-    requestRecommend(); // Promise
+    requestRecommend().then(res => console.log(res.data.recommend)); // Promise
 
     const interval = setInterval(() => {
       number_ref.current += 1;
-      if (number_ref.current > 4) {
+
+      if (number_ref.current >= 5) {
         number_ref.current = 0;
         setIndex(number_ref.current);
-      }else {
+      } else {
         setIndex(number_ref.current);
       }
     }, 2000);
