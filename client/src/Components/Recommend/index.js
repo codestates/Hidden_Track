@@ -17,7 +17,7 @@ function Recommend () {
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-
+  console.log('인덱스', index);
   const number_ref = useRef(0);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ function Recommend () {
     const interval = setInterval(() => {
       number_ref.current += 1;
       setIndex(number_ref.current);
-      if (number_ref.current >= 3) {
+      if (number_ref.current >= 2) {
         number_ref.current = 0;
         setIndex(number_ref.current);
       }
@@ -42,6 +42,7 @@ function Recommend () {
     try {
       const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
         { headers: { accesstoken: accessToken } });
+      console.log('레커맨드', result.data.recommend);
       setRecommendChart(result.data.recommend);
       return result;
     } catch (err) {

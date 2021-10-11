@@ -310,7 +310,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                   <label className='music-genre-release-label' htmlFor='music-genre-release' style={{ fontSize: '20px' }}>발매일 :</label>
                   <input type='date' className='music-genre-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
                 </div>
-                <div>
+                <div style={{ textAlign: 'center' }}>
                   <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
                   <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
                   <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
