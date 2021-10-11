@@ -63,7 +63,11 @@ module.exports = async (req, res) => {
                   attributes: ['nickName']
                 }
               });
-              recommendchart.push(findTrack);
+              if(recommendchart.length ===5){
+                break;
+              }else{
+                recommendchart.push(findTrack);
+              }
             }
           }
         }
@@ -87,7 +91,7 @@ module.exports = async (req, res) => {
         return a.views - b.views;
       });
 
-      for (let i = chart.length - 1; i >= chart.length - 4; i--) {
+      for (let i = chart.length - 1; i >= chart.length - 5; i--) {
         recommendchart.push(chart[i]);
       }
     }
@@ -104,7 +108,7 @@ module.exports = async (req, res) => {
       return a.views - b.views;
     });
 
-    for (let i = chart.length - 1; i >= chart.length - 4; i--) {
+    for (let i = chart.length - 1; i >= chart.length - 5; i--) {
       recommendchart.push(chart[i]);
     }
   }
