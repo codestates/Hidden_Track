@@ -121,10 +121,7 @@ function Nav ({ handleNotice }) {
               style={{ backgroundImage: `url(${userInfo.profile})` }}
             />
             <ul className={isShowUserProfileList}>
-              {userInfo.admin === 'listener' ?
-                null
-                : <li onClick={(e) => moveModiCreatePage(e)}>음원 등록</li>
-              }
+              <li onClick={(e) => moveModiCreatePage(e)}>음원 등록</li>
               <li onClick={(e) => moveMyPage(e)}>마이 페이지</li>
               <li onClick={(e) => requestSignOut(e)}>로그아웃</li>
             </ul>
