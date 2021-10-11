@@ -41,16 +41,16 @@
 
 
     .trackinfo-image-box {
-      @include widthHeight(425px, 425px);
+      @include widthHeight(500px, 500px);
 
       position: relative;
-      background-size: cover;
+      background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
-      border: 8px outset rgb(222, 222, 222);
-      border-radius: 12px;
-      margin: 25px;
-      padding: 10px;
+      // border: 8px outset rgb(222, 222, 222);
+      // border-radius: 25px;
+      margin: 25px 0;
+      padding: 0;
 
       .trackinfo-listen-btn {
         position: absolute;
@@ -73,9 +73,9 @@
     .trackinfo-desc {
       display: flex;
       flex-direction: column;
-      padding: 10px;
+      padding: 20px;
       justify-content: space-around;
-      margin-left: 80px;
+      margin-left: 25px;
 
       @include widthHeight(955px, 468px);
 
