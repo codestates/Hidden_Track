@@ -101,7 +101,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
           if (err.response.status === 400) { // <- 입력한 아이디값이랑 비번이 디비에 없을 경우
             handleNotice('존재하지 않는 회원입니다. 회원가입을 해주세요', 2000);
           } else if (err.response.status === 401) { // <- not authorized
-            handleNotice('권한이 없습니다', 2000);
+            handleNotice('아이디 또는 비밀번호가 일치하지 않습니다.', 2000);
           } else if (err.response.status === 404) { // <- not found
             handleNotice('잘못된 요청입니다', 2000);
           }
