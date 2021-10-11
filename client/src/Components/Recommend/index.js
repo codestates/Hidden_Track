@@ -17,12 +17,11 @@ function Recommend () {
   const [recommendChart, setRecommendChart] = useState([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  console.log('인덱스', index);
   const number_ref = useRef(0);
 
   useEffect(() => {
     setLoading(true);
-    requestRecommend().then(res => console.log(res.data.recommend)); // Promise
+    requestRecommend(); // Promise
 
     const interval = setInterval(() => {
       number_ref.current += 1;

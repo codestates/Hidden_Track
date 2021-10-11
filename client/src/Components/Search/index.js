@@ -15,7 +15,6 @@ function Search () {
   // 검색어 입력후 엔터 누르면 실행되는 함수
   function moveToSearchTrack (e) {
     e.preventDefault();
-    console.log(searchValue);
     // 검색 페이지로 이동
     history.push({
       pathname: `/searchtrack/${searchValue}`,

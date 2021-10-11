@@ -98,7 +98,7 @@ function SignUp ({ handleNotice }) {
       // S3에 이미지 파일 폼데이터 전송 후 url 값 받아오기
       axios.post(`${process.env.REACT_APP_API_URL}/user/profile`, formData)
         .then(res => {
-          console.log('S3 이미지 url 요청 응답', res.data);
+          // console.log('S3 이미지 url 요청 응답', res.data);
           if (res.status === 201) {
             // 이미지 url을 성공적으로 받아왔다면
             handleInputValue('imageUrl', res.data.profile); // 상태 저장
@@ -135,7 +135,7 @@ function SignUp ({ handleNotice }) {
       email: inputValue.email
     })
       .then(res => {
-        console.log('회원가입 요청 응답', res.data);
+        // console.log('회원가입 요청 응답', res.data);
         if (res.status === 201) {
           setText('가입이 완료되었습니다.');
           setIsOpen(true);
