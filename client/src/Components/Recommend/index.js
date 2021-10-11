@@ -28,7 +28,7 @@ function Recommend () {
       if (number_ref.current > 4) {
         number_ref.current = 0;
         setIndex(number_ref.current);
-      }else {
+      } else {
         setIndex(number_ref.current);
       }
     }, 2000);
