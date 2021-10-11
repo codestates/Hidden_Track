@@ -249,7 +249,7 @@ function MyPage ({ handleNotice }) {
       if (ChangePassword !== checkedPassword) {
         showCheckMessage(key, '비밀번호가 일치하지 않습니다.');
       } else {
-        console.log('일치함');
+        // console.log('일치함');
         showCheckMessage(key, '');
       }
     }

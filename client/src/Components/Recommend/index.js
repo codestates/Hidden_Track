@@ -25,10 +25,11 @@ function Recommend () {
 
     const interval = setInterval(() => {
       number_ref.current += 1;
-      if (number_ref.current > 4) {
+
+      if (number_ref.current >= 5) {
         number_ref.current = 0;
         setIndex(number_ref.current);
-      }else {
+      } else {
         setIndex(number_ref.current);
       }
     }, 2000);

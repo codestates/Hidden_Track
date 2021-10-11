@@ -78,7 +78,8 @@ module.exports = async (req, res) => {
       }
     }
 
-    if (recommendchart.length === 0) {
+    if (recommendchart.length !== 5) {
+      const length = recommendchart.length
       const chart = await track.findAll({
         attributes: ['id', 'img', 'title', 'views'],
         include: {
@@ -88,10 +89,10 @@ module.exports = async (req, res) => {
         }
       });
       chart.sort(function (a, b) {
-        return a.views - b.views;
+        return b.views - a.views;
       });
 
-      for (let i = chart.length - 1; i >= chart.length - 5; i--) {
+      for (let i = 0; i < 5 - length; i++) {
         recommendchart.push(chart[i]);
       }
     }

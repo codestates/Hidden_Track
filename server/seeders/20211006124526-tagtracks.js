@@ -20,7 +20,7 @@ module.exports = {
         updatedAt: new Date()
       });
     }
-    console.log(tags);
+    // console.log(tags);
     return queryInterface.bulkInsert('tagtracks', tags);
   },
 
