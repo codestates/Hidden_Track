@@ -48,7 +48,8 @@
         // margin-bottom: 10px;
         // background-color: red;
         // border: solid 1px;
-        margin-left: 160px;
+        // margin-left: 160px;
+        margin: 0 0 0 160px;
 
         .sign-up-id-area {
           @include flexBox(flex, space-around, _, _, _);
@@ -150,7 +151,8 @@
         // margin-top: 10px;
         // margin-bottom: 15px;
         // background-color: red;
-        margin-left: 160px;
+        // margin-left: 160px;
+        margin: 0 0 0 160px;
 
         .sign-up-nick-flex {
           @include flexBox(flex, space-around, _, _, _);
