@@ -41,16 +41,14 @@
 
 #section2,
 #section4,
-#section5,
-#section6 {
+#section5 {
   @include widthHeight(80%, 400px);
 }
 
 #section1,
 #section2,
 #section4,
-#section5,
-#section6 {
+#section5 {
 
   // background-color: aqua;
   // @include widthHeight(78%, 400px);
@@ -88,14 +86,9 @@
   .landing__section1_img {
     // background-color: blueviolet;
     background-image: url('../../assets/landing4.png');
-    // background-image: url('../../assets/landing3.png');
-    // background-image: url('../../assets/landing2.png');
-    // background-image: url('../../assets/landing1.png');
-    // background-image: url('../../assets/landing.png');
     @include background(cover, _, no-repeat);
     @include widthHeight(600px, 450px);
     margin-top: 50px;
-
     transition: all 1s;
 
     &:hover {
@@ -103,14 +96,33 @@
     }
   }
 
-  .landing__section2-img,
-  .landing__section4-img,
+  .landing__section2-img {
+    @include widthHeight(1200px, 500px);
+    background-image: url('../../assets/음원등록.gif');
+    background-repeat: no-repeat;
+    background-size: 800px 500px;
+    background-position: center;
+    // background-color: blueviolet;
+
+  }
+
+  .landing__section4-img {
+    @include widthHeight(850px, 500px);
+    background-image: url('../../assets/검색합.gif');
+    background-repeat: no-repeat;
+    background-size: 800px 500px;
+    background-position: center;
+    // background-color: blueviolet;
+  }
+
   .landing__section5-img {
-    background-color: blueviolet;
-    @include widthHeight(600px, 500px);
+    @include widthHeight(1200px, 500px);
+    background-image: url('../../assets/음원재생.gif');
+    background-repeat: no-repeat;
+    background-size: 800px 500px;
+    background-position: center;
+    // background-color: blueviolet;
     // @include background(contain, _, no-repeat);
-    // background-image: url('../../assets/landing1.png');
-    // margin-top: -40px;
   }
 
 
@@ -458,6 +470,10 @@
 
 }
 
+#section5 {
+  // margin-bottom: 50px;
+  // background-color: red;
+}
 
 .scrollTop {
   position: fixed;
