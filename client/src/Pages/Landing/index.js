@@ -188,11 +188,11 @@ function Landing () {
 
         <section
           id='section2'
-          // data-aos='fade-up'
-          // data-aos-duration='500'
-          // data-aos-delay='30'
-          // data-aos-easing='linear'
-          // data-aos-anchor-placement='bottom-bottom'
+          data-aos='fade-up'
+          data-aos-duration='500'
+          data-aos-delay='30'
+          data-aos-easing='linear'
+          data-aos-anchor-placement='bottom-bottom'
         >
           <figure className='landing__figure' role='img' aria-labelledby='landing-caption'>
             <div className='landing__section2-img' />
@@ -232,14 +232,15 @@ function Landing () {
 
         <section
           id='section4'
-          // data-aos='fade-right'
-          // data-aos-duration='500'
-          // data-aos-delay='30'
+          data-aos='fade-right'
+          data-aos-duration='500'
+          data-aos-delay='30'
         >
           <figure className='landing__figure' role='img' aria-labelledby='landing-caption'>
             <div className='landing__section4-img' />
             <figcaption id='landing__figcaption'>
-              <pre className='landing__pre1'>원하는 음악을 더 쉽게 찾아보세요!
+              <pre className='landing__pre1'>{`원하는 음악을 
+더 쉽게 찾아보세요!`}
               </pre>
               <pre className='landing__pre2'>{`HIDDEN TRACK은 검색시, 
 음원, 아티스트, 해시태그로 구성된 3가지 검색 결과를 제공합니다.`}
@@ -250,9 +251,9 @@ function Landing () {
 
         <section
           id='section5'
-          // data-aos='fade-left'
-          // data-aos-duration='500'
-          // data-aos-delay='30'
+          data-aos='fade-left'
+          data-aos-duration='500'
+          data-aos-delay='30'
         >
           <figure className='landing__figure' role='img' aria-labelledby='landing-caption'>
             {/* <img className="landing__section1-img" src='../../assets/landing1.png' alt="" /> */}
