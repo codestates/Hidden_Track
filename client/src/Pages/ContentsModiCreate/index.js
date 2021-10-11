@@ -46,7 +46,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
             if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
             if (err.response.status === 404) {
               handleNotice('해당 게시글을 찾을 수 없습니다.', 5000);
-              history.push('/');
+              history.push('/main');
             }
           } else console.log(err);
         });

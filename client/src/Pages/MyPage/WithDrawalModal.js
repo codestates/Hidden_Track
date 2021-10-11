@@ -52,7 +52,7 @@ function WithDrawalModal ({ visible, setIsWithDrawalModalOpen, handleNotice }) {
         // accessToken 빈 문자열 바꿔줘야 한다.
         dispatch(getUserInfo(deletedUserInfo));
         dispatch(isLoginHandler(false));
-        history.push('/');
+        history.push('/main');
       }
     }
     ).catch(err => {
