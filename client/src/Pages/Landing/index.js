@@ -259,7 +259,7 @@ function Landing () {
             <figcaption id='landing__figcaption'>
               <pre className='landing__pre1'>자유롭게 음악을 감상하세요!
               </pre>
-              <pre className='landing__pre2'>{`side bar에 있는 music player를 통해 나만의 play list 구성하고 음악을 감상하세요!  
+              <pre className='landing__pre2'>{`music player를 통해 나만의 play list를 구성하고 음악을 감상하세요!  
 음악 재생중엔 편하게 HIDDEN TRACK 을 이용하실 수 있습니다.`}
               </pre>
               <pre className='landing__pre3'>* HIDDEN TRACK은 visualizer(음원 시각화)기능을 추가로 제공합니다.
