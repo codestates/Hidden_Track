@@ -16,7 +16,7 @@ class Canvas extends Component {
         super(props)
         this.trackId = this.props.loca.pathname.split('/')[2];
         this.audio = new Audio();
-        this.audio.volume = 0.5;
+        this.audio.volume = 1;
         this.audio.crossOrigin = "use-credentials"
         this.img = new Image();
         this.canvas = createRef();
