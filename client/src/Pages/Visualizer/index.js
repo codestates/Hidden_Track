@@ -155,7 +155,7 @@ class Canvas extends Component {
                         <span className="line"></span>
                     </div>
                     <div className='inner-circle-control'>
-                    <div className='inner-circle-title'>{this.state.title.length > 15?this.state.title.slice(0, 15) + '...':this.state.title }</div>
+                    <div className='inner-circle-title'>{this.state.title.length > 30?this.state.title.slice(0, 30) + '...':this.state.title }</div>
                     <div className='inner-circle-artist'>{this.state.nickName}</div>
                     <button className='inner-circle-button' onClick={() => { this.togglePlay(); }}>
                         <img src={playPause} style={{ width: '50px', height: '50px' }} alt='play/pause' />

@@ -269,7 +269,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
 
   return (
     <>
-      <div id='modi-create'>
+      <div id='modi-create' className={isValidUser()?'':'Bad-user'}>
         {isValidUser()
           ? <>
             <div className='default-input-box'>
