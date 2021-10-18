@@ -19,12 +19,13 @@ HIDDEN TRACK에서는 신인 가수, 대중적으로 알려지지 않은 가수�
 
 ### 🔨Functional Flow  
 
-![스크린샷 2021-09-14 오후 5 45 58](https://user-images.githubusercontent.com/62126380/133227204-093cf223-c7b8-49ef-8196-c9c346d9bedd.png)
-![스크린샷 2021-09-14 오후 5 50 09](https://user-images.githubusercontent.com/62126380/133226942-08dd14d3-f749-4b69-a095-e82d4447fed3.png)
+![기능플로우1](https://user-images.githubusercontent.com/81761175/137650925-0cadff8b-5a29-4c9e-9e95-71fb9c10258e.jpg)
+![기능플로우2](https://user-images.githubusercontent.com/81761175/137650929-49337f74-a463-4401-b859-b66618932ff0.jpg)
+![기능플로우3](https://user-images.githubusercontent.com/81761175/137650934-f64bb6b6-454d-490b-96ae-2c21c2b8d42f.jpg)
 
 ### 🔧System
 
-![Screenshot_from_2021-09-09_20-33-38](https://user-images.githubusercontent.com/83861190/132682497-522eecf6-9485-40c2-a863-5f1e8a5cf7fe.png)
+![system](https://user-images.githubusercontent.com/81761175/137650937-00a78ad3-a859-478f-b1fc-e2f87f5402ef.jpg)
 
 
 # 😁 팀을 소개합니다.
