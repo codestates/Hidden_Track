@@ -44,6 +44,8 @@ HIDDEN TRACK에서는 신인 가수, 대중적으로 알려지지 않은 가수�
 
 <a font-size=500px href="https://www.hiddentrack.link">Go HIDDEN TRACK</a>
 
-<a font-size=500px href="https://github.com/codestates/hidden_track/wiki">checkout WIKI</a>
+<a font-size=500px href="https://codestates.notion.site/5-CordonRamsay-HiddenTrack-dce0b399ee5049ff891b8a970c63a8be">Go Team Notion Page</a>
+
+<a font-size=500px href="https://github.com/codestates/hidden_track/wiki">Checkout WIKI</a>
 
 
