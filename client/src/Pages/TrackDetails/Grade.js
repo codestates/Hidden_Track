@@ -12,7 +12,6 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
 
   // 별점 부여한 상태 저장
   function handleGrade (e) {
-    console.log(e.target.value);
     setGrade(e.target.value);
   }
 
@@ -33,12 +32,10 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
       userGrade: grade
     })
       .then(res => {
-        console.log(res.data);
         if (res.status === 200) {
           // 별점 등록 요청 완료 후 음원 상세 정보 다시 받아옴
           axios.get(`${process.env.REACT_APP_API_URL}/track/${trackDetail.track.id}`)
             .then(res => {
-              console.log(res.data);
               if (res.status === 200) {
                 dispatch(getTrackDetails(res.data));
               }
@@ -93,8 +90,8 @@ function Grade ({ trackDetail, isLogin, accessToken, handleNotice }) {
         <input type='radio' id='rating1' name='rating' value='0.5' />
         <label className='half grade-label' htmlFor='rating1' title='1/2 star' />
 
-        <button className='contents__btn' type='submit'>별점주기</button>
       </fieldset>
+      <button className='grade-btn' type='submit'>별점주기</button>
     </form>
   );
 }

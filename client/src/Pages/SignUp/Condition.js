@@ -6,8 +6,6 @@ function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
   }
 
   function handleDebut (e) {
-    console.log(e);
-    console.log('데뷔', e.target.value);
     handleInputValue('debut', e.target.value, 'userArtist');
   }
 
@@ -29,7 +27,7 @@ function Condition ({ handleInputValue, requestAdminChange, isAdminCheck }) {
         <label>이메일:</label>
         <input type='email' placeholder='이메일' onChange={(e) => handleEmail(e)} />
       </div>
-      {isAdminCheck && <button className='change-admin-btn' type='submit'>계정 전환</button>}
+      {isAdminCheck && <button className='change-admin-btn contents__btn' type='submit'>계정 전환</button>}
     </form>
   );
 }

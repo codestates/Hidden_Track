@@ -14,7 +14,7 @@ function Lyrics ({ trackDetail }) {
         {isClick ? '가사 접기' : '가사 보기'}
       </summary>
       <pre className='lyrics'>
-        {trackDetail.track.lyric || '가사 정보가 없습니다.'}
+        {trackDetail.track.lyric || '등록된 가사가 없습니다.'}
       </pre>
     </details>
   );

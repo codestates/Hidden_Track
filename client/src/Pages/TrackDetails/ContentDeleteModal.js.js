@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { getTrackDetails, inputPlayList } from '../../Redux/actions/actions';
 import Portal from './Portal';
 import './ContentDeleteModal.scss';
-// import './index.scss';
 
 function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, trackDetail, accessToken, handleNotice }) {
   const history = useHistory();
@@ -32,7 +31,6 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
       }
     })
       .then(res => {
-        console.log('음원 삭제 요청 응답', res.data);
         if (res.status === 200) {
         // trackDetail 상태 초기화
           dispatch(getTrackDetails({
@@ -58,7 +56,6 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
           axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
             .then(res => {
               if (res.status === 200) {
-                console.log(res.data);
                 dispatch(inputPlayList(res.data.playlist));
                 // setCrrentMusic(playList[res.data.playlist.length - 1]);
                 // audio.current.pause();
@@ -77,7 +74,7 @@ function ContentDeleteModal ({ visible, setIsContentDeleteModalOpen, isLogin, tr
 
           setIsContentDeleteModalOpen(false);
           handleNotice('게시글이 삭제 되었습니다.', 5000);
-          history.push('/');
+          history.push('/main');
         }
       })
       .catch(err => {

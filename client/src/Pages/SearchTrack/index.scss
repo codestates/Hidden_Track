@@ -12,6 +12,7 @@
   
   .searchtrack-msg {
     color: white;
+    font-size: 20px;
   }
 
   .track-list-container {
@@ -20,8 +21,9 @@
     // border-radius: 25px;
     margin-bottom: 100px;
     // width: 80%;
+    min-height: 300px;
     width: 1216px;
-    border: 1px solid rgb(214, 216, 218);
+    // border: 1px solid rgb(214, 216, 218);
     border-radius: 6px;
     // border: 0.5rem outset rgb(222, 222, 222);
     // border-radius: 12px;
@@ -41,6 +43,7 @@
         display: flex;
         flex-wrap: wrap;
         list-style: none;
+        margin-bottom: 1em;
         // justify-content: center;
         // float: left;
         // background-color: green;
@@ -48,20 +51,34 @@
         // width: 90%;
         
         .track-list-li {
-          // display: inline-block;
-          // flex: 1;
-          background-color: skyblue;
+          @include flexBox(flex, _, center, 1em, _);
+          flex-direction: column;
           // float: left; // 자식 태그들 왼쪽부터 채워지게
           cursor: pointer;
-          margin: 1em;
           outline: solid 1px white;
+          width: 17em;
           
           .track-list-img {
             @include widthHeight(17em, 17em)
           }
-    
-          .track-list-title, .track-list-artist {
-            margin: 0;
+          
+          div {
+            @include flexBox(flex, _, center, _, _);
+            flex-direction: column;
+            width: 100%;
+            background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
+            
+            .track-list-title, .track-list-artist {
+              margin: 0;
+              width: 80%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              color: #fff;
+              font-size: 20px;
+              text-align: center;
+              background-color: transparent;
+            }
           }
         }
     
@@ -73,6 +90,7 @@
   
       .track-list-msg {
         color: white;
+        text-align: center;
       }
 
       .search-result-containcer {
@@ -82,10 +100,6 @@
 
         .search-result-box {
           // outline: solid green 1px;
-
-          label {
-            
-          }
 
           .hashtag-box {
             width: 100%;
@@ -101,10 +115,15 @@
       
       label {
         display: block;
-        color: white;
+        color: #fff;
         font-weight: bold;
-        // background-color: aqua;
         margin-bottom: 1em;
+        font-size: 25px;
+        border: 0;
+        border-bottom: 3px solid transparent;
+        border-image: linear-gradient(to right, #1e1c50, #B80E65, #1791B1);
+        border-image-slice: 1;
+        text-align: center;
       }
     }
   }

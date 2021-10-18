@@ -81,7 +81,7 @@ function SignUp ({ handleNotice }) {
       return handleNotice('아이디가 유효하지 않습니다.', 5000);
     } else if (!inputValue.password || validMessage.validPW || validMessage.matchPW) {
       return handleNotice('비밀번호가 유효하지 않습니다.', 5000);
-    } else if (!inputValue.nickName || inputValue.nickName.length > 10 || validMessage.validNick !== '사용 가능한 닉네임 입니다.') {
+    } else if (!inputValue.nickName || inputValue.nickName.length > 15 || validMessage.validNick !== '사용 가능한 닉네임 입니다.') {
       return handleNotice('닉네임이 유효하지 않습니다.', 5000);
     }
     // 아티스트로 가입하는 경우의 유효성 검사
@@ -98,7 +98,7 @@ function SignUp ({ handleNotice }) {
       // S3에 이미지 파일 폼데이터 전송 후 url 값 받아오기
       axios.post(`${process.env.REACT_APP_API_URL}/user/profile`, formData)
         .then(res => {
-          console.log('S3 이미지 url 요청 응답', res.data);
+          // console.log('S3 이미지 url 요청 응답', res.data);
           if (res.status === 201) {
             // 이미지 url을 성공적으로 받아왔다면
             handleInputValue('imageUrl', res.data.profile); // 상태 저장
@@ -123,8 +123,7 @@ function SignUp ({ handleNotice }) {
   function postSignUp () {
     let admin = 'listener';
     if (selectBtn) admin = 'artist';
-    console.log('dsfsdfsdfsd');
-    console.log(inputValue);
+
     axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {
       loginId: inputValue.id,
       password: inputValue.password,
@@ -136,7 +135,7 @@ function SignUp ({ handleNotice }) {
       email: inputValue.email
     })
       .then(res => {
-        console.log('회원가입 요청 응답', res.data);
+        // console.log('회원가입 요청 응답', res.data);
         if (res.status === 201) {
           setText('가입이 완료되었습니다.');
           setIsOpen(true);
@@ -157,7 +156,7 @@ function SignUp ({ handleNotice }) {
 
   return (
     <div className='sign-up'>
-      <h1 className='sign-up-logo' onClick={() => history.push('/')}>HIDDEN TRACK</h1>
+      <div className='sign-up-logo sign-one' onClick={() => history.push('/main')}><span className='one-onOff-2'>HIDDEN</span><span className='one-onOff'>TRACK</span></div>
       <h2 className='sign-up-title'>SignUp</h2>
       <div className='sign-up-container'>
         <div className='sign-up-input'>
@@ -192,7 +191,7 @@ function SignUp ({ handleNotice }) {
           </div>
         </div>
         {selectBtn ? <Condition handleInputValue={handleInputValue} /> : null}
-        <button className='sign-up-submit-btn' onClick={(e) => requestSignUp(e)}>가입하기</button>
+        <button className='contents__btn sign-up-submit-btn' onClick={(e) => requestSignUp(e)}>가입하기</button>
       </div>
       {isOpen
         ? <div>

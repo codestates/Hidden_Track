@@ -8,7 +8,6 @@ function Genre ({ genre }) {
 
   // 장르 선택시 실행되는 함수
   function clickGenre (e) {
-    console.log(e.target.getAttribute('value'));
     const genre = e.target.getAttribute('value');
     // 검색 페이지로 이동
     history.push({
@@ -25,11 +24,11 @@ function Genre ({ genre }) {
       <div className='genre-box'>
         {genreList.map((el, idx) => {
           return (
-            <span className={genre === el ? `genre-bg selected-genre-${idx}` : 'genre-bg'} id={`genre-bg-${idx}`} value={el} key={idx} onClick={(e) => clickGenre(e)}>
-              <p className={genre === el ? 'genre-name selected-genre-name' : 'genre-name'} value={el} onClick={(e) => clickGenre(e)}>
+            <div className={genre === el ? `genre-bg selected-genre-${idx}` : 'genre-bg'} id={`genre-bg-${idx}`} value={el} key={idx} onClick={(e) => clickGenre(e)}>
+              <p className={genre === el ? 'genre-name selected-genre-name' : 'genre-name'} id={`genre-name-${idx}`} value={el} onClick={(e) => clickGenre(e)}>
                 {el}
               </p>
-            </span>
+            </div>
           );
         })}
       </div>

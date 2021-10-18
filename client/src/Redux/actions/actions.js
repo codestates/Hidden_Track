@@ -6,9 +6,7 @@ export const INPUT_MUSIC = 'INPUT_MUSIC';
 export const IS_LOGIN_MODAL_OPEN = 'IS_LOGIN_MODAL_OPEN';
 export const TRACK_DETAIL = 'TRACK_DETAIL';
 export const ACCESS_TOKEN = 'ACCESS_TOKEN';
-// export const CLICK_MODIFY = 'CLICK_MODIFY';
 export const IS_LOADING = 'IS_LOADING';
-// export const TRACK_LIST = 'TRACK_LIST';
 
 export function getUserInfo (userInfo) {
   return {
@@ -38,7 +36,6 @@ export function isLoginModalOpenHandler (boolean) {
 }
 
 export function inputPlayList (playList) {
-  console.log('리덕스 플레이리스트', playList);
   return {
     type: INPUT_PLAYLIST,
     payload: {
@@ -83,15 +80,6 @@ export function getAccessToken (accessToken) {
   };
 }
 
-// export function isClickModify (boolean) {
-//   return {
-//     type: CLICK_MODIFY,
-//     payload: {
-//       onClickModify: boolean
-//     }
-//   };
-// }
-
 export function isLoadingHandler (boolean) {
   return {
     type: IS_LOADING,
@@ -100,12 +88,3 @@ export function isLoadingHandler (boolean) {
     }
   };
 }
-
-// export function getTrackList (list) {
-//   return {
-//     type: TRACK_LIST,
-//     payload: {
-//       trackList: list
-//     }
-//   };
-// }

@@ -1,14 +1,6 @@
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+@import '../../Common.scss';
 
-body {
-  // margin: 5%;
-  text-align: center;
-}
-
-h1 {
-  font-size: 2em;
-  margin-bottom: .5rem;
-}
 
 /* 필드셋 */
 .rate {
@@ -32,8 +24,8 @@ h1 {
 
 .rate>.grade-label:before {
   display: inline-block;
-  font-size: 2rem;
-  padding: .3rem .2rem;
+  font-size: 32px;
+  padding: 3.5px 4.8px;
   margin: 0;
   cursor: pointer;
   font-family: FontAwesome;
@@ -50,7 +42,33 @@ h1 {
 input:checked~.grade-label,
 .grade-label:hover,
 .grade-label:hover~.grade-label {
-  // color: #73B100;
   color: #fbff00;
   text-shadow: 0 0 1px #fbff00, 0 0 2px #fbff00, 0 0 3px #fbff00
+}
+
+.star-rating {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  width: 65%;
+  // .rate {
+  //   display: flex;
+  // }
+
+  .grade-btn {
+    @include fontStyle(#fff, normal, 15px, 35px);
+    background: linear-gradient(to right, #8c9637, #ecdd09, #1791B1);
+    @include background(300% 300%, 1% 50%, _);
+    @include borderStyle(1px solid rgba(255, 255, 255, 0.3), 20px);
+    transition: all 0.7s ease-out;
+    letter-spacing: 0.3em;
+    padding: 5px 20px 5px 25px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-position: 99% 50%;
+    }
+  }
 }

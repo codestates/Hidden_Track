@@ -9,21 +9,21 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate (models) {
       // define association here
-      this.hasOne(models.userArtist)
+      this.hasOne(models.userArtist);
       this.hasMany(models.reply);
       this.hasMany(models.track);
       this.hasMany(models.playlist);
       this.belongsToMany(models.track, {
-        through: "likes",
-        foreignKey: "userId",
+        through: 'likes',
+        foreignKey: 'userId'
       });
       this.belongsToMany(models.track, {
-        through: "grades"
+        through: 'grades'
       });
     }
-  };
+  }
   user.init({
     loginId: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     admin: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'user',
+    modelName: 'user'
   });
   return user;
 };

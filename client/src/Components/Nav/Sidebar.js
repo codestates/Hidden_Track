@@ -26,31 +26,25 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   const default_music = {
     id: 1,
     track: {
-      id: 1,
-      title: 'joy-ride',
-      img: ' https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/4831632834753004.jpg',
+      id: 33,
+      title: 'mar grande',
+      img: ' https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/9381633934446787.jpg',
       genre: 'Jazz',
-      releaseAt: '2021-09-28',
+      releaseAt: '2017-09-20',
       lyric: '등록된 가사가 없습니다.',
-      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/joy-ride+by+aves+Artlist.mp3',
+      soundTrack: 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackfile/3361633934444630.mp3 ',
       user: {
-        nickName: 'Aves'
+        nickName: 'andrea musci'
       }
     }
   };
 
   // state 선언 currentMusic-현재 재생곡 정보(객체), isRandom-랜덤 확인(불린), previousMusic-이전 곡 인덱스값(배열)
   const [currentMusic, setCurrentMusic] = useState(playList[0]);
-  // const [currentMusic, setCurrentMusic] = useState(playList.length-1 < 0?default_music:playList[playList.length-1]);
   const [isRandom, setIsRandom] = useState(false);
   const [previousMusic, setPreviousMusic] = useState([]);
   const [afterRender, setAfterRender] = useState(false);
   const [time, setTime] = useState();
-  console.log('사이드바 플레이리스트', playList);
-  console.log('현재곡', currentMusic);
-  console.log('커런트 뮤직', playList[playList.length - 1]);
-  console.log('랜덤', isRandom);
-
   useEffect(() => {
     clearInterval(timeSet);
     audio.current.audio.current.onplay = () => {
@@ -69,7 +63,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         .then(res => {
           if (res.status === 200) {
             dispatch(inputPlayList(res.data.playlist));
-            console.log('응답 플레이리스트', res.data);
             if (res.data.playlist.length > 0) {
               setCurrentMusic(res.data.playlist[res.data.playlist.length - 1]);
             }
@@ -79,8 +72,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
           if (err.response) {
             if (err.response.status === 404) {
               dispatch(inputPlayList([]));
-              // audio.current.pause();
-              // setCurrentMusic(playList[playList.length-1])
             }
           } else console.log(err);
         });
@@ -89,46 +80,41 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
     }
   }, [isLogin]);
 
+  function goVisual (trackId) {
+    history.push(`/visual/${trackId}`);
+  }
+
   // 비로그인 상태일때 음원 1분재생 해주는 함수
   function play1min () {
-    console.log(audio.current);
     clearInterval(timeSet);
     if (!isLogin) {
-      console.log(audio.current);
-      console.log(audio.current.audio.current);
       if (!audio.current.audio.current.paused) {
+        handleNotice('1분 미리듣기 상태입니다.', 5000);
         timeSet = setInterval(tictok, 1000);
         setTime(timeSet);
         // return time
       } else {
         clearInterval(timeSet);
       }
-    } else {
-      console.log('로그인상태');
     }
   }
 
   function tictok () {
-    console.log('틱톡 타임', timeSet);
-    console.log(tic);
     tic += 1;
     check();
   }
 
   function check () {
-    console.log(isLogin, time);
     if (isLogin) {
-      console.log('로그인');
       clearInterval(timeSet);
       tic = 0;
     } else if (tic > 59) {
-      console.log('비로그인');
       audio.current.audio.current.pause();
       audio.current.audio.current.currentTime = 0;
       clearInterval(timeSet);
       tic = 0;
       // dispatch(isLoginModalOpenHandler(true))
-      handleNotice('현재 1분 미리듣기 상태입니다.\n로그인하시겠어요?', 5000);
+      handleNotice('로그인후 멋진 음악을 FULL로 감상하세요!', 5000);
     }
   }
 
@@ -136,18 +122,13 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
     setAfterRender(true);
     if (!isLogin) {
       // 비로그인 상태에서는 노래 재생중엔 노래 변경 불가능
-      if (audio.current.audio.current.currentTime === 0) {
-        clearInterval(timeSet);
-        tic = 0;
-        handlePreviousMusic('push', playList[playList.indexOf(currentMusic)]);
-        setCurrentMusic(playList[index]);
-
-        // console.log(audio.current.audio.current.play)
-      }
+      clearInterval(timeSet);
+      tic = 0;
+      handlePreviousMusic('push', playList[playList.indexOf(currentMusic)]);
+      setCurrentMusic(playList[index]);
     } else {
       setCurrentMusic(playList[index]);
       audio.current.audio.current.play();
-      // console.log(audio.current.audio.current.paused)
     }
   }
 
@@ -187,16 +168,13 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   // 재생목록에서 곡 삭제 함수
   function handleDeleteMusic (e, index, playListId) {
     e.preventDefault();
-    console.log('플레이리스트 아이디', playListId);
     isLogin
       ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist/${playListId}`, { headers: { accesstoken: accessToken } })
         .then(res => {
           if (res.status === 200) {
-            console.log('삭제 완료?');
             axios.get(`${process.env.REACT_APP_API_URL}/playlist`, { headers: { accesstoken: accessToken } })
               .then(res => {
                 if (res.status === 200) {
-                  console.log('겟 완료', res.data.playlist);
                   dispatch(inputPlayList(res.data.playlist));
                 }
               })
@@ -227,7 +205,13 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             <div className='square'>
               <img
                 className='inner-square'
-                onClick={() => { history.push(`/trackdetails/${currentMusic.track.id}`); }}
+                onClick={() => {
+                  if (currentMusic) {
+                    history.push(`/trackdetails/${currentMusic.track.id}`);
+                  } else {
+                    history.push(`/trackdetails/${default_music.track.id}`);
+                  }
+                }}
                 src={currentMusic ? currentMusic.track.img : default_music.track.img}
                 alt={currentMusic ? currentMusic.track.title : default_music.track.title}
               />
@@ -247,9 +231,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             // className={}
               ref={audio}
               src={currentMusic ? currentMusic.track.soundTrack : default_music.track.soundTrack}
-            // src={currentMusic.track.soundTrack}
-            // handleKeyDown={()=>{console.log('어허')}}
-            // isLogin?controls:''
               volume={0.5}
               autoPlay={false}
               showJumpControls={!!isLogin}
@@ -260,7 +241,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                 if (playList.length <= 1) return;
                 handlePreviousMusic('push', currentMusic);
                 if (!isRandom) {
-                  console.log('1');
                   if (isValid('playList', playList.indexOf(currentMusic) + 1)) {
                     handleChangeMusic(playList.indexOf(currentMusic) + 1);
                   } else {
@@ -295,11 +275,9 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                       handleChangeMusic(playList.length - 1);
                     }
                   } else {
-                    console.log('랜덤-이전곡 없음');
                     handleChangeMusic(getRandomNumber(0, playList.length - 1));
                   }
                 } else {
-                  console.log('이전곡 있음');
                   handleChangeMusic(playList.indexOf(previousMusic[previousMusic.length - 1]));
                   handlePreviousMusic('pop');
                 }
@@ -317,7 +295,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                 }}
               >
               {playList.map((el, idx) => {
-                console.log(el);
                 return (
                   <PlayList
                     key={el.id}
@@ -327,6 +304,9 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                     handleChangeMusic={handleChangeMusic}
                     handlePreviousMusic={handlePreviousMusic}
                     handleDeleteMusic={handleDeleteMusic}
+                    currentMusic={currentMusic}
+                    trackId={el.track.id}
+                    goVisual={goVisual}
                   />
                 );
               })}
@@ -334,6 +314,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         </div>
       </div>
       <div className={isSidebarOpen ? 'sidebar-backdrop sidebar-opened' : 'sidebar-backdrop sidebar-closed'} onClick={(e) => showSidebar(e)} style={{ width: window.innerWidth, height: window.innerHeight }} />
+      {/*  background: 'black',   opacity: .8 */}
     </>
   );
 }

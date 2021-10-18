@@ -3,28 +3,24 @@ import { useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTrackDetails, getUserInfo, isLoadingHandler, inputPlayList } from '../../Redux/actions/actions';
 import InputHashTag from './InputHashTag';
+import Footer from '../../Components/Footer';
 import axios from 'axios';
 import './index.scss';
 // import { noExtendLeft } from 'sequelize/types/lib/operators';
 // trackId 값은 수정 버튼을 눌렀을때 localstorage에 저장시킨다. 여기서는 값만 가져오고 페이지를 벗어날때는 삭제시킨다.
 // trackdetail의 id값을 localstorage에 저장해서 새로고침시 값이 날라가지 않게 한다.
 axios.defaults.withCredentials = true;
-const default_album_img = 'https://take-closet-bucket.s3.ap-northeast-2.amazonaws.com/%EC%95%A8%EB%B2%94+img/default_album_img.png';
+const default_album_img = 'https://hidden-track-bucket.s3.ap-northeast-2.amazonaws.com/trackimage/8001633698891683.png';
 
 function ContentsModiCreate ({ handleNotice, isLoading }) {
   const loca = useLocation();
   const trackId = loca.pathname.split('/')[2];
-  console.log(trackId);
   const history = useHistory();
   const userInfo = useSelector(state => state.userInfoReducer);
   const playList = useSelector(state => state.playListReducer.playList);
   const { accessToken } = useSelector(state => state.accessTokenReducer);
   const trackDetail = useSelector(state => state.trackDetailReducer);
-  // const isModify = useSelector(state => state.modifyReducer.onClickModify);
   const dispatch = useDispatch();
-  console.log(trackDetail);
-  // console.log(accessToken)
-  // const accessToken = useSelector(state => state.accessTokenReducer)
   const [inputValue, setInputValue] = useState({
     id: trackId ? trackDetail.track.id : '',
     title: trackId ? trackDetail.track.title : '',
@@ -37,10 +33,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   const trackImgName = trackDetail.track.img.split('trackimage/')[1];
   const trackFileName = trackDetail.track.soundtrack.split('trackfile/')[1];
   const [files, setFiles] = useState({ image: { name: trackId ? trackImgName : '' }, audio: { name: trackId ? trackFileName : '' } });
-  console.log('파일', files.audio);
-  // console.log('인풋', inputValue)
-  // console.log('파일', files.audio.name)
-  // const history = useHistory();
+
   useEffect(() => {
     // 음원 수정 페이지를 벗어나면 수정 버튼 상태를 false로 바꿔줌
     if (trackId) {
@@ -49,37 +42,30 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
           if (res.status === 200) dispatch(getTrackDetails(res.data));
         })
         .catch(err => {
-          console.log(err.response);
           if (err.response) {
             if (err.response.status === 400) handleNotice('잘못된 요청입니다.', 5000);
             if (err.response.status === 404) {
               handleNotice('해당 게시글을 찾을 수 없습니다.', 5000);
-              history.push('/');
+              history.push('/main');
             }
           } else console.log(err);
         });
     }
     return () => {
-      // dispatch(isClickModify(false));
+
     };
   }, []);
 
   // ?##############################################################################################
   // input값 state 저장 함수
   function handleInputValue (key, e, value) {
-    console.log('인풋중........');
     if (key === 'tag') {
       e.preventDefault();
       setInputValue({ ...inputValue, [key]: [...inputValue.tag, e.target.value] });
     } else if (key === 'deleteTag') {
       e.preventDefault();
       setInputValue({ ...inputValue, tag: value });
-    }
-    // else if (key === 'soundtrack' || key === 'img'){
-    //   console.log(key, value)
-    //   setInputValue({ ...inputValue, [key]: value });
-    // }
-    else {
+    } else {
       e.preventDefault();
       setInputValue({ ...inputValue, [key]: e.target.value });
     }
@@ -118,7 +104,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
         'image/bmp'
       ];
       return type.indexOf(file.type) > -1;
-      // return file.type.match('image/');
     } else if (key === 'audio') {
       return file.type.match('audio/');
     }
@@ -128,13 +113,10 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   function isValidUser () {
     // 음원 등록으로 들어왔을 경우
     if (!trackId) {
-      console.log('여기1');
       return userInfo.admin === 'artist';
     }
     // 수정 버튼으로 들어왔을 경우
     else {
-      console.log('여기2');
-      // console.log('어드민', userInfo.admin, '닉네임', userInfo.nickName, '음원 닉네임', trackDetail.track.user.nickName);
       return userInfo.admin === 'artist' && userInfo.nickName === trackDetail.track.user.nickName;
     }
   }
@@ -192,9 +174,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     // return method('http://localhost:4000/upload', formData)
     return method(`${process.env.REACT_APP_API_URL}/track/${path}`, formData)
       .then(res => {
-        console.log(res.status);
         if (res.status === 201) {
-          console.log(res.data);
           // console.log('확인',{[key === 'image'?'img':'soundtrack']:key === 'image'?'res.data.image_url':'res.data.trackurl'})
           let data;
           if (key === 'image') {
@@ -227,28 +207,20 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
     if (CheckEssential()) {
       let method;
       if (trackId) {
-        console.log('patch');
         method = axios.patch;
       } else {
-        console.log('post');
         method = axios.post;
       }
 
       dispatch(isLoadingHandler(true));
       handleNotice('업로드중.. 잠시 기다려주세요', 5000);
       const audioUpload = await uploadFile('audio', method);
-      console.log('오디오 완', audioUpload);
       const imageUpload = await uploadFile('image', method);
-      console.log('이미지 완', imageUpload);
+
       if (audioUpload && imageUpload) {
-        // console.log('실행?');
-        // console.log('인풋 확인', inputValue)
         const body = { ...inputValue, img: imageUpload, soundtrack: audioUpload };
-        console.log('바디', body);
-        console.log(method);
         await method(`${process.env.REACT_APP_API_URL}/track`, body, { headers: { accesstoken: accessToken } })
           .then(res => {
-            console.log(res.data);
             if (res.status === 200 || res.status === 201) {
               const check = playList.map(el => {
                 return el.track.id === res.data.trackId;
@@ -258,7 +230,6 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                   .then(res => {
                     if (res.status === 200) {
                       dispatch(inputPlayList(res.data.playlist));
-                      console.log('응답 플레이리스트', res.data);
                     }
                   })
                   .catch(err => {
@@ -272,9 +243,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
                   });
               }
               handleNotice(trackId ? '음원 수정을 완료하였습니다' : '음원 등록을 완료하였습니다.', 5000);
-              axios.get();
               dispatch(isLoadingHandler(false));
-              console.log('레스 데이타@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', res.data);
               history.push(`/trackdetails/${res.data.trackId}`);
             }
           })
@@ -289,7 +258,7 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
             console.log(err);
           });
       } else {
-        console.log('못함?');
+
       }
       dispatch(isLoadingHandler(false));
     }
@@ -299,60 +268,69 @@ function ContentsModiCreate ({ handleNotice, isLoading }) {
   // ?##############################################################################################
 
   return (
-    <div id='modi-create'>
-      {isValidUser()
-        ? <>
-          <div className='default-input-box'>
-            <div className='album-img-box'>
-              <img className='album-img' src={src} />
-              <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
-              <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
-              <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
-            </div>
-            <section className='default-input-section'>
-              <input
-                type='text' id='title-input' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => {
-                  if (e.target.value.length <= 50) {
-                    handleInputValue('title', e);
-                  } else {
-                    handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
-                    e.target.value = e.target.value.slice(0, e.target.value.length - 1);
-                  }
-                }}
-              />
-              <select name='genre' id='genre-input' className='music-input' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }}>
-                <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
-                <option style={{ background: '#1F104D' }} value='Ballad'>Ballad</option>
-                <option style={{ background: '#1F104D' }} value='HipHop'>HipHop</option>
-                <option style={{ background: '#1F104D' }} value='R&B'>R&B</option>
-                <option style={{ background: '#1F104D' }} value='Rock'>Rock</option>
-                <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
-              </select>
-              <div>
-                <label className='music-release-label' htmlFor='music-release' style={{ fontSize: '20px' }}>발매일 :</label>
-                <input type='date' className='music-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
+    <>
+      <div id='modi-create' className={isValidUser()?'':'Bad-user'}>
+        {isValidUser()
+          ? <>
+            <div className='default-input-box'>
+              <div className='album-img-box'>
+                <img className='album-img' src={src} alt='' />
+                <div className='album-input-info'>※ 이미지는 500 * 500 사이즈를 권장합니다.</div>
+                <label htmlFor='album-input-btn' className='album-input-btn'>앨범 이미지 첨부</label>
+                <span>{!files.image.name === '' ? 'No file chosen' : `${files.image.name}`}</span>
+                <input id='album-input-btn' type='file' style={{ display: 'none' }} onChange={(e) => { handleFileRead('image', e); }} />
               </div>
-              <div>
-                <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
-                <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
-                <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
-              </div>
+              <section className='default-input-section'>
+                <input
+                  type='text' id='title-input' className='music-input' placeholder='곡 제목' value={inputValue.title} onChange={(e) => {
+                    if (e.target.value.length <= 50) {
+                      handleInputValue('title', e);
+                    } else {
+                      handleNotice('곡 제목은 50자를 초과할 수 없습니다.', 5000);
+                      e.target.value = e.target.value.slice(0, e.target.value.length - 1);
+                    }
+                  }}
+                />
+                {/* <span id='genre-input' className='music-input'></span> */}
+                <div className='music-input-box'>
+                  <label className='music-genre-release-label' htmlFor='music-genre-release' style={{ fontSize: '20px' }}>장르 :</label>
+                  <select name='genre' id='genre-input' className='music-genre-release' defaultValue={inputValue.genre} onChange={(e) => { handleInputValue('genre', e); }}>
+                    <option hidden='' disabled='disabled' value=''>--음원 장르를 선택 해주세요--</option>
+                    <option style={{ background: '#1F104D' }} value='Ballad'>Ballad</option>
+                    <option style={{ background: '#1F104D' }} value='HipHop'>HipHop</option>
+                    <option style={{ background: '#1F104D' }} value='R&B'>R&B</option>
+                    <option style={{ background: '#1F104D' }} value='Rock'>Rock</option>
+                    <option style={{ background: '#1F104D' }} value='Jazz'>Jazz</option>
+                  </select>
+                </div>
+                <div className='music-input-box'>
+                  <label className='music-genre-release-label' htmlFor='music-genre-release' style={{ fontSize: '20px' }}>발매일 :</label>
+                  <input type='date' className='music-genre-release' value={inputValue.releaseAt} onChange={(e) => { handleInputValue('releaseAt', e); }} />
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <label htmlFor='music-input-btn' className='music-input-btn'>음원 파일 첨부</label>
+                  <div>{!files.audio.name === '' ? 'No file chosen' : `${files.audio.name}`}</div>
+                  <input type='file' id='music-input-btn' style={{ display: 'none' }} onChange={(e) => { handleFileRead('audio', e); }} />
+                </div>
 
-            </section>
-          </div>
-          <section className='music-lyrics-hashtag-box'>
-            <div className='music-lyrics-input'>
-              <span>가사</span>
-              <textarea className='input-lyrics' placeholder='가사' value={inputValue.lyric} onChange={(e) => { handleInputValue('lyric', e); }} />
+              </section>
             </div>
-            <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
-          </section>
-          <div className='modi-create-btn-box'>
-            <button className='contents__btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
-          </div>
-        </>
-        : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
-    </div>
+            <section className='music-lyrics-hashtag-box'>
+              <div className='music-lyrics-input'>
+                <label className='music-lyrics-label'>가사</label>
+                <textarea className='input-lyrics' placeholder='가사를 작성해주세요' value={inputValue.lyric} onChange={(e) => { handleInputValue('lyric', e); }} />
+              </div>
+              <InputHashTag tagList={inputValue.tag} handleInputValue={handleInputValue} handleNotice={handleNotice} />
+            </section>
+            <div className='modi-create-btn-box'>
+              <button className='contents__btn modi-create-btn' onClick={(e) => { requestCreate(e); }}>{trackId ? '음원 수정' : '음원 등록'}</button>
+            </div>
+
+            </>
+          : <h1 className='Bad'>잘못된 접근 입니다.</h1>}
+      </div>
+      <Footer />
+    </>
   );
 }
 

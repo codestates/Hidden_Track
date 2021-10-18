@@ -1,58 +1,85 @@
 .lyrics-open {
-  width: 83%;
+  width: 750px;
+  text-align: center;
 }
 
-.lyrics-open > .lyrics-menu {
+.lyrics-open>.lyrics-menu {
   margin: 10px 0 10px;
-  background: #616060;
+  background: transparent;
+  // background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
   color: #fff;
   padding: 10px;
   outline: 0;
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.5s;
-  box-shadow: 1px 1px 2px gray;
+
+  // box-shadow: 1px 1px 2px gray;
+  &:hover {
+    box-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #0fa,
+      0 0 8px #0fa, 0 0 9px #0fa, 0 0 10px #0fa, 0 0 15px #0fa;
+  }
 }
 
-.lyrics-open > .lyrics-menu::-webkit-details-marker {
-  background: #616060;
+.lyrics-open>.lyrics-menu::-webkit-details-marker {
+  // background: #616060;
+
   color: #fff;
   background-size: contain;
   transform: rotate3d(0, 0, 1, 90deg);
   transition: transform 0.25s;
 }
 
-.lyrics-open[open] > .lyrics-menu::-webkit-details-marker {
+.lyrics-open[open]>.lyrics-menu::-webkit-details-marker {
   transform: rotate3d(0, 0, 1, 180deg);
 }
 
-.lyrics-open[open] > .lyrics-menu {
-  background: #616060;
+.lyrics-open[open]>.lyrics-menu {
+  // background: #616060;
 }
 
-.lyrics-open[open] > .lyrics-menu ~ * {
+.lyrics-open[open]>.lyrics-menu~* {
   animation: reveal 0.5s;
 }
 
 .lyrics {
-  background: #616060;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // background: #616060;
+  // background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
+  background: transparent;
+  // border: 1px solid #fff;
   color: #fff;
+  font-size: 20px;
   margin: 5px 0 10px;
   padding: 5px 10px;
-  line-height: 25px;
+  min-height: 250px;
+  // line-height: 25px;
   border-radius: 5px;
-  box-shadow: 1px 1px 2px gray;
+  white-space: pre-wrap;
+
+  &:hover {
+    box-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #0fa,
+      0 0 8px #0fa, 0 0 9px #0fa, 0 0 10px #0fa, 0 0 15px #0fa;
+  }
+
+  // box-shadow: 1px 1px 2px gray;
 }
 
 .lyrics-menu {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  font-size: 18px;
+  justify-content: center;
   color: #fff;
-  text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #0fa,
-    0 0 8px #0fa, 0 0 9px #0fa, 0 0 10px #0fa, 0 0 15px #0fa;
+  // text-shadow: 0 0 1px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 4px #0fa,
+  //   0 0 8px #0fa, 0 0 9px #0fa, 0 0 10px #0fa, 0 0 15px #0fa;
+
+
 }
 
-.lyrics-menu:hover {
-  font-weight: bold;
-}
 
 #lyrics-click {
   font-weight: bold;
@@ -63,6 +90,7 @@
     opacity: 0;
     transform: translate3d(0, -30px, 0);
   }
+
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);

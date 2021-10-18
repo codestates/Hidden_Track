@@ -1,8 +1,8 @@
-require("dotenv").config();
+require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const cors = require("cors");
-const db = require("./models");
+const cors = require('cors');
+const db = require('./models');
 
 const usersRouter = require('./routers/user');
 const trackRouter = require('./routers/track');
@@ -18,12 +18,12 @@ app.use(
   cors({
     origin: true, //"https://www.hiddentrack.link",
     credentials: true,
-    methods: ["GET","OPTIONS", "DELETE", "POST", "PATCH"],
+    methods: ['GET', 'OPTIONS', 'DELETE', 'POST', 'PATCH']
   })
 );
 
-app.get("/", (req, res) => {
-  res.status(200).send("Welcome, hidden_track??!? Server!");
+app.get('/', (req, res) => {
+  res.status(200).send('Welcome, hidden_track??!!!? Server!');
 });
 
 // db.sequelize
@@ -33,17 +33,14 @@ app.get("/", (req, res) => {
 //   })
 //   .catch(console.error)
 
-
 app.use('/user', usersRouter);
 app.use('/track', trackRouter);
 app.use('/playlist', playlistRouter);
 app.use('/reply', replyRouter);
 app.use('/search', searchRouter);
 
-
 const HTTPS_PORT = 4000;
 
 app.listen(HTTPS_PORT, () => {
-  console.log("server 실행");
+  console.log('server 실행');
 });
-

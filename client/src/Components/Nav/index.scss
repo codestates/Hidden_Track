@@ -13,8 +13,8 @@ body {
 }
 
 .logo {
-@include flexBox(_, _, _, 0, 0);
-font-size: 4em;
+  @include flexBox(_, _, _, 0, 0);
+  font-size: 4em;
 }
 
 %h1 {
@@ -46,16 +46,13 @@ font-size: 4em;
 
   }
 
-  h1 {
-    @extend %h1
-  }
 }
 
 ;
 
 .button-list {
-  @include flexBox(flex, space-between, _, _, _);
-  @include widthHeight(230px, _);
+  @include flexBox(flex, space-around, _, _, _);
+  @include widthHeight(270px, _);
   position: relative;
 
 
@@ -77,8 +74,8 @@ font-size: 4em;
 ;
 
 .button-list-of-profile-image {
-  @include flexBox(flex, space-between, _, _, _);
-  @include widthHeight(150px, _);
+  @include flexBox(flex, space-around, _, _, _);
+  @include widthHeight(270px, _);
   position: relative;
 
   .navigation__profile-image {
@@ -91,7 +88,7 @@ font-size: 4em;
   }
 
   .show-user-profile-list {
-    @include positionBox(absolute, 80%, _, -10%, _);
+    @include positionBox(absolute, 80%, 56.2%, -10%, _);
 
     list-style: none;
     padding: 0;

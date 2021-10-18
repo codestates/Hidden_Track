@@ -36,13 +36,13 @@ function Slide () {
   const [chart, setChart] = useState([]);
   const [latestChart, setLatestChart] = useState('');
   const [popularChart, setPopularChart] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
       { headers: { accesstoken: accessToken } })
       .then((res) => {
-        console.log('인기,최신 요청 응답', res);
-        // setRecommendChart(res.data.recommendchart);
         setChart(res.data.popularchart);
         setLatestChart(res.data.latestchart);
         setPopularChart(res.data.popularchart);
@@ -51,6 +51,7 @@ function Slide () {
         console.log(err);
       }
       );
+    return () => setLoading(false);
   }, []);
 
   function handleRecent (e) {
@@ -64,15 +65,14 @@ function Slide () {
   }
 
   function moveTrackDetail (e, id) {
-    // console.log(id);
     history.push(`/trackdetails/${id}`);
   }
 
   return (
     <section className='slide-container'>
       <div className='slide-btn'>
-        <span className='popular' onClick={(e) => handlePopular(e)}>인기</span>
-        <span className='recent' onClick={(e) => handleRecent(e)}>최신</span>
+        <span className='popular sign-four' onClick={(e) => handlePopular(e)}>H O T</span>
+        <span className='recent sign-four' onClick={(e) => handleRecent(e)}>N E W</span>
       </div>
 
       <Slider {...settings}>
@@ -97,16 +97,6 @@ export const ImgSlide = styled.div`
   background-image: url(${props => props.img});
   background-size: cover;
   background-position: center;
-  /* width: ${props => props.className ? ' 150px' : '200px'};
-  height: ${props => props.className ? ' 150px' : '200px'};
-  padding: ${props => props.className ? '5px' : 0} ; */
-   /* margin-left: ${props => props.className ? '20px' : 0}; */
-`;
+  cursor: pointer;
 
-// main-slides <div>
-//  > slide-container <section>
-//      > slide-container <slide-btn> : 인기 / 추천
-//      > slide-slider <div>
-//          > slick-prev <button>
-//          > slick-list <div>
-//          > slick-next <button>
+`;
