@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import React from 'react';
 import Slide from '../../Components/Slide';
 import Recommend from '../../Components/Recommend';
 import Genre from '../../Components/Genre';
 import HashTag from '../../Components/HashTag';
 import Footer from '../../Components/Footer';
-import mainImg from '../../assets/cyber3.jpg';
 import './index.scss';
-import { useSelector } from 'react-redux';
 
 function Main () {
-  const history = useHistory();
-  const [latestChart, setLatestChart] = useState([]);
-  const [popularityChart, setPopularityChart] = useState([]);
-  const [recommendChart, setRecommendChart] = useState([]);
-  const [tagList, setTagList] = useState([]);
-  /// ?????
+ 
   // useEffect(() => {
   //   // let abortController = new AbortController()
   //   axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`, { headers: { accesstoken: accessToken } })
@@ -40,11 +32,11 @@ function Main () {
           <Recommend />
         </div>
         <div className='main-genre'>
-          <span className='main-genre-title sign-two'>G e n r e</span>
+          <span className='main-genre-title sign-two'>G&#32;E&#32;N&#32;R&#32;E</span>
           <Genre />
         </div>
         <div className='main-hashtag'>
-          <span className='main-hashtag-title sign-three'>H a s h T a g s</span>
+          <span className='main-hashtag-title sign-three'>H&#32;A&#32;S&#32;H&#32;T&#32;A&#32;G&#32;S</span>
           <HashTag />
         </div>
       </div>

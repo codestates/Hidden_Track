@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { inputPlayList, deleteMusic, isLoginModalOpenHandler } from '../../Redux/actions/actions';
+import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import PlayList from '../PlayList';
@@ -199,7 +199,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   return (
     <>
       <div id='sidebar' className={isSidebarOpen ? 'sidebar-opened' : 'sidebar-closed'} style={{ height: window.innerHeight }}>
-        <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}><img src={exit} width='24px' /></button>
+        <button className='exit-sidebar' onClick={(e) => { showSidebar(e); }}><img src={exit} width='24px' alt="exit"/></button>
         <div className='sidebar-control'>
           <div className='sidebar-info' style={{ backgroundImage: currentMusic ? currentMusic.track.img : default_music.track.img }}>
             <div className='square'>
@@ -222,7 +222,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
             </div>
             <div className='shuffle'>
               <button id='random-button' onClick={() => { setIsRandom(!isRandom); }}>
-                <img id='random-button-img' src={isRandom ? active_shuffle : shuffle} />
+                <img id='random-button-img' src={isRandom ? active_shuffle : shuffle} alt="random-button"/>
               </button>
             </div>
           </div>
