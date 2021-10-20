@@ -1,6 +1,6 @@
 // 라이브러리
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import {useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -156,7 +156,7 @@ function Login ({ setIsShowUserProfileList, handleNotice }) { // 바뀐 State �
             >로그인
             </button>
             <KakaoLogin />
-            <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}><img src={cross} /></label>
+            <label htmlFor='modal-close-btn' className='modal-close-btn' onClick={(e) => handleModalCloseBtn(e)}><img src={cross} alt='close-btn'/></label>
             <input type='button' className='sign-up-btn' onClick={(e) => handleSignUpBtn(e)} style={{ color: '#fff' }} value='회원가입' />
             <button id='modal-close-btn' style={{ display: 'none' }} />
           </fieldset>

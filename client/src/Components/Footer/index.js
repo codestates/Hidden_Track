@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+import React from 'react';
 import './index.scss';
 import githubIcon from '../../assets/github.png';
 
