@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 // import Cookies from 'universal-cookie';
-import { Link, useHistory } from 'react-router-dom';
+import {useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { isLoginHandler, getUserInfo } from '../../Redux/actions/actions';
-import { accessTokenRequest } from '../../Components/TokenFunction';
 import Portal from './Portal';
 import './WithDrawalModal.scss';
 

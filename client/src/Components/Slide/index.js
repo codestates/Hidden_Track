@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useHistory } from 'react-router';
+import {  useHistory } from 'react-router';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -52,7 +52,7 @@ function Slide () {
       }
       );
     return () => setLoading(false);
-  }, []);
+  }, [accessToken]);
 
   function handleRecent (e) {
     e.preventDefault();

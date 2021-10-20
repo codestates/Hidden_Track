@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import AOS from 'aos';
 
@@ -42,6 +42,19 @@ function Landing () {
   useEffect(() => {
     setLoading(true);
     AOS.init();
+
+
+    // 추천차트 서버 요청하는 함수
+    const requestRecommend = async function () {
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
+          { headers: { accesstoken: accessToken } });
+        setChart(result.data.latestchart);
+        return result;
+      } catch (err) {
+        console.log(err);
+      }
+    };
     requestRecommend(); // Promise
 
     // 네온사인 svg
@@ -66,7 +79,9 @@ function Landing () {
     };
     watch();
     return () => setLoading(false);
-  }, []);
+  }, [accessToken]);
+
+
 
   useEffect(() => {
     if (scrollY > 570) {
@@ -76,17 +91,19 @@ function Landing () {
     }
   }, [scrollY]);
 
-  // 추천차트 서버 요청하는 함수
-  const requestRecommend = async function () {
-    try {
-      const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
-        { headers: { accesstoken: accessToken } });
-      setChart(result.data.latestchart);
-      return result;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
+
+  // // 추천차트 서버 요청하는 함수
+  // const requestRecommend = async function () {
+  //   try {
+  //     const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/charts/all`,
+  //       { headers: { accesstoken: accessToken } });
+  //     setChart(result.data.latestchart);
+  //     return result;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // 스크롤에 따라 네온사인 따라내려오는 onScroll 이벤트가 실행되면 호출되는 함수
   function followScroll (svgTotalLength, moveSvg) {
