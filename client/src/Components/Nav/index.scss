@@ -2,14 +2,14 @@
 @import '../../Common.scss';
 
 
-body {
-  margin: 0;
-  background-color: rgba(0, 0, 0, 0.925)
-}
-
-@mixin widthHeight($width, $height) {
-  width: $width;
-  height: $height;
+%navigationButton {
+  @include widthHeight(_, 50px);
+  @include fontStyle(#fff, _, 18px, _);
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  text-align: center;
+  cursor: pointer;
 }
 
 .logo {
@@ -17,61 +17,29 @@ body {
   font-size: 4em;
 }
 
-%h1 {
-  font-family: 'Staatliches', cursive;
-  @include flexBox(_, _, _, 0, 0);
-  font-size: 3em;
-}
-
-%navigationButton {
-  @include widthHeight(_, 50px);
-  background-color: transparent;
-  padding: 0;
-  border: 0;
-  font-size: 18px;
-  text-align: center;
-  cursor: pointer;
-  color: #fff
-}
-
 .navigation {
   @include flexBox(flex, space-between, center, _, 0 70px);
   @include widthHeight(_, 150px);
-  // background-color: rgba(0, 0, 0, 0.95);
 
   a {
     text-decoration: none;
-    // color: black
     color: #fff;
-
   }
-
 }
-
-;
 
 .button-list {
   @include flexBox(flex, space-around, _, _, _);
   @include widthHeight(270px, _);
   position: relative;
 
-
   button[class^="navigation__"] {
     @extend %navigationButton;
-    // color: #fff;
-
   }
-
-  ;
 
   .player-image {
     @include widthHeight(30px, 30px);
   }
-
-  ;
 }
-
-;
 
 .button-list-of-profile-image {
   @include flexBox(flex, space-around, _, _, _);
@@ -81,9 +49,7 @@ body {
   .navigation__profile-image {
     @include widthHeight(50px, 50px);
     @include background(cover, center, no-repeat);
-
-    border: 0;
-    border-radius: 50%;
+    @include borderStyle(0, 50%);
     cursor: pointer;
   }
 
@@ -93,7 +59,6 @@ body {
     list-style: none;
     padding: 0;
     color: #fff;
-
 
     li {
       margin-top: 10px;
@@ -112,24 +77,12 @@ body {
   .player-image {
     @include widthHeight(30px, 30px);
   }
-
-  ;
-
 }
 
 .hide {
   display: none;
 }
 
-h1 {
-  display: block;
-  text-align: center;
-  cursor: pointer;
-  color: #fff;
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px rgb(254, 3, 128),
-    0 0 82px rgb(254, 3, 128), 0 0 92px rgb(254, 3, 128), 0 0 102px rgb(254, 3, 128), 0 0 151px rgb(254, 3, 128);
-  animation: flicker 6s infinite alternate;
-}
 
 @keyframes flicker {
 

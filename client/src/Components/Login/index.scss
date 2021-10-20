@@ -7,9 +7,7 @@
   height: 100vh;
   background: black;
   opacity: .8;
-  // filter: alpha(opacity=80);
   z-index: 10;
-
 }
 
 .a11yHidden {
@@ -19,22 +17,18 @@
 ;
 
 
-
-
 .modal-container__login {
-  color: #fff;
   @include positionBox(fixed, 50%, _, _, 50%);
-
+  @include borderStyle(2.5px solid rgb(255, 117, 248), 35px);
+  color: #fff;
   margin: -150px 0 0 -200px;
-  z-index: 20;
-  border-radius: 35px;
   background: linear-gradient(to left, #170B24, #1B0D35, #1F104D);
-  border: 2.5px solid rgb(255, 117, 248);
   transform: translate(-5%, -25%);
+  z-index: 20;
 
   fieldset {
-    @include flexBox(flex, space-around, center, _, 20px);
     flex-direction: column;
+    @include flexBox(flex, space-around, center, _, 20px);
     @include widthHeight(400px, 500px);
 
     .sign-login {
@@ -44,42 +38,34 @@
 
   input[class^="modal__"] {
     @include widthHeight(300px, 50px);
+    @include fontStyle(#fff, _, 18px, _);
     border-radius: 50px;
     background-color: #1F2231;
     outline: none;
-    color: #fff;
     padding-left: 20px;
-    font-size: 18px;
   }
 
   .sign-up-btn {
-    color: #fff;
-    border: 1px solid rgb(255, 117, 248);
-    font-size: 16.5px;
-    border-radius: 10px;
+    @include borderStyle(1px solid rgb(255, 117, 248), 10px);
+    @include widthHeight(200px, 50px);
+    @include fontStyle(#fff, _, 16.5px, _);
     padding: 13px 40px;
-    width: 200px;
-    height: 50px;
     cursor: pointer;
   }
 
   .modal__login-btn {
-    color: #fff;
+
+    @include fontStyle(#fff, _, 16.5px, _);
+    @include borderStyle(1px solid rgb(255, 117, 248), 10px);
+    @include widthHeight(200px, 50px);
     background-color: transparent;
-    border: 0;
-    font-size: 16.5px;
-    border: 1px solid rgb(255, 117, 248);
-    border-radius: 10px;
     padding: 13px 40px;
-    width: 200px;
-    height: 50px;
     cursor: pointer;
   }
 
   .modal-close-btn {
-    color: #fff;
+    @include fontStyle(#fff, _, 20px, _);
     @include positionBox(absolute, 3%, 5%, _, _);
-    font-size: 20px;
     cursor: pointer;
   }
 }
