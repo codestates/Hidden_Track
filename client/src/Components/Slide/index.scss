@@ -1,3 +1,5 @@
+@import '../../Common.scss';
+
 .slide-container {
   position: relative;
   margin-top: 80px;
@@ -7,14 +9,10 @@
   width: 160px;
   padding: 10px 0;
 
-
   .popular,
   .recent {
-    // background-color: aqua;
     font-size: 30px;
     cursor: pointer;
-
-
   }
 }
 
@@ -23,18 +21,10 @@
   display: inline-block;
   width: 60px;
 
-
   &::after {
-    display: block;
-    content: '';
-    border-bottom: solid 3px;
-    border-image: linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);
-    border-image-slice: 1;
-    transform: scaleX(0);
-    transition: transform .4s ease-in-out;
+    @extend %borderBottomAnimation;
     margin-left: -10px;
     width: 65px;
-
   }
 
   &:hover::after {
@@ -46,7 +36,6 @@
 .recent {
   display: inline-block;
   width: 100px;
-  // background-color: red;
 
   &::before {
     content: '/ ';
@@ -54,15 +43,8 @@
   }
 
   &::after {
-    display: block;
-    content: '';
-    border-bottom: solid 3px;
-    border-image: linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);
-    border-image-slice: 1;
-    transform: scaleX(0);
-    transition: transform .4s ease-in-out;
+    @extend %borderBottomAnimation;
     margin-left: 30px;
-    // background-color: red;
     width: 70px;
 
   }

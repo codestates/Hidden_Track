@@ -6,8 +6,10 @@ import styled from 'styled-components';
 
 import Slider from 'react-slick';
 
-import './slick.css';
-import './slick-theme.css';
+// import './slick.css';
+import './slick.scss';
+
+import './slick-theme.scss';
 
 import './index.scss';
 
