@@ -1,7 +1,7 @@
 const { hashtag } = require('../../models');
-const { fuzzy } = require('fast-fuzzy');
+const { fuzzyString } = require('../../modules/fuzzy');
 const db = require('../../models');
-const Hangul = require('hangul-js');
+
 
 module.exports = async (req, res) => {
   const tagtracks = db.sequelize.models.tagtracks;
@@ -28,19 +28,13 @@ module.exports = async (req, res) => {
       hashTag.push(findHashTag[i]);
       for (let j = i + 1; j < findHashTag.length; j++) {
         if (findHashTag[i].tag.length <= findHashTag[j].tag.length) {
-          if (fuzzy(
-            String(Hangul.disassemble(findHashTag[i].tag)).split(',').join(''),
-            String(Hangul.disassemble(findHashTag[j].tag)).split(',').join('')
-          ) >= 0.8) {
+          if (fuzzyString(findHashTag[i].tag,findHashTag[j].tag)>=0.8) {
             tagCount[findHashTag[i].id] = tagCount[findHashTag[i].id] + tagCount[findHashTag[j].id];
             tagCount[findHashTag[j].id] = 0;
             findHashTag[j].tag = '';
           }
         } else {
-          if (fuzzy(
-            String(Hangul.disassemble(findHashTag[j].tag)).split(',').join(''),
-            String(Hangul.disassemble(findHashTag[i].tag)).split(',').join('')
-          ) >= 0.8) {
+          if (fuzzyString(findHashTag[j].tag,findHashTag[i].tag)>=0.8) {
             tagCount[findHashTag[i].id] = tagCount[findHashTag[i].id] + tagCount[findHashTag[j].id];
             tagCount[findHashTag[j].id] = 0;
             findHashTag[j].tag = '';
