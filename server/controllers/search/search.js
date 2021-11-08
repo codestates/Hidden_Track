@@ -1,6 +1,5 @@
 const { track, hashtag, user } = require('../../models');
-const { fuzzy } = require('fast-fuzzy');
-const Hangul = require('hangul-js');
+const { fuzzyString } = require('../../modules/fuzzy');
 
 module.exports = async (req, res) => {
   const { query } = req.query;
@@ -20,48 +19,28 @@ module.exports = async (req, res) => {
 
   const searchNickName = findTrack.filter((el) => {
     if (el.user.nickName.length < query.length) {
-      return fuzzy(
-        String(Hangul.disassemble(el.user.nickName)).split(',').join(''),
-        String(Hangul.disassemble(query)).split(',').join('')
-      ) >= 0.9;
+      return fuzzyString(el.user.nickName,query)>=0.9;
     } else {
-      return fuzzy(
-        String(Hangul.disassemble(query)).split(',').join(''),
-        String(Hangul.disassemble(el.user.nickName)).split(',').join('')
-      ) >= 0.9;
+      return fuzzyString(query,el.user.nickName)>=0.9;
     }
   });
 
   searchNickName.sort((a, b) => {
-    return fuzzy(
-      String(Hangul.disassemble(b.user.nickName)).split(',').join(''),
-      String(Hangul.disassemble(query)).split(',').join('')
-    ) -
-         fuzzy(
-           String(Hangul.disassemble(a.user.nickName)).split(',').join(''),
-           String(Hangul.disassemble(query)).split(',').join('')
-         );
+    return fuzzyString(b.user.nickName,query)- fuzzyString(a.user.nickName,query)
+  
   });
 
   const searchTitle = findTrack.filter((el) => {
     if (el.title.length < query.length) {
-      return fuzzy(
-        String(Hangul.disassemble(el.title)).split(',').join(''),
-        String(Hangul.disassemble(query)).split(',').join('')) >= 0.8;
+      return fuzzyString(el.title -query) >= 0.8;
     } else {
-      return fuzzy(
-        String(Hangul.disassemble(query)).split(',').join(''),
-        String(Hangul.disassemble(el.title)).split(',').join('')) >= 0.8;
+      return fuzzyString(query,el.title) >=0.8; 
     }
   });
 
   searchNickName.sort((a, b) => {
-    return fuzzy(
-      String(Hangul.disassemble(b.title)).split(',').join(''),
-      String(Hangul.disassemble(query)).split(',').join('')) -
-         fuzzy(
-           String(Hangul.disassemble(a.title)).split(',').join(''),
-           String(Hangul.disassemble(query)).split(',').join(''));
+    return fuzzyString(b.title,query) - fuzzyString(a.title,query)
+ 
   });
 
   const findHashTag = await hashtag.findAll({
@@ -70,15 +49,9 @@ module.exports = async (req, res) => {
 
   const searchHashTag = findHashTag.filter((el) => {
     if (el.tag.length < query.length) {
-      return fuzzy(
-        String(Hangul.disassemble(el.tag)).split(',').join(''),
-        String(Hangul.disassemble(query)).split(',').join('')
-      ) >= 0.8;
+      return fuzzyString(el.tag,query) >= 0.8;
     } else {
-      return fuzzy(
-        String(Hangul.disassemble(query)).split(',').join(''),
-        String(Hangul.disassemble(el.tag)).split(',').join('')
-      ) >= 0.8;
+      return fuzzyString(query,el.tag)>=0.8;
     }
   });
 
