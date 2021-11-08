@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { inputPlayList, deleteMusic } from '../../Redux/actions/actions';
@@ -159,12 +159,12 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
     }
   }
   // 곡 삭제시 이전곡 리프레쉬 함수
-  function refreshPreviousMusic (deleted) {
+  const refreshPreviousMusic  = useCallback((deleted) => {
     const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
     const filteredPreviousMusic = newPreviousMusic.filter(el => el.id !== deleted.id);
     setPreviousMusic(filteredPreviousMusic);
-  }
-
+  }, [])
+  
   // 재생목록에서 곡 삭제 함수
   function handleDeleteMusic (e, index, playListId) {
     e.preventDefault();
