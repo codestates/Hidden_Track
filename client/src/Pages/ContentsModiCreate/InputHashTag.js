@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './inputHashTag.scss';
 
 function InputHashTag ({ tagList, handleInputValue, handleNotice, duplicateCheck }) {

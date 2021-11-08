@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useHistory } from 'react-router';
-import { getTrackDetails, isLoadingHandler } from '../../Redux/actions/actions';
+import { useSelector} from 'react-redux';
+import { useHistory } from 'react-router';
 
 import styled from 'styled-components';
 import axios from 'axios';
@@ -10,7 +9,6 @@ import './index.scss';
 
 function Recommend () {
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const { accessToken } = useSelector(state => state.accessTokenReducer);
 
@@ -21,8 +19,21 @@ function Recommend () {
 
   useEffect(() => {
     setLoading(true);
+    // requestRecommend(); // Promise
+    const requestRecommend = async function () {
+      try {
+        const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
+          { headers: { accesstoken: accessToken } });
+        setRecommendChart(result.data.recommend);
+        return result;
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
     requestRecommend(); // Promise
 
+    
     const interval = setInterval(() => {
       number_ref.current += 1;
 
@@ -37,18 +48,18 @@ function Recommend () {
       clearInterval(interval);
       setLoading(false);
     };
-  }, []);
+  }, [accessToken]);
 
-  const requestRecommend = async function () {
-    try {
-      const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
-        { headers: { accesstoken: accessToken } });
-      setRecommendChart(result.data.recommend);
-      return result;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const requestRecommend = async function () {
+  //   try {
+  //     const result = await axios.get(`${process.env.REACT_APP_API_URL}/track/recommend/all`,
+  //       { headers: { accesstoken: accessToken } });
+  //     setRecommendChart(result.data.recommend);
+  //     return result;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   function moveTrackDetail () {
     history.push(`/trackdetails/${recommendChart[index].id}`);

@@ -159,7 +159,7 @@ function Nav ({ handleNotice }) {
           isShowUserProfileList={isShowUserProfileList}
           setIsShowUserProfileList={setIsShowUserProfileList}
           handleNotice={handleNotice}
-                             />}
+        />}
       </nav>
     </header>
 
