@@ -1,0 +1,93 @@
+@charset "UTF-8";
+@import '../../Common.scss';
+
+/* Arrows */
+%prev_next-before {
+  content: '';
+  display: inline-block;
+  @include background(cover, _, no-repeat);
+  @include widthHeight(30px, 30px);
+}
+
+.slick-prev {
+  left: 20px;
+  background-color: transparent;
+  z-index: 1;
+
+
+  &::before {
+    background-image: url('../../assets/prev-arrow.png');
+    @extend %prev_next-before
+  }
+}
+
+
+.slick-next {
+  right: 30px;
+
+  &::before {
+    background-image: url('../../assets/next-arrow.png');
+    @extend %prev_next-before;
+  }
+}
+
+
+.slick-prev,
+.slick-next {
+  @include positionBox(absolute, 56%, _, _, _);
+  @include widthHeight(50px, 20px);
+
+  background: transparent;
+  padding: 0;
+  border: none;
+  outline: none;
+  color: transparent;
+
+  &::before {
+    font-family: "slick";
+    font-size: 16px;
+    color: white;
+    line-height: 1;
+    opacity: 0.75;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+
+  &:hover,
+  &:focus {
+    outline: none;
+    background: transparent;
+    color: transparent;
+
+    &::before {
+      opacity: 1;
+    }
+
+  }
+
+}
+
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before {
+  opacity: 0.25;
+}
+
+[dir="rtl"] .slick-prev {
+  left: auto;
+  right: 37px;
+}
+
+[dir="rtl"] .slick-prev:before {
+  content: "→";
+}
+
+
+[dir="rtl"] .slick-next {
+  right: auto;
+  left: 30px;
+}
+
+[dir="rtl"] .slick-next:before {
+  content: "←";
+}

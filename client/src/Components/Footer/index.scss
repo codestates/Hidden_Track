@@ -1,9 +1,14 @@
+@import '../../Common.scss';
+
 .footer {
+  display: flex;
+  flex-flow: column;
+  color: #fff;
+  line-height: 1.5;
   text-align: left;
-  // padding: 1.5em;
-  margin-top: 30px;
-  // padding: 5px 0 0;
-  padding: 5px 0 20px 1.5em;
+  @include marginPadding(30px 0 0 0, 5px 0 20px 1.5em);
+
+
   background: linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
     linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0,
     linear-gradient(27deg, #222 5px, transparent 5px) 0 10px,
@@ -18,24 +23,11 @@
       #242424);
   background-color: #131313;
   background-size: 20px 20px;
-  color: #fff;
-  line-height: 1.5;
-  display: flex;
-  flex-flow: column;
-
-  // position: fixed;
-  // bottom: 0;
-  // width: 100vw;
-  // width: 98.766%;
 }
 
 .footer__developer-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  // background-color: blue;
+  @include flexBox(flex, space-between, center, _, _);
   width: 400px;
-
 
   a {
     display: inline-block;
@@ -44,16 +36,14 @@
     margin-right: 10px;
 
     .githubIcon {
-      width: 20px;
-      // background-color: skyblue;
-      margin-right: 5px;
       display: inline-block;
+      width: 20px;
+      margin-right: 5px;
       vertical-align: middle;
     }
 
     .developer {
       display: inline-block;
-      // background-color: red;
       height: 20px;
       vertical-align: middle;
     }
