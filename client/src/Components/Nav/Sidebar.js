@@ -159,12 +159,12 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
     }
   }
   // 곡 삭제시 이전곡 리프레쉬 함수
-  const refreshPreviousMusic  = useCallback((deleted) => {
+  function refreshPreviousMusic (deleted) {
     const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
     const filteredPreviousMusic = newPreviousMusic.filter(el => el.id !== deleted.id);
     setPreviousMusic(filteredPreviousMusic);
-  }, [])
-  
+  }
+
   // 재생목록에서 곡 삭제 함수
   function handleDeleteMusic (e, index, playListId) {
     e.preventDefault();
