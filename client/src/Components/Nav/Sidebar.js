@@ -145,7 +145,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   }
 
   // stack으로 구현된 이전곡 핸들링 함수
-  function handlePreviousMusic (action, music) {
+  const handlePreviousMusic = useCallback( (action, music) => {
     if (action === 'push') {
       if (playList.indexOf(music) !== -1) {
         const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
@@ -157,7 +157,8 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
       newPreviousMusic.pop();
       setPreviousMusic(newPreviousMusic);
     }
-  }
+  }, [] )
+
   // 곡 삭제시 이전곡 리프레쉬 함수
   function refreshPreviousMusic (deleted) {
     const newPreviousMusic = previousMusic.slice(0, previousMusic.length);
@@ -166,7 +167,9 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
   }
 
   // 재생목록에서 곡 삭제 함수
-  function handleDeleteMusic (e, index, playListId) {
+  // function handleDeleteMusic 
+
+  const handleDeleteMusic = useCallback( (e, index, playListId) => {
     e.preventDefault();
     isLogin
       ? axios.delete(`${process.env.REACT_APP_API_URL}/playlist/${playListId}`, { headers: { accesstoken: accessToken } })
@@ -184,7 +187,7 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
         .catch(err => console.log(err))
       : dispatch(deleteMusic(playList[index]));
     refreshPreviousMusic(playList[index]);
-  }
+  }, [] )
 
   function isValid (target, index) {
     if (target === 'playList') {
@@ -228,7 +231,6 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
           </div>
           <div className={isLogin ? 'all-play' : 'min-play'}>
             <AudioPlayer
-            // className={}
               ref={audio}
               src={currentMusic ? currentMusic.track.soundTrack : default_music.track.soundTrack}
               volume={0.5}
@@ -251,7 +253,8 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                 }
               }}
 
-              onClickNext={() => {
+              onClickNext={
+                () => {
                 if (playList.length <= 1) return;
                 handlePreviousMusic('push', currentMusic);
                 if (!isRandom) {
@@ -263,7 +266,8 @@ function Sidebar ({ isSidebarOpen, showSidebar, handleNotice }) {
                 } else {
                   handleChangeMusic(getRandomNumber(0, playList.length - 1));
                 }
-              }}
+              }
+            }
 
               onClickPrevious={() => {
                 if (playList.length <= 1) return;
